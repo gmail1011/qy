@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="70px" viewBox="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <title>分组-3备份</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1备份" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="分组备份" transform="translate(-112.000000, -28.000000)">
+            <g id="分组-3备份" transform="translate(112.000000, 28.000000)">
+                <g id="分组-2">
+                    <circle id="椭圆形" fill="#F73750" fill-rule="nonzero" cx="35" cy="35" r="35"></circle>
+                    <path d="M40.3893802,18.7166284 L54.2947581,43.4670612 C55.9178563,46.3560431 54.8916549,50.0138067 52.0026731,51.636905 C51.1052347,52.141107 50.0931699,52.4059406 49.0637937,52.4059406 L21.253038,52.4059406 C17.9393295,52.4059406 15.253038,49.7196491 15.253038,46.4059406 C15.253038,45.3765644 15.5178715,44.3644996 16.0220736,43.4670612 L29.9274515,18.7166284 C31.5505497,15.8276465 35.2083134,14.8014451 38.0972952,16.4245434 C39.0571451,16.9638097 39.8501139,17.7567785 40.3893802,18.7166284 Z" id="三角形" stroke="#FFFFFF" stroke-width="4"></path>
+                    <text id="！" fill="#FFFFFF" font-family="PingFangSC-Regular, PingFang SC" font-size="36" font-weight="normal">
+                        <tspan x="26.1584158" y="45">！</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

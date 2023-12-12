@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="20px" viewBox="0 0 26 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>组件/图标/分享</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-25.0%" y="-31.2%" width="150.0%" height="156.2%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="有声小说主页备份" transform="translate(-302.000000, -453.000000)" stroke="#FFFFFF">
+            <g id="组件/图标/分享" filter="url(#filter-1)" transform="translate(305.000000, 455.000000)">
+                <path d="M10.2289742,11.8294541 C11.0343782,11.830269 10.967686,11.7463078 10.9686333,12.5834333 L10.9686333,14.4189763 C10.9686333,14.9657382 11.4118714,15.4089763 11.9586333,15.4089763 C12.2028892,15.4089763 12.4385231,15.31868 12.620228,15.1554493 L19.4161302,9.05049663 C19.9287562,8.51685489 19.9277759,7.68047537 19.4142675,7.14597056 L12.7074462,0.710928856 C12.312916,0.332386202 11.6862167,0.345346626 11.3076741,0.739876773 C11.1409363,0.913656552 11.0432626,1.14225659 11.0329433,1.38286913 L10.9686987,2.88084482 C10.9677446,3.85330043 11.1837434,3.74460667 10.2293663,3.74557282 C5.36202093,3.75050024 0.360200925,6.92324738 0.000223834003,14.9239144 L0.000223834003,14.9239144 C-0.0075873674,15.1822379 0.195493029,15.3979828 0.453816595,15.405794 C0.584510252,15.4097459 0.710896554,15.3588374 0.802361613,15.2653998 L0.815856484,15.2516139 C3.58209167,11.31922 6.59364394,11.8601805 9.07117851,11.8294541 C9.50266409,11.8294541 10.1956749,11.8294541 10.2289742,11.8294541 Z" id="路径"></path>
+            </g>
+        </g>
+    </g>
+</svg>

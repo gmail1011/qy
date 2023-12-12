@@ -1,0 +1,223 @@
+syntax = "proto3";
+package pb;
+
+// 所有协议基础结构
+message BaseMessage {
+    int32 action = 1; // 协议号
+    bytes data = 2; // 数据内容 二进制
+}
+
+// 协议号 2001
+// 推送玩家信息到客服端
+message PlayerInfoFields {
+    string id = 1; // 游戏用户ID
+    string username = 2; // 昵称
+    string platId = 3; // 平台ID
+    string platName = 4; // 平台名称
+    string sessionId = 5; // 订单号
+    int64 time = 6; // 时间
+    string avatar = 7; // 头像
+}
+
+// 协议号 2002
+// 推送客服信息到用户端
+message ServicerInfoFields {
+    string id = 1;
+    string username = 2;
+    int64 time = 3;
+    string avatar = 4; // 头像
+    string declaration = 5; // 宣言
+    string sessionId = 6; // 会话ID
+}
+
+// 协议号 1003 | 2003
+// 聊天消息内容（发送和接收）
+message ChatFields {
+    int64 time = 1; // 消息发送时间
+    string text = 2; // 消息内容
+    repeated string photo = 3; // 图片地址
+    string targetId = 4; // 接受人ID
+    string senderId = 5; // 发送者ID
+    string messageId = 6; // 消息ID（接收）
+    int32 isRead = 7; // 是否已读（接收）
+    string username = 8; // 发送者昵称
+    string sessionId = 9; // 会话ID
+    int32 type = 10; // 发送人类型
+    int64 duration = 11; // 语音消息时长
+}
+
+// 协议号 1004 | 2004
+// 语音聊天消息内容（发送和接收）
+message ChatAudio {
+    int64 time = 1; // 消息发送时间
+    string text = 2; // 消息内容
+    string audio = 3; // 语音地址
+    string targetId = 4; // 接受人ID
+    string senderId = 5; // 发送者ID
+    string messageId = 6; // 消息ID（接收）
+    int32 isRead = 7; // 是否已读（接收）
+    string username = 8; // 发送者昵称
+    string sessionId = 9; // 会话ID
+    int32 type = 10; // 发送人类型
+    int64 duration = 11; // 消息时长
+}
+
+// 协议号 2005
+// 推送正在聊天的会话
+message ChatUserInfo {
+    string platName = 1; // 平台名称
+    string platId = 2; // 平台ID
+    string id = 3; // 用户ID
+    string username = 4; // 昵称
+    string sessionId = 5; // 会话ID
+    string avatar = 6; // 用户头像
+    int64 time = 7; // 会话创建事件
+    repeated ChatFields msgs = 8; // 消息内容
+    bool isFreezed = 9;
+}
+
+message ChatUserList {
+    repeated ChatUserInfo list = 1;
+}
+
+// 1006 发送消息已读状态
+message UpdateReadType {
+    string senderId = 1; // 发送人ID
+    string targetId = 2; // 接收人ID
+    repeated string msgs = 3; // 消息ID列表
+    string sessionId = 4;
+}
+
+// 1008 拉取历史消息
+message HistoryMessage {
+    string id = 1; // 用户ID
+    string platId = 2; // 平台ID
+    string currentSessionId = 3; // 当前会话ID
+}
+
+// 2008 推送消息列表
+message MessageList {
+    string sessionId = 1;
+    int64 time = 2;
+    repeated ChatFields msgs = 3;
+}
+
+// 2010 需要排队
+message QueueInfo {
+    int32 waitCount = 1;
+}
+
+// 2011 玩家被禁言
+message BannedUser {
+    string date = 1;
+}
+
+// 1012 发送输入状态
+// 2012 发送输入状态
+// 1009 客服结束服务
+// 2009 客服结束服务
+message EnterStatus {
+    string senderId = 1;
+    string targetId = 2;
+    string content = 3;
+    string sessionId = 4;
+}
+
+// 1010 禁言玩家
+message FreezePlayer {
+    int64 time = 1;
+    string userId = 2;
+    string opUserId = 3;
+    string reason = 4;
+    int32 type = 5; //1:禁言；2:解除禁言
+}
+
+// 1011 评价服务
+message EvaluateScore {
+    string sessionId = 1;
+    string content = 2;
+    int32 score = 3;
+}
+
+// 2000 拒绝连接
+message RejectPlayer {
+    int32 type = 1;
+    int64 time = 2;
+}
+
+message PlayerInfo {
+    string id = 1; // id
+    string username = 2; // 昵称
+    string avatar = 3; // 头像
+    string platId = 4; // 平台ID
+    string platName = 5; // 平台名称
+}
+//4001 玩家连接断开
+message PlayerDisconnect {
+    string playerId = 1;
+    int64 time = 2;
+    string platId = 3;
+    string platName = 4;
+    string playerName = 5;
+}
+//4005
+message PlayerChangRole {
+    string playerId = 1;
+    string playerName = 2;
+    string platId = 3;
+    string platName = 4;
+    int64 time = 5;
+    int32 oldPType = 6;
+    int32 currentPType = 7;
+}
+
+message Heartbeat {
+    int64 time = 1;
+}
+//4002 客服连接断开
+message WaiterDisconnect {
+    string waiterId = 1;
+    int64 time = 2;
+    string notice = 3;
+    string waiterName = 4;
+}
+//5001
+message ReLogin {
+    int64 time = 1;
+    string id = 2;
+    string name = 3;
+    string platId = 4;
+}
+
+//4003
+message AppraiseTimeOut {
+    string sessionId = 1; //会话ID
+    string senderId = 2; //发送者ID
+    string targetId = 3; //接收者ID
+    int64 time = 4; //消息产生时间
+    int64 timeDuration = 5; //超时时长
+}
+
+//3010 通知客服侧，玩家自动解禁
+message ReleaseBanned {
+    string sessionId = 1; //会话ID
+    string waiterId = 2; //客服ID
+    string playerId = 3; //玩家ID
+    string platId = 4; //玩家平台ID
+}
+
+//1005 玩家拉取当前会话聊天消息
+message CurrentSessionMessage {
+    string userId = 1; //玩家ID
+    string platId = 2; //玩家平台ID
+    string currentSessionId = 3; //当前sessionId
+}
+
+// 协议号 1018|2018
+// 消息应答包
+message AckReplyPacket {
+    string messageId = 1; // 消息ID
+    string sessionId = 2; // 会话ID
+    string targetId = 3; // 接受人ID
+    string senderId = 4; // 发送者ID
+}

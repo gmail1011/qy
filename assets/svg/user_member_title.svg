@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="220px" height="16px" viewBox="0 0 220 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>编组 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#18142B" offset="0%"></stop>
+            <stop stop-color="#ECD6B2" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="vip备份-6" transform="translate(-69.000000, -348.000000)">
+            <g id="编组-6" transform="translate(69.000000, 344.000000)">
+                <g id="编组-2" transform="translate(63.000000, 0.000000)" fill="#ECD6B2" font-family="PingFangSC-Medium, PingFang SC" font-size="16" font-weight="400">
+                    <text id="会员尊享特权">
+                        <tspan x="0.5" y="17.5">会员尊享特权</tspan>
+                    </text>
+                </g>
+                <g id="编组-5" transform="translate(159.242641, 5.742641)">
+                    <rect id="矩形" stroke="#ECD6B2" transform="translate(5.000000, 5.000000) rotate(-315.000000) translate(-5.000000, -5.000000) " x="2" y="2" width="6" height="6"></rect>
+                    <rect id="矩形备份" fill="#ECD6B2" transform="translate(9.535534, 5.035534) rotate(-315.000000) translate(-9.535534, -5.035534) " x="7.03553391" y="2.53553391" width="5" height="5"></rect>
+                    <rect id="矩形" fill="url(#linearGradient-1)" x="12.0355339" y="4.53553391" width="48" height="1"></rect>
+                </g>
+                <g id="编组-5备份" transform="translate(30.500000, 10.742641) scale(-1, 1) translate(-30.500000, -10.742641) translate(0.000000, 5.742641)">
+                    <rect id="矩形" stroke="#ECD6B2" transform="translate(5.000000, 5.000000) rotate(-315.000000) translate(-5.000000, -5.000000) " x="2" y="2" width="6" height="6"></rect>
+                    <rect id="矩形备份" fill="#ECD6B2" transform="translate(9.535534, 5.035534) rotate(-315.000000) translate(-9.535534, -5.035534) " x="7.03553391" y="2.53553391" width="5" height="5"></rect>
+                    <rect id="矩形" fill="url(#linearGradient-1)" x="12.0355339" y="4.53553391" width="48" height="1"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

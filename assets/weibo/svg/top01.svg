@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="69.785" height="34.738" viewBox="0 0 69.785 34.738">
+    <defs>
+        <linearGradient id="23z3mk2c0a" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fbe27b"/>
+            <stop offset="1" stop-color="#f3bc58"/>
+        </linearGradient>
+        <linearGradient id="bui4a3ihwc" x1=".134" y1=".146" x2=".517" y2=".584" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#f5bf5b"/>
+            <stop offset="1" stop-color="#f0b059"/>
+        </linearGradient>
+        <clipPath id="e855ux2bfb">
+            <path data-name="路径 9380" d="M118.1 162.809c.014.005.025.012.039.017l.007-.055zm-14.391-.008a.14.14 0 0 0 .023-.01l-.03-.023zm13.792.672a.487.487 0 0 0-.326.122c-.005.005-.007 0-.005 0l-3.148 2.657-2.564-4.806a.684.684 0 0 0-1.106.082l-2.521 4.724-3.249-2.743a.5.5 0 0 0-.231-.055.456.456 0 0 0-.469.439q0 .03-.011.03l1.005 7.026a.652.652 0 0 0-.005-.082 1.319 1.319 0 0 0 .889 1.063.781.781 0 0 0-.125-.034 18.016 18.016 0 0 0 5.27.563 18.345 18.345 0 0 0 5.313-.657.765.765 0 0 0-.12.032 1.324 1.324 0 0 0 .889-1.065.8.8 0 0 0 0 .159l1-6.989a.044.044 0 0 1-.007-.029.456.456 0 0 0-.48-.437z" transform="rotate(-33 663.47 263.78)" style="fill:url(#23z3mk2c0a)"/>
+        </clipPath>
+    </defs>
+    <g data-name="组 7009" transform="translate(-138.215 -475.262)">
+        <rect data-name="矩形 2087" width="66" height="26" rx="13" transform="translate(142 484)" style="fill:#efe0b0"/>
+        <text transform="translate(156 503)" style="fill:#d09138;font-size:14px;font-family:SourceHanSansCN-Medium,Source Han Sans CN;font-weight:500;letter-spacing:.012em"><tspan x="0" y="0">TOP.1</tspan></text>
+        <g data-name="组 7001">
+            <path data-name="路径 9378" d="M118.1 162.809c.014.005.025.012.039.017l.007-.055zm-14.391-.008a.14.14 0 0 0 .023-.01l-.03-.023zm13.792.672a.487.487 0 0 0-.326.122c-.005.005-.007 0-.005 0l-3.148 2.657-2.564-4.806a.684.684 0 0 0-1.106.082l-2.521 4.724-3.249-2.743a.5.5 0 0 0-.231-.055.456.456 0 0 0-.469.439q0 .03-.011.03l1.005 7.026a.652.652 0 0 0-.005-.082 1.319 1.319 0 0 0 .889 1.063.781.781 0 0 0-.125-.034 18.016 18.016 0 0 0 5.27.563 18.345 18.345 0 0 0 5.313-.657.765.765 0 0 0-.12.032 1.324 1.324 0 0 0 .889-1.065.8.8 0 0 0 0 .159l1-6.989a.044.044 0 0 1-.007-.029.456.456 0 0 0-.48-.437z" transform="rotate(-29 742.088 255.436) scale(1.001)" style="fill:url(#23z3mk2c0a)"/>
+            <g data-name="蒙版组 3334" style="clip-path:url(#e855ux2bfb)" transform="rotate(4.01 146.797 481.987)">
+                <path data-name="路径 9379" d="m9784.285 10046.105 4.994 16.21 8.387-6.646z" transform="translate(-9641 -9568)" style="opacity:.93;fill:url(#bui4a3ihwc)"/>
+            </g>
+        </g>
+    </g>
+</svg>

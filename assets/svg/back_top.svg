@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="39px" viewBox="0 0 38 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>发布备份</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="3.40327467%" y1="50%" x2="100%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#05334F" offset="0%"></stop>
+            <stop stop-color="#317C82" offset="52.2460938%"></stop>
+            <stop stop-color="#307667" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-6.7%" y="-6.7%" width="113.3%" height="113.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="0.782608696" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="3.40327467%" y1="50%" x2="96.6014718%" y2="50%" id="linearGradient-3">
+            <stop stop-color="#FCDD9E" offset="0%"></stop>
+            <stop stop-color="#F0B64A" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="3.40327467%" y1="50%" x2="100%" y2="50%" id="linearGradient-4">
+            <stop stop-color="#D83F2F" offset="0%"></stop>
+            <stop stop-color="#91200E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="34.2639907%" y1="5.22138323%" x2="56.0007455%" y2="93.0500048%" id="linearGradient-5">
+            <stop stop-color="#FFE2B3" offset="0%"></stop>
+            <stop stop-color="#FFECD4" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="30.5583554%" y1="84.8235559%" x2="91.1642677%" y2="11.8960582%" id="linearGradient-6">
+            <stop stop-color="#D83E2E" offset="0%"></stop>
+            <stop stop-color="#A0281B" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.8">
+        <g id="撩吧" transform="translate(-297.000000, -606.000000)">
+            <g id="发布备份" transform="translate(298.000000, 606.000000)">
+                <ellipse id="椭圆形" fill="url(#linearGradient-1)" filter="url(#filter-2)" cx="18" cy="19.9565217" rx="17.6170213" ry="17.6086957"></ellipse>
+                <ellipse id="椭圆形" fill="url(#linearGradient-1)" cx="18" cy="19.173913" rx="17.6170213" ry="17.6086957"></ellipse>
+                <circle id="椭圆形" fill="url(#linearGradient-3)" cx="18" cy="18" r="18"></circle>
+                <circle id="椭圆形" fill="url(#linearGradient-4)" cx="18" cy="18" r="16.4347826"></circle>
+                <circle id="椭圆形" fill="url(#linearGradient-5)" cx="18" cy="18" r="14.8695652"></circle>
+                <path d="M18.1307703,12.3916975 C18.403548,12.4054973 18.6729223,12.5020955 18.898052,12.6814923 L19.0067407,12.7780906 L26.6067625,20.2963636 L26.6168643,20.3064655 C27.0957556,20.7905639 27.1237419,21.5514508 26.7036415,22.0679184 L26.6067625,22.1746589 C26.1137154,22.6624027 25.3472053,22.6949189 24.8218813,22.2763476 L24.7131911,22.1797508 L19.456,16.9779037 L19.4565547,26.6574032 C19.4565547,27.3988989 18.8554536,28 18.1139578,28 C17.3724621,28 16.771361,27.3988989 16.771361,26.6574032 L16.771,16.7529037 L11.2868089,22.1797508 C10.7636914,22.6972415 9.9215023,22.6972415 9.39838476,22.1797508 L9.39323751,22.1746589 C8.87456058,21.6615611 8.87003784,20.8251424 9.38313567,20.3064655 L9.39323751,20.2963636 L16.9932593,12.7780906 C17.2025063,12.5710943 17.4628048,12.4468965 17.7333136,12.4054973 L17.8692297,12.3916975 L18.1307703,12.3916975 Z M24.8272486,9 C25.5607685,9 26.1554039,9.5946354 26.1554039,10.3281553 C26.1554039,11.0616753 25.5607685,11.6563107 24.8272486,11.6563107 L10.3281553,11.6563107 C9.5946354,11.6563107 9,11.0616753 9,10.3281553 C9,9.5946354 9.5946354,9 10.3281553,9 L24.8272486,9 Z" id="形状结合" fill="url(#linearGradient-6)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

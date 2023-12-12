@@ -1,0 +1,6 @@
+/.fvm/
+/.idea/
+/android/.gradle/
+/android/.idea/
+/build/
+/android/local.properties

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="39px" viewBox="0 0 38 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>发布</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="3.40327467%" y1="50%" x2="100%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#05334F" offset="0%"></stop>
+            <stop stop-color="#317C82" offset="52.2460938%"></stop>
+            <stop stop-color="#307667" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-6.7%" y="-6.7%" width="113.3%" height="113.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="0.782608696" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="3.40327467%" y1="50%" x2="96.6014718%" y2="50%" id="linearGradient-3">
+            <stop stop-color="#FCDD9E" offset="0%"></stop>
+            <stop stop-color="#F0B64A" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="3.40327467%" y1="50%" x2="100%" y2="50%" id="linearGradient-4">
+            <stop stop-color="#D83F2F" offset="0%"></stop>
+            <stop stop-color="#91200E" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="34.2639907%" y1="5.22138323%" x2="56.0007455%" y2="93.0500048%" id="linearGradient-5">
+            <stop stop-color="#FFE2B3" offset="0%"></stop>
+            <stop stop-color="#FFECD4" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="28.3381676%" y1="84.8235559%" x2="95.8651255%" y2="11.8960582%" id="linearGradient-6">
+            <stop stop-color="#D83E2E" offset="0%"></stop>
+            <stop stop-color="#A0281B" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.8">
+        <g id="撩吧" transform="translate(-297.000000, -656.000000)">
+            <g id="发布" transform="translate(298.000000, 656.000000)">
+                <ellipse id="椭圆形" fill="url(#linearGradient-1)" filter="url(#filter-2)" cx="18" cy="19.9565217" rx="17.6170213" ry="17.6086957"></ellipse>
+                <ellipse id="椭圆形" fill="url(#linearGradient-1)" cx="18" cy="19.173913" rx="17.6170213" ry="17.6086957"></ellipse>
+                <circle id="椭圆形" fill="url(#linearGradient-3)" cx="18" cy="18" r="18"></circle>
+                <circle id="椭圆形" fill="url(#linearGradient-4)" cx="18" cy="18" r="16.4347826"></circle>
+                <circle id="椭圆形" fill="url(#linearGradient-5)" cx="18" cy="18" r="14.8695652"></circle>
+                <path d="M18,10.173913 C18.8644457,10.173913 19.5652174,10.8746847 19.5652174,11.7391304 L19.564913,16.433913 L24.2608696,16.4347826 C25.1253153,16.4347826 25.826087,17.1355543 25.826087,18 C25.826087,18.8644457 25.1253153,19.5652174 24.2608696,19.5652174 L19.564913,19.564913 L19.5652174,24.2608696 C19.5652174,25.1253153 18.8644457,25.826087 18,25.826087 C17.1355543,25.826087 16.4347826,25.1253153 16.4347826,24.2608696 L16.433913,19.564913 L11.7391304,19.5652174 C10.8746847,19.5652174 10.173913,18.8644457 10.173913,18 C10.173913,17.1355543 10.8746847,16.4347826 11.7391304,16.4347826 L16.433913,16.433913 L16.4347826,11.7391304 C16.4347826,10.8746847 17.1355543,10.173913 18,10.173913 Z" id="形状结合" fill="url(#linearGradient-6)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

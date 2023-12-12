@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="62px" height="21px" viewBox="0 0 62 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>矩形 copy 2备份</title>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#FF00A9" offset="0%"></stop>
+            <stop stop-color="#F203FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="撩吧备份-7" transform="translate(-282.000000, -581.000000)" fill="url(#linearGradient-1)">
+            <path d="M298.5,581.5 L344,581.5 L344,581.5 L344,601.5 L282,601.5 L282,598 C282,588.887302 289.387302,581.5 298.5,581.5 Z" id="矩形-copy-2备份"></path>
+        </g>
+    </g>
+</svg>

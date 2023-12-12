@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <g data-name="组 6339">
+        <path data-name="矩形 1833" style="fill:none" d="M0 0h24v24H0z"/>
+        <g data-name="组 6337">
+            <path data-name="11 Comment_2" d="M5.715 20.5a1.453 1.453 0 0 1-1.453-1.45v-2.36H2.381A2.884 2.884 0 0 1-.5 13.81V2.381A2.885 2.885 0 0 1 2.381-.5h15.238A2.884 2.884 0 0 1 20.5 2.381V13.81a2.884 2.884 0 0 1-2.881 2.88h-7.5l-3.38 3.383a1.441 1.441 0 0 1-1.024.427zM2.381.5A1.884 1.884 0 0 0 .5 2.381V13.81a1.883 1.883 0 0 0 1.881 1.88h2.881v3.357a.453.453 0 0 0 .453.448.441.441 0 0 0 .318-.131l3.674-3.674h7.912a1.883 1.883 0 0 0 1.881-1.88V2.381A1.883 1.883 0 0 0 17.619.5z" transform="translate(2 2.002)" style="fill:#fff;opacity:.8"/>
+            <path data-name="直线 5" transform="translate(6.163 7.382)" style="stroke:#e98520;stroke-linecap:round;stroke-width:1.2px;fill:none" d="M0 0h11"/>
+            <path data-name="直线 6" transform="translate(6.163 12)" style="stroke:#e98520;stroke-linecap:round;stroke-width:1.2px;fill:none" d="M0 0h7"/>
+        </g>
+    </g>
+</svg>

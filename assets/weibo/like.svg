@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <linearGradient id="x7dbcfo3ib" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#f78361"/>
+            <stop offset="1" stop-color="#f54b64"/>
+        </linearGradient>
+        <clipPath id="ldtrzkv7wa">
+            <path data-name="矩形 49" transform="translate(0 -.097)" style="fill:#fff;stroke:#707070" d="M0 0h20v20H0z"/>
+        </clipPath>
+    </defs>
+    <g style="clip-path:url(#ldtrzkv7wa)">
+        <path d="M117.128 91.888q.506-2.262.708-3.274c.338-1.7-.54-3.28-2.279-3.28-1.569 0-2.356.78-2.821 2.338l-.012.046a7.068 7.068 0 0 1-1.27 2.937 3.215 3.215 0 0 1-2.432 1.2l-.445.01a1.959 1.959 0 0 0-1.91 1.966v6.456a2.374 2.374 0 0 0 2.364 2.383h8.379a4.086 4.086 0 0 0 3.841-2.72l1.741-4.867a2.389 2.389 0 0 0-1.422-3.051 2.347 2.347 0 0 0-.8-.141z" transform="translate(-104.667 -84.344)" style="fill:url(#x7dbcfo3ib)" data-name="蒙版组 8"/>
+    </g>
+</svg>

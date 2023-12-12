@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>图标/点赞</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M7.86137979,1.34389891 C8.65556484,0.549340963 9.73293475,0.102931596 10.8563457,0.102931596 C11.9797567,0.102931596 13.0571266,0.549340963 13.8513117,1.34389891 C14.6456534,2.13786772 15.0920627,3.21523764 15.0920627,4.33864861 C15.0920627,5.46205959 14.6456534,6.53942951 13.8512036,7.33350645 L8.09224592,13.0924641 C7.8378327,13.3468773 7.42534737,13.3468773 7.17093415,13.0924641 L1.41197649,7.33350644 C-0.242037782,5.67949213 -0.242037762,2.99780511 1.41197653,1.34379081 C3.06599083,-0.310223481 5.74767784,-0.310223501 7.40169217,1.34379078 L7.63159004,1.57368865 L7.86137979,1.34389891 Z" id="path-1"></path>
+    </defs>
+    <g id="精品-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="精品" transform="translate(-231.000000, -370.000000)">
+            <g id="图标/点赞" transform="translate(227.000000, 365.000000)">
+                <g id="编组">
+                    <rect id="矩形" x="0" y="0" width="24" height="24"></rect>
+                    <g id="heart" transform="translate(4.560000, 5.280000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Shape" fill="#F21313" fill-rule="nonzero" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

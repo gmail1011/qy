@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+    <defs>
+        <linearGradient id="4tjmwufcga" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#f7e661"/>
+            <stop offset="1" stop-color="#f5864b"/>
+        </linearGradient>
+    </defs>
+    <g data-name="组 6423">
+        <path data-name="矩形 1889" style="fill:none" d="M0 0h30v30H0z"/>
+        <g data-name="组 6187">
+            <path d="M78.57 16.433q1.662 3.961 3.2 7.972c-.226.213-.281.336-.392.379a.215.215 0 0 1-.164-.005l-5.031-2.248-2.227 4a.5.5 0 0 1-.913-.082l-2.013-5.923a7.777 7.777 0 0 0 7.54-4.093zm-17.639-.064a7.633 7.633 0 0 0 7.531 4.157l-2.013 5.928a.5.5 0 0 1-.913.082l-2.228-4-5.022 2.245a.227.227 0 0 1-.173.005c-.117-.044-.177-.175-.389-.389q1.315-3.497 3.207-8.028zM69.55 0a9.444 9.444 0 0 1 9.374 9.511 9.375 9.375 0 1 1-18.747 0A9.443 9.443 0 0 1 69.55 0z" transform="translate(-54.746 1.604)" style="fill:url(#4tjmwufcga)"/>
+            <text data-name="1" transform="translate(9.977 3.979)" style="fill:#151515;font-size:16px;font-family:'\30 45-SSYiFeiTi';font-style:italic"><tspan x="0" y="13">1</tspan></text>
+        </g>
+    </g>
+</svg>

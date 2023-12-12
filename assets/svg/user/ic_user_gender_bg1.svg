@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="15px" viewBox="0 0 30 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>矩形备份</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#41A3EF" offset="0%"></stop>
+            <stop stop-color="#4C81EF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="影院和社区" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="我的" transform="translate(-246.000000, -251.000000)" fill="url(#linearGradient-1)">
+            <g id="男性" transform="translate(246.000000, 250.000000)">
+                <rect id="矩形备份" x="0" y="1" width="30" height="15" rx="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

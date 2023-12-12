@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>矩形</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="我的备份-7" transform="translate(-275.000000, -625.000000)">
+            <g id="分组" transform="translate(0.000000, 571.000000)">
+                <g id="矩形" transform="translate(277.000000, 55.946897)">
+                    <g id="Unknown">
+                        <circle id="椭圆形备份-2" stroke="#FFFFFF" stroke-width="2" cx="25" cy="25.0531027" r="26"></circle>
+                        <circle id="椭圆形备份-2" stroke="#969696" stroke-width="2" cx="25" cy="25.0531027" r="26"></circle>
+                        <text id="审核中" opacity="0.7" font-family="PingFangSC-Regular, PingFang SC" font-size="10" font-weight="normal" fill="#FFFFFF">
+                            <tspan x="10" y="37.0531027">审核中</tspan>
+                        </text>
+                    </g>
+                    <path d="M25.25,22.5531027 C25.9403559,22.5531027 26.5,23.1127467 26.5,23.8031027 C26.5,24.4934586 25.9403559,25.0531027 25.25,25.0531027 C24.5596441,25.0531027 24,24.4934586 24,23.8031027 C24,23.1127467 24.5596441,22.5531027 25.25,22.5531027 Z M25.25,7.05310267 C25.9403559,7.05310267 26.5,7.61274673 26.5,8.30310267 L26.5,19.8031027 C26.5,20.4934586 25.9403559,21.0531027 25.25,21.0531027 C24.5596441,21.0531027 24,20.4934586 24,19.8031027 L24,8.30310267 C24,7.61274673 24.5596441,7.05310267 25.25,7.05310267 Z" id="形状结合" fill="#FFFFFF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

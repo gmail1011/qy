@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="87" height="35" viewBox="0 0 87 35">
+    <defs>
+        <linearGradient id="y47hnoroga" x1=".781" y1=".116" x2=".149" y2=".88" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff7f0f"/>
+            <stop offset="1" stop-color="#e38825"/>
+        </linearGradient>
+    </defs>
+    <rect width="87" height="35" rx="17.5" style="fill:url(#y47hnoroga)"/>
+    <text transform="translate(14 9.5)" style="fill:#fff;font-size:11px;font-family:PingFangSCSemibold-,PingFang SC;letter-spacing:-.024em"><tspan x="12.5" y="12">去领取</tspan></text>
+</svg>

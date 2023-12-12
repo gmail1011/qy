@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "941956966018",
+    "project_id": "black-material",
+    "storage_bucket": "black-material.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941956966018:android:9741515864b4123741b69b",
+        "android_client_info": {
+          "package_name": "com.pf.qy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941956966018-0laul2am4vv8n2cdlqmpr7nkbs2b9d7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlGZppgCCkDClaxNtO1gDMXtwgukBoBoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941956966018-0laul2am4vv8n2cdlqmpr7nkbs2b9d7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

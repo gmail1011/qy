@@ -1,0 +1,167 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+  localPropertiesFile.withReader('UTF-8') { reader ->
+    localProperties.load(reader)
+  }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+  flutterVersionCode = '301'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+  flutterVersionName = '3.0.1'
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('./key.properties')
+if (keystorePropertiesFile.exists()) {
+  keystorePropertiesFile.withReader('UTF-8') { reader ->
+    keystoreProperties.load(reader)
+  }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'packer'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
+
+//packer-begin
+packer {
+  archiveNameFormat = '${applicationId}-${buildType}-v${versionName}-${channel}'
+  archiveOutput = new File(project.rootProject.buildDir, "apks")
+//    channelList = ['*Douban*', 'Google/', '中文/@#市场', 'Hello@World',
+//                   'GradleTest', '20070601!@#$%^&*(){}:"<>?-=[];\',./']
+  channelList = ['yinse']
+//  channelFile = project.rootProject.file("channels/channels.txt")
+  // channelMap = [
+  //         "free" : project.rootProject.file("channels/free.txt"),
+  //         "paid" : project.rootProject.file("channels/paid.txt"),
+  //         "other": project.rootProject.file("channels/channels.txt")
+  // ]
+}
+
+android {
+  compileSdkVersion 29
+  ndkVersion '20.0.5594570'
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
+
+  lintOptions {
+    disable 'InvalidPackage'
+  }
+
+  aaptOptions {
+    ignoreAssetsPattern "!x86:!*ffprobe"
+  }
+
+  signingConfigs {
+    release {
+      keyAlias keystoreProperties['keyAlias']
+      keyPassword keystoreProperties['keyPassword']
+      storeFile file(keystoreProperties['storeFile'])
+      storePassword keystoreProperties['storePassword']
+    }
+  }
+
+  defaultConfig {
+    minSdkVersion 21
+    targetSdkVersion 29
+    applicationId "com.pf.hj2024"
+    manifestPlaceholders =
+        [appName: "海角2024", icon: "@mipmap/ic_launcher", round: "@mipmap/ic_launcher"]
+    versionCode flutterVersionCode.toInteger()
+    versionName flutterVersionName
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  applicationVariants.all {
+    variant ->
+      variant.outputs.all {
+        //只处理生产版本
+        if (buildType.name == 'release') {
+          def createTime = new Date().format("MM-dd-HH-mm", TimeZone.getTimeZone("GMT+08:00"))
+          // app包名称
+          outputFileName = "海角2024" + defaultConfig.versionName + "_" + defaultConfig.versionCode + "_" + createTime + ".apk"
+        }
+      }
+  }
+
+  buildTypes {
+    release {
+      // minifyEnabled false
+        minifyEnabled true
+        shrinkResources true
+        ndk {
+        // abiFilters 'armeabi-v7a','arm64-v8a',"x86", "x86_64"
+      //  abiFilters 'armeabi-v7a','arm64-v8a'
+          abiFilters 'arm64-v8a'
+      }
+      signingConfig signingConfigs.release
+    }
+  }
+
+  packagingOptions {
+    pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+    pickFirst 'lib/x86/libc++_shared.so'
+    pickFirst 'lib/arm64-v8a/libc++_shared.so'
+    pickFirst 'lib/x86_64/libc++_shared.so'
+
+//    doNotStrip "*/armeabi/*.so"
+//    doNotStrip "*/armeabi-v7a/*.so"
+//    doNotStrip "*/arm64-v8a/*.so"
+//    doNotStrip "*/x86/*.so"
+//    doNotStrip "*/x86_64/*.so"
+//    doNotStrip "*/mips/*.so"
+//    doNotStrip "*/mips64/*.so"
+  }
+}
+
+
+configurations {
+    all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+}
+
+flutter {
+  source '../..'
+}
+
+dependencies {
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation 'androidx.test:runner:1.1.1'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+  // android 读取渠道号码
+  implementation 'com.mcxiaoke.packer-ng:helper:2.0.1'
+  implementation 'com.google.firebase:firebase-analytics:17.4.1'
+
+  // CameraX core library using the camera2 implementation
+  def camerax_version = "1.0.0-beta11"
+  // The following line is optional, as the core library is included indirectly by camera-camera2
+  implementation "androidx.camera:camera-core:${camerax_version}"
+  implementation "androidx.camera:camera-camera2:${camerax_version}"
+// If you want to additionally use the CameraX Lifecycle library
+  implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+// If you want to additionally use the CameraX View class
+  implementation "androidx.camera:camera-view:1.0.0-alpha18"
+// If you want to additionally use the CameraX Extensions library
+  implementation "androidx.camera:camera-extensions:1.0.0-alpha18"
+
+  implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+  // 协程核心库
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+  // 协程Android支持库
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+  // 协程Java8支持库
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.3"
+  implementation 'com.qiniu:happy-dns:2.0.1'
+  implementation 'com.meituan.android.walle:library:1.1.6'
+}

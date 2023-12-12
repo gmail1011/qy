@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>我-粉丝</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#0ED3FF" offset="0%"></stop>
+            <stop stop-color="#0D94FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="消息复制" transform="translate(-25.000000, -102.000000)">
+            <g id="我-粉丝" transform="translate(25.000000, 102.000000)">
+                <rect id="矩形" fill="url(#linearGradient-1)" x="0" y="0" width="40" height="40" rx="2"></rect>
+                <g id="编组-2" transform="translate(7.590698, 8.935731)" fill="#FFFFFF">
+                    <g id="编组" opacity="0.600000024" transform="translate(10.716279, 1.787146)">
+                        <ellipse id="椭圆形" cx="6.69767442" cy="3.89076641" rx="3.87760098" ry="3.89076641"></ellipse>
+                        <rect id="矩形" x="0" y="9.19635697" width="13.3953488" height="7.78153282" rx="3.89076641"></rect>
+                    </g>
+                    <ellipse id="椭圆形复制-2" cx="8.48372093" cy="4.91465231" rx="4.91162791" ry="4.91465231"></ellipse>
+                    <rect id="矩形复制-5" x="0" y="11.6164509" width="16.9674419" height="9.82930462" rx="4.91465231"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

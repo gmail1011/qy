@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <linearGradient id="4pqnefvcpa" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff7f0f"/>
+            <stop offset="1" stop-color="#e38825"/>
+        </linearGradient>
+    </defs>
+    <g data-name="完成 (1)">
+        <path data-name="路径 9075" d="M73.8 82.915a8.415 8.415 0 1 0-8.414-8.415 8.416 8.416 0 0 0 8.414 8.415zm0 1.585a10 10 0 1 1 10-10 10 10 0 0 1-10 10zm0 0" style="fill:url(#4pqnefvcpa)" transform="translate(-63.8 -64.5)"/>
+        <path data-name="路径 9076" d="M320.1 369.084a.71.71 0 0 0-1 .024l-3.471 3.644-1.908-2.3a.708.708 0 1 0-1.09.905l2.414 2.9a.7.7 0 0 0 .527.254h.055a.706.706 0 0 0 .48-.218l4.017-4.216a.706.706 0 0 0-.024-.993z" transform="translate(-306.395 -361.704)" style="fill:url(#4pqnefvcpa)"/>
+    </g>
+</svg>

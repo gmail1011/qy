@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="79px" height="21px" viewBox="0 0 79 21" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>完整版视频</title>
+    <desc>Created with Sketch.</desc>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="草榴首页-今日最热" transform="translate(-10.000000, -619.000000)">
+            <g id="完整版视频" transform="translate(10.000000, 619.000000)">
+                <rect id="矩形" fill="#FC3066" x="0" y="0" width="79" height="21" rx="2"></rect>
+                <text id="购买完整版" font-family="PingFangSC-Regular, PingFang SC" font-size="10"
+                    font-weight="normal" fill="#FFFFFF">
+                    <tspan x="24.5" y="15">购买完整版</tspan>
+                </text>
+                <path
+                    d="M14.4683905,5.52900109 L18.7172169,12.989895 C19.263826,13.9497348 18.9288364,15.1709528 17.9689966,15.7175619 C17.667414,15.889307 17.3263302,15.9796183 16.9792734,15.9796183 L8.4816206,15.9796183 C7.3770511,15.9796183 6.4816206,15.0841878 6.4816206,13.9796183 C6.4816206,13.6325614 6.5719319,13.2914777 6.74367703,12.989895 L10.9925034,5.52900109 C11.5391125,4.56916136 12.7603305,4.23417173 13.7201703,4.78078081 C14.0322275,4.95849103 14.2906803,5.21694382 14.4683905,5.52900109 Z"
+                    id="play" fill="#FFFFFF"
+                    transform="translate(12.730619, 10.248999) rotate(-270.000000) translate(-12.730619, -10.248999) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

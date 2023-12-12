@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="102px" height="102px" viewBox="0 0 102 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>账号安全</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#EB5C3F" offset="0%"></stop>
+            <stop stop-color="#C82525" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.0009945%" y1="-2.88668095%" x2="50%" y2="99.6875244%" id="linearGradient-2">
+            <stop stop-color="#FFCA90" offset="0%"></stop>
+            <stop stop-color="#FDFAD2" offset="49.3718328%"></stop>
+            <stop stop-color="#FFCA90" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="98.9257812%" id="linearGradient-3">
+            <stop stop-color="#C41E24" offset="0%"></stop>
+            <stop stop-color="#EB5D3F" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-4" points="31.0611586 6 69.6433753 6 95.8290692 32.8361489 95.8290692 69.7250521 69.6433753 95.5479354 31.0611586 95.5479354 6 69.7250521 6 32.8361489"></polygon>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#FDEFC3" offset="0%"></stop>
+            <stop stop-color="#E9B379" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-6">
+            <stop stop-color="#FFCB92" offset="0%"></stop>
+            <stop stop-color="#FDEFC3" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="账号安全" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/春节/账号安全">
+            <rect id="矩形" x="0" y="0" width="102" height="102"></rect>
+            <g id="路径-5">
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-4"></use>
+                <path stroke="#B30F15" stroke-width="6" d="M29.7580017,3 L70.9076288,3 L98.8290692,31.6150114 L98.8290692,70.9799697 L70.8737745,98.5479354 L29.7921302,98.5479354 L3,70.9414682 L3,31.6531732 L29.7580017,3 Z"></path>
+                <path stroke="url(#linearGradient-2)" stroke-width="3" d="M30.4095801,4.5 L70.2755021,4.5 L97.3290692,32.2255802 L97.3290692,70.3525109 L70.2585749,97.0479354 L30.4266444,97.0479354 L4.5,70.3332601 L4.5,32.2446611 L30.4095801,4.5 Z"></path>
+                <path stroke="url(#linearGradient-3)" stroke-width="2" d="M31.4955442,7 L7,33.2304741 L7,69.31958 L31.484168,94.5479354 L69.2332422,94.5479354 L94.8290692,69.3067462 L94.8290692,33.2431947 L69.2219575,7 L31.4955442,7 Z" stroke-linejoin="square"></path>
+            </g>
+            <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="21" y="21" width="60" height="60"></rect>
+            <path d="M51.0301313,21.6674907 C57.8809725,28.0713009 66.9839478,31.5099065 76.3576962,31.2348578 C76.3576962,31.2348578 81.8088704,75.5488257 51.0301313,81 C20.3255577,75.5488257 25.776732,31.2348578 25.776732,31.2348578 C35.1250529,31.4902152 44.1977295,28.0529897 51.0301313,21.6674907 Z M63.11913,42.9901113 C62.3387003,42.2171398 61.0812655,42.2171398 60.3008358,42.9901113 L60.3008358,42.9901113 L47.3218494,56.0061804 L41.6481782,50.184178 C41.1513627,49.6873624 40.4272382,49.4933339 39.7485755,49.675181 C39.0699129,49.8570281 38.539817,50.387124 38.3579698,51.0657867 C38.1761227,51.7444493 38.3701513,52.4685738 38.8669669,52.9653894 L38.8669669,52.9653894 L47.3218494,61.5686032 L63.2674613,45.7713226 C63.6176174,45.3833129 63.7988066,44.8718137 63.7709716,44.3499076 C63.7431366,43.8280014 63.50857,43.3386759 63.11913,42.9901113 Z" id="形状结合" fill="url(#linearGradient-5)" fill-rule="nonzero"></path>
+            <path d="M76.3576962,31.2348578 C66.9839478,31.5099065 57.8809725,28.0713009 51.0301312,21.6674907 C44.1977295,28.0529897 35.1250529,31.4902152 25.776732,31.2348578 C25.776732,31.2348578 20.3255577,75.5488257 51.0301312,81 C81.8088704,75.5488257 76.3576962,31.2348578 76.3576962,31.2348578 Z" id="路径" stroke="url(#linearGradient-6)" stroke-width="2" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

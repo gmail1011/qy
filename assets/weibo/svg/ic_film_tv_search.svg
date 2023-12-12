@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Search" d="m18.1 19.675-3.766-3.767a8.9 8.9 0 1 1 1.571-1.571l3.77 3.763a1.112 1.112 0 0 1-1.575 1.575zM2.222 8.889a6.667 6.667 0 1 0 6.667-6.667 6.675 6.675 0 0 0-6.667 6.667z" style="fill:#fff"/>
+        </clipPath>
+        <style>
+            
+        </style>
+    </defs>
+    <g id="_Icons_Search" data-name="_Icons / Search" style="opacity:.9">
+        <g id="组_2" data-name="组 2">
+            <path id="Search-2" data-name="Search" d="m18.1 19.675-3.766-3.767a8.9 8.9 0 1 1 1.571-1.571l3.77 3.763a1.112 1.112 0 0 1-1.575 1.575zM2.222 8.889a6.667 6.667 0 1 0 6.667-6.667 6.675 6.675 0 0 0-6.667 6.667z" style="fill:#fff"/>
+        </g>
+    </g>
+</svg>

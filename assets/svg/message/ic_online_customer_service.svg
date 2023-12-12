@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="51px" height="51px" viewBox="0 0 51 51" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>4_xxzs</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFCE5C" offset="0%"></stop>
+            <stop stop-color="#FFB23A" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="消息复制" transform="translate(-14.000000, -512.000000)">
+            <g id="分组-3-copy" transform="translate(14.000000, 512.000000)">
+                <g id="4_xxzs" transform="translate(0.440000, 0.289649)">
+                    <g id="分组-7">
+                        <circle id="椭圆形复制" fill="#FC3066" cx="25" cy="25" r="25"></circle>
+                        <path d="M25.5,11 C29.2603958,11 32.3181818,14.0577861 32.3181818,17.8181818 C32.3181818,21.5785776 29.2603958,24.6363636 25.5,24.6363636 C21.7396042,24.6363636 18.6818182,21.5785776 18.6818182,17.8181818 C18.6818182,14.0577861 21.7396042,11 25.5,11 Z M31.1065386,24.2312876 C32.1389447,24.5431603 33.0638084,24.9554058 33.8739604,25.4644393 C35.7559507,26.6474046 38,28.9739031 38,33.3472899 L38,36 L13,36 L13,33.3472899 C13,28.9739031 15.2440493,26.6438199 17.1260396,25.4644393 C17.9361916,24.9554058 18.8610553,24.5431603 19.8934614,24.2312876 C21.3918841,25.5433037 23.3563235,26.3391167 25.5,26.3391167 C27.6436765,26.3391167 29.6081159,25.5433037 31.1065386,24.2312876 Z" id="形状" fill="#FFFFFF" fill-rule="nonzero"></path>
+                    </g>
+                    <g id="律领英我的" transform="translate(13.000000, 11.000000)"></g>
+                    <g id="编组" transform="translate(26.560000, 37.710351)">
+                        <path d="M5.28325123,0 L22.04,0 C22.5922847,-1.01453063e-16 23.04,0.44771525 23.04,1 L23.04,5.28325123 C23.04,8.20111032 20.6746079,10.5665025 17.7567488,10.5665025 L1,10.5665025 C0.44771525,10.5665025 6.76353751e-17,10.1187872 0,9.56650246 L0,5.28325123 C-3.57334679e-16,2.36539215 2.36539215,1.42418044e-15 5.28325123,0 Z" id="矩形" fill="url(#linearGradient-1)"></path>
+                        <text id="官方" font-family="PingFangSC-Medium, PingFang SC" font-size="8" font-weight="400" fill="#7F2F00">
+                            <tspan x="3.52" y="8.04679803">官方</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

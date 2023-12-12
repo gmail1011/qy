@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="79" height="37" viewBox="0 0 79 37">
+    <defs>
+        <linearGradient id="o8lbtucafa" x1=".925" y1=".095" x2=".08" y2=".932" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff7f0f"/>
+            <stop offset="1" stop-color="#e38825"/>
+        </linearGradient>
+    </defs>
+    <g data-name="组 6413" transform="translate(-19 -259)">
+        <rect data-name="矩形 87" width="79" height="37" rx="18.5" transform="translate(19 259)" style="fill:url(#o8lbtucafa)"/>
+        <text data-name="Done (2)" transform="translate(58 283)" style="fill:#fff;font-size:17px;font-family:PingFangSC,蘋方-簡;letter-spacing:-.009em"><tspan x="-16.921" y="0">下载</tspan></text>
+    </g>
+</svg>

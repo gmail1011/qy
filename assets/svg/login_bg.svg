@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="360px" height="780px" viewBox="0 0 360 780" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>已绑定手机1备份 2@2x</title>
+    <defs>
+        <linearGradient x1="56.3119393%" y1="0%" x2="44.9298732%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#733475" offset="0%"></stop>
+            <stop stop-color="#1D406A" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0.506225992" width="360" height="779.00128"></rect>
+    </defs>
+    <g id="已绑定手机1备份-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#161823" x="0" y="0" width="360" height="780"></rect>
+        <g id="背景" transform="translate(0.000000, -0.506875)">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <use id="蒙版" fill-opacity="0.88" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            <rect id="矩形" fill-opacity="0.88" fill="url(#linearGradient-1)" mask="url(#mask-3)" x="0" y="0.506225992" width="360" height="779.00128"></rect>
+        </g>
+        <g id="纸飞机" transform="translate(107.000000, 71.000000)" fill-rule="nonzero">
+            <rect id="矩形" fill="#000000" opacity="0" x="0" y="0" width="127.875122" height="127.875122"></rect>
+            <path d="M126.041798,0.658615446 C124.708376,-0.219513706 122.980189,-0.219513706 121.646767,0.658615446 L1.782269,80.5682805 C0.548070499,81.3894713 -0.130012921,82.8264935 0.0208125312,84.3012313 C0.171637983,85.7759692 1.1265768,87.0459778 2.50145592,87.6003311 L33.746135,100.106194 L48.4495134,125.837106 C49.1627859,127.106152 50.5098289,127.886825 51.9655387,127.875138 C53.3762131,127.875138 54.6822102,127.130442 55.4016542,125.917016 L63.7122594,112.092643 L102.428492,127.595119 C102.899111,127.781123 103.40078,127.875138 103.906821,127.875138 C105.886155,127.900277 107.585748,126.472619 107.902304,124.518596 L127.87972,4.65409873 C128.121126,3.0745775 127.398255,1.50312005 126.041798,0.658615446 L126.041798,0.658615446 Z M40.7382307,96.1906201 L116.372729,15.1222648 L51.9655387,115.648624 L40.7382307,96.1906201 Z" id="形状" stroke="#FFFFFF"></path>
+        </g>
+    </g>
+</svg>

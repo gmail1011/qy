@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="102px" height="102px" viewBox="0 0 102 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>金币充值</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#EB5C3F" offset="0%"></stop>
+            <stop stop-color="#C82525" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.0009945%" y1="-2.88668095%" x2="50%" y2="99.6875244%" id="linearGradient-2">
+            <stop stop-color="#FFCA90" offset="0%"></stop>
+            <stop stop-color="#FDFAD2" offset="49.3718328%"></stop>
+            <stop stop-color="#FFCA90" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="98.9257812%" id="linearGradient-3">
+            <stop stop-color="#C41E24" offset="0%"></stop>
+            <stop stop-color="#EB5D3F" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-4" points="25.0611586 7.10542736e-15 63.6433753 7.10542736e-15 89.8290692 26.8361489 89.8290692 63.7250521 63.6433753 89.5479354 25.0611586 89.5479354 4.54747351e-13 63.7250521 4.54747351e-13 26.8361489"></polygon>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#FDEFC3" offset="0%"></stop>
+            <stop stop-color="#E9B379" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-6">
+            <stop stop-color="#FFCB92" offset="0%"></stop>
+            <stop stop-color="#FDEFC3" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-7">
+            <stop stop-color="#FFCB92" offset="0%"></stop>
+            <stop stop-color="#FDEFC3" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-8">
+            <stop stop-color="#E9B379" offset="0%"></stop>
+            <stop stop-color="#FDEFC3" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-9">
+            <stop stop-color="#FFCB92" offset="0%"></stop>
+            <stop stop-color="#FDEFC3" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="金币充值" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/春节/账号安全">
+            <rect id="矩形" x="0" y="0" width="102" height="102"></rect>
+            <g id="icon/春节/金币充值" transform="translate(6.000000, 6.000000)">
+                <g id="路径-5">
+                    <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-4"></use>
+                    <path stroke="#B30F15" stroke-width="6" d="M23.7580017,-3 L64.9076288,-3 L92.8290692,25.6150114 L92.8290692,64.9799697 L64.8737745,92.5479354 L23.7921302,92.5479354 L-3,64.9414682 L-3,25.6531732 L23.7580017,-3 Z"></path>
+                    <path stroke="url(#linearGradient-2)" stroke-width="3" d="M24.4095801,-1.5 L64.2755021,-1.5 L91.3290692,26.2255802 L91.3290692,64.3525109 L64.2585749,91.0479354 L24.4266444,91.0479354 L-1.5,64.3332601 L-1.5,26.2446611 L24.4095801,-1.5 Z"></path>
+                    <path stroke="url(#linearGradient-3)" stroke-width="2" d="M25.4955442,1 L1,27.2304741 L1,63.31958 L25.484168,88.5479354 L63.2332422,88.5479354 L88.8290692,63.3067462 L88.8290692,27.2431947 L63.2219575,1 L25.4955442,1 Z" stroke-linejoin="square"></path>
+                </g>
+                <g id="钱包" transform="translate(15.000000, 15.000000)" fill-rule="nonzero">
+                    <rect id="矩形" fill="#000000" opacity="0" x="0" y="0" width="60" height="60"></rect>
+                    <path d="M56.9238281,41.0800781 L48.2871094,41.0800781 C45.2226563,41.0800781 42.7382812,38.5957031 42.7382812,35.53125 C42.7382812,32.4667969 45.2226562,29.9824219 48.2871094,29.9824219 L56.9179688,29.9824219 C57.1816406,29.9824219 57.4453125,30 57.6972656,30.0351563 L57.6972656,18.2460938 C57.4394531,15.6914062 55.359375,13.6875 52.7871094,13.5820312 L7.453125,13.5820312 C4.6171875,13.5820312 2.31445312,15.9023438 2.30859375,18.7675781 L2.30859375,52.7050781 C2.60742187,55.0136719 4.40625,56.8476563 6.68554687,57.1699219 L53.6660156,57.1699219 C55.7050781,56.7597656 57.3105469,55.1308594 57.7089844,53.0625 L57.7089844,41.0273438 C57.4453125,41.0625 57.1875,41.0800781 56.9238281,41.0800781 Z" id="路径" fill="url(#linearGradient-5)"></path>
+                    <path d="M56.9238281,41.0800781 L48.2871094,41.0800781 C45.2226563,41.0800781 42.7382812,38.5957031 42.7382812,35.53125 C42.7382812,32.4667969 45.2226562,29.9824219 48.2871094,29.9824219 L56.9179688,29.9824219 C57.1816406,29.9824219 57.4453125,30 57.6972656,30.0351563 L57.6972656,18.2460938 C57.4394531,15.6914062 55.359375,13.6875 52.7871094,13.5820312 L7.453125,13.5820312 C4.6171875,13.5820312 2.31445312,15.9023438 2.30859375,18.7675781 L2.30859375,52.7050781 C2.60742188,55.0136719 4.40625,56.8476563 6.68554688,57.1699219 L53.6660156,57.1699219 C55.7050781,56.7597656 57.3105469,55.1308594 57.7089844,53.0625 L57.7089844,41.0273438 C57.4453125,41.0625 57.1875,41.0800781 56.9238281,41.0800781 Z" id="路径" stroke="url(#linearGradient-6)" stroke-width="2"></path>
+                    <path d="M47.2910156,35.4550781 C47.2910156,36.8142164 48.3928149,37.9160156 49.7519531,37.9160156 C51.1110914,37.9160156 52.2128906,36.8142164 52.2128906,35.4550781 C52.2128906,34.0959399 51.1110914,32.9941406 49.7519531,32.9941406 C48.3928149,32.9941406 47.2910156,34.0959399 47.2910156,35.4550781 L47.2910156,35.4550781 Z" id="路径" fill="url(#linearGradient-7)"></path>
+                    <path d="M48.9140625,10.3359375 L45.890625,4.86914062 C44.4316406,2.75976563 41.6367188,2.00976563 39.3398438,3.1640625 L26.3554688,10.3359375 L48.9140625,10.3359375 Z" id="路径" fill="url(#linearGradient-8)"></path>
+                    <path d="M48.9140625,10.3359375 L45.890625,4.86914062 C44.4316406,2.75976562 41.6367188,2.00976562 39.3398438,3.1640625 L26.3554688,10.3359375 L48.9140625,10.3359375 Z" id="路径" fill="url(#linearGradient-9)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

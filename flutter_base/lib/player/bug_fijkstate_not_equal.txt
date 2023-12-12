@@ -1,0 +1,69 @@
+m3u8 循环播放调用reset() 之后Fijk状态不一致
+m3u8 在状态complete之后调用reset重置播放器，在start播放，
+会偶现播放器状态不一致的情况：
+fijkplayer version
+Which version you used.
+0.8.7
+
+Smartphone (please complete the following information):
+什么手机设备和系统版本？
+所有
+
+日志如下：
+I/flutter (28356): [I] [02:03:28.870] videoController#: 等待播放器状态成功 now is:FijkState.started 528706031
+I/flutter (28356): [I] [02:03:28.880] process#: videoPause curPos:14488 97.13059801555377 FijkState.prepared hash:528706031
+
+后面一串字符是 controller的hashcode
+
+出现的概率为大概5-6次重复播放可能会出现一次不一致的情况
+
+该issue已经 已经提交到作者
+issue地址: https://github.com/befovy/fijkplayer/issues/354
+
+I/flutter (28356): [I]  [02:35:48.162] videoController#: 播放完成重新播放
+I/flutter (28356): [I]  [02:35:48.162] single_player#: doDisposed()...正在重置播放器
+I/android.media.AudioTrack(28356): stop() packageName: com.fs.sis.twomSampleRate: 44100
+D/AudioTrack(28356): stop() called with 655424 frames delivered
+I/flutter (28356): [I]  [02:35:48.301] single_player#: initialize()...视频初始化好了,开始播放了 1
+I/flutter (28356): [I]  [02:35:48.302] FullPlayer#: _getVideoPlayer()...player:http://127.0.0.1:14587/api/media/m3u8/sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8?  status:isPlayable:false isDisposed:false  isInited:false FijkState.idle
+I/flutter (28356): [I]  [02:35:48.302] FullPlayer#: _getVideoUI()...player:http://127.0.0.1:14587/api/media/m3u8/sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8? unknow status
+I/flutter (28356): [I]  [02:35:48.305] progress#: didUpdateWidget()...oldState:14916 newState:14916
+I/flutter (28356): [I]  [02:35:48.331] single_player#: initialize()...视频初始化好了,开始播放了 2
+I/flutter (28356): [I]  [02:35:48.332] FullPlayer#: _getVideoPlayer()...player:http://127.0.0.1:14587/api/media/m3u8/sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8?  status:isPlayable:false isDisposed:false  isInited:true FijkState.initialized
+I/flutter (28356): [I]  [02:35:48.332] FullPlayer#: _getVideoUI()...player:http://127.0.0.1:14587/api/media/m3u8/sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8? unknow status
+I/flutter (28356): [I]  [02:35:48.334] progress#: didUpdateWidget()...oldState:14916 newState:14916
+I/flutter (28356): [I]  [02:35:48.342] videoController#: waitForPrepare()...FijkState.asyncPreparing 需要等待播放器状态 started
+I/flutter (28356): [I]  [02:35:48.349] FullPlayer#: _getVideoPlayer()...player:http://127.0.0.1:14587/api/media/m3u8/sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8?  status:isPlayable:false isDisposed:false  isInited:true FijkState.asyncPreparing
+I/flutter (28356): [I]  [02:35:48.349] FullPlayer#: _getVideoUI()...player:http://127.0.0.1:14587/api/media/m3u8/sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8? unknow status
+I/flutter (28356): [I]  [02:35:48.350] progress#: didUpdateWidget()...oldState:14916 newState:14916
+D/AudioTrack(28356): set(): streamType -1, sampleRate 44100, format 0x1, channelMask 0x3, frameCount 7072, flags #0, notificationFrames 0, sessionId 0, transferType 3, uid -1, pid -1
+I/android.media.AudioTrack(28356): bufferSizeInBytes:28288 mSampleRate:44100
+W/AudioTrack(28356): Use of stream types is deprecated for operations other than volume control
+W/AudioTrack(28356): See the documentation of AudioTrack() for what to use instead with android.media.AudioAttributes to qualify your playback use case
+D/AudioTrack(28356): Uid 11192 AudioTrack::setVolume left 1.000000 right 1.000000
+I/android.media.AudioTrack(28356): play() packageName: com.fs.sis.two
+I/FIJKPLAYER(28356): audioFocus request state:false
+I/flutter (28356): [I]  [02:35:48.387] videoController#: 等待播放器状态成功 now is:FijkState.started 528706031
+I/flutter (28356): [I]  [02:35:48.387] single_player#: initialize()...视频初始化好了,开始播放了 3
+I/flutter (28356): [I]  [02:35:48.387] single_player#: initialize()...视频初始化好了,开始播放了 4
+I/flutter (28356): [I]  [02:35:48.388] VideoItemEffect#: _onVideoInited()...
+I/flutter (28356): [I]  [02:35:48.388] autoPlayModel#: enable()...curtype:VideoListType.RECOMMEND
+I/flutter (28356): [I]  [02:35:48.388] VideoItemEffect#: _checkOrPlay()...controllerSource:http://127.0.0.1:14587/api/media/m3u8/sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8? ==> cur:sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8
+I/flutter (28356): [I]  [02:35:48.388] VideoItemEffect#: _checkOrPlay()...may begin play: FijkState.started
+I/flutter (28356): [I]  [02:35:48.399] single_player#: 播放器sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8现在的状态:isPlayable:true isDisposed:false  isInited:true FijkState.prepared
+I/flutter (28356): [I]  [02:35:48.399] full_player#: didUpdateWidget()...oldState:FijkState.prepared newState:FijkState.prepared
+I/flutter (28356): [I]  [02:35:48.399] FullPlayer#: _getVideoPlayer()...player:http://127.0.0.1:14587/api/media/m3u8/sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8?  status:isPlayable:true isDisposed:false  isInited:true FijkState.prepared
+I/flutter (28356): [I]  [02:35:48.404] videoUI#: didChangeDependencies()...
+I/flutter (28356): [I]  [02:35:48.405] videoUI#: _centerWidget()...state:FijkState.prepared
+I/flutter (28356): [I]  [02:35:48.406] progress#: didUpdateWidget()...oldState:14916 newState:14916
+I/flutter (28356): [I]  [02:35:48.407] process#: videoPause curPos:14490 97.14400643604183 FijkState.prepared hash:528706031
+I/tv.danmaku.ijk.media.player.IjkMediaPlayer(28356): Info: MEDIA_INFO_VIDEO_RENDERING_START
+I/flutter (28356): [I]  [02:35:48.432] FullPlayer#: _getVideoPlayer()...player:http://127.0.0.1:14587/api/media/m3u8/sp/8w/pp/s4/jh/e1eed87d3d874510a49005f65803d550.m3u8?  status:isPlayable:true isDisposed:false  isInited:true FijkState.prepared
+I/flutter (28356): [I]  [02:35:48.433] videoUI#: didUpdateWidget()...oldState:FijkState.prepared newState:FijkState.prepared
+I/flutter (28356): [I]  [02:35:48.433] videoUI#: _centerWidget()...state:FijkState.prepared
+I/flutter (28356): [I]  [02:35:48.433] progress#: didUpdateWidget()...oldState:0 newState:0
+I/flutter (28356): [I]  [02:35:48.433] process#: videoPause curPos:14490 97.14400643604183 FijkState.prepared hash:528706031
+I/flutter (28356): [I]  [02:35:48.549] process#: videoPause curPos:14490 97.14400643604183 FijkState.prepared hash:528706031
+I/flutter (28356): [I]  [02:35:48.686] process#: videoPause curPos:14490 97.14400643604183 FijkState.prepared hash:528706031
+I/flutter (28356): [I]  [02:35:48.800] process#: videoPause curPos:14490 97.14400643604183 FijkState.prepared hash:528706031
+I/flutter (28356): [I]  [02:35:48.917] process#: videoPause curPos:14490 97.14400643604183 FijkState.prepared hash:528706031

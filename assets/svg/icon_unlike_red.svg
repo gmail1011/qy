@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="11px" viewBox="0 0 13 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>heart</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M6.22359233,1.06391997 C6.85232216,0.434894929 7.70524001,0.0814875136 8.59460704,0.0814875136 C9.48397406,0.0814875136 10.3368919,0.434894929 10.9656217,1.06391997 C11.5944756,1.69247861 11.947883,2.54539646 11.947883,3.43476349 C11.947883,4.32413051 11.5944756,5.17704836 10.9655362,5.80569261 L6.40636135,10.3648674 C6.20495088,10.5662779 5.8784,10.5662779 5.67698953,10.3648674 L1.11781472,5.8056926 C-0.191613244,4.4962646 -0.191613229,2.37326238 1.11781475,1.06383439 C2.42724274,-0.245593589 4.55024496,-0.245593605 5.85967297,1.06383436 L6.04167545,1.24583684 L6.22359233,1.06391997 Z" id="path-1"></path>
+    </defs>
+    <g id="1.1.0版本" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="播放界面（加载中）" transform="translate(-207.000000, -354.000000)">
+            <g id="编组-10" transform="translate(201.000000, 350.000000)">
+                <g id="图标/点赞" transform="translate(3.000000, 0.000000)">
+                    <g id="编组">
+                        <g id="heart" transform="translate(3.610000, 4.180000)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="Shape" fill="#F21313" fill-opacity="0.4" fill-rule="nonzero" xlink:href="#path-1"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

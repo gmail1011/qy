@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="56px" viewBox="0 0 44 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M4.23708338,0.444714325 L42.7370834,25.3886346 C44.4209722,26.4796161 44.4209722,28.9603839 42.7370834,30.0513654 L4.23708338,54.9952857 C2.40692638,56.1810335 0,54.8566732 0,52.6639203 L0,2.77607975 C0,0.583326809 2.40692638,-0.741033473 4.23708338,0.444714325 Z" id="path-1"></path>
+    </defs>
+    <g id="控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="图标/播放" transform="translate(-29.000000, -22.000000)">
+            <g id="编组">
+                <g id="play" transform="translate(29.000000, 22.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Shape" fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

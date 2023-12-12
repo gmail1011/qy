@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="52px" height="52px" viewBox="0 0 52 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>编组 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0.155722128%" y1="34.7768319%" x2="100%" y2="34.7768319%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="20" cy="20" r="20"></circle>
+        <filter x="-22.5%" y="-22.5%" width="145.0%" height="145.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.563462409   0 0 0 0 0.563462409   0 0 0 0 0.563462409  0 0 0 0.141225962 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="主播主页2" transform="translate(-298.000000, -630.000000)">
+            <g id="编组-2" transform="translate(304.000000, 636.000000)">
+                <g id="椭圆形">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                    <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                </g>
+                <g id="箭头2_下" opacity="0.5" transform="translate(13.500000, 23.000000)" fill-rule="nonzero">
+                    <rect id="矩形" fill="#000000" opacity="0" x="0" y="0" width="12.8" height="12.8"></rect>
+                    <path d="M11.7541086,5.61941969 C11.9414587,5.43191153 12.2454003,5.43191153 12.4329085,5.61941969 C12.6202586,5.8067698 12.6202586,6.1106888 12.4329085,6.29821954 L12.4329085,6.29821954 L6.76212442,11.9690487 C6.56222109,12.1691553 6.23793696,12.1691553 6.03803362,11.9690487 L6.03803362,11.9690487 L0.36727215,6.29821954 C0.179763987,6.1106888 0.179763987,5.8067698 0.36727215,5.61941969 C0.554599687,5.43191153 0.858541262,5.43191153 1.04604942,5.61941969 L1.04604942,5.61941969 L6.40002258,10.973438 L6.40002258,10.973438 Z M11.7541086,0.821671813 C11.9416394,0.63416365 12.2455584,0.63416365 12.4329085,0.821671813 C12.6204166,1.00902193 12.6204166,1.31294093 12.4329085,1.50047166 L12.4329085,1.50047166 L6.76212442,7.17130086 C6.56222109,7.37122678 6.23793696,7.37122678 6.03803362,7.17130086 L6.03803362,7.17130086 L0.36727215,1.50047166 C0.179763987,1.31296351 0.179763987,1.00902193 0.36727215,0.821671813 C0.554780312,0.63416365 0.858541262,0.63416365 1.04604942,0.821671813 L1.04604942,0.821671813 L6.40018062,6.17569013 L6.40018062,6.17569013 Z" id="形状结合" stroke="#000000" fill="#231815"></path>
+                </g>
+                <text id="下一个" opacity="0.5" font-family="PingFangSC-Regular, PingFang SC" font-size="10" font-weight="normal" fill="#000000">
+                    <tspan x="5" y="19">下一个</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

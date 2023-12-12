@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+    <defs>
+        <linearGradient id="uki7cdt0ca" x1=".281" y1=".147" x2=".772" y2=".912" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#5d5d5d"/>
+            <stop offset="1" stop-color="#1c1c1c"/>
+        </linearGradient>
+        <linearGradient id="dprxbos0ob" x1=".277" y1=".156" x2=".712" y2=".841" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#f2d27d"/>
+            <stop offset="1" stop-color="#ffefbe"/>
+        </linearGradient>
+    </defs>
+    <g data-name="组 6494" transform="translate(-52.81 -559.687)">
+        <circle data-name="椭圆 73" cx="30" cy="30" r="30" transform="translate(52.81 559.687)" style="opacity:.7;fill:url(#uki7cdt0ca)"/>
+        <path data-name="减去 4" d="M-2174.644-5063.238a.7.7 0 0 1-.5-.206l-2.376-2.378a4.808 4.808 0 0 1-2.514-1.742 4.819 4.819 0 0 1-.969-2.913v-7.6a4.928 4.928 0 0 1 4.923-4.923h14.156a4.928 4.928 0 0 1 4.921 4.923v7.53a4.928 4.928 0 0 1-4.921 4.923h-10.045l-2.18 2.181a.708.708 0 0 1-.495.205zm11.644-12.882a1.5 1.5 0 0 0-1.5 1.5 1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5zm-6 0a1.5 1.5 0 0 0-1.5 1.5 1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5zm-6 0a1.5 1.5 0 0 0-1.5 1.5 1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5z" transform="translate(2251.81 5662.572)" style="stroke:transparent;stroke-miterlimit:10;fill:url(#dprxbos0ob)"/>
+    </g>
+</svg>

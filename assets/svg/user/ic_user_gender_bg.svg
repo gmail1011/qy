@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="15px" viewBox="0 0 30 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>矩形</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#E241EF" offset="0%"></stop>
+            <stop stop-color="#954FEB" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="影院和社区" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="用户主页1" transform="translate(-206.000000, -231.000000)" fill="url(#linearGradient-1)">
+            <g id="头像" transform="translate(16.000000, 208.000000)">
+                <g id="女性" transform="translate(190.000000, 22.000000)">
+                    <rect id="矩形" x="0" y="1" width="30" height="15" rx="2"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

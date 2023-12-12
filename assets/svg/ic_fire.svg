@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="16px" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>路径</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="57.3820348%" y1="0%" x2="38.4482579%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FDEC99" offset="0%"></stop>
+            <stop stop-color="#FFB040" offset="50.5928567%"></stop>
+            <stop stop-color="#FA7017" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页备份" transform="translate(-11.000000, -696.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+            <g id="火" transform="translate(10.000000, 696.000000)">
+                <path d="M5.25,15.2 C4.3,13.2 4.8,12.05 5.55,11 C6.35,9.8 6.55,8.65 6.55,8.65 C6.55,8.65 7.2,9.45 6.95,10.75 C8.05,9.5 8.25,7.5 8.1,6.75 C10.6,8.5 11.7,12.35 10.25,15.15 C17.95,10.75 12.15,4.2 11.15,3.5 C11.5,4.25 11.55,5.5 10.85,6.1 C9.7,1.7 6.85,0.85 6.85,0.85 C7.2,3.1 5.65,5.55 4.15,7.4 C4.1,6.5 4.05,5.9 3.55,5 C3.45,6.65 2.2,7.95 1.85,9.6 C1.4,11.85 2.2,13.45 5.25,15.2 L5.25,15.2 Z" id="路径"></path>
+            </g>
+        </g>
+    </g>
+</svg>

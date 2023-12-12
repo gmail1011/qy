@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <item name="android:windowBackground">@drawable/launch_bg</item>
+        <item name="android:colorPrimary">#12131C</item>
+        <item name="colorPrimaryDark">#12131C</item>
+        <item name="colorAccent">#12131C</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+</resources>
+
+
+

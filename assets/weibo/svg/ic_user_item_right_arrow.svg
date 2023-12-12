@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="Arrow_Right" data-name="Arrow Right" d="M-9.105 14.119a1.288 1.288 0 0 0-.006 1.559.774.774 0 0 0 1.261 0l5.586-6.893a1.284 1.284 0 0 0 0-1.56L-7.851.326a.776.776 0 0 0-1.261 0 1.286 1.286 0 0 0 .007 1.554l4.07 5.02h-12.074A1.008 1.008 0 0 0-18 8a1.012 1.012 0 0 0 .891 1.1h12.074z" transform="translate(18)" style="fill:#fff"/>
+        </clipPath>
+        <style>
+            
+        </style>
+    </defs>
+    <g id="组_4" data-name="组 4" style="opacity:.6">
+        <path id="Arrow_Right-2" data-name="Arrow Right" d="M-7.993 14.119A1.176 1.176 0 0 0-8 15.677a.936.936 0 0 0 1.418 0L-.3 8.779a1.173 1.173 0 0 0 0-1.56L-6.582.326A.939.939 0 0 0-8 .321a1.174 1.174 0 0 0 .007 1.559l4.579 5.02c.965 1.015.807 1.277 0 2.194z" transform="translate(16)" style="fill:#fff"/>
+    </g>
+</svg>

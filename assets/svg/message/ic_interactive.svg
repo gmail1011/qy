@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>我-互动</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="93.7278874%" id="linearGradient-1">
+            <stop stop-color="#00DDFF" offset="0%"></stop>
+            <stop stop-color="#00A7FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-6.17917773%" y1="50%" x2="108.892503%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.495356206" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="消息复制" transform="translate(-295.000000, -102.000000)">
+            <g id="我-互动" transform="translate(295.000000, 102.000000)">
+                <rect id="矩形复制-3" fill="url(#linearGradient-1)" x="0" y="0" width="40" height="40" rx="2"></rect>
+                <circle id="椭圆形" fill="url(#linearGradient-2)" cx="20.4444444" cy="20.4444444" r="12.4444444"></circle>
+                <path d="M24.4444444,25.7777778 C26.0853011,24.4462287 27.1111111,22.5494517 27.1111111,20.4444444" id="形状" stroke="#00A7FF" stroke-width="3.6" stroke-linecap="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="228" height="44" viewBox="0 0 228 44">
+    <defs>
+        <linearGradient id="wb3h0qxrya" x1=".781" y1=".116" x2=".149" y2=".88" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fe7f0f"/>
+            <stop offset="1" stop-color="#ea8b25"/>
+        </linearGradient>
+    </defs>
+    <g transform="translate(-43)">
+        <rect width="228" height="44" rx="22" transform="translate(43)" style="fill:url(#wb3h0qxrya)"/>
+        <text transform="translate(157.5 27)" style="fill:#fff;font-size:15px;font-family:PingFangSC-Heavy,PingFang SC;font-weight:800;letter-spacing:-.024em"><tspan x="-29.457" y="0">立即认证</tspan></text>
+    </g>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>我-赞</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="94.445572%" id="linearGradient-1">
+            <stop stop-color="#FF51BD" offset="0%"></stop>
+            <stop stop-color="#FF4F8E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="消息复制" transform="translate(-115.000000, -102.000000)">
+            <g id="我-赞" transform="translate(115.000000, 102.000000)">
+                <rect id="矩形复制" fill="url(#linearGradient-1)" x="0" y="0" width="40" height="40" rx="2"></rect>
+                <g id="编组-3" transform="translate(20.193875, 17.675357) rotate(-315.000000) translate(-20.193875, -17.675357) translate(8.638320, 6.119801)" fill="#FFFFFF">
+                    <path d="M11.5555556,5.33333333 L22.2222222,5.33333333 C25.6586607,5.33333333 28.4444444,8.11911711 28.4444444,11.5555556 C28.4444444,14.991994 25.6586607,17.7777778 22.2222222,17.7777778 L11.5555556,17.7777778 C8.11911711,17.7777778 5.33333333,14.991994 5.33333333,11.5555556 C5.33333333,8.11911711 8.11911711,5.33333333 11.5555556,5.33333333 Z" id="矩形复制-6" opacity="0.5" transform="translate(16.888889, 11.555556) rotate(-270.000000) translate(-16.888889, -11.555556) "></path>
+                    <rect id="矩形" x="1.25055521e-12" y="10.6666667" width="23.1111111" height="12.4444444" rx="6.22222222"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

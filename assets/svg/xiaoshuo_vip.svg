@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="16px" viewBox="0 0 38 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 2@3x</title>
+    <defs>
+        <linearGradient x1="22.4495498%" y1="44.1757909%" x2="78.2850133%" y2="56.8587106%" id="linearGradient-1">
+            <stop stop-color="#DB4640" offset="0%"></stop>
+            <stop stop-color="#991B16" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="有声主页备份" transform="translate(-186.000000, -385.000000)">
+            <g id="编组-2" transform="translate(186.000000, 385.000000)">
+                <path d="M0,0.962962963 L35.4,0.962962963 C36.8359403,0.962962963 38,2.12702261 38,3.56296296 L38,15.037037 L38,15.037037 L14.0740741,15.037037 C6.30117759,15.037037 9.51905279e-16,8.73585944 0,0.962962963 L0,0.962962963 L0,0.962962963 Z" id="矩形备份-11" fill="url(#linearGradient-1)"></path>
+                <text id="付费" font-family="PingFangSC-Semibold, PingFang SC" font-size="10" font-weight="500" fill="#FFFFFF">
+                    <tspan x="12" y="11">付费</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

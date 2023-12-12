@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="26px" viewBox="0 0 21 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>暂停</title>
+    <desc>Created with Sketch.</desc>
+    <g id="APP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="关注-copy" transform="translate(-216.000000, -640.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="前景色" transform="translate(216.000000, 640.500000)">
+                <path d="M12.4189096,3.08700582 L12.5535317,3.18258707 C12.8619266,3.41290022 13.1297094,3.69369662 13.3453637,4.01345995 L22.4129942,17.4585672 C23.4728748,19.0301143 23.0580871,21.1633078 21.4865401,22.2231884 C20.9195754,22.60556 20.251311,22.8098463 19.5674565,22.8098463 L1.43219555,22.8098463 C-0.46335371,22.8098463 -2,21.2732 -2,19.3776508 C-2,18.6937963 -1.79571365,18.0255319 -1.41334212,17.4585672 L7.65428835,4.01345995 C8.69008074,2.47762987 10.7509536,2.04657673 12.3109075,3.01702263 L12.4189096,3.08700582 Z" id="暂停" transform="translate(10.500000, 12.654923) rotate(-270.000000) translate(-10.500000, -12.654923) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>点赞</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M14.0752351,0 C17.3368724,0 20,2.59867579 20,5.82995951 C20,8.56270397 18.180714,11.3392621 15.1896082,14.0808212 C13.241874,15.8660567 10.5382381,17.7777778 10,17.7777778 C9.45608612,17.7728951 6.75297702,15.8614413 4.80978155,14.0802618 C1.81903125,11.3388685 0,8.56250639 0,5.82995951 C0,2.59867579 2.66312755,0 5.92476489,0 C7.46827687,0 8.9157651,0.585759173 10,1.5973138 C11.0842349,0.585759173 12.5317231,0 14.0752351,0 Z" id="path-1"></path>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#C85A49" offset="0%"></stop>
+            <stop stop-color="#9A1F1F" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="影院和社区" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="社区-首页" transform="translate(-141.000000, -845.000000)">
+            <g id="详情" transform="translate(-1.000000, 456.000000)">
+                <g id="下部" transform="translate(16.000000, 388.000000)">
+                    <g id="点赞" transform="translate(126.000000, 0.000000)">
+                        <g id="icon/首页/右边/点赞">
+                            <rect id="矩形" x="0" y="0" width="20" height="20"></rect>
+                            <g id="前景色/红" stroke-width="1" fill-rule="evenodd" transform="translate(0.000000, 1.111111)">
+                                <g id="icon/首页/右边/点赞">
+                                    <mask id="mask-2" fill="white">
+                                        <use xlink:href="#path-1"></use>
+                                    </mask>
+                                    <use id="点赞" fill="#F81B68" fill-rule="nonzero" xlink:href="#path-1"></use>
+                                    <g id="前景色/按钮渐变" mask="url(#mask-2)" fill="url(#linearGradient-3)">
+                                        <g transform="translate(0.000000, -1.111111)" id="矩形">
+                                            <rect x="0" y="0" width="20" height="20"></rect>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

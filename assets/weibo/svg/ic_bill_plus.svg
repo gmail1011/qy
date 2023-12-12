@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="9.524" height="9.524" viewBox="0 0 9.524 9.524">
+    <defs>
+        <linearGradient id="17gac74qua" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#f7e661"/>
+            <stop offset="1" stop-color="#f5864b"/>
+        </linearGradient>
+    </defs>
+    <g data-name="组 5740" transform="translate(-354.476 -416)">
+        <rect data-name="矩形 43" width="1.905" height="9.524" rx=".952" transform="translate(358.286 416)" style="fill:url(#17gac74qua)"/>
+        <rect data-name="矩形 44" width="1.905" height="9.524" rx=".952" transform="rotate(-90 388.095 33.619)" style="fill:url(#17gac74qua)"/>
+    </g>
+</svg>

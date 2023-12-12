@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>icon/返回</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M8.5981556,0.369107909 L8.61534037,0.38629325 L8.61534037,0.38629325 C9.12732499,0.908019011 9.12731125,1.74362445 8.61530947,2.26533336 L2.986,8 L8.61530947,13.7346666 C9.09317779,14.221595 9.12504765,14.981962 8.71091066,15.5053625 L8.61534037,15.6137067 L8.61534037,15.6137067 L8.5981556,15.6308921 C8.08895252,16.1306207 7.27105178,16.1229402 6.77132316,15.6137371 L6.77132316,15.6137371 L0.384769464,9.10609948 C0.086923492,8.80260659 -0.0376616719,8.39288863 0.0110160054,8.00053056 C-0.0378730669,7.60780706 0.0866706516,7.19765104 0.384769464,6.89390052 L6.77132316,0.386262921 C7.27105178,-0.122940153 8.08895252,-0.130620714 8.5981556,0.369107909 Z" id="path-1"></path>
+    </defs>
+    <g id="影院和社区" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="用户主页2备份" transform="translate(-8.000000, -45.000000)">
+            <g id="icon/返回" transform="translate(8.000000, 45.000000)">
+                <g id="编组-3">
+                    <circle id="椭圆形备份-7" fill="#000000" opacity="0.301502028" cx="15" cy="15" r="15"></circle>
+                    <g id="icon/标题栏/返回" transform="translate(6.500000, 6.000000)">
+                        <rect id="矩形" x="0.5" y="0" width="18" height="18"></rect>
+                    </g>
+                </g>
+                <g id="icon/首页/点赞" transform="translate(9.000000, 7.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="蒙版" fill="#FFFFFF" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

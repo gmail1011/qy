@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="32px" viewBox="0 0 36 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>点赞</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M25.3354232,0 C31.2063704,0 36,4.67761643 36,10.4939271 C36,15.4128672 32.7252853,20.4106718 27.3412947,25.3454782 C23.8353731,28.5589021 18.9688286,32 18,32 C17.020955,31.9912112 12.1553586,28.5505943 8.65760678,25.3444713 C3.27425626,20.4099634 0,15.4125115 0,10.4939271 C0,4.67761643 4.79362959,0 10.6645768,0 C13.4428984,0 16.0483772,1.05436651 18,2.87516484 C19.9516228,1.05436651 22.5571016,0 25.3354232,0 Z" id="path-1"></path>
+    </defs>
+    <g id="组件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/首页/右边/点赞" transform="translate(0.000000, -2.000000)">
+            <g id="前景色/红" transform="translate(0.000000, 2.000000)">
+                <g id="icon/首页/右边/点赞">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="点赞" fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

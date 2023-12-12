@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="55px" viewBox="0 0 55 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Unknown</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="我的备份-7" transform="translate(-152.000000, -620.000000)">
+            <g id="分组" transform="translate(0.000000, 571.000000)">
+                <g id="编组-2" transform="translate(154.000000, 51.000000)">
+                    <g id="Unknown">
+                        <circle id="椭圆形" stroke="#979797" stroke-width="2" cx="25.5" cy="25.5" r="26"></circle>
+                        <g id="删除" transform="translate(25.000000, 18.000000) rotate(-315.000000) translate(-25.000000, -18.000000) translate(13.500000, 6.500000)" fill-rule="nonzero">
+                            <rect id="矩形" fill="#000000" opacity="0" x="4" y="4" width="16" height="16"></rect>
+                            <path d="M13.2267872,11.6256398 L18.8888758,17.2988322 C19.3320839,17.7429089 19.3298463,18.4656902 18.8835411,18.9128708 C18.434124,19.3631702 17.7160202,19.3624457 17.2726613,18.918217 L11.6105727,13.2450246 L5.94848406,18.918217 C5.50527598,19.3622937 4.78390944,19.3600526 4.33760425,18.9128708 C3.88818714,18.4625726 3.88890941,17.7430609 4.33226836,17.2988322 L9.99435695,11.6256398 L4.33226836,5.95244742 C3.88906027,5.50837078 3.89129794,4.78558941 4.33760425,4.33840881 C4.78702138,3.88810942 5.50512513,3.88883398 5.94848406,4.33306262 L11.6105727,10.006255 L17.2726613,4.33306262 C17.7158682,3.88898598 18.4372348,3.89122708 18.8835411,4.33840881 C19.3329582,4.78870706 19.3322348,5.50821878 18.8888758,5.95244742 L13.2267872,11.6256398 L13.2267872,11.6256398 Z" id="路径" fill="#FFFFFF" transform="translate(11.610572, 11.625640) rotate(-315.000000) translate(-11.610572, -11.625640) "></path>
+                        </g>
+                        <text id="审核失败" opacity="0.7" font-family="PingFangSC-Regular, PingFang SC" font-size="10" font-weight="normal" fill="#FFFFFF">
+                            <tspan x="5.5" y="38.5">审核失败</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

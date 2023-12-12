@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="269px" height="361px" viewBox="0 0 269 361" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>视频审核规则 1.视频时长少于30秒不通</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="PingFangSC-Semibold, PingFang SC" font-size="10" font-weight="500" opacity="0.599999964">
+        <g id="发布/审核规则" transform="translate(-27.000000, -204.000000)">
+            <g id="编组-3" transform="translate(16.000000, 183.000000)">
+                <text id="视频审核规则-1.视频时长少于30秒不通">
+                    <tspan x="11" y="30" fill="#FF0000">视频审核规则</tspan>
+                    <tspan x="71" y="30" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000"></tspan>
+                    <tspan x="11" y="44" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">1.视频时长少于30秒不通过审核； </tspan>
+                    <tspan x="11" y="58" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">2.封面模糊不清不通过审核；</tspan>
+                    <tspan x="11" y="72" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">3.视频为横屏视频的不通过审核；</tspan>
+                    <tspan x="11" y="86" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">4.视频内部带有非官方水印的不通过审核；</tspan>
+                    <tspan x="11" y="100" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">5.视频内容与成人主题无关的不通过审核；</tspan>
+                    <tspan x="11" y="114" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">6.视频内容通过手机再录制的不通过审核；</tspan>
+                    <tspan x="11" y="128" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">7.视频内容为上传AV作品的不通过审核；</tspan>
+                    <tspan x="11" y="142" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">8.视频内容有血腥、暴力、政治敏感的不通过审核；</tspan>
+                    <tspan x="11" y="156" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">9.视频预览时出现无法播放的视频不通过审核；</tspan>
+                    <tspan x="11" y="170" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">10.视频内容包含人兽、幼女不通过审核；</tspan>
+                    <tspan x="11" y="184" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">11.视频内容为单男的不通过审核；</tspan>
+                    <tspan x="11" y="198" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000"></tspan>
+                    <tspan x="11" y="212" fill="#FF0000">视频定价规则</tspan>
+                    <tspan x="71" y="212" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000"></tspan>
+                    <tspan x="11" y="226" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">1.视频内容一般的需要设定为免费视频；</tspan>
+                    <tspan x="11" y="240" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">2.视频内容比较观赏性且时长超过30秒定价为1～3金币；</tspan>
+                    <tspan x="11" y="254" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">3.非原创视频内容优质且时长超过1分钟定价为4～7金币；</tspan>
+                    <tspan x="11" y="268" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">4.带官方水印的原创视频可以给到8～10金币；</tspan>
+                    <tspan x="11" y="282" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000"></tspan>
+                    <tspan x="11" y="296" fill="#FF0000">图片审核规则</tspan>
+                    <tspan x="71" y="296" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000"></tspan>
+                    <tspan x="11" y="310" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">1.少于3张的图片不通过</tspan>
+                    <tspan x="11" y="324" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">2.内容不包含有漏点、美感、诱惑、成人主题相关的则不通过</tspan>
+                    <tspan x="11" y="338" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">3.内容带有幼女、人兽、血腥、暴力、政治敏感的不通过</tspan>
+                    <tspan x="11" y="352" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">4.内容模糊不清不通过</tspan>
+                    <tspan x="11" y="366" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">5.作品定价不符合官方规定不通过</tspan>
+                    <tspan x="11" y="380" font-family="PingFangSC-Regular, PingFang SC" font-weight="normal" fill="#000000">6.作品带有非官方水印、或者其他有损官方利益的信息不通过</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

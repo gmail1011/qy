@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 2备份 2</title>
+    <g id="页面3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页/推荐备份-2" transform="translate(-67.000000, -361.000000)">
+            <g id="编组-2备份-2" transform="translate(89.000000, 383.000000) rotate(-90.000000) translate(-89.000000, -383.000000) translate(67.000000, 361.000000)">
+                <circle id="椭圆形" fill="#000000" opacity="0.28" cx="22" cy="22" r="22"></circle>
+                <rect id="矩形" stroke="#FFFFFF" stroke-width="2" x="10" y="10" width="15.1111111" height="24" rx="2"></rect>
+                <path d="M27.7788478,10.2777778 L33.5666262,10.2777778 C34.5484658,10.2777778 35.344404,11.0268961 35.344404,11.9509804 L35.344404,22.8267974 C35.344404,23.7508817 34.5484658,24.5 33.5666262,24.5 L27.7788478,24.5" id="路径" stroke="#FFFFFF" stroke-width="2" opacity="0.497093564" stroke-linecap="round"></path>
+                <rect id="矩形" fill="#FFFFFF" x="15.3333333" y="30" width="4.44444444" height="1.77777778" rx="0.888888889"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

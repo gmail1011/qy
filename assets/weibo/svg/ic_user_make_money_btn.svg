@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="87" height="20" viewBox="0 0 87 20">
+    <defs>
+        <linearGradient id="159y7o3zna" x1=".884" y1=".5" x2=".134" y2=".5" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fe7f0f"/>
+            <stop offset="1" stop-color="#ea8b25"/>
+        </linearGradient>
+    </defs>
+    <rect width="87" height="20" rx="10" style="fill:url(#159y7o3zna)"/>
+    <text transform="translate(42.281 14.5)" style="fill:#fff;font-size:12px;font-family:PingFangHK-Medium,PingFang HK;font-weight:500;letter-spacing:-.024em"><tspan x="-23.566" y="0">立即赚钱</tspan></text>
+</svg>

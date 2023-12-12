@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="87" height="35" viewBox="0 0 87 35">
+    <defs>
+        <linearGradient id="2y7ftoe6ha" x1=".781" y1=".116" x2=".149" y2=".88" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#ff7f0f"/>
+            <stop offset="1" stop-color="#e38825"/>
+        </linearGradient>
+    </defs>
+    <rect width="87" height="35" rx="17.5" style="fill:url(#2y7ftoe6ha)"/>
+    <text transform="translate(14 9.5)" style="fill:#fff;font-size:11px;font-family:PingFangSC-Heavy,PingFang SC;font-weight:800;letter-spacing:-.024em"><tspan x="14.235" y="12">做任务</tspan></text>
+</svg>
