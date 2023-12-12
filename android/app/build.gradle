@@ -74,9 +74,9 @@ android {
   defaultConfig {
     minSdkVersion 21
     targetSdkVersion 29
-    applicationId "com.pf.hjelys"
+    applicationId "com.pf.hjsq2024"
     manifestPlaceholders =
-        [appName: "91猎奇", icon: "@mipmap/ic_launcher", round: "@mipmap/ic_launcher"]
+        [appName: "海角社区", icon: "@mipmap/ic_launcher", round: "@mipmap/ic_launcher"]
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -89,7 +89,7 @@ android {
         if (buildType.name == 'release') {
           def createTime = new Date().format("MM-dd-HH-mm", TimeZone.getTimeZone("GMT+08:00"))
           // app包名称
-          outputFileName = "91猎奇" + defaultConfig.versionName + "_" + defaultConfig.versionCode + "_" + createTime + ".apk"
+          outputFileName = "海角社区" + defaultConfig.versionName + "_" + defaultConfig.versionCode + "_" + createTime + ".apk"
         }
       }
   }
