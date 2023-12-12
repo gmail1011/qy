@@ -197,11 +197,11 @@ class _InitedAppState extends State<InitedApp>
             splashColor: Colors.transparent,
             appBarTheme: AppBarTheme(
               iconTheme: IconThemeData(color: Colors.white),
-              color: Colors.transparent,
+              color: Colors.black,
               elevation: 0,
               textTheme: TextTheme(
                 headline6:
-                    TextStyle(color: Colors.white, fontSize: Dimens.pt18),
+                    TextStyle(color: Colors.white, fontSize: Dimens.pt18, fontWeight: FontWeight.w500),
               ),
               brightness: Brightness.dark,
             ),

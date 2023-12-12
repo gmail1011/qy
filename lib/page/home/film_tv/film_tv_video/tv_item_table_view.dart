@@ -9,7 +9,6 @@ import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/local_router/jump_router.dart';
 import 'package:flutter_app/model/ads_model.dart';
 import 'package:flutter_app/model/tags_detail_entity.dart';
-import 'package:flutter_app/model/video_model.dart';
 import 'package:flutter_app/page/home/film_tv/film_tv_video/video_cell_widget.dart';
 import 'package:flutter_app/page/home/film_tv/film_tv_video_detail/page.dart';
 import 'package:flutter_app/page/tag/liaoba_tag_detail/page.dart';
@@ -161,11 +160,7 @@ class _TVItemTableViewState extends State<TVItemTableView> {
             Map<String, dynamic> maps = Map();
             maps["videoId"] = list[0]?.id;
             maps['sectionID'] = item.sectionID;
-
-
-            VideoModel videos  = VideoModel.fromJson(list[0].toJson());
-            maps["videoModel"] = videos;
-
+            // maps["sectionId"] = list[0].;
             Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps),
                 opaque: false);
           },
@@ -201,10 +196,6 @@ class _TVItemTableViewState extends State<TVItemTableView> {
                       Map<String, dynamic> maps = Map();
                       maps["videoId"] = list[index + 1]?.id;
                       maps['sectionID'] = item.sectionID;
-
-                      VideoModel videos  = VideoModel.fromJson(list[index + 1].toJson());
-                      maps["videoModel"] = videos;
-
                       Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps),
                           opaque: false);
                     },
@@ -234,11 +225,6 @@ class _TVItemTableViewState extends State<TVItemTableView> {
               Map<String, dynamic> maps = Map();
               maps["videoId"] = list[index]?.id;
               maps['sectionID'] = item.sectionID;
-
-
-              VideoModel videos  = VideoModel.fromJson(list[index].toJson());
-              maps["videoModel"] = videos;
-
               Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps),
                   opaque: false);
             },
@@ -273,10 +259,6 @@ class _TVItemTableViewState extends State<TVItemTableView> {
               Map<String, dynamic> maps = Map();
               maps["videoId"] = list[index]?.id;
               maps['sectionID'] = item.sectionID;
-
-              VideoModel videos  = VideoModel.fromJson(list[index].toJson());
-              maps["videoModel"] = videos;
-
               Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps),
                   opaque: false);
             },
@@ -312,12 +294,6 @@ class _TVItemTableViewState extends State<TVItemTableView> {
               Map<String, dynamic> maps = Map();
               maps["videoId"] = list[index]?.id;
               maps['sectionID'] = item.sectionID;
-
-
-              VideoModel videos  = VideoModel.fromJson(list[index].toJson());
-              maps["videoModel"] = videos;
-
-
               Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps),
                   opaque: false);
             },
@@ -354,11 +330,6 @@ class _TVItemTableViewState extends State<TVItemTableView> {
             Map<String, dynamic> maps = Map();
             maps["videoId"] = list[index]?.id;
             maps['sectionID'] = item.sectionID;
-
-
-            VideoModel videos  = VideoModel.fromJson(list[index].toJson());
-            maps["videoModel"] = videos;
-
             Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps),
                 opaque: false);
           },

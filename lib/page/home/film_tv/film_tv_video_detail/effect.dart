@@ -23,6 +23,7 @@ import 'package:flutter_app/new_page/recharge/recharge_gold_page.dart';
 import 'package:flutter_app/new_page/recharge/recharge_vip_page.dart';
 import 'package:flutter_app/new_page/welfare/SpecialWelfareHomePage.dart';
 import 'package:flutter_app/new_page/welfare/welfare_view_task.dart';
+import 'package:flutter_app/page/home/mine/history/history_record_util.dart';
 import 'package:flutter_app/page/home/post/vipPop_banner_widget.dart';
 import 'package:flutter_app/page/video/player_util.dart';
 import 'package:flutter_app/utils/analyticsEvent.dart';
@@ -78,14 +79,13 @@ Effect<FilmTvVideoDetailState> buildEffect() {
 
 ///请求视频信息
 void _initState(Action action, Context<FilmTvVideoDetailState> ctx) async {
-
-  ctx.state.tabController =
-      TabController(length: 2, vsync: ScrollableState());
-
   //如果当前是缓存视频
-  if (ctx.state.viewModel != null) {
+  if ((ctx.state.isCacheVideo ?? false) && ctx.state.viewModel != null) {
     await _adsCountdown(action, ctx);
     _initVideoPlayer(ctx);
+    ctx.state.tabController =
+        TabController(length: 2, vsync: ScrollableState());
+
     ctx.state.tabController.addListener(() {
       debugPrint("ewe23ewfefe");
     });
@@ -131,26 +131,24 @@ void _initState(Action action, Context<FilmTvVideoDetailState> ctx) async {
 
     ctx.state.videoId = viewModel.id;
 
-    _refreshVideoDetail(action, ctx, isSwitchVideo: true, newModel: value);
+    _refreshVideoDetail(action, ctx, isSwitchVideo: true);
 
   });
 }
 
 ///刷新视频列表
 void _refreshVideoDetail(Action action, Context<FilmTvVideoDetailState> ctx,
-    {bool isSwitchVideo = false, VideoModel newModel}) async {
+    {bool isSwitchVideo = false}) async {
   try {
     String videoId = ctx.state.videoId ?? "";
-    if (videoId.isEmpty && newModel == null) {
+    if (videoId.isEmpty) {
       return;
     }
     ctx.state.baseRequestController?.requesting();
-    if(newModel == null) {
-      var data = await netManager.client.getVideoDetail(videoId, ctx.state.sectionId);
-      newModel =  VideoModel.fromJson(data.toJson());
-    }
-    if (newModel != null) {
-      ctx.state.viewModel = newModel;
+    var data =
+        await netManager.client.getVideoDetail(videoId, ctx.state.sectionId);
+    if (data != null) {
+      ctx.state.viewModel = VideoModel.fromJson(data.toJson());
       await _adsCountdown(action, ctx);
 
       if(isSwitchVideo){
@@ -177,8 +175,6 @@ void _refreshVideoDetail(Action action, Context<FilmTvVideoDetailState> ctx,
     } else {
       ctx.state.baseRequestController?.requestFail();
     }
-
-    ctx.dispatch(FilmTvVideoDetailActionCreator.updateUI());
   } catch (e) {
     l.e("getVideoDetail-error:", "$e");
     ctx.state.baseRequestController?.requestFail();
@@ -339,15 +335,13 @@ void _initVideoPlayer(
   int inSeconds,
 }) async {
   try {
-   // _saveVideoHistoryCache(ctx);
+    _saveVideoHistoryCache(ctx);
 
     ///播放次数判断
     await _playCount(ctx);
 
     String videoUrl = CacheServer().getLocalUrl(ctx.state.viewModel?.sourceURL);
     ctx.state.videoPlayerController = VideoPlayerController.network(videoUrl);
-    int curT =  DateTime.now().millisecondsSinceEpoch;
-
     await ctx.state.videoPlayerController?.initialize();
 
     ctx.state.chewieController = ChewieController(
@@ -397,7 +391,7 @@ void _initVideoPlayer(
         );
       },
     );
-    ctx.dispatch(FilmTvVideoDetailActionCreator.updateUI());
+
     ///是否重载视频
     bool isReloadVideo = (inSeconds ?? 0) > 0;
 
@@ -457,7 +451,7 @@ void _initVideoPlayer(
           ///弹出金币购买提示框
           l.d("--------->", "弹出金币购买提示框");
           // _showGoldcoinBuyDialog(ctx);
-          //妻友社区逻辑
+          //91猎奇逻辑
           _hjllUpdateVideoBuyVideo(ctx);
         }
         if ((ctx.state.videoPlayerController?.value?.position?.inSeconds ??
@@ -473,7 +467,7 @@ void _initVideoPlayer(
           ///弹出VIP购买弹出框
           l.d("--------->", "弹出VIP购买弹出框");
           // _showVipBuyDialog(ctx, false);
-          //妻友社区逻辑
+          //91猎奇逻辑
           _hjllUpdateVideoBuyVip(ctx);
         }
       }
@@ -626,7 +620,7 @@ _hjllBuyVip(Action action, Context<FilmTvVideoDetailState> ctx) {
       VipPopUpsType.vip);
 }
 
-///妻友社区购买金币视频
+///91猎奇购买金币视频
 _hjllBuyCoinVideo(Action action, Context<FilmTvVideoDetailState> ctx) async {
   bool buySuccess = await _buyProduct(ctx.context, ctx.state.viewModel);
   if (buySuccess) {
@@ -1163,6 +1157,9 @@ void _dispose(Action action, Context<FilmTvVideoDetailState> ctx) {
     ///发送观看记录
     sendRecord(ctx.state.videoPlayerController.value.position,
         ctx.state.videoPlayerController.value.duration, ctx.state.viewModel);
+  }
+  if(ctx.state.viewModel != null) {
+    HistoryRecordUtil.insertVideoModel(ctx.state.viewModel);
   }
 }
 

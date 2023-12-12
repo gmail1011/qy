@@ -649,10 +649,6 @@ Widget buildView(
                                             Map<String, dynamic> maps = Map();
                                             maps["videoId"] = state
                                                 .tagMovieBean.list[index].id;
-
-                                            maps["videoModel"] = state
-                                                .tagMovieBean.list[index];
-
                                             Gets.Get.to(
                                                 FilmTvVideoDetailPage()
                                                     .buildPage(maps),

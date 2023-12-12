@@ -159,6 +159,7 @@ Widget buildView(
 
                       ///倒计时功能
                       TimerCountDownWidget(
+                        phoneController: state.phoneController,
                         onTimerStart: () {
                           dispatch(InitialBindPhoneActionCreator
                               .sendNotificationSMSCode());

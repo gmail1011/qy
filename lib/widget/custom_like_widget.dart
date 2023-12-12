@@ -31,7 +31,7 @@ class LikeWidget extends StatefulWidget {
   final String likeIconPath; //喜欢图标
   final String unlikeIconPath; //不喜欢图标
   final Color likeCountColor; //喜欢人数字体颜色
-
+  final bool noShowCount;
   LikeWidget({
     Key key,
     this.isLike = false,
@@ -44,6 +44,7 @@ class LikeWidget extends StatefulWidget {
     this.likeCountColor = Colors.white,
     this.likeIconPath = "assets/weibo/comment_liked.png",
     this.unlikeIconPath = "assets/weibo/comment_unlike.png",
+    this.noShowCount = false,
   }) : super(key: key);
 
   @override
@@ -102,6 +103,7 @@ class _LikeWidgetState extends State<LikeWidget> {
                   Padding(
                     padding: EdgeInsets.only(top: Dimens.pt5),
                   ),
+                  if(widget.noShowCount != true)
                   Text(
                     "${numCoverStr(likeCount)}",
                     style: TextStyle(color: widget.likeCountColor, fontSize: 12.nsp),
@@ -125,6 +127,7 @@ class _LikeWidgetState extends State<LikeWidget> {
                   Padding(
                     padding: EdgeInsets.only(left: 12.w, top: 4.w),
                   ),
+                  if(widget.noShowCount != true)
                   Text("${numCoverStr(likeCount ?? 0)}", style: TextStyle(color: widget.likeCountColor, fontSize: 12.nsp))
                 ],
               ),

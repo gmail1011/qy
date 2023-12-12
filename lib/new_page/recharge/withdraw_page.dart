@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/config/address.dart';
 import 'package:flutter_app/common/manager/cs_manager.dart';
@@ -360,7 +361,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
     return FullBg(
       child: Scaffold(
         appBar: CustomAppbar(
-          title: "代理提现",
+          title: "立即提现",
           actions: [
             InkWell(
                 onTap: () {
@@ -378,48 +379,53 @@ class _WithdrawPageState extends State<WithdrawPage> {
         body: BaseRequestView(
           controller: requestController,
           retryOnTap: () => _initData(),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    Container(
-                      width: 343,
-                      height: 102,
-                      color: Color.fromRGBO(255, 255, 255, 0.1),
-                    ),
-                    Positioned(
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      Container(
+                        width: 343,
+                        height: 102,
+                        color: Color.fromRGBO(255, 255, 255, 0.1),
+                      ),
+                      Positioned(
                         top: 12,
                         left: 0,
-                        child: Image.asset(
-                          "assets/images/blue_dot.png",
+                        child: Container(
                           width: 8,
                           height: 22,
-                        )),
-                    Positioned(
-                        top: 14,
-                        left: 18,
-                        child: Text(
-                          "余额(元)",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        )),
-                    Positioned(
-                        top: 45,
-                        left: 26,
-                        child: Text(
-                          GlobalStore.getWallet().income == null
-                              ? 0
-                              : "${GlobalStore.getWallet().income ~/ 10}",
-                          style: TextStyle(color: Colors.white, fontSize: 32),
-                        )),
-                  ],
-                ),
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryTextColor,
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(4), bottomRight: Radius.circular(4)),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                          top: 14,
+                          left: 18,
+                          child: Text(
+                            "余额(元)",
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          )),
+                      Positioned(
+                          top: 45,
+                          left: 26,
+                          child: Text(
+                            GlobalStore.getWallet().income == null
+                                ? 0
+                                : "${GlobalStore.getWallet().income ~/ 10}",
+                            style: TextStyle(color: Colors.white, fontSize: 32),
+                          )),
+                    ],
+                  ),
 
-                /*Container(
+                  /*Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -432,222 +438,37 @@ class _WithdrawPageState extends State<WithdrawPage> {
                           Text(
                             "${(wallet?.income ?? 0) ~/ 10}",
                             style: const TextStyle(
-                                color: const Color(0xff61d3be), fontWeight: FontWeight.w900, fontSize: 20.0),
+                                color: const Color(0xffca452e), fontWeight: FontWeight.w900, fontSize: 20.0),
                           )
                         ],
                       ),
                     ),*/
 
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    Text(
-                      "提现币类 :  ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    Text(
-                      "人民币",
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.6),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    Text(
-                      "提现金额 :  ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    Container(
-                      height: 36,
-                      width: 250,
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(2)),
-                          color: const Color(0xff202733)),
-                      child: TextField(
-                        controller: moneyController,
-                        maxLines: 1,
-                        autocorrect: true,
-                        autofocus: false,
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                            textBaseline: TextBaseline.alphabetic),
-                        decoration: InputDecoration(
-                          hintStyle:
-                              TextStyle(color: Color(0xff434c55), fontSize: 14),
-                          hintText: "请输入${_getPayMoneyRange()}范围内的值",
-                          border: InputBorder.none,
-                        ),
-                        onChanged: (value) => _calcWithdrawAmount(value),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    Text(
-                      "提现方式 :  ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          "assets/images/yinlian.png",
-                          width: 30,
-                          height: 30,
-                          fit: BoxFit.cover,
-                        ),
-                        SizedBox(width: 6),
-                        Text(
-                          "银行卡",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Radio(
-                          value: selectMap["alipay"],
-                          activeColor: Color.fromRGBO(0, 214, 190, 1),
-                          focusColor: Color(0xFF4F515A),
-                          onChanged: (value) {
-
-                            selectMap["alipay"] = 0;
-
-                            selectMap["usdt"] = 1;
-
-                            setState(() {
-
-                            });
-
-                          },
-                          groupValue: 0,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          "assets/images/usdt.png",
-                          width: 30,
-                          height: 30,
-                          fit: BoxFit.cover,
-                        ),
-                        SizedBox(width: 6),
-                        Text(
-                          "USDT",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Radio(
-                          value: selectMap["usdt"],
-                          activeColor: Color.fromRGBO(0, 214, 190, 1),
-                          focusColor: Color(0xFF4F515A),
-                          onChanged: (value) {
-
-                            selectMap["alipay"] = 1;
-
-                            selectMap["usdt"] = 0;
-
-                            setState(() {
-
-                            });
-
-                          },
-                          groupValue: 0,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 16),
-
-
-                Offstage(
-                  offstage: selectMap["alipay"] == 0 ? false : true,
-                  child: Row(
+                  SizedBox(height: 16),
+                  Row(
                     children: [
                       Text(
-                        "银行卡号 :  ",
+                        "提现币类 :  ",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      InkWell(
-                        onTap: () async {
-                          await Gets.Get.to(() => BankCardHomePage(true),
-                                  opaque: false)
-                              .then((value) => setState(() {
-                                    bankCard = value;
-                                  }));
-                        },
-                        child: Container(
-                          height: 36,
-                          width: 250,
-                          padding: EdgeInsets.only(left: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(2)),
-                              color: const Color(0xff202733)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                bankCard == null
-                                    ? "请选择提现账号"
-                                    : "${bankCard.act}-${bankCard.actName}",
-                                style: TextStyle(
-                                    color: bankCard == null
-                                        ? Color(0xff434c55)
-                                        : Colors.white,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14.0),
-                              ),
-                              Icon(Icons.keyboard_arrow_right,
-                                  color: Colors.white, size: 20),
-                            ],
-                          ),
+                      Text(
+                        "人民币",
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.6),
+                          fontSize: 14,
                         ),
                       ),
                     ],
                   ),
-                ),
-
-
-
-
-                Offstage(
-                  offstage: selectMap["usdt"] == 0 ? false : true,
-                  child: Row(
+                  SizedBox(height: 16),
+                  Row(
                     children: [
                       Text(
-                        "USDT地址 :  ",
+                        "提现金额 :  ",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -661,9 +482,9 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(2)),
-                            color: const Color(0xff202733)),
+                            color: const Color(0xff242424)),
                         child: TextField(
-                          controller: usdtController,
+                          controller: moneyController,
                           maxLines: 1,
                           autocorrect: true,
                           autofocus: false,
@@ -673,130 +494,317 @@ class _WithdrawPageState extends State<WithdrawPage> {
                               textBaseline: TextBaseline.alphabetic),
                           decoration: InputDecoration(
                             hintStyle:
-                            TextStyle(color: Color(0xff434c55), fontSize: 14),
-                            hintText: "请输入USDT地址",
+                            TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 14),
+                            hintText: "请输入${_getPayMoneyRange()}范围内的值",
                             border: InputBorder.none,
                           ),
-                          /*onChanged: (value) => _calcWithdrawAmount(value),*/
+                          onChanged: (value) => _calcWithdrawAmount(value),
                         ),
                       ),
                     ],
                   ),
-                ),
-
-
-
-
-
-                SizedBox(height: 20),
-                RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                      style: const TextStyle(
-                          color: const Color(0xffffffff),
-                          fontWeight: FontWeight.w900,
-                          fontSize: 12.0),
-                      text: "合计扣除"),
-                  TextSpan(
-                      style: const TextStyle(
-                          color: const Color(0xff61d3be),
-                          fontWeight: FontWeight.w900,
-                          fontSize: 12.0),
-                      text: "$handlingFee元"),
-                  TextSpan(
-                      style: const TextStyle(
-                          color: const Color(0xffffffff),
-                          fontWeight: FontWeight.w900,
-                          fontSize: 12.0),
-                      text: "\t实际到账:"),
-                  TextSpan(
-                      style: const TextStyle(
-                          color: const Color(0xff61d3be),
-                          fontWeight: FontWeight.w900,
-                          fontSize: 12.0),
-                      text: "$actualAmount元")
-                ])),
-                SizedBox(height: 10),
-                SizedBox(height: 20),
-                Text(
-                  "提现规则：",
-                  style: const TextStyle(
-                      color: const Color(0xffffffff),
-                      fontWeight: FontWeight.w900,
-                      fontSize: 12.0),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "1、每次提现金额最低${(configData?.channels == null ? 0 : configData?.channels[withdrawType].minMoney ?? 0) ~/ 100}元起，"
-                  "单笔提现最大${(configData?.channels == null ? 0 : configData?.channels[withdrawType].maxMoney ?? 0) ~/ 100}元，且为整数。\n"
-                  "2、每次提现收取15%手续费。\n"
-                  "3、收款账户卡号和姓名必须一致,为避免恶意刷单,到账时间为T+15天 \n"
-                  "4、银行卡每次提现最低200元起,USDT每次提现最低2000元起 \n",
-                  style: const TextStyle(
-                      color: Color.fromRGBO(153, 153, 153, 1),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.0,
-                      height: 1.7),
-                ),
-
-                SizedBox(height: 46,),
-
-                InkWell(
-                  onTap: () => selectMap["alipay"] == 0 ? _submitWithdraw() : _submitWithdrawForUsdt(),
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
-                    height: 47,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(26)),
-                        gradient: AppColors.linearBackGround),
-                    child: Center(
-                      child: // 确定
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Text(
+                        "提现方式 :  ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            "assets/images/yinlian.png",
+                            width: 30,
+                            height: 30,
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(width: 6),
                           Text(
-                        "确定",
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.0),
+                            "银行卡",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Radio(
+                            value: selectMap["alipay"],
+                            activeColor: Color(0xffca452e),
+                            focusColor: Color(0xFF4F515A),
+                            onChanged: (value) {
+
+                              selectMap["alipay"] = 0;
+
+                              selectMap["usdt"] = 1;
+
+                              setState(() {
+
+                              });
+
+                            },
+                            groupValue: 0,
+                            materialTapTargetSize:
+                            MaterialTapTargetSize.shrinkWrap,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            "assets/images/usdt.png",
+                            width: 30,
+                            height: 30,
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(width: 6),
+                          Text(
+                            "USDT",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Radio(
+                            value: selectMap["usdt"],
+                            activeColor: Color(0xffca452e),
+                            focusColor: Color(0xFF4F515A),
+                            onChanged: (value) {
+
+                              selectMap["alipay"] = 1;
+
+                              selectMap["usdt"] = 0;
+
+                              setState(() {
+
+                              });
+
+                            },
+                            groupValue: 0,
+                            materialTapTargetSize:
+                            MaterialTapTargetSize.shrinkWrap,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 16),
+
+
+                  Offstage(
+                    offstage: selectMap["alipay"] == 0 ? false : true,
+                    child: Row(
+                      children: [
+                        Text(
+                          "银行卡号 :  ",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            await Gets.Get.to(() => BankCardHomePage(true),
+                                opaque: false)
+                                .then((value) => setState(() {
+                              bankCard = value;
+                            }));
+                          },
+                          child: Container(
+                            height: 36,
+                            width: 250,
+                            padding: EdgeInsets.only(left: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(2)),
+                                color: const Color(0xff242424)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  bankCard == null
+                                      ? "请选择提现账号"
+                                      : "${bankCard.act}-${bankCard.actName}",
+                                  style: TextStyle(
+                                      color: bankCard == null
+                                          ?  Colors.white.withOpacity(0.6)
+                                          : Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14.0),
+                                ),
+                                Icon(Icons.keyboard_arrow_right,
+                                    color: Colors.white.withOpacity(0.6), size: 20),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+
+
+
+                  Offstage(
+                    offstage: selectMap["usdt"] == 0 ? false : true,
+                    child: Row(
+                      children: [
+                        Text(
+                          "USDT地址 :  ",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Container(
+                          height: 36,
+                          width: 240,
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(2)),
+                              color: const Color(0xff242424)),
+                          child: TextField(
+                            controller: usdtController,
+                            maxLines: 1,
+                            autocorrect: true,
+                            autofocus: false,
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                textBaseline: TextBaseline.alphabetic),
+                            decoration: InputDecoration(
+                              hintStyle:
+                              TextStyle(color:  Colors.white.withOpacity(0.6), fontSize: 14),
+                              hintText: "请输入USDT地址",
+                              border: InputBorder.none,
+                            ),
+                            /*onChanged: (value) => _calcWithdrawAmount(value),*/
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+
+
+
+
+                  SizedBox(height: 20),
+                  RichText(
+                      text: TextSpan(children: [
+                        TextSpan(
+                            style: const TextStyle(
+                                color: const Color(0xffffffff),
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12.0),
+                            text: "合计扣除"),
+                        TextSpan(
+                            style: const TextStyle(
+                                color: const Color(0xffca452e),
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12.0),
+                            text: "$handlingFee元"),
+                        TextSpan(
+                            style: const TextStyle(
+                                color: const Color(0xffffffff),
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12.0),
+                            text: "\t实际到账:"),
+                        TextSpan(
+                            style: const TextStyle(
+                                color: const Color(0xffca452e),
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12.0),
+                            text: "$actualAmount元")
+                      ])),
+                  SizedBox(height: 10),
+                  SizedBox(height: 20),
+                  Text(
+                    "提现规则：",
+                    style: const TextStyle(
+                        color: const Color(0xffffffff),
+                        fontWeight: FontWeight.w900,
+                        fontSize: 12.0),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "1、每次提现金额最低${(configData?.channels == null ? 0 : configData?.channels[withdrawType].minMoney ?? 0) ~/ 100}元起，"
+                        "单笔提现最大${(configData?.channels == null ? 0 : configData?.channels[withdrawType].maxMoney ?? 0) ~/ 100}元，且为整数。\n"
+                        "2、每次提现收取15%手续费。\n"
+                        "3、收款账户卡号和姓名必须一致,为避免恶意刷单,到账时间为T+15天 \n"
+                        "4、银行卡每次提现最低200元起,USDT每次提现最低2000元起 \n",
+                    style: const TextStyle(
+                        color: Color.fromRGBO(153, 153, 153, 1),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.0,
+                        height: 1.7),
+                  ),
+
+                  SizedBox(height: 46,),
+
+                  InkWell(
+                    onTap: () => selectMap["alipay"] == 0 ? _submitWithdraw() : _submitWithdrawForUsdt(),
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 20),
+                      height: 47,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(26)),
+                          gradient: AppColors.linearBackGround),
+                      child: Center(
+                        child: // 确定
+                        Text(
+                          "确定提现",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18),
+                        ),
                       ),
                     ),
                   ),
-                ),
 
 
 
-                Row(
-                  children: [
-                    Text(
-                      "提现将在15个工作日内到账，如未收到，请联系",
-                      style: const TextStyle(
-                          color: Color.fromRGBO(227, 227, 227, 1),
-                          fontSize: 12.0),
-                    ),
-
-
-                    SizedBox(width: 6,),
-
-
-                    GestureDetector(
-                      onTap: (){
-                        csManager.openServices(context);
-                      },
-                      child: Text(
-                        "在线客服",
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "提现将在15个工作日内到账，如未收到，请联系",
                         style: const TextStyle(
-                            color: Color.fromRGBO(0, 214, 190, 1),
+                            color: Color.fromRGBO(227, 227, 227, 1),
                             fontSize: 12.0),
                       ),
-                    ),
 
 
-                  ],
-                ),
+                      SizedBox(width: 6,),
 
 
-                SizedBox(height: 20,),
+                      GestureDetector(
+                        onTap: (){
+                          csManager.openServices(context);
+                        },
+                        child: Text(
+                          "在线客服",
+                          style: const TextStyle(
+                              color: Color(0xffca452e),
+                              fontSize: 12.0),
+                        ),
+                      ),
 
-              ],
+
+                    ],
+                  ),
+
+
+                  SizedBox(height: 20,),
+
+                ],
+              ),
             ),
           ),
         ),

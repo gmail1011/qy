@@ -79,9 +79,6 @@ class _HotListWMPageState extends State<HotListWMPage> {
                                 onTap: () {
                                   Map<String, dynamic> maps = Map();
                                   maps["videoId"] = item.id;
-
-                                  maps['videoModel'] = item;
-
                                   Gets.Get.to(
                                       () => FilmTvVideoDetailPage()
                                           .buildPage(maps),

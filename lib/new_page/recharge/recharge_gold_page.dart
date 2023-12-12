@@ -111,16 +111,16 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
           ],
         ),
         body: Column(children: [
-
-          SizedBox(height: 10,),
-
+          SizedBox(
+            height: 10,
+          ),
           Container(
             height: 48,
             padding: EdgeInsets.symmetric(horizontal: 20),
             margin: EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(24)),
-              color: const Color.fromRGBO(31, 32, 49, 1),
+              color: const Color.fromRGBO(32, 32, 32, 1),
             ),
             child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Text(
@@ -164,9 +164,9 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
               )
             ]),
           ),
-
-          SizedBox(height: 13,),
-
+          SizedBox(
+            height: 13,
+          ),
           Expanded(
             child: Container(
               child: BaseRequestView(
@@ -184,10 +184,7 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 128 / 152),
+                              crossAxisCount: 3, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: 128 / 152),
                           itemCount: rechargeType.length ?? 0,
                           itemBuilder: (BuildContext context, int index) {
                             return _buildGoldItemView(index, rechargeType[index]);
@@ -200,9 +197,7 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
           ),
           Container(
             height: 120,
-            decoration: BoxDecoration(
-
-                color: const Color.fromRGBO(27, 28, 33, 1)),
+            decoration: BoxDecoration(color: const Color.fromRGBO(27, 28, 33, 1)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -227,9 +222,9 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
                     child: Center(
                       child: // 立即支付 ¥****
                           Text(
-                        "立即支付 ￥${selectItem == null ? 0 : selectItem.money ~/ 100}",
+                        "￥${selectItem == null ? 0 : selectItem.money ~/ 100} /立即支付",
                         style: const TextStyle(
-                          color:Colors.black,
+                          color: Colors.white,
                           fontWeight: FontWeight.w600,
                           fontSize: 16.0,
                         ),
@@ -245,14 +240,13 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
                       text: TextSpan(children: [
                     TextSpan(
                         style: const TextStyle(
-                          color: const Color(0xffffffff),
-                          fontWeight: FontWeight.w400,
+                          color: const Color(0xffbfbfbf),
                           fontSize: 12.0,
                         ),
                         text: "支付问题反馈，点击联系在"),
                     TextSpan(
                         style: const TextStyle(
-                          color: const Color(0xff61d3be),
+                          color: const Color(0xffe5c892),
                           fontWeight: FontWeight.w400,
                           fontSize: 12.0,
                         ),
@@ -268,8 +262,8 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
   }
 
   Widget _buildGoldItemView(int index, RechargeTypeModel item) {
-    var textColor = selectItem.id != item.id ? Colors.white : Colors.white;
-
+    bool isSelected = selectItem.id == item.id;
+    var textColor = isSelected ? Color(0xff211211) : Color(0xffcccccc);
     return InkWell(
       onTap: () {
         setState(() {
@@ -278,71 +272,69 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
       },
       child: Container(
         height: 151,
+        padding: EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          border: Border.all(width: 1,color: item.id == selectItem.id ? AppColors.primaryTextColor : Color.fromRGBO(22, 21, 42, 1), ),
+          // border: Border.all(width: 1,color: item.id == selectItem.id ? AppColors.primaryTextColor : Color.fromRGBO(32, 32, 32, 1), ),
           gradient: LinearGradient(
-              begin: Alignment.topCenter, end: Alignment.bottomCenter,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
               colors: item.id == selectItem.id
                   ? [
-              const Color.fromRGBO(12, 10, 10, 1),
-              const Color.fromRGBO(0, 214, 190, 1),
+                      Color.fromRGBO(250, 227, 208, 1),
+                      Color.fromRGBO(238, 199, 178, 1),
+                      Color.fromRGBO(239, 202, 181, 1),
                     ]
                   : [
-              const Color.fromRGBO(22, 21, 42, 1),
-            const Color.fromRGBO(22, 21, 42, 1),
+                      Color.fromRGBO(32, 32, 32, 1),
+                      Color.fromRGBO(32, 32, 32, 1),
                     ]),
         ),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-
-
-          SizedBox(height: 10,),
-
-
-          Image.asset("assets/images/ic_gold.png",width: 40,height: 40,),
-
-          SizedBox(height: 10,),
-
-          Text(
-            "${item.amount}金币",
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w400,
-              fontSize: 14.0,
-            ),
-          ),
-
-          SizedBox(height: 4,),
-
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
             Text(
-              "¥ ",
+              "${item.amount}金币",
               style: TextStyle(
                 color: textColor,
-                fontWeight: FontWeight.w600,
-                fontSize: 16.0,
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
               ),
-            ), // 300
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              children: [
+                Text(
+                  "¥ ",
+                  style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                ), // 300
+                Text(
+                  "${item.money ~/ 100}",
+                  style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 28,
+                  ),
+                ),
+              ],
+            ),
             Text(
-              "${item.money ~/ 100}人民币",
+              "${item.money ~/ 100 * 10}",
               style: TextStyle(
-                color: textColor,
-                fontWeight: FontWeight.w600,
-                fontSize: 12.0,
+                color: isSelected ? Color(0xff783427) : Color(0xff999999),
+                fontWeight: FontWeight.w500,
+                decoration: TextDecoration.lineThrough,
+                decorationColor: textColor,
+                fontSize: 16,
               ),
             ),
-          ]),
-         /* Text(
-            "￥${item.money ~/ 100 * 10}",
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.w200,
-              decoration: TextDecoration.lineThrough,
-              decorationColor: textColor,
-              fontSize: 20.0,
-            ),
-          )*/
-        ]),
+          ],
+        ),
       ),
     );
   }

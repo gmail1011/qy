@@ -129,15 +129,15 @@ Future<String> showPayForConfirmDialog(BuildContext context) {
       return Dialog(
         backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        child: SizedBox(
+        child: Container(
           width: Dimens.pt308,
+          decoration: BoxDecoration(
+            color: Color(0xff2e2e2e),
+            borderRadius: BorderRadius.circular(10)
+          ),
           child: Stack(
             alignment: Alignment.topCenter,
             children: [
-              Image(
-                  image: AssetImage(AssetsImages.BG_PAY_FOR_SUCCEESS),
-                  width: Dimens.pt308,
-                  height: Dimens.pt450),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -165,7 +165,7 @@ Future<String> showPayForConfirmDialog(BuildContext context) {
                     child: Text.rich(
                       TextSpan(
                           style: TextStyle(
-                              color: Color(0xff425453),
+                              color: Colors.white,
                               fontSize: Dimens.pt13,
                               height: 1.4),
                           text: "1.支付成功后，一般会在",
@@ -173,13 +173,13 @@ Future<String> showPayForConfirmDialog(BuildContext context) {
                             TextSpan(
                                 text: '1～10分钟到账',
                                 style: TextStyle(
-                                    color: AppColors.primaryTextColor,
+                                    color: Colors.white,
                                     fontSize: Dimens.pt13,
                                     fontWeight: FontWeight.normal)),
                             TextSpan(
                               text: "，如超时未到账，请联系在线客服为你处理。",
                               style: TextStyle(
-                                  color: Color(0xff425453),
+                                  color: Colors.white,
                                   fontSize: Dimens.pt13,
                                   height: 1.4),
                             ),
@@ -195,7 +195,7 @@ Future<String> showPayForConfirmDialog(BuildContext context) {
                       style: TextStyle(
                         fontSize: Dimens.pt13,
                         height: 1.4,
-                        color: Color(0xff425453),
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -208,7 +208,7 @@ Future<String> showPayForConfirmDialog(BuildContext context) {
                       style: TextStyle(
                         fontSize: Dimens.pt13,
                         height: 1.4,
-                        color: Color(0xff425453),
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -223,7 +223,7 @@ Future<String> showPayForConfirmDialog(BuildContext context) {
                       child: Text(
                         "支付遇到问题？",
                         style: TextStyle(
-                          color: Color(0xff425453),
+                          color: Colors.white,
                           fontSize: 13,
                           decoration: TextDecoration.underline,
                         ),
@@ -245,9 +245,9 @@ Future<String> showPayForConfirmDialog(BuildContext context) {
                         gradient: AppColors.linearBackGround),
                     child: FlatButton(
                       child: Text(
-                        "支付成功",
+                        "确认支付成功",
                         style: TextStyle(
-                          color: Color(0xffffffff),
+                          color: Colors.white,
                           fontSize: 13,
                         ),
                       ),

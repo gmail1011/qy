@@ -58,7 +58,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
 
                               clearAllCache();
 
-                              List tabList = ['首页', '暗网', '社区', '我的'];
+                              List tabList = ['首页', '猎奇', '社区', '我的'];
                               if (state.currentIndex == index) {
                                 return;
                               }

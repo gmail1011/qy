@@ -46,14 +46,6 @@ Effect<FilmVideoIntroductionState> buildEffect() {
 void _initState(Action action, Context<FilmVideoIntroductionState> ctx) async {
   ctx.state.dataReq = true;
 
-  ///获取广告
-  List<AdsInfoBean> list = await getAdvByType(7);
-  ctx.state.adsList = (list ?? []);
-
-  _refreshData(action, ctx);
-
-  //ctx.dispatch(FilmVideoIntroductionActionCreator.updateUI());
-
   for(int i=0;i<Address.cdnAddressLists.length;i++){
     DomainInfo domainInfo = Address.cdnAddressLists[i];
     PopModel popModel =PopModel(
@@ -64,6 +56,12 @@ void _initState(Action action, Context<FilmVideoIntroductionState> ctx) async {
   }
   ctx.state.domainInfo = Address.currentDomainInfo;
   CacheServer().setSelectLine(ctx.state.domainInfo.url);
+
+  ///获取广告
+  List<AdsInfoBean> list = await getAdvByType(7);
+  ctx.state.adsList = (list ?? []);
+  _refreshData(action, ctx);
+
 
   FBroadcast.instance().register(VariableConfig.refreshVideoInfo, (value, callback) {
 
@@ -108,14 +106,11 @@ void _refreshData(
       ctx.state.videoList.addAll(works.list);
     }
     ctx.state.refreshController?.refreshCompleted(resetFooterState: true);
-
-    ctx.dispatch(FilmVideoIntroductionActionCreator.updateUI());
-
   } catch (e) {
     l.e("getRecommandVideoList-error:", "$e");
     ctx.state.refreshController?.refreshFailed();
   }
-
+  ctx.dispatch(FilmVideoIntroductionActionCreator.updateUI());
 }
 
 ///请求加载更多数据

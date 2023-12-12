@@ -18,7 +18,7 @@ class HjllPublishPostViewWidget extends StatelessWidget {
        padding: EdgeInsets.only(top: 17),
        decoration: BoxDecoration(
          borderRadius: BorderRadius.only(topLeft: Radius.circular(7),topRight:  Radius.circular(7)),
-         color: Color.fromRGBO(34, 34, 34, 1),
+         color: Color.fromRGBO(31, 31, 31, 1),
        ),
        child: Column(
          children: [

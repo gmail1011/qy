@@ -117,7 +117,7 @@ class _HjllPostSelectModuelPageState extends State<HjllPostSelectModuelPage> {
                             width: 408,
                             height: 70,
                             decoration: BoxDecoration(
-                              color: Color.fromRGBO(32, 39, 51, 1),
+                              color: Color.fromRGBO(32, 32, 32, 1),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Row(

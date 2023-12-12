@@ -27,7 +27,7 @@ Widget buildView(
             ),
             const SizedBox(height: 15),
             Text(
-              "妻友社区",
+              "91猎奇",
               style: TextStyle(color: Colors.white, fontSize: Dimens.pt21),
             ),
             const SizedBox(height: 5),
@@ -38,7 +38,7 @@ Widget buildView(
             ),
             const SizedBox(height: 9),
             Text(
-              "©妻友社区 版权所有",
+              "©91猎奇 版权所有",
               style: TextStyle(
                   color: Colors.white.withOpacity(0.85), fontSize: Dimens.pt13),
             ),

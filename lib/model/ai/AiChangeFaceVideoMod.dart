@@ -1,3 +1,5 @@
+import 'package:flutter_app/global_store/store.dart';
+
 class AiChangeFaceVideoMod {
   AiChangeFaceVideoMod({
       this.id, 
@@ -37,6 +39,12 @@ class AiChangeFaceVideoMod {
   int moduleType;
   int hotValue;
   String hotMark;
+  int get realCoin {
+    if(GlobalStore.isVIP()){
+      return vipCoin;
+    }
+    return coin;
+  }
   int coin;
   int vipCoin;
 

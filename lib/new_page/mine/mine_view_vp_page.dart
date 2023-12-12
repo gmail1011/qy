@@ -65,7 +65,6 @@ class _MineViewVPPageState extends State<MineViewVPPage> with TickerProviderStat
 
     return FullBg(
       child: Scaffold(
-        backgroundColor: Color(0xff0d0e1e),
         appBar: CustomAppbar(
           title: title,
           actions: [
@@ -99,7 +98,8 @@ class _MineViewVPPageState extends State<MineViewVPPage> with TickerProviderStat
                 child: HJCustomTabBar(
                   ["视频", "帖子"],
                   _controller,
-                  isSearchStyle: true,
+                  bgColor: Colors.transparent,
+                  selectedColor: Color(0xff202020),
                 ),
               ),
             Expanded(

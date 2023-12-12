@@ -6,6 +6,7 @@ import 'awards_model.dart';
 class CommentModel {
   String id;
   String objID;
+  String cid;//只在消息评论中用
   int userID;
   String userName;
   String userPortrait;
@@ -36,6 +37,7 @@ class CommentModel {
   bool haveMoreData = false;// true 可加载下一页回复
   int replyPageIndex = 1;
   List<ReplyModel> info = [];
+  bool isTop;
   List<ReplyModel> get replyList{
     if(info?.isNotEmpty == true) {
       if (haveMoreData || !isShowReply) {
@@ -48,7 +50,11 @@ class CommentModel {
   }
   bool isShowReply = true; // true展开回复， false 收起回复
   bool get hasMoreReply{ // 有多条回复
+    return commCount > 1;
     return (haveMoreData || (info?.length ?? 0) > 1) && info?.isNotEmpty == true;
+  }
+  bool get hasSubComment {
+    return haveMoreData == true || (info.length ?? 0) > 1;
   }
   int age;
   int level;
@@ -65,12 +71,38 @@ class CommentModel {
   bool superUser;
   int merchantUser;
   bool isGodComment;
+  bool isOpen = false;
+  bool get isShowOpen { // 显示展开
+    //haveMoreData == false && isOpen == true && isRequestReply == false;
+    return haveMoreData == true || isOpen == false || isRequestReply == true;
+  }
+  List<ReplyModel> get replyInfoArr {
+    if(isShowCloseReplyMsg){
+      return info ?? [];
+    }else {
+      if(info.isNotEmpty == true) {
+        return info.sublist(0, 1);
+      }
+      return [];
+    }
+
+  }
+  bool get isShowCloseReplyMsg { // 显示收起
+    return isOpen == true;
+  }
+
+  bool get isShowOpenReplyMsg { // 显示收起
+    return !(isOpen == true && haveMoreData == false);
+  }
 
   static CommentModel fromJson(Map<String, dynamic> map) {
     if (map == null) return null;
     CommentModel commentModelBean = CommentModel();
     commentModelBean.isGodComment = map['isGodComment'];
+
+    commentModelBean.isTop = map['isTop'];
     commentModelBean.id = map['id'];
+    commentModelBean.cid = map['cid'];
     commentModelBean.objID = map['objID'];
     commentModelBean.userID = map['userID'];
     commentModelBean.userName = map['userName'];

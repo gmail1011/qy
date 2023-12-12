@@ -101,7 +101,7 @@ class _HjlSearchPostResultPageState extends State<HjlSearchPostResultPage> {
               refreshController: refreshController,
               enablePullDown: true,
               child:  ListView.builder(
-                padding: EdgeInsets.only(left: 10, right: 10),
+                padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return WordImageWidgetForHjll(
                     videoModel: videoList[index],

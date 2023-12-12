@@ -277,9 +277,6 @@ Widget buildView(
                                 state.commonPostResHotVideo.list[index].id;
 
                             bus.emit(EventBusUtils.closeActivityFloating);
-
-                            maps["videoModel"] = state.commonPostResHotVideo.list[index];
-
                             Gets.Get.to(
                                     () => FilmTvVideoDetailPage().buildPage(maps),
                                 opaque: false)

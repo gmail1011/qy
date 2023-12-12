@@ -123,24 +123,32 @@ class _ShareVideoDialog extends State<ShareVideoView> with TickerProviderStateMi
         padding: EdgeInsets.fromLTRB(16, 24, 16, 27),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(199, 255, 249, 1),
-              Colors.white,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+          color: Color(0xff2e2e2e),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildHeaderUI(),
-            CustomNetworkImage(
-              imageUrl: widget.videoModel?.cover,
+            Container(
               height: 150,
-              fit: BoxFit.cover,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  CustomNetworkImage(
+                    imageUrl: widget.videoModel?.cover,
+                    height: 150,
+                    fit: BoxFit.cover,
+                  ),
+                  Center(
+                    child: Image.asset(
+                      "assets/images/share_player.png",
+                      width: 25,
+                      height: 28,
+                    ),
+                  )
+                ],
+              ),
             ),
             SizedBox(height: 12),
             Column(
@@ -154,27 +162,36 @@ class _ShareVideoDialog extends State<ShareVideoView> with TickerProviderStateMi
                       color: Colors.white,
                       child: QrImage(
                         data: widget.userData.promoteURL,
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.all(2),
                       ),
                     ),
                     SizedBox(width: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "@${widget.videoModel?.publisher?.name}", //_getPublisherName(),
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          widget.contentDesc ?? "${widget.videoModel.title}",
-                          softWrap: true,
-                          maxLines: 3,
-                          style: TextStyle(fontSize: 10, color: Color.fromRGBO(0, 0, 0, 0.6)),
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "@${widget.videoModel?.publisher?.name}", //_getPublisherName(),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            widget.contentDesc ?? "${widget.videoModel.title}",
+                            softWrap: true,
+                            maxLines: 3,
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white.withOpacity(0.6),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -182,7 +199,7 @@ class _ShareVideoDialog extends State<ShareVideoView> with TickerProviderStateMi
                 Text.rich(TextSpan(children: [
                   TextSpan(
                     text: "每邀请",
-                    style: TextStyle(color: Color(0xff151515), fontSize: 12),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                   TextSpan(
                     text: "1人",
@@ -190,7 +207,7 @@ class _ShareVideoDialog extends State<ShareVideoView> with TickerProviderStateMi
                   ),
                   TextSpan(
                     text: "送",
-                    style: TextStyle(color: Color(0xff151515), fontSize: 12),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                   TextSpan(
                     text: "1天",
@@ -198,11 +215,11 @@ class _ShareVideoDialog extends State<ShareVideoView> with TickerProviderStateMi
                   ),
                   TextSpan(
                     text: "畅享观影\n",
-                    style: TextStyle(color: Color(0xff151515), fontSize: 12),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                   TextSpan(
                     text: "被邀请充值最高",
-                    style: TextStyle(color: Color(0xff151515), fontSize: 12),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                   TextSpan(
                     text: "返利76%",
@@ -212,54 +229,58 @@ class _ShareVideoDialog extends State<ShareVideoView> with TickerProviderStateMi
                 SizedBox(height: 16),
                 Row(
                   children: [
-                    Expanded(child: GestureDetector(
-                      onTap: () {
-                        _onCopyLink();
-                      },
-                      child: Container(
-                        width: 100,
-                        height: 38,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(19),
-                          color: Color(0xffbebebe),
-                        ),
-                        child: Text(
-                          "复制链接",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          _onCopyLink();
+                        },
+                        child: Container(
+                          width: 100,
+                          height: 38,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(19),
+                            color: Colors.white.withOpacity(0.3),
+                          ),
+                          child: Text(
+                            "复制链接",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),),
+                    ),
                     SizedBox(width: 16),
-                    Expanded(child: GestureDetector(
-                      onTap: () {
-                        _onSaveImg();
-                      },
-                      child: Container(
-                        width: 100,
-                        height: 38,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(19),
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromRGBO(97, 254, 238, 1),
-                              Color.fromRGBO(1, 214, 190, 1),
-                            ],
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          _onSaveImg();
+                        },
+                        child: Container(
+                          width: 100,
+                          height: 38,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(19),
+                            gradient: LinearGradient(
+                              colors: [
+                                Color(0xffca452e),
+                                Color(0xffca452e),
+                              ],
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          "保存图片",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
+                          child: Text(
+                            "保存图片",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),),
+                    ),
                   ],
                 ),
               ],
@@ -292,13 +313,19 @@ Widget _buildHeaderUI() {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("妻友社区",
+                Text("91猎奇",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 12,
                     )),
                 SizedBox(height: 3),
-                Text("最大认证换妻平台", style: TextStyle(color: Colors.black.withOpacity(0.6), fontSize: 12)),
+                Text(
+                  "最大认证换妻平台",
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.6),
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ],

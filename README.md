@@ -4,7 +4,7 @@ flutter_base 依赖 flutter_base 是做代码下沉的，适陪于各个项目
 $ git submodule init
 $ git submodule update
 
-YS短视频
+91猎奇
 
 一、主要插件如下：
 1､fish_redux 闲魚框架，让你的代码更多、更大、更强

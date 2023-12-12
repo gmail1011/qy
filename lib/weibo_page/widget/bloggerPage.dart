@@ -248,8 +248,8 @@ class BloggerPageState extends State<BloggerPage> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(13),
                                 gradient: LinearGradient(colors: [
-                                   Color.fromRGBO(100, 255, 239, 1),
-                                   Color.fromRGBO(0, 214, 190, 1)
+                                   Color(0xffca452e),
+                                   Color(0xffca452e)
                                 ])),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -318,8 +318,8 @@ class BloggerPageState extends State<BloggerPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("${userInfo?.fansCountDesc??"0"}粉丝",style: TextStyle(color: Color.fromRGBO(172, 186, 191, 1),fontSize: 12),),
-                        (publisher==null || publisher?.upTag == null || publisher.upTag == "")?SizedBox():  Text("${publisher.upTag }",style: TextStyle(color: Color.fromRGBO(172, 186, 191, 1),fontSize: 12),),
+                        Text("${userInfo?.fansCountDesc??"0"}粉丝",style: TextStyle(color: Color(0xffc0c1d0),fontSize: 12),),
+                        (publisher==null || publisher?.upTag == null || publisher.upTag == "")?SizedBox():  Text("${publisher.upTag }",style: TextStyle(color: Color(0xffc0c1d0),fontSize: 12),),
                         (publisher==null || publisher?.upTag == null || publisher.upTag == "")?SizedBox():Image.asset("assets/weibo/ic_uptag.png",width: 20,height: 20),
                       ],
                     ),
@@ -328,14 +328,14 @@ class BloggerPageState extends State<BloggerPage> {
                 Container(
                   width: 88,
                   height: 32,
-                  margin: EdgeInsets.only(left: 10),
+                  margin: EdgeInsets.only(left: 10, top: 16, bottom: 16),
                   alignment: Alignment.center,
                   child: Text("帖子(${userInfo?.collectionCount})",style: TextStyle(color: Color.fromRGBO(172, 186, 191, 1),fontSize: 12),),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                   color: Color.fromRGBO(22, 30, 44, 1),
+                   color: Color.fromRGBO(32, 32, 32, 1),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -350,11 +350,11 @@ class BloggerPageState extends State<BloggerPage> {
               _refreshData();
             },
             child: ListView.builder(
-              padding: EdgeInsets.only(left: 10,right: 10),
               itemCount: (videos==null)?0:videos.length,
               itemBuilder: (context, index) {
                 return WordImageWidgetForHjll(
                   videoModel:videos[index],
+                  padding: EdgeInsets.only(left: 10, right: 10, top: 12),
                   showLeftLine: false,
                   showPostTimeText:true,
                   hideTopUserInfo: true,

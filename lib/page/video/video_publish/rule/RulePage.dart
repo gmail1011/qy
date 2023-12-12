@@ -35,7 +35,7 @@ class RulePageState extends State<RulePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "欢迎优秀的您加入妻友社区，我们珍视每一位UP主，始终致力于为大家带来最优质的产品与服务。您的作品在妻友社区的售卖无时间、次数限制，销售的次数越多，获得的收入就会越多。无论您是在睡觉还是在工作，它们都将持续为您带来源源不断的收入。",
+                  "欢迎优秀的您加入91猎奇，我们珍视每一位UP主，始终致力于为大家带来最优质的产品与服务。您的作品在91猎奇的售卖无时间、次数限制，销售的次数越多，获得的收入就会越多。无论您是在睡觉还是在工作，它们都将持续为您带来源源不断的收入。",
                   style: _contentTextStyle,
                 ),
                 const SizedBox(height: 16),

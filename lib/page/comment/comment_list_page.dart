@@ -65,7 +65,7 @@ class CommentListPage extends StatefulWidget {
     this.hasHeader = false,
     this.canScroll = true,
     this.footerComment = true,
-    this.needReplay = false,
+    this.needReplay = true,
     this.isVideoDetail = false,
     this.dataFinishCallback,
     this.isSliver = false,
@@ -440,7 +440,7 @@ class CommentListState extends State<CommentListPage> {
                     margin: EdgeInsets.only(left: Dimens.pt12, right: Dimens.pt12),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color.fromRGBO(44, 44, 44, 1),
+                      color: Color.fromRGBO(32, 32, 32, 1),
                     ),
                     child: Row(
                       children: [
@@ -636,6 +636,12 @@ class CommentListState extends State<CommentListPage> {
     String time = showDateDesc(commentModel.createdAt);
     //外部点击事件
     return GestureDetector(
+      onTap: () {
+        ///点击评论进行回复
+        if (widget.needReplay ?? false) {
+          showInput(parentIndex: index);
+        }
+      },
       child: Container(
         padding: EdgeInsets.fromLTRB(Dimens.pt10, Dimens.pt5, Dimens.pt10, Dimens.pt5),
         child: Stack(
@@ -712,10 +718,17 @@ class CommentListState extends State<CommentListPage> {
                                 ),
                                 if (widget.needReplay ?? false)
                                   Text(
-                                    "       回复",
+                                    "       ",
                                     style: TextStyle(color: Color.fromRGBO(124, 135, 159, 1), fontSize: 12.nsp),
                                   ),
                                 Spacer(),
+                                Image.asset(
+                                  "assets/weibo/icon_hjll_comment.png",
+                                  width: 20,
+                                  height: 20,
+                                  color: Color(0xFFBBBCBB),
+                                ),
+                                SizedBox(width: 16),
                                 LikeWidget(
                                   isLike: commentModel.isLike,
                                   width: Dimens.pt20,
@@ -727,6 +740,7 @@ class CommentListState extends State<CommentListPage> {
                                   // AssetsSvg.IC_COMMENT_UNLIKE,
                                   padding: EdgeInsets.all(Dimens.pt5),
                                   likeCount: commentModel.likeCount,
+                                  noShowCount: true,
                                   scrollDirection: Axis.horizontal,
                                   callback: (isLike) {
                                     Map<String, dynamic> map = {};
@@ -774,13 +788,13 @@ class CommentListState extends State<CommentListPage> {
                           maps['count'] = commentList[index].replyList.length;
                           maps['openOrClose'] = 2; //关闭二级
                           maps['bigCount'] = bigCount;
-                          widget.commentResult(maps);
+                          widget.commentResult?.call(maps);
                         } else {
                           Map<String, dynamic> maps = Map();
                           maps['count'] = commentList[index].replyList.length;
                           maps['openOrClose'] = 1; //打开二级
                           maps['bigCount'] = bigCount;
-                          widget.commentResult(maps);
+                          widget.commentResult?.call(maps);
                         }
                         setState(() {});
                       }
@@ -833,12 +847,6 @@ class CommentListState extends State<CommentListPage> {
           ],
         ),
       ),
-      onTap: () {
-        ///点击评论进行回复
-        if (widget.needReplay ?? false) {
-          showInput(parentIndex: index);
-        }
-      },
     );
   }
 
@@ -984,7 +992,7 @@ class CommentListState extends State<CommentListPage> {
               )),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 16.w),
+              padding: EdgeInsets.only(left: 16.w)
             ),
             Expanded(
               flex: 1,
@@ -1032,41 +1040,53 @@ class CommentListState extends State<CommentListPage> {
                     SizedBox(height: 8.w),
                     _getContentView(replyModel),
                     SizedBox(height: 4.w),
-                    Container(
-                      margin: EdgeInsets.only(right: 14.w),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        showDateDesc(replyModel.createdAt) == ""
-                            ? DateUtil.formatDateStr(replyModel.createdAt, format: "yyyy-MM-dd HH:mm:ss").trim()
-                            : "${showDateDesc(replyModel.createdAt)}" + "       回复",
-                        style: TextStyle(color: Color.fromRGBO(124, 135, 159, 1), fontSize: 12.nsp),
-                      ),
-                    ),
+                    Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(right: 14.w),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            showDateDesc(replyModel.createdAt) == ""
+                                ? DateUtil.formatDateStr(replyModel.createdAt, format: "yyyy-MM-dd HH:mm:ss").trim()
+                                : "${showDateDesc(replyModel.createdAt)}" + "       ",
+                            style: TextStyle(color: Color.fromRGBO(124, 135, 159, 1), fontSize: 12.nsp),
+                          ),
+                        ),
+                        Spacer(),
+                        Image.asset(
+                          "assets/weibo/icon_hjll_comment.png",
+                          width: 20,
+                          height: 20,
+                          color: Color(0xFFBBBCBB),
+                        ),
+                        SizedBox(width: 16),
+                        Container(
+                          child: LikeWidget(
+                            isLike: replyModel.isLike ?? false,
+                            width: Dimens.pt20,
+                            height: Dimens.pt15,
+                            likeCountColor: Color(0xFFBBBCBB),
+                            likeIconPath: "assets/images/thumb_liked.png",
+                            // AssetsSvg.IC_COMMENT_LIKE,
+                            unlikeIconPath: "assets/images/thumb_like_border.png",
+                            // AssetsSvg.IC_COMMENT_UNLIKE,
+                            padding: EdgeInsets.all(Dimens.pt5),
+                            likeCount: replyModel.likeCount ?? 0,
+                            scrollDirection: Axis.horizontal,
+                            noShowCount: true,
+                            callback: (isLike) {
+                              if (replyModel.isLike) {
+                                _cancelLike(parentIndex, childIndex: childIndex);
+                              } else {
+                                _sendLike(parentIndex, childIndex: childIndex);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 40.w),
-              child: LikeWidget(
-                isLike: replyModel.isLike ?? false,
-                width: Dimens.pt20,
-                height: Dimens.pt15,
-                likeCountColor: Color(0xFFBBBCBB),
-                likeIconPath: "assets/images/thumb_liked.png",
-                // AssetsSvg.IC_COMMENT_LIKE,
-                unlikeIconPath: "assets/images/thumb_like_border.png",
-                // AssetsSvg.IC_COMMENT_UNLIKE,
-                padding: EdgeInsets.all(Dimens.pt5),
-                likeCount: replyModel.likeCount ?? 0,
-                scrollDirection: Axis.horizontal,
-                callback: (isLike) {
-                  if (replyModel.isLike) {
-                    _cancelLike(parentIndex, childIndex: childIndex);
-                  } else {
-                    _sendLike(parentIndex, childIndex: childIndex);
-                  }
-                },
               ),
             ),
           ],
@@ -1123,6 +1143,9 @@ class CommentListState extends State<CommentListPage> {
       for (CommentModel commentModel in commentListRes.list) {
         if (commentModel.commCount > 0 ?? false) {
           bigCount += 1;
+        }
+        if ((commentModel.commCount ?? 0) > 1) {
+          commentModel.haveMoreData = true;
         }
         commentModel.replyPageIndex = 1;
         commentList.add(commentModel);

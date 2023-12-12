@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/config/address.dart';
 import 'package:flutter_app/common/net/code.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
@@ -82,17 +83,21 @@ class _BankCardAddPageState extends State<BankCardAddPage> {
             InkWell(
               onTap: () => _onAddBankCard(cardCodeController.text),
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 20,horizontal: 16),
+                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
                 height: 47,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    gradient: LinearGradient(colors: [const Color(0xff84a4f9), const Color(0xff2b5dde)])),
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                  color: AppColors.primaryTextColor,
+                ),
                 child: Center(
                   child: // 确定
                       Text(
                     "确定",
                     style: const TextStyle(
-                        color: const Color(0xffffffff), fontWeight: FontWeight.w600, fontSize: 14.0),
+                      color: const Color(0xffffffff),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
@@ -106,20 +111,18 @@ class _BankCardAddPageState extends State<BankCardAddPage> {
   Widget _buildInputWidget(String title, TextEditingController controller) {
     return Container(
       height: 70,
-      margin: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title,
-              style: const TextStyle(
-                  color: const Color(0xffffffff), fontWeight: FontWeight.w900, fontSize: 12.0),
+              style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w900, fontSize: 12.0),
               textAlign: TextAlign.center),
           SizedBox(height: 10),
           Container(
             height: 42,
             padding: EdgeInsets.only(left: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(2)), color: const Color(0xff202733)),
+            decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(2)), color: const Color(0xff212121)),
             child: TextField(
               controller: controller,
               maxLines: 1,

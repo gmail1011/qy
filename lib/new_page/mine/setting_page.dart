@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/assets/lang.dart';
@@ -106,45 +107,54 @@ class _SettingPageState extends State<SettingPage> {
                       ],
                     ),
                   ),
-
-                  _subItemView(
-                    context: context,
-                    title: "昵称",
-                    subTitle: meInfo?.name ?? "",
-                    onTap: () async {
-                      if (!GlobalStore.isRechargeVIP()) {
-                        showVipLevelDialog(context, Lang.VIP_LEVEL_DIALOG_MSG4);
-                        return;
-                      }
-                      await Gets.Get.to(MineUpdateNamePage(), opaque: false).then((value) => _loadUserInfo());
-                    },
-                  ),
-                  _subItemView(
-                    context: context,
-                    title: "账号安全",
-                    subTitle: "",
-                    onTap: () async {
-                      Gets.Get.to(AccountSafePage(), opaque: false);
-                    },
-                  ),
-                  _subItemView(
-                    context: context,
-                    title: "清除缓存",
-                    subTitle: cacheSize ?? "",
-                    onTap: () async {
-                      await clearCacheIfNeed(force: true);
-                      String _size = await loadCache();
-                      setState(() {
-                        cacheSize = _size;
-                      });
-                      showToast(msg: Lang.CLEAN_CACHE_SUCCESS);
-                    },
-                  ),
-                  _subItemView(
-                    context: context,
-                    title: Lang.VERSION_UPGRADE,
-                    subTitle: "${Lang.VERSION_NAME} v${Config.innerVersion}",
-                    onTap: () => _onGetVersion(),
+                  SizedBox(height: 36),
+                  Container(
+                    color: Color(0xff242424),
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _subItemView(
+                          context: context,
+                          title: "昵称",
+                          subTitle: meInfo?.name ?? "",
+                          onTap: () async {
+                            if (!GlobalStore.isRechargeVIP()) {
+                              showVipLevelDialog(context, Lang.VIP_LEVEL_DIALOG_MSG4);
+                              return;
+                            }
+                            await Gets.Get.to(MineUpdateNamePage(), opaque: false).then((value) => _loadUserInfo());
+                          },
+                        ),
+                        _subItemView(
+                          context: context,
+                          title: "账号安全",
+                          subTitle: "",
+                          onTap: () async {
+                            Gets.Get.to(AccountSafePage(), opaque: false);
+                          },
+                        ),
+                        _subItemView(
+                          context: context,
+                          title: "清除缓存",
+                          subTitle: cacheSize ?? "",
+                          onTap: () async {
+                            await clearCacheIfNeed(force: true);
+                            String _size = await loadCache();
+                            setState(() {
+                              cacheSize = _size;
+                            });
+                            showToast(msg: Lang.CLEAN_CACHE_SUCCESS);
+                          },
+                        ),
+                        _subItemView(
+                          context: context,
+                          title: Lang.VERSION_UPGRADE,
+                          subTitle: "${Lang.VERSION_NAME} v${Config.innerVersion}",
+                          onTap: () => _onGetVersion(),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -188,7 +198,10 @@ class _SettingPageState extends State<SettingPage> {
         child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Color(0xff212121))),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

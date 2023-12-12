@@ -22,7 +22,7 @@ class HjllSearchWidget extends StatelessWidget {
             width: 328,
             height: 36,
             decoration: BoxDecoration(
-              color: Color.fromRGBO(32, 39, 51, 1),
+              color: Color.fromRGBO(20, 20, 20, 1),
               borderRadius: BorderRadius.circular(21),
             ),
             child: Row(
@@ -31,9 +31,9 @@ class HjllSearchWidget extends StatelessWidget {
                 svgAssets(AssetsSvg.IC_SEARCH,
                     height: 17,
                     width: 17,
-                    color: Color.fromRGBO(67, 76, 85, 1)),
+                    color: Color.fromRGBO(110, 110, 122, 1)),
                 SizedBox(width: 10,),
-                Text("输入你搜索的关键字",style: TextStyle(color: Color.fromRGBO(67, 76, 85, 1),fontSize: 14),),
+                Text("输入你搜索的关键字",style: TextStyle(color: Color(0xff666666),fontSize: 14),),
               ],
             ),
           ),

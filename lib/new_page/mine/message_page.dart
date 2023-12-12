@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/assets/svg.dart';
@@ -29,6 +30,10 @@ import 'package:get/route_manager.dart' as Gets;
 
 ///消息中心
 class MessagePage extends StatefulWidget {
+
+  final bool isShowAppbar;
+
+  const MessagePage({Key key, this.isShowAppbar = true}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _MessagePageState();
@@ -53,23 +58,6 @@ class _MessagePageState extends State<MessagePage> {
       _getPersonalMessage();
     });
   }
-
-  // /// 获取
-  // _getMessageType() async {
-  //   try {
-  //     MessageTypeModel messageTypeModel =
-  //         await netManager.client.getNoticeTypeList();
-  //
-  //     messageModelList.addAll(messageTypeModel.noticePreList);
-  //     requestController.requestSuccess();
-  //   } catch (e) {
-  //     l.e('getNoticeTypeList==', e.toString());
-  //     requestController.requestFail();
-  //   }
-  //   setState(() {
-  //
-  //   });
-  // }
 
   _getPersonalMessage({int page = 1}) async {
     try {
@@ -98,7 +86,7 @@ class _MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return FullBg(
       child: Scaffold(
-        appBar: CustomAppbar(title: "消息中心"),
+        appBar: widget.isShowAppbar == true ? CustomAppbar(title: "消息中心") : null,
         body: _buildContent(),
       ),
     );
@@ -293,7 +281,8 @@ class _MessagePageState extends State<MessagePage> {
       child: Container(
         color: Colors.transparent,
         margin: EdgeInsets.only(left: 6, right: 6, bottom: 19),
-        child: Stack(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               children: [
@@ -378,8 +367,14 @@ class _MessagePageState extends State<MessagePage> {
                 ),
               ],
             ),
+            SizedBox(height: 8),
+            Container(
+              margin: EdgeInsets.only(left: 58),
+              height: 1,
+              color: Color(0xff333333),
+            ),
           ],
-        ),
+        )
       ),
     );
   }

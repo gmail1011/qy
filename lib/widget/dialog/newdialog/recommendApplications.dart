@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/assets/app_colors.dart';
@@ -43,7 +45,7 @@ class RecommendApplication extends StatelessWidget {
                 ),
               ),
               GridView.builder(
-                  itemCount: officeConfigList.length,
+                  itemCount: min(9, officeConfigList.length),
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3, //每行三列

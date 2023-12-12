@@ -1,13 +1,16 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_app/assets/app_colors.dart';
 
 class HJCustomTabBar extends StatefulWidget {
   List<String> tabs;
   TabController controller;
   bool isSearchStyle;
-  HJCustomTabBar(this.tabs, this.controller, {this.isSearchStyle = false});
+  Color selectedColor;
+  Color bgColor;
+  HJCustomTabBar(this.tabs, this.controller, {this.isSearchStyle = false, this.selectedColor, this.bgColor});
 
   @override
   State<StatefulWidget> createState() {
@@ -32,8 +35,18 @@ class _HJCustomTabBarState extends State<HJCustomTabBar>
 
   @override
   Widget build(BuildContext context) {
-    if(widget.isSearchStyle){
-      return _buildSearchStyle();
+    if(widget.isSearchStyle == true){
+      return Container(
+        width: 148,
+        height: 30,
+        margin: EdgeInsets.only(left: 8),
+        padding: EdgeInsets.only(top: 2),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+            color: widget.bgColor ??  Color(0xff1a1a1a)
+        ),
+        child: _buildSearchStyle(),
+      );
     }
     return Container(
       width: 160,
@@ -42,6 +55,7 @@ class _HJCustomTabBarState extends State<HJCustomTabBar>
       padding: EdgeInsets.only(top: 2),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(16)),
+          color: widget.bgColor ??  Color(0xff1a1a1a)
           ),
       child: TabBar(
         labelPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 2),
@@ -55,10 +69,10 @@ class _HJCustomTabBarState extends State<HJCustomTabBar>
 
   Widget _buildSearchStyle() {
     return Row(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildSearchTabItem(0),
-        _buildSearchTabItem(1),
+        Expanded(child: _buildSearchTabItem(0),),
+        Expanded(child: _buildSearchTabItem(1),),
       ],
     );
   }
@@ -69,10 +83,10 @@ class _HJCustomTabBarState extends State<HJCustomTabBar>
         widget.controller.index = index;
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: index == _tabIndex ? Color(0xff1f2030) : Colors.transparent,
+          color: index == _tabIndex ? AppColors.primaryTextColor : Colors.transparent,
         ),
         child: Text(widget.tabs[index], style: TextStyle(
           color: index == _tabIndex ?  Colors.white : Color(0xff999999),
@@ -92,13 +106,13 @@ class _HJCustomTabBarState extends State<HJCustomTabBar>
           decoration: index == i
               ? BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(16)),
-                  color: Color.fromRGBO(31, 32, 49, 1))
+                  color: widget.selectedColor ?? AppColors.primaryTextColor,)
               : BoxDecoration(color: Colors.transparent),
           child: Center(
             child: Text(
               widget.tabs[i],
               style: TextStyle(
-                  color: index == i ? Color(0xffffffff) : Color(0xffacbabf),
+                  color: index == i ? Color(0xffffffff) : Color(0xff999999),
                   fontWeight: FontWeight.w700,
                   fontStyle: FontStyle.normal,
                   fontSize: 12.0),

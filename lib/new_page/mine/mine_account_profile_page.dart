@@ -123,15 +123,15 @@ class _MineAccountProfilePageState extends State<MineAccountProfilePage> {
             borderRadius: BorderRadius.circular(25),
             gradient: LinearGradient(
               colors: [
-                Color.fromRGBO(97, 254, 238, 1),
-                Color.fromRGBO(1, 214, 190, 1),
+                AppColors.primaryTextColor,
+                AppColors.primaryTextColor,
               ],
             ),
           ),
           child: Text(
             btnTxt,
             style: TextStyle(
-              color: Color(0xff211211),
+              color: Colors.white,
               fontWeight: FontWeight.w500,
               fontSize: 18,
             ),
@@ -197,7 +197,7 @@ class _MineAccountProfilePageState extends State<MineAccountProfilePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "妻友社区ID:",
+                  "91猎奇ID:",
                   style: TextStyle(color: Color(0xffacacac), fontSize: 14),
                 ),
                 Text(
@@ -224,7 +224,7 @@ class _MineAccountProfilePageState extends State<MineAccountProfilePage> {
             //           style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 16.0),
             //           text: "我的推广码\t\t"),
             //       TextSpan(
-            //           style: const TextStyle(color: const Color(0xff61d3be), fontWeight: FontWeight.w900, fontSize: 24.0),
+            //           style: const TextStyle(color: const Color(0xffca452e), fontWeight: FontWeight.w900, fontSize: 24.0),
             //           text: meInfo.promotionCode ?? ""),
             //     ],
             //   ),

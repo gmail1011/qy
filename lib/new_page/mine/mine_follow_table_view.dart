@@ -34,9 +34,7 @@ class MineFollowTableView extends StatefulWidget {
   }
 }
 
-class _MineFollowTableViewState extends State<MineFollowTableView>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-
+class _MineFollowTableViewState extends State<MineFollowTableView> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   List<WatchModel> followUserList = [];
 
   List<TagDetailModel> tagModelList = [];
@@ -164,12 +162,8 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
   void _delCollectTag(int index, String tagID) async {
     try {
       await netManager.client.changeTagStatus(tagID, false, "tag");
-      await Future.delayed(Duration(milliseconds: 200));
-
-      showToast(msg: "删除成功~");
-      setState(() {
-        tagModelList.removeAt(index);
-      });
+      tagModelList.removeAt(index);
+      setState(() {});
     } catch (e) {
       l.d("_delCollectTag-error", "$e");
     }
@@ -201,18 +195,16 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
                     return _buildFollowUserView(index, item);
                   })
               : ListView.builder(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              itemCount: tagModelList.length,
-              itemBuilder: (BuildContext context, int index) {
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: tagModelList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = tagModelList[index];
+                    return _buildTopicView(index, item);
 
-                var item = tagModelList[index];
-                return _buildTopicView(index, item);
-
-                //var item = followUserList[index];
-                //return _buildFollowUserView(index, item);
-              }),
-
+                    //var item = followUserList[index];
+                    //return _buildFollowUserView(index, item);
+                  }),
 
           /*GridView.builder(
                   padding: EdgeInsets.zero,
@@ -323,7 +315,7 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
         margin: EdgeInsets.all(10),
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Color.fromRGBO(22, 21, 42, 1),
+          color: Color(0xff242424),
           borderRadius: BorderRadius.all(Radius.circular(6)),
         ),
         child: Row(
@@ -352,11 +344,7 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
                           ///user name
                           Container(
                             child: Text(
-                              item == null
-                                  ? Lang.UN_KNOWN
-                                  : ((item?.name?.length ?? 0) > 9
-                                      ? item?.name?.substring(0, 9)
-                                      : item?.name),
+                              item == null ? Lang.UN_KNOWN : ((item?.name?.length ?? 0) > 9 ? item?.name?.substring(0, 9) : item?.name),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(
@@ -370,7 +358,7 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
                           Container(
                             margin: EdgeInsets.only(top: 5),
                             child: Text(
-                             "帖子总数: " + getShowCountStr(item.works),
+                              "帖子总数: " + getShowCountStr(item.works),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -396,30 +384,37 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
                             //gradient: AppColors.linearBackGround,
                             color: Color.fromRGBO(255, 255, 255, 0.1),
                           ),
-                          child: item.hasFollow ? Center(
-                            child: Text(
-                              item.hasFollow ? "已关注" : "",
-                              style: TextStyle(fontSize: 14, color: Colors.white),
-                            ),
-                          ) : Center(
-                            child: Row(
-
-                              mainAxisAlignment: MainAxisAlignment.center,
-
-                              children: [
-
-                                Image.asset("assets/weibo/images/blue_star.png",width: 14,height: 14,),
-
-
-                                SizedBox(width: 6,),
-
-                                Text(
-                                  "关注",
-                                  style: TextStyle(fontSize: 14, color: Colors.white),
+                          child: item.hasFollow
+                              ? Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/weibo/images/blue_star.png",
+                                        width: 14,
+                                        height: 14,
+                                      ),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        "已关注",
+                                        style: TextStyle(fontSize: 14, color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "关注",
+                                        style: TextStyle(fontSize: 14, color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ),
                         ),
                       ),
                     )
@@ -432,10 +427,6 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
       ),
     );
   }
-
-
-
-
 
   Widget _buildTopicView(int index, TagDetailModel item) {
     return InkWell(
@@ -453,7 +444,7 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
         margin: EdgeInsets.all(10),
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Color.fromRGBO(22, 21, 42, 1),
+          color: Color(0xff242424),
           borderRadius: BorderRadius.all(Radius.circular(6)),
         ),
         child: Row(
@@ -482,11 +473,7 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
                           ///user name
                           Container(
                             child: Text(
-                              item == null
-                                  ? Lang.UN_KNOWN
-                                  : ((item?.name?.length ?? 0) > 9
-                                  ? item?.name?.substring(0, 9)
-                                  : item?.name),
+                              item == null ? Lang.UN_KNOWN : ((item?.name?.length ?? 0) > 9 ? item?.name?.substring(0, 9) : item?.name),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(
@@ -526,30 +513,37 @@ class _MineFollowTableViewState extends State<MineFollowTableView>
                             //gradient: AppColors.linearBackGround,
                             color: Color.fromRGBO(255, 255, 255, 0.1),
                           ),
-                          child: item.hasCollected ? Center(
-                            child: Text(
-                              item.hasCollected ? "已关注" : "",
-                              style: TextStyle(fontSize: 14, color: Colors.white),
-                            ),
-                          ) : Center(
-                            child: Row(
-
-                              mainAxisAlignment: MainAxisAlignment.center,
-
-                              children: [
-
-                                Image.asset("assets/weibo/images/blue_star.png",width: 14,height: 14,),
-
-
-                                SizedBox(width: 6,),
-
-                                Text(
-                                  "关注",
-                                  style: TextStyle(fontSize: 14, color: Colors.white),
+                          child: item.hasCollected
+                              ? Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/weibo/images/blue_star.png",
+                                        width: 14,
+                                        height: 14,
+                                      ),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        "已关注",
+                                        style: TextStyle(fontSize: 14, color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "关注",
+                                        style: TextStyle(fontSize: 14, color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ),
                         ),
                       ),
                     )

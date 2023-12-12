@@ -31,12 +31,8 @@ class _MineGroupPageState extends State<MineGroupPage> {
       List<OfficeItemData> list = await netManager.client.getOfficeList(2);
 
       if ((list ?? []).isNotEmpty) {
-        dataList1 = list
-            .where((element) => element.officialName.contains("群"))
-            .toList();
-        dataList2 = list
-            .where((element) => element.officialName.contains("商务"))
-            .toList();
+        dataList1 = list.where((element) => element.officialName.contains("群")).toList();
+        dataList2 = list.where((element) => element.officialName.contains("商务")).toList();
         requestController?.requestSuccess();
       } else {
         requestController?.requestDataEmpty();
@@ -56,44 +52,39 @@ class _MineGroupPageState extends State<MineGroupPage> {
           controller: requestController,
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 16),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              _buildTitle("官方用户交流社群", "一起看片一起分享心得"),
-              SizedBox(height: 10),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    color: const Color.fromRGBO(22, 21, 42, 1)),
-                child: Column(
-                  children: dataList1
-                      .map((e) => _buildContent(
-                              e.officialName, e.officialDesc, e.officialImg,
-                              () {
-                            launchUrl(e?.officialUrl);
-                          }))
-                      .toList(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16),
+                _buildTitle("官方用户交流社群", "一起看片一起分享心得"),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(4)), color: const Color.fromRGBO(36, 36, 36, 1)),
+                  child: Column(
+                    children: dataList1
+                        .map((e) => _buildContent(e.officialName, e.officialDesc, e.officialImg, () {
+                              launchUrl(e?.officialUrl);
+                            }))
+                        .toList(),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              _buildTitle("商务合作", "代理合作/商务合作"),
-              SizedBox(height: 10),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    color: const Color.fromRGBO(22, 21, 42, 1)),
-                child: Column(
-                  children: dataList2
-                      .map((e) => _buildContent(
-                              e.officialName, e.officialDesc, e.officialImg,
-                              () {
-                            launchUrl(e?.officialUrl);
-                          }))
-                      .toList(),
+                SizedBox(height: 20),
+                _buildTitle("商务合作", "代理合作/商务合作"),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(4)), color: const Color.fromRGBO(36, 36, 36, 1)),
+                  child: Column(
+                    children: dataList2
+                        .map((e) => _buildContent(e.officialName, e.officialDesc, e.officialImg, () {
+                              launchUrl(e?.officialUrl);
+                            }))
+                        .toList(),
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
         ),
       ),
@@ -107,28 +98,21 @@ class _MineGroupPageState extends State<MineGroupPage> {
         children: [
           Text(
             title,
-            style: const TextStyle(
-                color: const Color(0xffffffff),
-                fontWeight: FontWeight.w700,
-                fontSize: 20.0),
+            style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w500, fontSize: 16),
           ),
           SizedBox(height: 10),
           Text(
             "一起看片一起分享心得",
-            style: const TextStyle(
-                fontWeight: FontWeight.w300,
-                fontSize: 12.0,
-                color: Color.fromRGBO(102, 102, 102, 1)),
+            style: const TextStyle(fontSize: 12.0, color: Color.fromRGBO(102, 102, 102, 1)),
           )
         ],
       ),
     );
   }
 
-  Widget _buildContent(
-      String title, String desc, String imgUrl, Function callClick) {
+  Widget _buildContent(String title, String desc, String imgUrl, Function callClick) {
     return Container(
-        height: 100,
+        height: 76,
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,8 +122,8 @@ class _MineGroupPageState extends State<MineGroupPage> {
                 ClipOval(
                   child: CustomNetworkImage(
                     imageUrl: imgUrl,
-                    width: 64,
-                    height: 64,
+                    width: 40,
+                    height: 40,
                     fit: BoxFit.fill,
                     borderRadius: 32,
                   ),
@@ -151,18 +135,12 @@ class _MineGroupPageState extends State<MineGroupPage> {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                          color: const Color(0xffffffff),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14.0),
+                      style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w500, fontSize: 14.0),
                     ),
                     SizedBox(height: 5),
                     Text(
                       desc,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 12.0,
-                          color: Color(0xffacbabf)),
+                      style: const TextStyle(fontSize: 12.0, color: Color(0xff666666)),
                     )
                   ],
                 ),
@@ -171,21 +149,15 @@ class _MineGroupPageState extends State<MineGroupPage> {
             GestureDetector(
               onTap: callClick,
               child: Container(
-                width: 116,
-                height: 35,
+                width: 72,
+                height: 28,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(18)),
-                    gradient: LinearGradient(colors: [
-                      const Color.fromRGBO(100, 255, 239, 1),
-                      const Color.fromRGBO(0, 214, 190, 1)
-                    ])),
+                    gradient: LinearGradient(colors: [const Color(0xffca452e), const Color(0xffca452e)])),
                 child: Center(
                   child: Text(
                     "立即加入",
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14.0),
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
               ),

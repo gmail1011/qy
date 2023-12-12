@@ -36,7 +36,7 @@ class _MoreVideoPageState extends State<MoreVideoPage> {
         children: [
           Container(
             height: 32,
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             padding: EdgeInsets.only(left: 16),
             margin: EdgeInsets.symmetric(vertical: 10),
             child: HJCustomTabBar(

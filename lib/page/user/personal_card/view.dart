@@ -132,7 +132,7 @@ Widget _codeView(PersonalCardState state, Dispatch dispatch) {
           ),
           const SizedBox(height: 18),
           Text(
-            "分享好友立赠送妻友社区专属会员",
+            "分享好友立赠送91猎奇专属会员",
             style: TextStyle(
               color: AppColors.primaryColor.withOpacity(0.6),
               fontSize: Dimens.pt16,

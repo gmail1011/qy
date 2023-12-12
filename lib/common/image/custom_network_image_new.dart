@@ -185,7 +185,7 @@ class _CustomNetworkImageNewState extends State<CustomNetworkImageNew> {
   Widget _buildPlaceHolder() {
     return Container(
       alignment: Alignment.center,
-      color: Color.fromRGBO(14, 20, 30, 1),
+      color: Color(0xff151515),
       child: Image.asset("assets/weibo/loading_normal.png",width: 106,height:92,),
     );
   }

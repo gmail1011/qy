@@ -59,7 +59,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.weiboBackgroundColor,
+      color: Colors.black,
       height: 44 + screen.paddingTop,
       padding: EdgeInsets.only(
         top: screen.paddingTop,
@@ -117,11 +117,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   widget.onSubmitted(text);
                 },
                 decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.white.withOpacity(0.7),
-                    size: 18,
-                  ),
+                  prefixText: "",
                   suffixIcon: Visibility(
                     visible: isClear,
                     child: GestureDetector(
@@ -152,11 +148,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
                       ),
                     ),
                   ),
-                  fillColor: Color.fromRGBO(32, 39, 51, 1),
+                  fillColor: Color.fromRGBO(32, 32, 32, 1),
                   hintText: Lang.SEARCH_HINT_TEXT,
                   hintStyle: TextStyle(
                       color: Colors.white.withOpacity(0.3), fontSize: Dimens.pt13),
-                  contentPadding: EdgeInsets.only(left: 0.0),
+                  contentPadding: EdgeInsets.only(left: 12.0),
                   filled: true,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(17.5)),

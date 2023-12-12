@@ -302,7 +302,7 @@ Widget commonSubmitButton(String title,
       child: Text(
         title,
         style:
-            TextStyle(fontSize: fontSize ?? Dimens.pt15, color: Colors.black),
+            TextStyle(fontSize: fontSize ?? Dimens.pt15, color: Colors.white),
       ),
     ),
   );

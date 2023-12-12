@@ -2,6 +2,7 @@ import 'dart:convert' as convert;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/config/config.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
 import 'package:flutter_app/model/alipay_bank_list_model.dart';
@@ -98,7 +99,7 @@ class _BankCardHomePageState extends State<BankCardHomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppbar(
-          title: "银行卡账号",
+          title: "我的银行卡",
           actions: [
             InkWell(
               onTap: () {
@@ -115,7 +116,7 @@ class _BankCardHomePageState extends State<BankCardHomePage> {
                 child: Center(
                   child: Text(
                       widget.isSelect
-                          ? "确认"
+                          ? "完成"
                           : isEdit
                               ? "完成"
                               : "编辑",
@@ -168,7 +169,7 @@ class _BankCardHomePageState extends State<BankCardHomePage> {
         margin: EdgeInsets.only(left: 10,right: 10,bottom: 10),
         padding: EdgeInsets.symmetric(horizontal: 16),
         decoration:
-            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(4)), color: const Color(0xff202733)),
+            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(4)), color: const Color(0xff242424)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -200,15 +201,18 @@ class _BankCardHomePageState extends State<BankCardHomePage> {
                 ],
               ),
             ),
-            Image.asset(
-              isEdit
-                  ? "assets/images/hj_withdrawal_icon_del.png"
-                  : selectItem != null && selectItem.id == item.id
-                      ? "assets/images/hj_withdrawal_icon_select.png"
-                      : "assets/images/hj_withdrawal_icon_unselect.png",
+            if(isEdit)
+              Image.asset("assets/images/hj_withdrawal_icon_del.png", width: 12, height: 12,)
+            else
+              Container(
               width: 12,
               height: 12,
-            )
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: selectItem?.id == item.id ? AppColors.primaryTextColor : Colors.transparent,
+                  border: selectItem?.id == item.id ? null : Border.all(color: Colors.white.withOpacity(0.2)),
+                ),
+            ),
           ],
         ),
       ),

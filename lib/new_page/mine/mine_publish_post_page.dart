@@ -97,7 +97,7 @@ class _MinePublishPostPageState extends State<MinePublishPostPage> with TickerPr
     return FullBg(
       child: Scaffold(
         appBar: CustomAppbar(
-          title: "发布的帖子",
+          title: "我的帖子",
         ),
         body: Column(
           children: [
@@ -105,17 +105,18 @@ class _MinePublishPostPageState extends State<MinePublishPostPage> with TickerPr
               height: 135,
               margin: EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(4)), color: const Color.fromRGBO(22, 21, 42, 1)),
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                color: AppColors.primaryColor,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("可提现收益：${wallet.income}金币",
-                      style: const TextStyle(
-                          color: const Color(0xffffffff), fontWeight: FontWeight.w600, fontSize: 16.0),
+                      style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w600, fontSize: 16.0),
                       textAlign: TextAlign.left),
                   SizedBox(height: 20),
                   Container(
-                    //padding: EdgeInsets.only(),
+                      //padding: EdgeInsets.only(),
                       child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -170,14 +171,11 @@ class _MinePublishPostPageState extends State<MinePublishPostPage> with TickerPr
         width: 120,
         height: 35,
         margin: EdgeInsets.symmetric(horizontal: 5),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            gradient: AppColors.linearBackGround),
+        decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)), gradient: AppColors.linearBackGround),
         child: Center(
           child: Text(
             btnText,
-            style:
-                const TextStyle(color:  Colors.black, fontWeight: FontWeight.w600, fontSize: 12.0),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 12.0),
           ),
         ),
       ),
@@ -191,6 +189,7 @@ class _MinePublishPostPageState extends State<MinePublishPostPage> with TickerPr
         WordImageWidgetForHjll(
           videoModel: item,
           showTopInfo: false,
+          hideTopUserInfo: true,
           isMyPublish: true,
         ),
       ],

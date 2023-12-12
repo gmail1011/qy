@@ -148,6 +148,18 @@ class VideoModel {
 
   //0 未审核 1通过 2审核失败 3视为免费 5、已下架
   int status;
+  String get statusDesc{
+    if(status == 0){
+      return "审核中";
+    }
+    if(status == 1){
+      return "已成功";
+    }
+    if(status == 2){
+      return "未过审";
+    }
+    return "";
+  }
   List<TagsBean> tags;
   String title;
   String content;
@@ -252,6 +264,10 @@ class VideoModel {
   String get playCountDescFour {
     if (playCount == null) return "";
     return ((playCount > 10000) ? (playCount / 10000).toStringAsFixed(1) + "万" : playCount.toString())+"次播放";
+  }
+  String get playCountDescFive {
+    if (playCount == null) return "";
+    return (playCount > 10000) ? (playCount / 10000).toStringAsFixed(1) + "w" : playCount.toString();
   }
 
   static VideoModel fromJson(Map<String, dynamic> map) {

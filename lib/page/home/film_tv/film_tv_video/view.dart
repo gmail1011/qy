@@ -14,7 +14,6 @@ import 'package:flutter_app/common/provider/countdown_update_model.dart';
 import 'package:flutter_app/global_store/store.dart';
 import 'package:flutter_app/model/domain_source_model.dart';
 import 'package:flutter_app/model/liao_ba_tags_detail_entity.dart';
-import 'package:flutter_app/model/video_model.dart';
 import 'package:flutter_app/new_page/recharge/recharge_vip_page.dart';
 import 'package:flutter_app/page/home/film_tv/film_tv_video/tv_item_table_view.dart';
 import 'package:flutter_app/page/home/film_tv/film_tv_video/video_cell_widget.dart';
@@ -112,8 +111,10 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Color.fromRGBO(31, 32, 49, 1),
-                                    borderRadius: BorderRadius.all(Radius.circular(2)),
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/images/home_tag_bg.png"),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                   alignment: Alignment.center,
                                   width: (screen.screenWidth - 10 * 2 - 8 * 3) / 4,
@@ -226,9 +227,6 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                                 Map<String, dynamic> maps = Map();
                                 maps["videoId"] = state.videList[index]?.id;
                                 maps['sectionID'] = state.sectionID;
-
-                                VideoModel videoModes  = VideoModel.fromJson(state.videList[index].toJson());
-                                maps['videoModel'] = videoModes;
                                 Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false);
                               }
                             },
@@ -385,7 +383,7 @@ Widget _buildAdImageItem(LiaoBaTagsDetailDataVideos videoItem, double width, dou
                   height: imageHeight,
                   placeholder: (context, url) => Container(
                     alignment: Alignment.center,
-                    color: Color.fromRGBO(14, 20, 30, 1),
+                    color: Color(0xff151515),
                     child: Image.asset(
                       "assets/weibo/loading_normal.png",
                       width: 53,

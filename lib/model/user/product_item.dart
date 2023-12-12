@@ -33,7 +33,7 @@ class ProductItemBean {
   int goldVideoFreeDay;
 
   String details;
-
+  String vipCardDesc;
   int louFengDiscount;
 
   ProductItemBean({
@@ -68,9 +68,11 @@ class ProductItemBean {
     this.goldVideoFreeDay,
     this.details,
     this.louFengDiscount,
+    this.vipCardDesc,
   });
 
   ProductItemBean.fromJson(Map<String, dynamic> json) {
+    vipCardDesc = json['vipCardDesc'];
     productID = json['productID'];
     vipLevel = json['vipLevel'];
     productName = json['productName'];

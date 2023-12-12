@@ -12,6 +12,7 @@ import 'package:flutter_app/model/tag/tag_bean.dart';
 import 'package:flutter_app/model/tag/tag_detail_model.dart';
 import 'package:flutter_app/model/video_model.dart';
 import 'package:flutter_app/page/hjll_community/hjll_community_list/HjllCommunityListPage.dart';
+import 'package:flutter_app/page/home/mine/history/history_record_util.dart';
 import 'package:flutter_app/utils/cache_util.dart';
 import 'package:flutter_app/weibo_page/widget/wordImageWidget.dart';
 import 'package:flutter_app/weibo_page/widget/wordImageWidgetForHjll.dart';
@@ -65,98 +66,100 @@ class _HjllCommunityQuanziDetailPageState extends State<HjllCommunityQuanziDetai
       appBar: getCommonAppBar("${widget.videoTagName}"),
       body: Column(
         children: [
+          SizedBox(height: 12),
           Row(
             children: [
               SizedBox(width: 10),
               (widget.tagDetailModel == null)
                   ? SizedBox()
                   : ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      child: CustomNetworkImage(
-                        fit: BoxFit.cover,
-                        height: 90,
-                        width: 90,
-                        imageUrl: widget.tagDetailModel?.coverImg ?? "",
-                      ),
-                    ),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                child: CustomNetworkImage(
+                  fit: BoxFit.cover,
+                  height: 90,
+                  width: 90,
+                  imageUrl: widget.tagDetailModel?.coverImg ?? "",
+                ),
+              ),
               SizedBox(width: 12),
               Expanded(
                   child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 28,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            widget.tagDetailModel?.description ?? "",
-                            style: TextStyle(
-                              color: Color.fromRGBO(255, 255, 255, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 28,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                widget.tagDetailModel?.description ?? "",
+                                style: TextStyle(
+                                  color: Color.fromRGBO(255, 255, 255, 1),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                maxLines: 2,
+                              ),
                             ),
-                            maxLines: 2,
-                          ),
+                            Visibility(
+                                visible: widget.tagDetailModel?.hasCollected == true ? false : true,
+                                child: GestureDetector(
+                                  child: Container(
+                                      width: 63,
+                                      height: 28,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: AppColors.primaryTextColor),
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "+",
+                                            style: TextStyle(color: AppColors.primaryTextColor, fontWeight: FontWeight.bold, fontSize: 13),
+                                          ),
+                                          Text(
+                                            "关注",
+                                            style: TextStyle(color: AppColors.primaryTextColor, fontSize: 12),
+                                          ),
+                                        ],
+                                      )),
+                                  onTap: () async {
+                                    bool isFollow = !widget.tagDetailModel.hasCollected;
+
+                                    widget.tagDetailModel.hasCollected = isFollow;
+
+                                    try {
+                                      await netManager.client.postCollect(widget.tagDetailModel.id, 'tag', isFollow);
+                                    } catch (e) {
+                                      showToast(msg: Lang.FOLLOW_ERROR, gravity: ToastGravity.CENTER);
+                                    }
+                                    setState(() {});
+                                  },
+                                )),
+                            SizedBox(width: 10),
+                          ],
                         ),
-                        Visibility(
-                            visible: widget.tagDetailModel?.hasCollected == true ? false : true,
-                            child: GestureDetector(
-                              child: Container(
-                                  width: 63,
-                                  height: 28,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: AppColors.primaryTextColor),
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "+",
-                                        style: TextStyle(color: AppColors.primaryTextColor, fontWeight: FontWeight.bold, fontSize: 13),
-                                      ),
-                                      Text(
-                                        "关注",
-                                        style: TextStyle(color: AppColors.primaryTextColor, fontSize: 12),
-                                      ),
-                                    ],
-                                  )),
-                              onTap: () async {
-                                bool isFollow = !widget.tagDetailModel.hasCollected;
-
-                                widget.tagDetailModel.hasCollected = isFollow;
-
-                                try {
-                                  await netManager.client.postCollect(widget.tagDetailModel.id, 'tag', isFollow);
-                                } catch (e) {
-                                  showToast(msg: Lang.FOLLOW_ERROR, gravity: ToastGravity.CENTER);
-                                }
-                                setState(() {});
-                              },
-                            )),
-                        SizedBox(width: 10),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 6),
-                  Text(
-                    "${widget.tagDetailModel?.videoCountDesc ?? 0}个帖子",
-                    style: TextStyle(color: Color(0xff999999), fontSize: 12),
-                  ),
-                  SizedBox(height: 6),
-                  Text(
-                    "${widget.tagDetailModel?.playCountDesc ?? 0}浏览",
-                    style: TextStyle(color: Color(0xff999999), fontSize: 12),
-                  ),
-                ],
-              ))
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        "${widget.tagDetailModel?.videoCountDesc ?? 0}个帖子",
+                        style: TextStyle(color: Color(0xff999999), fontSize: 12),
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        "${widget.tagDetailModel?.playCountDesc ?? 0}浏览",
+                        style: TextStyle(color: Color(0xff999999), fontSize: 12),
+                      ),
+                    ],
+                  ))
             ],
           ),
+          SizedBox(height: 8),
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             margin: EdgeInsets.only(left: 12, top: 10),
             child: commonTabBar(
               TabBar(

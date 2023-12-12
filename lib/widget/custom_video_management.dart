@@ -87,7 +87,7 @@ class _VideoUploadState extends State<VideoUploadMangeWidget> {
             Text(
               " 默认第一张为封面 ",
               style: TextStyle(
-                  color: Color.fromRGBO(0, 214, 190, 1),fontSize: 10),
+                  color: Color(0xffca452e),fontSize: 10),
             ),
 
             Text(
@@ -281,7 +281,7 @@ class _VideoUploadState extends State<VideoUploadMangeWidget> {
           width: 83.w,
           height: 83.w,
           decoration: BoxDecoration(
-            color: Color(0xff1f2030),
+            color: Color(0xff202020),
             borderRadius: BorderRadius.circular(5),
           ),
           child: Column(
@@ -312,7 +312,7 @@ class _VideoUploadState extends State<VideoUploadMangeWidget> {
           width: 83.w,
           height: 83.w,
           decoration: BoxDecoration(
-            color: Color(0xff1f2030),
+            color: Color(0xff202020),
             borderRadius: BorderRadius.circular(5),
           ),
           child: Column(

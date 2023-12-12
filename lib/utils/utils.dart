@@ -308,7 +308,7 @@ String formatTimeTwo(String _utcTime) {
   if (year > 0 && year < 12) {
     return "$year年前";
   }
-  return "";
+  return DateUtil.formatDate(date, format: DateFormats.y_mo_d);
 }
 
 /// 保存数据到相册
@@ -403,8 +403,8 @@ String getShowFansCountStr(int number, {int count = 1}) {
 }
 
 
-Future pushToPage(Widget page, {bool opaque = false}) async{
-  return Navigator.push(FlutterBase.appContext,
+Future pushToPage(Widget page, {BuildContext context,  bool opaque = false}) async{
+  return Navigator.push(context ?? FlutterBase.appContext,
       MaterialPageRoute(builder: (context) {
         return page;
       }));

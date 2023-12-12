@@ -35,3 +35,18 @@ class LoadingWidget extends StatelessWidget {
     );
   }
 }
+
+
+class LoadingCenterWidget extends StatelessWidget {
+  final double width;
+  final double height;
+
+  LoadingCenterWidget({this.width = 40, this.height = 20});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: LoadingWidget(width: width, height: height,),
+    );
+  }
+}

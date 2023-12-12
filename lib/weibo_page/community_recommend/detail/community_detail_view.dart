@@ -47,134 +47,127 @@ import 'community_detail_state.dart';
 
 Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService viewService) {
   return FullBg(
-      child: Container(
-    color: Color.fromRGBO(14, 20, 30, 1), //AppColor
     child: Column(
       children: [
-        SizedBox(
-          height: 50,
-        ),
-        Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                safePopPage();
-              },
-              child: Image.asset(
-                "assets/weibo/back_arrow.png",
-                width: 24,
-                height: 24,
+        Container(
+          padding: EdgeInsets.only(top: 50),
+          color: AppColors.primaryColor,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  safePopPage();
+                },
+                child: Image.asset(
+                  "assets/weibo/back_arrow.png",
+                  width: 24,
+                  height: 24,
+                ),
               ),
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            GestureDetector(
-              child: (state.videoModel == null)
-                  ? SizedBox()
-                  : UnconstrainedBox(
-                      child: SizedBox(
-                        width: 32.w,
-                        height: 32.w,
-                        child: ClipOval(
-                          child: CustomNetworkImage(
-                            fit: BoxFit.cover,
-                            height: 32.w,
-                            width: 32.w,
-                            imageUrl: state.videoModel?.publisher?.portrait ?? "",
+              SizedBox(width: 8),
+              GestureDetector(
+                child: (state.videoModel == null)
+                    ? SizedBox()
+                    : UnconstrainedBox(
+                        child: SizedBox(
+                          width: 32.w,
+                          height: 32.w,
+                          child: ClipOval(
+                            child: CustomNetworkImage(
+                              fit: BoxFit.cover,
+                              height: 32.w,
+                              width: 32.w,
+                              imageUrl: state.videoModel?.publisher?.portrait ?? "",
+                            ),
                           ),
                         ),
                       ),
-                    ),
-              onTap: () {
-                Map<String, dynamic> arguments = {
-                  'uid': state.videoModel.publisher.uid,
-                  'uniqueId': DateTime.now().toIso8601String(),
-                };
-                Gets.Get.to(() => BloggerPage(arguments));
-              },
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "${state.videoModel?.publisher?.name ?? ""}",
-              style: TextStyle(
-                color: Color.fromRGBO(255, 255, 255, 1),
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+                onTap: () {
+                  Map<String, dynamic> arguments = {
+                    'uid': state.videoModel.publisher.uid,
+                    'uniqueId': DateTime.now().toIso8601String(),
+                  };
+                  Gets.Get.to(() => BloggerPage(arguments));
+                },
               ),
-            ),
-            (state.videoModel == null ||
-                    state.videoModel?.publisher == null ||
-                    state.videoModel.publisher?.upTag == null ||
-                    state.videoModel.publisher?.upTag == "")
-                ? SizedBox()
-                : Image.asset("assets/weibo/ic_uptag.png", width: 20, height: 20),
-            Expanded(child: SizedBox()),
-            Visibility(
-                visible: true,
-                child: GestureDetector(
-                  child: (state.videoModel?.publisher?.hasFollowed ?? false)
-                      ? // Rectangle 2784
-                      Container(
-                          width: 64,
-                          height: 28,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Color(0xffffffff).withOpacity(0.1),
-                          ),
-                          child: Text(
-                            "已关注",
-                            style: TextStyle(color: Color(0xffd3d3d3), fontSize: 15.w),
-                          ),
-                        )
-                      : Container(
-                          width: 63,
-                          height: 28,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.primaryTextColor),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "+",
-                                style: TextStyle(color: AppColors.primaryTextColor, fontWeight: FontWeight.bold, fontSize: 13),
-                              ),
-                              Text(
-                                "关注",
-                                style: TextStyle(color: AppColors.primaryTextColor, fontSize: 12),
-                              ),
-                            ],
-                          )),
-                  onTap: () async {
-                    // 自己不能关注自己
-                    if (GlobalStore.isMe(state.videoModel.publisher.uid)) {
-                      showToast(msg: Lang.GLOBAL_TIP_TXT1);
-                      return;
-                    }
-                    bool isFollow = !state.videoModel.publisher.hasFollowed;
+              SizedBox(width: 10),
+              Text(
+                "${state.videoModel?.publisher?.name ?? ""}",
+                style: TextStyle(
+                  color: Color.fromRGBO(255, 255, 255, 1),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              (state.videoModel == null ||
+                      state.videoModel?.publisher == null ||
+                      state.videoModel.publisher?.upTag == null ||
+                      state.videoModel.publisher?.upTag == "")
+                  ? SizedBox()
+                  : Image.asset("assets/weibo/ic_uptag.png", width: 20, height: 20),
+              Expanded(child: SizedBox()),
+              Visibility(
+                  visible: true,
+                  child: GestureDetector(
+                    child: (state.videoModel?.publisher?.hasFollowed ?? false)
+                        ? // Rectangle 2784
+                        Container(
+                            width: 64,
+                            height: 28,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: Color(0xffffffff).withOpacity(0.1),
+                            ),
+                            child: Text(
+                              "已关注",
+                              style: TextStyle(color: Color(0xffd3d3d3), fontSize: 15.w),
+                            ),
+                          )
+                        : Container(
+                            width: 63,
+                            height: 28,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.primaryTextColor),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "+",
+                                  style: TextStyle(color: AppColors.primaryTextColor, fontWeight: FontWeight.bold, fontSize: 13),
+                                ),
+                                Text(
+                                  "关注",
+                                  style: TextStyle(color: AppColors.primaryTextColor, fontSize: 12),
+                                ),
+                              ],
+                            )),
+                    onTap: () async {
+                      // 自己不能关注自己
+                      if (GlobalStore.isMe(state.videoModel.publisher.uid)) {
+                        showToast(msg: Lang.GLOBAL_TIP_TXT1);
+                        return;
+                      }
+                      bool isFollow = !state.videoModel.publisher.hasFollowed;
 
-                    state.videoModel.publisher.hasFollowed = isFollow;
+                      state.videoModel.publisher.hasFollowed = isFollow;
 
-                    int followUID = state.videoModel.publisher.uid;
-                    try {
-                      await netManager.client.getFollow(followUID, isFollow);
-                      dispatch(CommunityDetailActionCreator.updateUI());
-                    } catch (e) {
-                      //l.d('getFollow', e.toString());
-                      showToast(msg: Lang.FOLLOW_ERROR, gravity: ToastGravity.CENTER);
-                    }
-                  },
-                )),
-            SizedBox(
-              width: 10,
-            ),
-          ],
+                      int followUID = state.videoModel.publisher.uid;
+                      try {
+                        await netManager.client.getFollow(followUID, isFollow);
+                        dispatch(CommunityDetailActionCreator.updateUI());
+                      } catch (e) {
+                        //l.d('getFollow', e.toString());
+                        showToast(msg: Lang.FOLLOW_ERROR, gravity: ToastGravity.CENTER);
+                      }
+                    },
+                  )),
+              SizedBox(width: 10),
+            ],
+          ),
         ),
         Expanded(
           child: state.videoModel == null
@@ -183,7 +176,7 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                   children: [
                     Container(
                       padding: EdgeInsets.only(bottom: 50),
-                      color: Color.fromRGBO(14, 20, 30, 1),
+                      color: Color(0xff151515),
                       child: pullYsRefresh(
                         enablePullDown: false,
                         enablePullUp: true,
@@ -194,7 +187,7 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                         refreshController: state.controller,
                         // child: _getNewScrollView(dispatch),
                         child: CustomScrollView(
-                          slivers : [
+                          slivers: [
                             SliverToBoxAdapter(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,6 +212,7 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                                           randomTag: state.randomTag,
                                           linearGradient: state.linearGradient,
                                           isHaiJiaoLLDetail: true,
+                                          bgColor: AppColors.primaryColor,
                                         ),
                                       ],
                                     ),
@@ -232,7 +226,8 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                                         likeCountPadding: EdgeInsets.only(left: 6.w),
                                         isLiked: state.videoModel.vidStatus.hasLiked ?? false,
                                         likeCountAnimationType: LikeCountAnimationType.none,
-                                        circleColor: CircleColor(start: Color.fromRGBO(245, 75, 100, 1), end: Color.fromRGBO(245, 75, 100, 1)),
+                                        circleColor:
+                                            CircleColor(start: Color.fromRGBO(245, 75, 100, 1), end: Color.fromRGBO(245, 75, 100, 1)),
                                         bubblesColor: BubblesColor(
                                           dotPrimaryColor: Color.fromRGBO(245, 75, 100, 1),
                                           dotSecondaryColor: Color.fromRGBO(245, 75, 100, 1),
@@ -305,7 +300,10 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                                       _createFunctionItemUI("assets/weibo/video_share.png", "分享", onTap: () {
                                         showShareVideoDialog(viewService.context, () async {
                                           await Future.delayed(Duration(milliseconds: 500));
-                                        }, videoModel: state.videoModel, isLongVideo: (state.videoModel.playTime ?? 0) > 300, isFvVideo: true);
+                                        },
+                                            videoModel: state.videoModel,
+                                            isLongVideo: (state.videoModel.playTime ?? 0) > 300,
+                                            isFvVideo: true);
                                       }),
                                     ],
                                   ),
@@ -332,10 +330,11 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                               key: state.commentKey,
                               footerComment: false,
                               needReplay: true,
-                              dataFinishCallback: (hasNext){
-                                if(hasNext) {
+
+                              dataFinishCallback: (hasNext) {
+                                if (hasNext) {
                                   state.controller.loadComplete();
-                                }else {
+                                } else {
                                   state.controller.loadNoData();
                                 }
                               },
@@ -378,7 +377,7 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                       right: 0,
                       bottom: 0,
                       child: Container(
-                        color: Color.fromRGBO(14, 20, 30, 1),
+                        color: Color(0xff151515),
                         padding: EdgeInsets.only(top: 8),
                         child: CommentListState.footerComment(callback: () {
                           state.commentKey?.currentState?.showInput();
@@ -387,10 +386,10 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                     ),
                   ],
                 ),
-        )
+        ),
       ],
     ),
-  ));
+  );
 }
 
 ///收藏UI

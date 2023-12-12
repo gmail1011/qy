@@ -1649,10 +1649,11 @@ abstract class ClientApi {
     @Field() int takeUid,
   );
 
-  @GET('/msg/dynamic/list')
+  @GET('/msg/dynamic/list') // //1.点赞消息 2.评论消息
   Future<dynamic> getDynamic(
     @Field() int pageNumber,
     @Field() int pageSize,
+  {int dynamicMsgType}
   );
 
   @GET('/mine/iIncomes')

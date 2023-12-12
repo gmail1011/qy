@@ -42,6 +42,7 @@ class _CustomAppbarState extends State<CustomAppbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.black,
       child: Container(
           // decoration: BoxDecoration(
           //     image: DecorationImage(

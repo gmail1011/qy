@@ -7,28 +7,30 @@ class PayNoticeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Container(
-        alignment: Alignment.center,
-        height: 420,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          image: DecorationImage(
-            image: AssetImage("assets/images/hj_pay_tips_bg.png"),
-            fit: BoxFit.contain,
-          ),
-        ),
-        child: Stack(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: const EdgeInsets.only(left: 27, right: 27, bottom: 27),
-                child: commonSubmitButton("确认支付", height: Dimens.pt36, onTap: () => safePopPage("startPay")),
-              ),
+      backgroundColor: Colors.transparent,
+      child: Center(
+        child: Container(
+          height: 457,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            image: DecorationImage(
+              image: AssetImage("assets/images/hj_pay_tips_bg.png"),
+              fit: BoxFit.fill,
             ),
-          ],
+          ),
+          child: Stack(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: const EdgeInsets.only(left: 27, right: 27, bottom: 27),
+                  child: commonSubmitButton("我知道了", height: Dimens.pt36, onTap: () => safePopPage("startPay")),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

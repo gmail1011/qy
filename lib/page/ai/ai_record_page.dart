@@ -42,18 +42,30 @@ class _AiRecordPageState extends State<AiRecordPage> {
       body: Container(
         child: Column(
           children: [
-            SizedBox(height: 16),
+            SizedBox(height: 8),
             Container(
-              height: 30,
-              alignment: Alignment.center,
+              padding: EdgeInsets.only(left: 16),
+              alignment: Alignment.centerLeft,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildMenuItem("排队中", 0 == currentIndex, 0),
-                  SizedBox(width: 20),
-                  _buildMenuItem("生成成功", 1 == currentIndex, 1),
-                  SizedBox(width: 20),
-                  _buildMenuItem("生成失败", 2 == currentIndex, 2),
+                  _buildMenuItem("排队", 0 == currentIndex, 0),
+                  Text(
+                    "/",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                    ),
+                  ),
+                  _buildMenuItem("成功", 1 == currentIndex, 1),
+                  Text(
+                    "/",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                    ),
+                  ),
+                  _buildMenuItem("失败", 2 == currentIndex, 2),
                 ],
               ),
             ),
@@ -77,39 +89,15 @@ class _AiRecordPageState extends State<AiRecordPage> {
     return GestureDetector(
       onTap: () => _selectMenu(index),
       child: Container(
-        width: 80,
-        height: 30,
-        alignment: Alignment.center,
-        //color: isSelected ? Colors.white : Color.fromRGBO(204, 204, 204, 1),
-        /*decoration: BoxDecoration(
-          color:
-              isSelected ? Color.fromRGBO(255, 101, 56, 1) : Color(0xff242424),
-          borderRadius: BorderRadius.circular(4),
-        ),*/
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: isSelected
-                    ? AppColors.primaryTextColor
-                    : Color(0xff999999),
-                fontSize: 14,
-              ),
-            ),
-            SizedBox(
-              height: 3,
-            ),
-            isSelected
-                ? Container(
-                    width: 20,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(13),
-                        gradient: AppColors.linearBackGround),
-                  )
-                : Container(),
-          ],
+        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        child: Text(
+          title,
+          style: TextStyle(
+            color: isSelected
+                ? AppColors.primaryTextColor
+                : Colors.white,
+            fontSize: 12,
+          ),
         ),
       ),
     );

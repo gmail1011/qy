@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/config/config.dart';
 import 'package:flutter_app/common/image/image_manager_new.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
@@ -111,8 +112,8 @@ class _HjllCommunityListPageState extends State<HjllCommunityListPage> {
               child: Container(
                   width: screen.screenWidth,
                   height: 40,
-                  color: Color.fromRGBO(13, 14, 31, 1),
                   alignment: Alignment.center,
+                  color: AppColors.primaryColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: menuItems,
@@ -155,7 +156,6 @@ class _HjllCommunityListPageState extends State<HjllCommunityListPage> {
                 videoModel: _realModel,
                 showTopInfo: false,
                 isHaiJiaoLLDetail: false,
-                tagColor: Color(0xff74b7f1),
               );
             },
             childCount: videoList?.length ?? 0,

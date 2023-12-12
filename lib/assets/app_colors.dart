@@ -17,9 +17,9 @@ class AppColors {
   static const Color textColorWhite = Colors.white;
 
   /// 基本色，背景色 0xFF151515 0xFF191D26
-  static const Color primaryColor = Color.fromRGBO(13, 14, 31, 1);
+  static const Color primaryColor = Color.fromRGBO(21, 21, 21, 1);
 
-  static const Color primaryTextColor = Color(0xFF61d3be);
+  static const Color primaryTextColor = Color(0xffca452e);
 
 
   // static const Color primaryColor = Colors.black;
@@ -114,7 +114,7 @@ class AppColors {
     Color.fromRGBO(137, 217, 255, 1),
   ];
 
-  static const buttonWeiBo = <Color>[Color.fromRGBO(132, 164, 249, 1), Color.fromRGBO(0, 214, 190, 1)];
+  static const buttonWeiBo = <Color>[Color.fromRGBO(132, 164, 249, 1), Color(0xffca452e)];
 
   static const buttonRed = <Color>[
     Color.fromRGBO(222, 173, 252, 1),
@@ -130,10 +130,10 @@ class AppColors {
   //   Color(0xFFFE7F0F),
   //   Color(0xFFEA8B25),
   // ];
-  static const vipSubmitBtnColors = <Color>[const Color.fromRGBO(100, 255, 239, 1), const Color.fromRGBO(0, 214, 190, 1),];
+  static const vipSubmitBtnColors = <Color>[const Color(0xffca452e), const Color(0xffca452e),];
 
-  static const Color weiboJianPrimaryBackground = Color.fromRGBO(22, 21, 42, 1);
-  static const Color weiboBackgroundColor = Color.fromRGBO(21, 21, 21, 1);
+  static const Color weiboJianPrimaryBackground = Color.fromRGBO(36, 36, 36, 1);
+  static const Color weiboBackgroundColor = Color.fromRGBO(36, 36, 36, 1);
   static const Color weiboColor = primaryTextColor;
   static const linearColorPrimary = <Color>[
     Color.fromRGBO(255, 127, 15, 1),
@@ -158,22 +158,22 @@ class AppColors {
   //   Color(0xFFffffff),
   // ];
   static const payBackgroundColors = <Color>[
-    Color.fromRGBO(199, 255, 249, 1),
+    Color(0xffca452e),
     Color.fromRGBO(255, 255, 255, 1),
   ];
 
 
   /*static const linearBackGround = <Color>[
-    Color.fromRGBO(100, 255, 239, 1),
-    Color.fromRGBO(0, 214, 190, 1),
+    Color(0xffca452e),
+    Color(0xffca452e),
   ];*/
 
   static LinearGradient linearBackGround =  LinearGradient(
     begin: Alignment.centerLeft,
       end: Alignment.centerRight,
       colors: [
-    Color.fromRGBO(100, 255, 239, 1),
-    Color.fromRGBO(0, 214, 190, 1),
+        Color(0xffca452e),
+    Color(0xffca452e),
   ]);
 
   static const Color withdrawsubTextColor = Color(0xFF7EA0BE);

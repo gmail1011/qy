@@ -26,7 +26,10 @@ class VideoCellWidget extends StatelessWidget {
   final BoxFit imageFit;
   final int textLine;
   final bool isShowVip;
-
+  final bool timeCommentStyle;
+  final bool isShowBottom;
+  final bool isShowDeleteStatus;
+  final Function(VideoModel) deleteCallback; // 点击删除回调
   const VideoCellWidget({
     Key key,
     this.model,
@@ -39,6 +42,10 @@ class VideoCellWidget extends StatelessWidget {
     this.imageFit,
     this.textLine,
     this.isShowVip = false,
+    this.timeCommentStyle = false,
+    this.isShowBottom = true,
+    this.isShowDeleteStatus = false,
+    this.deleteCallback,
   }) : super(key: key);
 
   VideoModel get realModel {
@@ -63,38 +70,12 @@ class VideoCellWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Expanded(
-        //   child: ClipRRect(
-        //     borderRadius: BorderRadius.all(Radius.circular(2)),
-        //     child: Stack(
-        //       children: [
-        //         CustomNetworkImage(
-        //           imageUrl: realModel.cover,
-        //           type: ImgType.cover,
-        //           fit: BoxFit.cover,
-        //           width: imageWidth,
-        //           height: imageHeight,
-        //           placeholder:
-        //               _buildPlaceholderUI(height: imageHeight, borRadius: 2),
-        //         ),
-        //         Positioned(
-        //           bottom: 0,
-        //           left: 0,
-        //           right: 0,
-        //           child: _buildBottomData(realModel),
-        //         ),
-        //         if (isShowVip) _buildTopIndicator(realModel),
-        //       ],
-        //     ),
-        //   ),
-        // ),
-        Container(
-          width: imageWidth,
-          height: imageHeight,
+        Expanded(
           child: Stack(
+            fit: StackFit.expand,
             children: [
               CustomNetworkImageNew(
-                imageUrl: realModel.cover??"",
+                imageUrl: realModel.cover ?? "",
                 fit: BoxFit.cover,
                 width: imageWidth,
                 height: imageHeight,
@@ -108,11 +89,13 @@ class VideoCellWidget extends StatelessWidget {
                 child: _buildBottomData(realModel),
               ),
               if (isShowVip) _buildTopIndicator(realModel),
+              if (isShowDeleteStatus == true) _buildDeleteState(),
             ],
-          ),),
+          ),
+        ),
         Container(
           alignment: Alignment.topLeft,
-          margin: EdgeInsets.only(top: 4),
+          margin: EdgeInsets.only(top: 6),
           child: Text(
             realModel.title ?? "",
             maxLines: textLine ?? 2,
@@ -124,68 +107,71 @@ class VideoCellWidget extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 2,),
-        Row(
-          children: [
-            Expanded(child: Text(
-              formatTimeTwo(realModel.createdAt),
-              style: TextStyle(
-                  color: Color.fromRGBO(147, 147, 147, 1),
-                  fontSize: 11.nsp),
-            ),),
-            Text(
-             "评论${realModel.commentCount}",
-              style: TextStyle(
-                  color: Color.fromRGBO(147, 147, 147, 1),
-                  fontSize: 12.nsp),
-            ),
-            SizedBox(width: 3,),
-          ],
-        )
+        SizedBox(
+          height: 2,
+        ),
+        _buildBottomWidget(),
       ],
     );
+  }
+
+  Widget _buildBottomWidget() {
+    if (isShowBottom == true) {
+      if (timeCommentStyle == true)
+        return Row(
+          children: [
+            Text(
+              formatTimeTwo(realModel.createdAt),
+              style: TextStyle(color: Color.fromRGBO(147, 147, 147, 1), fontSize: 11),
+            ),
+            Text(
+              " / 评论${realModel.commentCount}",
+              style: TextStyle(color: Color.fromRGBO(147, 147, 147, 1), fontSize: 11),
+            ),
+            SizedBox(
+              width: 3,
+            ),
+          ],
+        );
+      else
+        return Row(
+          children: [
+            Expanded(
+              child: Text(
+                formatTimeTwo(realModel.createdAt),
+                style: TextStyle(color: Color.fromRGBO(147, 147, 147, 1), fontSize: 11),
+              ),
+            ),
+            Text(
+              "评论${realModel.commentCount}",
+              style: TextStyle(color: Color.fromRGBO(147, 147, 147, 1), fontSize: 12),
+            ),
+            SizedBox(
+              width: 3,
+            ),
+          ],
+        );
+    } else {
+      return SizedBox();
+    }
   }
 
   Widget _buildTopIndicator(VideoModel model) {
     if (model?.watch?.isFreeWatch == true) {
       return SizedBox();
-      return Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(2), bottomRight: Radius.circular(2)),
-          color: Color(0xffe9467f),
-        ),
-        padding: EdgeInsets.only(
-          left: 4.w,
-          right: 4.w,
-          top: 2.w,
-          bottom: 2.w,
-        ),
-        child: Text("免费",
-            style: TextStyle(
-              color: AppColors.textColorWhite,
-              fontSize: 12,
-            ),
-        ),
-      );
     }
-    if (model?.originCoins != null &&
-        model?.originCoins == 0 &&
-        !(model?.watch?.isFreeWatch ?? false))
+    if (model?.originCoins != null && model?.originCoins == 0 && !(model?.watch?.isFreeWatch ?? false))
       return Image(
         image: AssetImage(AssetsImages.IC_VIDEO_VIP),
         width: 49.w,
         height: 20.w,
         fit: BoxFit.fill,
       );
-    if (model?.originCoins != null &&
-        model?.originCoins != 0 &&
-        !(model?.watch?.isFreeWatch ?? false))
+    if (model?.originCoins != null && model?.originCoins != 0 && !(model?.watch?.isFreeWatch ?? false))
       return Container(
         height: 20.w,
         decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(2), bottomRight: Radius.circular(2)),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(2), bottomRight: Radius.circular(2)),
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(247, 131, 97, 1),
@@ -202,14 +188,9 @@ class VideoCellWidget extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ImageLoader.withP(ImageType.IMAGE_SVG,
-                    address: AssetsSvg.ICON_VIDEO_GOLD,
-                    width: 12.w,
-                    height: 12.w)
-                .load(),
+            ImageLoader.withP(ImageType.IMAGE_SVG, address: AssetsSvg.ICON_VIDEO_GOLD, width: 12.w, height: 12.w).load(),
             SizedBox(width: 6.w),
-            Text(model.originCoins.toString(),
-                style: TextStyle(color: AppColors.textColorWhite)),
+            Text(model.originCoins.toString(), style: TextStyle(color: AppColors.textColorWhite)),
           ],
         ),
       );
@@ -219,179 +200,54 @@ class VideoCellWidget extends StatelessWidget {
 
   Widget _buildBottomData(VideoModel model) {
     return Container(
-      height: 25.w,
-      alignment: Alignment.bottomLeft,
+      height: 24,
+      alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.transparent, Colors.black.withOpacity(0.6)]),
+            begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Colors.transparent, Colors.black.withOpacity(0.6)]),
       ),
       child: Padding(
-        padding: EdgeInsets.only(left: 4.w, right: 10.w,bottom: 3),
+        padding: EdgeInsets.only(left: 4.w, right: 10.w),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(child:  Row(
-              children: [
-                // Image.asset(AssetsImages.IC_LONG_VIDEO_EYE,
-                //     width: 11.w, height: 11.w),
-                Text(
-                  model.playCountDescTwo,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                  ),
+            Expanded(
+              child:  Text(
+                model.playCountDescTwo,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
                 ),
-              ],
-            ),),
-            model.playTime==null?SizedBox():Text(
-             TimeHelper.getTimeText(model.playTime?.toDouble()??0),
-              style: TextStyle(color: Colors.white, fontSize: 10),
+              ),
             ),
+            model.playTime == null
+                ? SizedBox()
+                : Text(
+                    TimeHelper.getTimeText(model.playTime?.toDouble() ?? 0),
+                    style: TextStyle(color: Colors.white, fontSize: 10),
+                  ),
           ],
         ),
       ),
     );
   }
 
-  // Widget _buildBefore(BuildContext context) {
-  //   return Container(
-  //     margin: EdgeInsets.only(left: 16.w, right: 16.w),
-  //     child: ClipRRect(
-  //       borderRadius: BorderRadius.circular(2),
-  //       child: Stack(
-  //         alignment: AlignmentDirectional.bottomCenter,
-  //         children: [
-  //           CustomNetworkImage(
-  //             imageUrl: realModel.cover,
-  //             type: ImgType.cover,
-  //             height: _bigVideoItemHeight,
-  //             fit: BoxFit.cover,
-  //             placeholder: _buildPlaceholderUI(
-  //                 height: _bigVideoItemHeight, borRadius: 2),
-  //           ),
-  //           Container(
-  //             height: 25.w,
-  //             alignment: Alignment.center,
-  //             decoration: BoxDecoration(
-  //               gradient: LinearGradient(
-  //                   begin: Alignment.topCenter,
-  //                   end: Alignment.bottomCenter,
-  //                   colors: [
-  //                     Colors.transparent,
-  //                     Colors.black.withOpacity(0.6)
-  //                   ]),
-  //             ),
-  //             child: Padding(
-  //               padding: EdgeInsets.only(left: 10.w, right: 10.w),
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                 children: [
-  //                   Row(
-  //                     children: [
-  //                       Image.asset(AssetsImages.IC_LONG_VIDEO_EYE,
-  //                           width: 11.w, height: 11.w),
-  //                       SizedBox(
-  //                         width: 4.w,
-  //                       ),
-  //                       Text(
-  //                         list[0].playCount > 10000
-  //                             ? (list[0].playCount / 10000).toStringAsFixed(1) +
-  //                                 "w"
-  //                             : list[0].playCount.toString(),
-  //                         style: TextStyle(
-  //                           color: Colors.white,
-  //                           fontSize: 12.w,
-  //                         ),
-  //                       ),
-  //                     ],
-  //                   ),
-  //                   Text(
-  //                     TimeHelper.getTimeText(list[0].playTime.toDouble()),
-  //                     style: TextStyle(color: Colors.white, fontSize: 10.w),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //           Positioned(
-  //             top: -1,
-  //             left: -3,
-  //             child: Visibility(
-  //               visible: list[0]?.originCoins != null &&
-  //                   list[0]?.originCoins == 0 &&
-  //                   !(list[0]?.watch?.isFreeWatch ?? false),
-  //               child: Image(
-  //                 image: AssetImage(AssetsImages.IC_VIDEO_VIP),
-  //                 width: 50.w,
-  //                 height: 20.w,
-  //               ),
-  //             ),
-  //           ),
-  //           Positioned(
-  //             top: -1,
-  //             left: -1,
-  //             child: Visibility(
-  //               visible: list[0]?.originCoins != null &&
-  //                       list[0]?.originCoins != 0 &&
-  //                       !(list[0]?.watch?.isFreeWatch ?? false)
-  //                   ? true
-  //                   : false,
-  //               child: Stack(alignment: Alignment.center, children: [
-  //                 Container(
-  //                   //height: 20.w,
-  //                   decoration: const BoxDecoration(
-  //                     borderRadius: BorderRadius.only(
-  //                         topLeft: Radius.circular(4),
-  //                         bottomRight: Radius.circular(4)),
-  //                     gradient: LinearGradient(
-  //                       colors: [
-  //                         Color.fromRGBO(247, 131, 97, 1),
-  //                         Color.fromRGBO(245, 75, 100, 1),
-  //                       ],
-  //                       begin: Alignment.centerLeft,
-  //                       end: Alignment.centerRight,
-  //                     ),
-  //                   ),
-  //                   padding: EdgeInsets.only(
-  //                     left: 8.w,
-  //                     right: 8.w,
-  //                     top: 3.w,
-  //                     bottom: 3.w,
-  //                   ),
-  //                   child: Row(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: [
-  //                       ImageLoader.withP(ImageType.IMAGE_SVG,
-  //                               address: AssetsSvg.ICON_VIDEO_GOLD,
-  //                               width: 12.w,
-  //                               height: 12.w)
-  //                           .load(),
-  //                       SizedBox(width: 6.w),
-  //                       Text(list[0].originCoins.toString(),
-  //                           style: TextStyle(color: AppColors.textColorWhite)),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ]),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  Widget _buildPlaceholderUI(
-          {double width, double height, double borRadius = 0}) =>
-      ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(borRadius)),
-        child: Image(
-          image: AssetImage("assets/weibo/loading_horizetol.png"),
-          width: width ?? double.infinity,
-          height: height ?? double.infinity,
-          fit: BoxFit.fill,
+  Widget _buildDeleteState() {
+    return InkWell(
+      onTap: (){
+        deleteCallback?.call(videoModel);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0x99707070),
         ),
-      );
+        child: Center(
+          child: Image.asset(
+            "assets/images/delete_icon.png",
+            width: 30,
+            height: 30,
+          ),
+        ),
+      ),
+    );
+  }
 }

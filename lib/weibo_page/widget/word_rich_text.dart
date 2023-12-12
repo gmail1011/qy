@@ -25,7 +25,7 @@ class WordRichText extends StatefulWidget {
   final String randomTag;
   final LinearGradient linearGradient;
 
-  final Function(String val1, LinearGradient val2) randomCallBack;  //随机完成之后，给到外部组件，进入详情使用
+  final Function(String val1, LinearGradient val2) randomCallBack; //随机完成之后，给到外部组件，进入详情使用
 
   const WordRichText({
     Key key,
@@ -58,12 +58,10 @@ class _WordRichTextState extends State<WordRichText> {
   int get _maxSize => widget.maxTextSize ?? 100;
   VideoModel _realVideoModel;
   var text = "";
-  LinearGradient  gradient =   LinearGradient(
-    colors: [
-    Color.fromRGBO(211, 31, 234, 1),
+  LinearGradient gradient = LinearGradient(colors: [
     Color.fromRGBO(255, 74, 74, 1),
-    ]
-  );
+    Color.fromRGBO(255, 74, 74, 1),
+  ]);
 
   VideoModel get realVideoModel {
     if (_realVideoModel == null) {
@@ -89,32 +87,27 @@ class _WordRichTextState extends State<WordRichText> {
     }
 
     hasExpanded = (realVideoModel?.postTitle?.length ?? 0) > _maxSize;
-    _expandTapGestureRecognizer = TapGestureRecognizer()
-      ..onTapDown = _toggleExpanded;
-    _expand2TapGestureRecognizer = TapGestureRecognizer()
-      ..onTapDown = _toggleExpanded;
-    _expand3TapGestureRecognizer = TapGestureRecognizer()
-      ..onTapDown = _toggleExpanded;
-    _linkTapGestureRecognizer = TapGestureRecognizer()
-      ..onTapDown = _richTextEvent;
+    _expandTapGestureRecognizer = TapGestureRecognizer()..onTapDown = _toggleExpanded;
+    _expand2TapGestureRecognizer = TapGestureRecognizer()..onTapDown = _toggleExpanded;
+    _expand3TapGestureRecognizer = TapGestureRecognizer()..onTapDown = _toggleExpanded;
+    _linkTapGestureRecognizer = TapGestureRecognizer()..onTapDown = _richTextEvent;
 
     // + min  表示生成一个最小数 min 到最大数之间的是数字
-    if(Config.POST_TAG_RANDOM.length==0){
+    if (Config.POST_TAG_RANDOM.length == 0) {
       Config.POST_TAG_RANDOM = ["精选"];
     }
-    if(TextUtil.isEmpty(widget.randomTag) || widget.linearGradient==null){
+    if (TextUtil.isEmpty(widget.randomTag) || widget.linearGradient == null) {
       var count = Config.POST_TAG_RANDOM.length;
       var num = Random().nextInt(count) + 0;
-      text  = Config.POST_TAG_RANDOM[num.floor()];
+      text = Config.POST_TAG_RANDOM[num.floor()];
       var num1 = Random().nextInt(Config.gradientList.length) + 0;
-      gradient  = Config.gradientList[num1.floor()];
-      widget.randomCallBack?.call(text,gradient);
-    }else{
+      gradient = Config.gradientList[num1.floor()];
+      widget.randomCallBack?.call(text, gradient);
+    } else {
       text = widget.randomTag;
       gradient = widget.linearGradient;
-      widget.randomCallBack?.call(text,gradient);
+      widget.randomCallBack?.call(text, gradient);
     }
-
   }
 
   @override
@@ -126,15 +119,15 @@ class _WordRichTextState extends State<WordRichText> {
     super.dispose();
   }
 
-  String getSubString(String text, int start, int end){
-    if(end + 1 >= text.length) return text;
-    if(end < text.runes.length) {
-      String targetText = String.fromCharCodes(
-          text.runes.toList().sublist(start, end));
+  String getSubString(String text, int start, int end) {
+    if (end + 1 >= text.length) return text;
+    if (end < text.runes.length) {
+      String targetText = String.fromCharCodes(text.runes.toList().sublist(start, end));
       return targetText;
     }
     return text;
   }
+
   void _parserPostTitle() {
     String originTitle = realVideoModel.title ?? "";
     String linkUrl = realVideoModel.linkStr ?? "";
@@ -148,15 +141,14 @@ class _WordRichTextState extends State<WordRichText> {
         postTitle.type = linkInfo['type'];
         postTitle.id = linkInfo['id'];
         List<String> titleArr = originTitle.split(linkInfo['txt']) ?? [];
-        if(titleArr.length > 1){
+        if (titleArr.length > 1) {
           postTitle.isRich = true;
           postTitle.first = titleArr.first;
           titleArr.removeAt(0);
           postTitle.last = titleArr.join(linkInfo['txt']);
-        }else{
+        } else {
           postTitle.isRich = false;
         }
-
       } else {
         postTitle.isRich = false;
       }
@@ -172,20 +164,17 @@ class _WordRichTextState extends State<WordRichText> {
   }
 
   void _richTextEvent(TapDownDetails detail) {
-    if(realVideoModel.postTitle.type == 14 || realVideoModel.postTitle.type == 15){
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) {
-          return CommunityDetailPage().buildPage(
-              {"videoId": realVideoModel.postTitle?.id});
-        }));
-    }else {
+    if (realVideoModel.postTitle.type == 14 || realVideoModel.postTitle.type == 15) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return CommunityDetailPage().buildPage({"videoId": realVideoModel.postTitle?.id});
+      }));
+    } else {
       JRouter().go(realVideoModel.postTitle.linkUrl);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       child: Text.rich(
         TextSpan(
@@ -199,11 +188,11 @@ class _WordRichTextState extends State<WordRichText> {
                 WidgetSpan(
                   child: Container(
                     margin: EdgeInsets.only(right: 7),
-                    padding:
-                    EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
-                     decoration: BoxDecoration(
-                        gradient: gradient,
-                        borderRadius: BorderRadius.all(Radius.circular(3))),
+                    padding: EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
+                    decoration: BoxDecoration(
+                      gradient: gradient,
+                      borderRadius: BorderRadius.all(Radius.circular(3)),
+                    ),
                     child: Text(
                       "$text",
                       style: TextStyle(color: Colors.white, fontSize: 11),
@@ -217,19 +206,14 @@ class _WordRichTextState extends State<WordRichText> {
                 TextSpan(
                   text: _expanded ? "...." : "... ",
                   style: TextStyle(
-                      color: _expanded
-                          ? (widget.isPost
-                          ? AppColors.primaryColor
-                          : Colors.transparent)
-                          : Color(0xfff19a4d),
+                      color: _expanded ? (widget.isPost ? AppColors.primaryColor : Colors.transparent) : Color(0xfff19a4d),
                       fontSize: 16.nsp),
                   recognizer: _expand2TapGestureRecognizer,
                 ),
                 if (_expanded && widget.isPost == true)
                   TextSpan(
                     text: "..",
-                    style: TextStyle(
-                        color: AppColors.primaryColor, fontSize: 16.nsp),
+                    style: TextStyle(color: AppColors.primaryColor, fontSize: 16.nsp),
                     recognizer: _expand3TapGestureRecognizer,
                   ),
                 TextSpan(
@@ -243,15 +227,12 @@ class _WordRichTextState extends State<WordRichText> {
     );
   }
 
-
   TextSpan _buildContentTextPan() {
     if (_postTitle.isRich == true) {
       if (hasExpanded && !_expanded) {
         if (_postTitle.first.length >= _maxSize) {
-          return TextSpan(
-              text: getSubString(_postTitle.first, 0, max(_maxSize, 0)));
-        } else if (_postTitle.first.length + _postTitle.txt.length >=
-            _maxSize) {
+          return TextSpan(text: getSubString(_postTitle.first, 0, max(_maxSize, 0)));
+        } else if (_postTitle.first.length + _postTitle.txt.length >= _maxSize) {
           return TextSpan(
             children: [
               TextSpan(
@@ -290,11 +271,7 @@ class _WordRichTextState extends State<WordRichText> {
                 ),
               ),
               TextSpan(
-                text: getSubString(_postTitle.txt, 0, max(
-                    _maxSize -
-                        _postTitle.first.length -
-                        _postTitle.txt.length,
-                    0)),
+                text: getSubString(_postTitle.txt, 0, max(_maxSize - _postTitle.first.length - _postTitle.txt.length, 0)),
                 style: TextStyle(color: Color(0xffaacaec)),
                 recognizer: _linkTapGestureRecognizer,
               ),
@@ -333,9 +310,7 @@ class _WordRichTextState extends State<WordRichText> {
     } else {
       if (hasExpanded) {
         return TextSpan(
-          text: _expanded
-              ? realVideoModel.postTitle.originTitle
-              : getSubString(realVideoModel.postTitle.originTitle, 0, max(_maxSize, 0)),
+          text: _expanded ? realVideoModel.postTitle.originTitle : getSubString(realVideoModel.postTitle.originTitle, 0, max(_maxSize, 0)),
         );
       } else {
         return TextSpan(
@@ -345,7 +320,3 @@ class _WordRichTextState extends State<WordRichText> {
     }
   }
 }
-
-
-
-

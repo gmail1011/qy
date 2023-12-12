@@ -16,7 +16,6 @@ import 'package:flutter_app/common/net2/net_manager.dart';
 import 'package:flutter_app/model/ads_model.dart';
 import 'package:flutter_app/model/domain_source_model.dart';
 import 'package:flutter_app/model/liao_ba_tags_detail_entity.dart';
-import 'package:flutter_app/model/video_model.dart';
 import 'package:flutter_app/page/home/film_tv/film_tv_video/video_cell_widget.dart';
 import 'package:flutter_app/page/home/post/ads_banner_widget.dart';
 import 'package:flutter_app/widget/LoadingWidget.dart';
@@ -40,8 +39,7 @@ class MoreVideoListView extends StatefulWidget {
   }
 }
 
-class _MoreVideoListViewState extends State<MoreVideoListView>
-    with AutomaticKeepAliveClientMixin {
+class _MoreVideoListViewState extends State<MoreVideoListView> with AutomaticKeepAliveClientMixin {
   RefreshController refreshController = RefreshController();
   List<LiaoBaTagsDetailDataVideos> videoModelList;
   int pageNumber = 1;
@@ -64,12 +62,9 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
     _loadData(page: pageNumber + 1);
   }
 
-
   void _loadData({int page, int size = 15}) async {
     try {
-      LiaoBaTagsDetailData tagListModel = await netManager.client
-          .requestSelectedTagListData(
-              page, size, widget.sectionID, widget.type, 1);
+      LiaoBaTagsDetailData tagListModel = await netManager.client.requestSelectedTagListData(page, size, widget.sectionID, widget.type, 1);
       videoModelList ??= [];
       if ((tagListModel.videos ?? []).isNotEmpty) {
         pageNumber = page;
@@ -147,7 +142,7 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
       onRefresh: _refreshData,
       onLoading: _loadMoreData,
       child: GridView.builder(
-        padding: EdgeInsets.only(left: 10,right: 10),
+        padding: EdgeInsets.only(left: 10, right: 10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 10.0,
@@ -159,7 +154,6 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
           return _buildVideoItemUI(videoModelList[index], index);
         },
       ),
-
     );
   }
 
@@ -173,42 +167,30 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
           Map<String, dynamic> maps = Map();
           maps["videoId"] = videoItem.id;
           maps["sectionID"] = widget.sectionID;
-
-          VideoModel videos = VideoModel.fromJson(videoItem.toJson());
-          maps["videoModel"] = videos;
-
           JRouter().go(FILM_TV_VIDEO_DETAIL_PAGE, arguments: maps);
         }
       },
-      child:
-      Container(
+      child: Container(
         child: SizedBox(
-          width: (screen.screenWidth - 10*2-7)/2,
-          height: ((screen.screenWidth - 10*2-7)/2)*(182/201),
-
+          width: (screen.screenWidth - 10 * 2 - 7) / 2,
+          height: ((screen.screenWidth - 10 * 2 - 7) / 2) * (182 / 201),
           child: videoItem.isRandomAd
-              ? _buildAdImageItem(videoItem):VideoCellWidget(
-            isShowVip: false,
-            videoInfo2: videoItem,
-            textLine: 2,
-            imageWidth: (screen.screenWidth - 10*2-7)/2,
-            imageHeight: ((screen.screenWidth - 10*2-7)/2)*(113/201),
-          ),
+              ? _buildAdImageItem(videoItem)
+              : VideoCellWidget(
+                  isShowVip: false,
+                  videoInfo2: videoItem,
+                  textLine: 1,
+                  timeCommentStyle: true,
+                ),
         ),
       ),
-      // VideoCellWidget(
-      //         videoInfo2: videoItem,isShowVip: false,
-      //         imageWidth: (screen.screenWidth - 10*2-7)/2,
-      //         imageHeight: ((screen.screenWidth - 10*2-7)/2)*(113/201),
-      //     ),
     );
   }
 
-
   Widget _buildAdImageItem(LiaoBaTagsDetailDataVideos videoItem) {
     return Container(
-        width: (screen.screenWidth - 10*2-7)/2,
-        height: ((screen.screenWidth - 10*2-7)/2)*(182/201),
+        width: (screen.screenWidth - 10 * 2 - 7) / 2,
+        height: ((screen.screenWidth - 10 * 2 - 7) / 2) * (182 / 201),
         child: Column(
           children: [
             Stack(
@@ -217,11 +199,11 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
                   imageUrl: videoItem.randomAdsInfo.cover,
                   placeholder: Image(
                     image: AssetImage(AssetsImages.LOADING_HORIZONTAL_IMAGE),
-                    width: (screen.screenWidth - 10*2-7)/2,
-                    height: ((screen.screenWidth - 10*2-7)/2)*(113/201),
+                    width: (screen.screenWidth - 10 * 2 - 7) / 2,
+                    height: ((screen.screenWidth - 10 * 2 - 7) / 2) * (113 / 201),
                     fit: BoxFit.fill,
                   ),
-                  height: ((screen.screenWidth - 10*2-7)/2)*(113/201),
+                  height: ((screen.screenWidth - 10 * 2 - 7) / 2) * (113 / 201),
                   fit: BoxFit.cover,
                 ),
                 Positioned(
@@ -241,7 +223,7 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
                       "广告",
                       style: TextStyle(
                         fontSize: 11,
-                        color: Color.fromRGBO(0,0,0, 1),
+                        color: Color.fromRGBO(0, 0, 0, 1),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -258,7 +240,6 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
                 maxLines: 2,
               ),
             ),
-
           ],
         ));
   }
@@ -276,10 +257,7 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
             child: Stack(
               alignment: AlignmentDirectional.bottomCenter,
               children: [
-                CustomNetworkImage(
-                    imageUrl: videoItem?.cover,
-                    height: 106.w,
-                    fit: BoxFit.cover),
+                CustomNetworkImage(imageUrl: videoItem?.cover, height: 106.w, fit: BoxFit.cover),
                 Container(
                   height: 20.w,
                   alignment: Alignment.center,
@@ -287,10 +265,7 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent,
-                          Colors.black.withOpacity(0.6)
-                        ]),
+                        colors: [Colors.transparent, Colors.black.withOpacity(0.6)]),
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 10.w),
@@ -299,16 +274,13 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
                       children: [
                         Row(
                           children: [
-                            Image.asset(AssetsImages.IC_LONG_VIDEO_EYE,
-                                width: 11.w, height: 11.w),
+                            Image.asset(AssetsImages.IC_LONG_VIDEO_EYE, width: 11.w, height: 11.w),
                             SizedBox(
                               width: 4.w,
                             ),
                             Text(
                               videoItem.playCount > 10000
-                                  ? (videoItem.playCount / 10000)
-                                          .toStringAsFixed(1) +
-                                      "w"
+                                  ? (videoItem.playCount / 10000).toStringAsFixed(1) + "w"
                                   : videoItem.playCount.toString(),
                               style: TextStyle(
                                 color: Colors.white,
@@ -329,9 +301,7 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
                   top: -1,
                   left: -3,
                   child: Visibility(
-                    visible: videoItem?.originCoins != null &&
-                        videoItem?.originCoins == 0 &&
-                        !(videoItem?.watch?.isFreeWatch),
+                    visible: videoItem?.originCoins != null && videoItem?.originCoins == 0 && !(videoItem?.watch?.isFreeWatch),
                     child: Image(
                       image: const AssetImage(AssetsImages.IC_VIDEO_VIP),
                       width: 50.w,
@@ -343,18 +313,13 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
                   top: -1,
                   left: -1,
                   child: Visibility(
-                    visible: videoItem?.originCoins != null &&
-                            videoItem?.originCoins != 0 &&
-                            !(videoItem?.watch?.isFreeWatch)
-                        ? true
-                        : false,
+                    visible:
+                        videoItem?.originCoins != null && videoItem?.originCoins != 0 && !(videoItem?.watch?.isFreeWatch) ? true : false,
                     child: Stack(alignment: Alignment.center, children: [
                       Container(
                         //height: 20,
                         decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4),
-                              bottomRight: Radius.circular(4)),
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(4), bottomRight: Radius.circular(4)),
                           gradient: LinearGradient(
                             colors: [
                               Color.fromRGBO(247, 131, 97, 1),
@@ -373,16 +338,9 @@ class _MoreVideoListViewState extends State<MoreVideoListView>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ImageLoader.withP(ImageType.IMAGE_SVG,
-                                    address: AssetsSvg.ICON_VIDEO_GOLD,
-                                    width: 12.w,
-                                    height: 12.w)
-                                .load(),
+                            ImageLoader.withP(ImageType.IMAGE_SVG, address: AssetsSvg.ICON_VIDEO_GOLD, width: 12.w, height: 12.w).load(),
                             SizedBox(width: 6.w),
-                            Text(videoItem?.originCoins.toString(),
-                                style: TextStyle(
-                                    color: AppColors.textColorWhite,
-                                    fontSize: 14.w)),
+                            Text(videoItem?.originCoins.toString(), style: TextStyle(color: AppColors.textColorWhite, fontSize: 14.w)),
                           ],
                         ),
                       ),

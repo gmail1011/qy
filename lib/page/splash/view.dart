@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/assets/images.dart';
 import 'package:flutter_app/assets/lang.dart';
@@ -17,6 +18,7 @@ Widget buildView(
   return Scaffold(
     //这使用主要是预加载背景图
     body: Stack(
+      fit: StackFit.expand,
       children: <Widget>[
 
         assetsImg(AssetsImages.IC_SPLASH_BG, width: 1.sw, height: 1.sh, fit: BoxFit.cover, scale: 1.0),
@@ -29,9 +31,6 @@ Widget buildView(
           child: CustomNetworkImage(
               //imageUrl: state.adsBean?.cover,
               imageUrl: !Config.isFirstStartApp ? Config.splashAds?.cover : state.adsBean?.cover,
-              width: 1.sw,
-              height: 1.sh,
-              fit: BoxFit.fitWidth,
               placeholder: Container(color: Colors.transparent)),
         ),
 

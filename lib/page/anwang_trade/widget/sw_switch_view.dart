@@ -35,7 +35,7 @@ class SWSwitchDialogView extends StatelessWidget {
                               width: 303,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(0, 214, 190, 1),
+                                color: Color(0xffca452e),
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(8),
                                     topRight: Radius.circular(8)),
@@ -113,7 +113,7 @@ class SWSwitchDialogView extends StatelessWidget {
                                       child: Container(
                                         height: 41,
                                         decoration: BoxDecoration(
-                                            color: Color.fromRGBO(0, 214, 190, 1),
+                                            color: Color(0xffca452e),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20.5))),
                                         child: Center(

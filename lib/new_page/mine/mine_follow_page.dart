@@ -43,7 +43,8 @@ class _MineFollowPageState extends State<MineFollowPage>
               child: HJCustomTabBar(
                 ["博主", "话题"],
                 _controller,
-                isSearchStyle: true,
+                bgColor: Colors.transparent,
+                selectedColor: Color(0xff202020),
               ),
             ),
             Expanded(

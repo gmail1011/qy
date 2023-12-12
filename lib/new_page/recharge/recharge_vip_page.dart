@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -52,6 +54,7 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
   BaseRequestController requestController = BaseRequestController();
   ScrollController scrollController = new ScrollController();
   ScrollController scrollControllerListView = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -102,8 +105,7 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
           if (jumpPostion > 0) {
             double pixelOffset = jumpPostion * 120.0;
             //将项滚动到中心位置
-            scrollControllerListView.animateTo(pixelOffset,
-                duration: Duration(milliseconds: 500), curve: Curves.ease);
+            scrollControllerListView.animateTo(pixelOffset, duration: Duration(milliseconds: 500), curve: Curves.ease);
           }
         });
       });
@@ -136,8 +138,7 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
           actions: [
             InkWell(
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                   return RechargeRecordPage();
                 }));
               },
@@ -145,8 +146,8 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                 margin: EdgeInsets.symmetric(vertical: 6),
                 child: Text(
                   "充值记录",
-                  style: const TextStyle(
-                    color: const Color(0xffffffff),
+                  style: TextStyle(
+                    color: Color(0xffffffff),
                     fontWeight: FontWeight.w400,
                     fontSize: 12.0,
                   ),
@@ -203,8 +204,7 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                         style: TextStyle(
                             fontSize: 12,
                             color: GlobalStore.isVIP()
-                                ? Color(
-                                    0xfff5e5bf) // Color.fromRGBO(246, 197, 89, 1)
+                                ? Color(0xfff5e5bf) // Color.fromRGBO(246, 197, 89, 1)
                                 : Colors.white.withOpacity(0.5)),
                       ),
                     ],
@@ -227,120 +227,87 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                         _getNewVipList();
                       });
                     },
-                    child: CustomScrollView(
-                        controller: scrollController,
-                        slivers: [
-                          SliverToBoxAdapter(
-                            child: Container(
-                              height: 30,
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("开通VIP享受会员特权",
-                                      style: const TextStyle(
-                                          color: const Color(0xffffffff),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.left),
-                                  Text("",
-                                      style: const TextStyle(
-                                          color: const Color(0xffffffff),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.left),
-                                ],
-                              ),
-                            ),
+                    child: CustomScrollView(controller: scrollController, slivers: [
+                      SliverToBoxAdapter(
+                        child: Container(
+                          height: 30,
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("开通VIP享受会员特权",
+                                  style: TextStyle(color: Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 14.0),
+                                  textAlign: TextAlign.left),
+                              Text("",
+                                  style: TextStyle(color: Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 14.0),
+                                  textAlign: TextAlign.left),
+                            ],
                           ),
-                          SliverToBoxAdapter(
-                            child: Container(
-                              height: 170,
-                              child: ListView.builder(
-                                  controller: scrollControllerListView,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: defaultTabVipItem == null
-                                      ? 0
-                                      : defaultTabVipItem.vips.length ?? 0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return _buildVipProductItemView(
-                                        index, defaultTabVipItem.vips[index]);
-                                  }),
-                            ),
-                          ),
-                          Visibility(
-                            visible: selectVipItem != null &&
-                                selectVipItem.newPrivilege != null,
-                            child: SliverPadding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              sliver: SliverGrid(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4,
-                                        crossAxisSpacing: 10,
-                                        mainAxisSpacing: 10,
-                                        childAspectRatio: 70 / 116),
-                                delegate: SliverChildBuilderDelegate(
-                                    (context, index) =>
-                                        _buildProductPrivilegeItemView(index),
-                                    childCount: selectVipItem == null
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Container(
+                          height: 170,
+                          child: ListView.builder(
+                              controller: scrollControllerListView,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: defaultTabVipItem == null ? 0 : defaultTabVipItem.vips.length ?? 0,
+                              itemBuilder: (BuildContext context, int index) {
+                                return _buildVipProductItemView(index, defaultTabVipItem.vips[index]);
+                              }),
+                        ),
+                      ),
+                      Visibility(
+                        visible: selectVipItem != null && selectVipItem.newPrivilege != null,
+                        child: SliverPadding(
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          sliver: SliverGrid(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 4, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: 70 / 116),
+                            delegate: SliverChildBuilderDelegate((context, index) => _buildProductPrivilegeItemView(index),
+                                childCount: selectVipItem == null
+                                    ? 0
+                                    : selectVipItem.newPrivilege == null
                                         ? 0
-                                        : selectVipItem.newPrivilege == null
-                                            ? 0
-                                            : selectVipItem
-                                                    .newPrivilege.length ??
-                                                0),
-                              ),
-                            ),
+                                        : selectVipItem.newPrivilege.length ?? 0),
                           ),
-                          SliverToBoxAdapter(
-                            child: Container(
-                              height: 30,
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("积分兑换VIP",
-                                      style: const TextStyle(
-                                          color: const Color(0xffffffff),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.left),
-                                  Text("当前积分:${wallet.integral}",
-                                      style: const TextStyle(
-                                          color: const Color(0xffffffff),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.left),
-                                ],
-                              ),
-                            ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Container(
+                          height: 30,
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("积分兑换VIP",
+                                  style: TextStyle(color: Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 14.0),
+                                  textAlign: TextAlign.left),
+                              Text("当前积分:${wallet.integral}",
+                                  style: TextStyle(color: Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 14.0),
+                                  textAlign: TextAlign.left),
+                            ],
                           ),
-                          SliverToBoxAdapter(
-                            child: Container(
-                              height: 210,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: vipListModel == null
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Container(
+                          height: 210,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: vipListModel == null
+                                  ? 0
+                                  : vipListModel.integralList == null
                                       ? 0
-                                      : vipListModel.integralList == null
-                                          ? 0
-                                          : vipListModel.integralList.length ??
-                                              0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return _buildExchangeProductItemView(
-                                        vipListModel.integralList[index]);
-                                  }),
-                            ),
-                          ),
-                        ]),
+                                      : vipListModel.integralList.length ?? 0,
+                              itemBuilder: (BuildContext context, int index) {
+                                return _buildExchangeProductItemView(vipListModel.integralList[index]);
+                              }),
+                        ),
+                      ),
+                    ]),
                   ),
                 ),
               ),
@@ -348,10 +315,8 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
           ),
           Container(
             height: 120,
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(color: const Color(0xff4f4f4f), width: 0)),
-                color: const Color.fromRGBO(19, 19, 19, 1)),
+            decoration:
+                BoxDecoration(border: Border(top: BorderSide(color: Color(0xff4f4f4f), width: 0)), color: Color.fromRGBO(19, 19, 19, 1)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -361,11 +326,8 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                     if (curTabVipItem == null && vipListModel == null) {
                       return;
                     }
-                    var args = PayForArgs(
-                        dcModel: vipListModel?.daichong,
-                        isDialog: false,
-                        vipitem: selectVipItem,
-                        curTabVipItem: curTabVipItem);
+                    var args =
+                        PayForArgs(dcModel: vipListModel?.daichong, isDialog: false, vipitem: selectVipItem, curTabVipItem: curTabVipItem);
                     showPayListDialog(context, args);
                   },
                   child: Container(
@@ -374,16 +336,16 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(90)),
                       gradient: LinearGradient(colors: [
-                        const Color.fromRGBO(100, 255, 239, 1),
-                        const Color.fromRGBO(0, 214, 190, 1),
+                        Color(0xffca452e),
+                        Color(0xffca452e),
                       ]),
                     ),
                     child: Center(
                       child: Text(
-                        "立即支付 ￥${(selectVipItem == null ? 0 : selectVipItem.discountedPrice ?? 0) ~/ 10}",
-                        style: const TextStyle(
-                          color: const Color.fromRGBO(36, 17, 16, 1),
-                          fontWeight: FontWeight.w600,
+                        "￥${(selectVipItem == null ? 0 : selectVipItem.discountedPrice ?? 0) ~/ 10} /立即支付",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
                           fontSize: 14.0,
                         ),
                       ),
@@ -396,15 +358,15 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                   child: RichText(
                       text: TextSpan(children: [
                     TextSpan(
-                        style: const TextStyle(
-                          color: const Color.fromRGBO(191, 191, 193, 1),
+                        style: TextStyle(
+                          color: Color.fromRGBO(191, 191, 193, 1),
                           fontWeight: FontWeight.w400,
                           fontSize: 12.0,
                         ),
                         text: "支付问题反馈，点击联系  "),
                     TextSpan(
-                        style: const TextStyle(
-                          color: const Color.fromRGBO(0, 214, 190, 1),
+                        style: TextStyle(
+                          color: Color(0xffca452e),
                           fontWeight: FontWeight.w400,
                           fontSize: 12.0,
                         ),
@@ -422,7 +384,9 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
   ///VIP产品Item
   Widget _buildVipProductItemView(int index, ProductItemBean item) {
     var textColor = Colors.white;
-
+    if (item.productID == selectVipItem.productID) {
+      textColor = Colors.black;
+    }
     return InkWell(
       onTap: () {
         setState(() {
@@ -432,7 +396,7 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
       child: Container(
         width: 110,
         height: 146,
-        margin: EdgeInsets.only(right: 6),
+        margin: EdgeInsets.symmetric(horizontal: 3),
         child: Stack(children: [
           Positioned(
             left: 0,
@@ -443,73 +407,79 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
               padding: EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                border: Border.all(
-                    width: 1,
-                    color: selectVipItem != null &&
-                            item.productID == selectVipItem.productID
-                        ? Color.fromRGBO(0, 214, 160, 1)
-                        : Color.fromRGBO(22, 21, 42, 1)),
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: selectVipItem != null &&
-                            item.productID == selectVipItem.productID
+                    colors: selectVipItem != null && item.productID == selectVipItem.productID
                         ? [
-                            const Color.fromRGBO(12, 10, 10, 1),
-                            const Color.fromRGBO(0, 214, 190, 1),
+                            Color.fromRGBO(255, 238, 220, 1),
+                            Color.fromRGBO(250, 221, 193, 1),
+                            Color.fromRGBO(238, 199, 178, 1),
                           ]
                         : [
-                            const Color.fromRGBO(22, 21, 42, 1),
-                            const Color.fromRGBO(22, 21, 42, 1),
+                            Color.fromRGBO(32, 32, 32, 1),
+                            Color.fromRGBO(32, 32, 32, 1),
                           ]),
               ),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      "${item.productName}",
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "${item.productName}",
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    children: [
+                      Text(
+                        "¥",
+                        style: TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.w200,
+                          fontSize: 18,
+                        ),
+                      ), //
+                      SizedBox(width: 2), // 300
+                      Text(
+                        "${item.discountedPriceAnd ~/ 10}",
+                        style: TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 32.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    "￥${item.originalPrice ~/ 10}",
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.lineThrough,
+                      decorationColor:
+                          selectVipItem != null && item.productID == selectVipItem.productID ? textColor : Color.fromRGBO(153, 153, 153, 1),
+                      fontSize: 12,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 3),
+                    child: Text(
+                      item.vipCardDesc ?? "",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: textColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16.0,
+                        fontSize: 12,
                       ),
                     ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        children: [
-                          Text(
-                            "¥",
-                            style: TextStyle(
-                              color: textColor,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 20.0,
-                            ),
-                          ), //
-                          SizedBox(width: 5), // 300
-                          Text(
-                            "${item.discountedPriceAnd ~/ 10}",
-                            style: TextStyle(
-                              color: textColor,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 32.0,
-                            ),
-                          ),
-                        ]),
-                    Text(
-                      "￥${item.originalPrice ~/ 10}",
-                      style: TextStyle(
-                        color: textColor,
-                        fontWeight: FontWeight.w200,
-                        decoration: TextDecoration.lineThrough,
-                        decorationColor: selectVipItem != null &&
-                                item.productID == selectVipItem.productID
-                            ? textColor
-                            : Color.fromRGBO(153, 153, 153, 1),
-                        fontSize: 20.0,
-                      ),
-                    )
-                  ]),
+                  ),
+                ],
+              ),
             ),
           ),
           if (item.actionDesc != null && item.actionDesc != "")
@@ -519,25 +489,18 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
               child: Container(
                 width: 83,
                 height: 20,
+                padding: EdgeInsets.only(left: 2),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
                     bottomRight: Radius.circular(12),
                   ),
-                  gradient: selectVipItem != null &&
-                          item.productID == selectVipItem.productID
-                      ? LinearGradient(
-                          colors: [
-                            const Color.fromRGBO(100, 255, 239, 1),
-                            const Color.fromRGBO(0, 214, 190, 1),
-                          ],
-                        )
-                      : LinearGradient(
-                          colors: [
-                            const Color.fromRGBO(31, 32, 49, 1),
-                            const Color.fromRGBO(31, 32, 49, 1),
-                          ],
-                        ),
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromRGBO(234, 191, 160, 1),
+                      Color.fromRGBO(242, 211, 185, 1),
+                    ],
+                  ),
                 ),
                 child: Center(
                   child: Text(
@@ -545,11 +508,7 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: selectVipItem != null &&
-                              item.productID == selectVipItem.productID
-                          ? Colors.black
-                          : Colors.white,
-                      fontWeight: FontWeight.w400,
+                      color: Color(0xff131010),
                       fontSize: 10.0,
                     ),
                   ),
@@ -572,20 +531,17 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             border: Border.all(width: 1),
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  const Color.fromRGBO(100, 255, 239, 1),
-                  const Color.fromRGBO(0, 214, 190, 1),
-                ]),
+            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+              Color.fromRGBO(255, 238, 220, 1),
+              Color.fromRGBO(250, 221, 193, 1),
+              Color.fromRGBO(238, 199, 178, 1),
+            ]),
           ),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(
               "${item.name}",
               style: TextStyle(
                 color: Color.fromRGBO(66, 26, 17, 1),
-                fontWeight: FontWeight.w400,
                 fontSize: 16.0,
               ),
             ),
@@ -593,9 +549,9 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
             Text(
               "${item.price}积分",
               style: TextStyle(
-                color: Color.fromRGBO(255, 255, 255, 1),
-                fontWeight: FontWeight.w900,
-                fontSize: 20.0,
+                color: Color.fromRGBO(118, 62, 45, 1),
+                fontWeight: FontWeight.w500,
+                fontSize: 18,
               ),
             ),
           ]),
@@ -611,14 +567,14 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
             height: 28,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(36)),
-              color: const Color(0xff232a3c),
+              color: Color(0xff202020),
             ),
             child: Center(
               child: // 兑换
                   Text(
                 "兑换",
-                style: const TextStyle(
-                  color: const Color(0xffffffff),
+                style: TextStyle(
+                  color: Color(0xffffffff),
                   fontWeight: FontWeight.w600,
                   fontSize: 12.0,
                 ),
@@ -632,54 +588,51 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
 
   ///产品权益Item
   Widget _buildProductPrivilegeItemView(int index) {
-    if (selectVipItem == null || selectVipItem.newPrivilege == null)
-      return Container();
+    if (selectVipItem == null || selectVipItem.newPrivilege == null) return Container();
     var item = selectVipItem.newPrivilege[index];
     return Column(
       children: [
         Container(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ClipOval(
-                  child: CustomNetworkImage(
-                    imageUrl: item.img,
-                    height: 60,
-                    width: 60,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  "${item.privilegeName}",
-                  style: const TextStyle(
-                    color: const Color(0xffffffff),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.0,
-                  ),
-                ),
-                SizedBox(height: 3),
-                Text(
-                  "${item.privilegeDesc.split(" ").length > 1 ? item.privilegeDesc.split(" ")[0].trim() : item.privilegeDesc.split("\n")[0]}",
-                  maxLines: 1,
-                  style: TextStyle(
-                    color: Color(0xffffffff).withOpacity(0.5),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.0,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  "${item.privilegeDesc.split(" ").length > 1 ? item.privilegeDesc.split(" ")[1].trim() : item.privilegeDesc.split("\n").length > 1 ? item.privilegeDesc.split("\n")[1] : ""}",
-                  maxLines: 1,
-                  style: TextStyle(
-                    color: Color(0xffffffff).withOpacity(0.5),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.0,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ]),
+          child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            ClipOval(
+              child: CustomNetworkImage(
+                imageUrl: item.img,
+                height: 60,
+                width: 60,
+                fit: BoxFit.fill,
+              ),
+            ),
+            SizedBox(height: 2),
+            Text(
+              "${item.privilegeName}",
+              style: TextStyle(
+                color: Color(0xffffffff),
+                fontWeight: FontWeight.w400,
+                fontSize: 14.0,
+              ),
+            ),
+            SizedBox(height: 3),
+            Text(
+              "${item.privilegeDesc.split(" ").length > 1 ? item.privilegeDesc.split(" ")[0].trim() : item.privilegeDesc.split("\n")[0]}",
+              maxLines: 1,
+              style: TextStyle(
+                color: Color(0xffffffff).withOpacity(0.5),
+                fontWeight: FontWeight.w400,
+                fontSize: 12.0,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "${item.privilegeDesc.split(" ").length > 1 ? item.privilegeDesc.split(" ")[1].trim() : item.privilegeDesc.split("\n").length > 1 ? item.privilegeDesc.split("\n")[1] : ""}",
+              maxLines: 1,
+              style: TextStyle(
+                color: Color(0xffffffff).withOpacity(0.5),
+                fontWeight: FontWeight.w400,
+                fontSize: 12.0,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ]),
         ),
       ],
     );

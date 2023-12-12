@@ -194,19 +194,27 @@ class _AiVideoChangeFaceModelDetailState extends State<AiVideoChangeFaceModelDet
                   children: [
                     Image.asset("assets/images/hjll_ai_changeface_wrong_2.png",width: 100,height: 100,),
                     SizedBox(height: 14,),
-                    new Text("正面无遮挡",
+                    Text("正面无遮挡",
                         style: TextStyle(
                           color: Color(0xff999999),
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
-                        )
-                    )
+                        ),
+                    ),
                   ],
                 )
               ],
             ),
-            SizedBox(height: 22,),
+            SizedBox(height: 22),
+            Text("上传脸部信息",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 12),
             PictureMangeWidget(
               videoPath: uploadModelAiFace.videoLocalPath,
               picList: uploadModelAiFace.localPicList,
@@ -215,11 +223,10 @@ class _AiVideoChangeFaceModelDetailState extends State<AiVideoChangeFaceModelDet
               mainAixCount:3,
               showTextValue:Text(
                   "上传脸部信息",
-                  style: const TextStyle(
-                      color:  const Color(0xffffffff),
+                  style:  TextStyle(
+                      color:   Color(0xffffffff),
                       fontWeight: FontWeight.w500,
-                      fontStyle:  FontStyle.normal,
-                      fontSize: 16.0
+                      fontSize: 16
                   ),
                   textAlign: TextAlign.center
               ),
@@ -277,7 +284,7 @@ class _AiVideoChangeFaceModelDetailState extends State<AiVideoChangeFaceModelDet
                 GestureDetector(
                   onTap: _submitAiChangeFaceWithVideo,
                   child: Container(
-                    margin: EdgeInsets.only(right: 28),
+                    margin: EdgeInsets.only(right: 6),
                     height: 40,
                     width: 114,
                     decoration: BoxDecoration(
@@ -287,9 +294,9 @@ class _AiVideoChangeFaceModelDetailState extends State<AiVideoChangeFaceModelDet
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(top: 0),
                     child:Text(
-                        "生成",
+                        "支付",
                         style: const TextStyle(
-                            color:  Colors.black,
+                            color:  Colors.white,
                             fontWeight: FontWeight.w600,
                             fontStyle:  FontStyle.normal,
                             fontSize: 14.0
@@ -304,7 +311,7 @@ class _AiVideoChangeFaceModelDetailState extends State<AiVideoChangeFaceModelDet
             SizedBox(height: 10,)
           ],
         ),
-      )
+      ),
     );
   }
 

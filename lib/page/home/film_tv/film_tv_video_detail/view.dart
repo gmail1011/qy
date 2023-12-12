@@ -80,7 +80,7 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                                   padding: EdgeInsets.only(top: 2),
                                   child: Text(
                                     "${state.viewModel?.videoCoin()}",
-                                    style: TextStyle(color: Color.fromRGBO(0, 214, 190, 1), fontSize: 14),
+                                    style: TextStyle(color: Color(0xffca452e), fontSize: 14),
                                   ),
                                 ),
                                 SizedBox(
@@ -184,7 +184,7 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                                     decoration: BoxDecoration(
                                         gradient: LinearGradient(colors: [
                                           Color.fromRGBO(132, 164, 249, 1),
-                                          Color.fromRGBO(0, 214, 190, 1),
+                                          Color(0xffca452e),
                                         ]),
                                         borderRadius: BorderRadius.all(Radius.circular(4))),
                                     child: Text(
@@ -207,7 +207,7 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                                     decoration: BoxDecoration(
                                         gradient: LinearGradient(colors: [
                                           Color.fromRGBO(132, 164, 249, 1),
-                                          Color.fromRGBO(0, 214, 190, 1),
+                                          Color(0xffca452e),
                                         ]),
                                         borderRadius: BorderRadius.all(Radius.circular(4))),
                                     child: Text(
@@ -290,13 +290,10 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                                           SizedBox(
                                             width: 5,
                                           ),
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 2),
-                                            child: Image.asset(
-                                              "assets/images/line_switch.png",
-                                              width: 12,
-                                              height: 12,
-                                            ),
+                                          Image.asset(
+                                            "assets/images/line_switch.png",
+                                            width: 12,
+                                            height: 12,
                                           )
                                         ],
                                       ) // 下拉按钮的文字
@@ -309,14 +306,14 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                                       itemHeight: 30,
                                       itemWidth: 80,
                                       type: PopWindowType.bottomRight,
-                                      itemTitleColor: Colors.black,
-                                      dividerColor: Colors.black.withOpacity(0.1),
+                                      itemTitleColor: Colors.white,
+                                      dividerColor: Colors.white.withOpacity(0.1),
                                       backgroundColor: Color.fromRGBO(34, 34, 34, 1),
                                       itemsData: state.listPopModel,
                                       gradient: LinearGradient(
                                         colors: [
-                                          Color.fromRGBO(199, 255, 249, 1),
-                                          Colors.white,
+                                          Color.fromRGBO(46, 46, 46, 1),
+                                          Color.fromRGBO(46, 46, 46, 1),
                                         ],
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
@@ -345,7 +342,7 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                           physics: GlobalStore.isVIP() ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
                           controller: state.tabController,
                           children: [
-                            state.viewModel ==null ? Center(child: LoadingWidget(color: Colors.transparent),) : FilmVideoIntroductionPage().buildPage({"viewModel": state.viewModel}),
+                            FilmVideoIntroductionPage().buildPage({"viewModel": state.viewModel}),
                             FilmVideoCommentPage().buildPage({"videoId": state.videoId}),
                           ],
                           dragStartBehavior: DragStartBehavior.down,
@@ -355,20 +352,22 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
             ],
           ),
           Positioned(
+            right: 10,
+            bottom: 60,
             child: GestureDetector(
               child: Container(
-                width: 55,
-                height: 55,
+                width: 40,
+                height: 40,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [
-                      Color(0xff8ef9eb),
-                      Color.fromRGBO(0, 214, 190, 1),
+                      Color(0xffca452e),
+                      Color(0xffca452e),
                     ]),
                     borderRadius: BorderRadius.all(Radius.circular(28))),
                 child: Text(
                   "返回",
-                  style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 16),
+                  style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 12),
                 ),
               ),
               onTap: () {
@@ -381,8 +380,6 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                 safePopPage();
               },
             ),
-            right: 10,
-            bottom: 55,
           )
         ],
       ));
@@ -393,28 +390,12 @@ Widget _createVodeo(FilmTvVideoDetailState state, Dispatch dispatch, BuildContex
   return Stack(
     alignment: Alignment.center,
     children: [
-      (state.videoInited == false || state.chewieController == null)
+      (state.videoInited == false || state.tabController == null || state.chewieController == null)
           ? Container(
               width: screen.screenWidth,
               height: screen.screenWidth / 1.78,
               color: AppColors.videoBackgroundColor,
-              child: Stack(
-
-                alignment: AlignmentDirectional.center,
-
-                children: [
-
-                  CustomNetworkImage(
-                    imageUrl: state.viewModel.cover,
-                    fit: BoxFit.cover,
-                    width: screen.screenWidth,
-                    height: screen.screenWidth / 1.78,
-                  ),
-
-                  LoadingWidget(color: Colors.transparent),
-
-                ],
-              ),
+              child: LoadingWidget(color: Colors.transparent),
             )
           : Container(
               width: screen.screenWidth,
@@ -447,7 +428,7 @@ GestureDetector _buildVideoStatus(BuildContext context, Dispatch dispatch, int v
     },
     child: Container(
       padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
-      decoration: BoxDecoration(color: Color.fromRGBO(0, 214, 190, 0.9), borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: AppColors.primaryTextColor, borderRadius: BorderRadius.circular(20)),
       child: Text(
         vStausName ?? "",
         style: TextStyle(color: Colors.white, fontSize: 12),

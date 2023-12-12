@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_base/utils/toast_util.dart';
 
 class TimerCountDownWidget extends StatefulWidget {
   final Function onTimerFinish;
   final Function onTimerStart;
-
-  TimerCountDownWidget({Key key, this.onTimerStart, this.onTimerFinish})
+  final TextEditingController phoneController;
+  TimerCountDownWidget({Key key, this.onTimerStart, this.onTimerFinish, this.phoneController,})
       : super(key: key);
 
   @override
@@ -21,6 +22,10 @@ class TimerCountDownWidgetState extends State<TimerCountDownWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        if(widget.phoneController.text.length < 10){
+          showToast(msg: "请输入正确的手机号");
+          return;
+        }
         if (_countdownTime == 0) {
           widget.onTimerStart();
           setState(() {

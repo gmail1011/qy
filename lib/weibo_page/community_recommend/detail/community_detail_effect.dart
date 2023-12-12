@@ -9,6 +9,7 @@ import 'package:flutter_app/common/net2/net_manager.dart';
 import 'package:flutter_app/global_store/store.dart';
 import 'package:flutter_app/model/ads_model.dart';
 import 'package:flutter_app/model/video_model.dart';
+import 'package:flutter_app/page/home/mine/history/history_record_util.dart';
 import 'package:flutter_app/page/video/player_util.dart';
 import 'package:flutter_app/utils/EventBusUtils.dart';
 import 'package:flutter_app/utils/analyticsEvent.dart';
@@ -47,6 +48,9 @@ void _onDispose(Action action, Context<CommunityDetailState> ctx){
 
   if (ctx.state.chewieController != null) {
     ctx.state.chewieController.dispose();
+  }
+  if(ctx.state.videoModel != null) {
+    HistoryRecordUtil.insertVideoModel(ctx.state.videoModel, type: 1);
   }
 }
 

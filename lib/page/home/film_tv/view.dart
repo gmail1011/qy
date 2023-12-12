@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/assets/svg.dart';
 import 'package:flutter_app/common/config/config.dart';
 import 'package:flutter_app/common/local_router/route_map.dart';
@@ -31,11 +32,12 @@ Widget buildView(FilmTelevisionState state, Dispatch dispatch, ViewService viewS
       child: Stack(
     children: [
       Scaffold(
+          backgroundColor: Colors.black,
           appBar: AppBar(
             titleSpacing: 0,
             toolbarHeight: Dimens.pt40,
             automaticallyImplyLeading: false,
-            backgroundColor: Color.fromRGBO(14, 20, 30, 1),
+            backgroundColor: Colors.black,
             title: HjllSearchWidget(),
             actions: [HjllSearchButton()],
           ),
@@ -67,12 +69,12 @@ Widget buildView(FilmTelevisionState state, Dispatch dispatch, ViewService viewS
                             )
                             .toList(),
                     indicator: RoundUnderlineTabIndicator(
-                      borderSide: BorderSide(color: Color.fromRGBO(0, 214, 190, 1), width: 3),
+                      borderSide: BorderSide(color: Color(0xffca452e), width: 3),
                     ),
                     indicatorSize: TabBarIndicatorSize.label,
                     unselectedLabelColor: Color.fromRGBO(153, 153, 153, 1),
                     unselectedLabelStyle: TextStyle(fontSize: Dimens.pt16),
-                    labelColor: Color.fromRGBO(0, 214, 190, 1),
+                    labelColor: Color(0xffca452e),
                     isScrollable: true,
                     labelStyle: TextStyle(fontSize: Dimens.pt18),
                     labelPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -112,11 +114,11 @@ Widget buildView(FilmTelevisionState state, Dispatch dispatch, ViewService viewS
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      "assets/images/warning.png",
-                      width: 62,
-                      height: 62,
-                    ),
+                    // Image.asset(
+                    //   "assets/images/warning.png",
+                    //   width: 62,
+                    //   height: 62,
+                    // ),
                     SizedBox(height: 16),
                     Text(
                         "此板块都是暗网禁片真实解密的内容，\n"
@@ -150,12 +152,12 @@ Widget buildView(FilmTelevisionState state, Dispatch dispatch, ViewService viewS
                                   child: (Config.anWangVipCard.vipCardList.indexOf(e) == (Config.anWangVipCard.vipCardList.length - 1))
                                       ? Text(e.productName,
                                           style: TextStyle(
-                                            color: Color(0xff74b7f1),
+                                            color: AppColors.primaryTextColor,
                                             fontSize: 14,
                                           ))
                                       : Text(e.productName + "/",
                                           style: TextStyle(
-                                            color: Color(0xff74b7f1),
+                                            color: AppColors.primaryTextColor,
                                             fontSize: 14,
                                           )));
                             }).toList(),

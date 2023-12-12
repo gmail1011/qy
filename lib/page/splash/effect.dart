@@ -34,7 +34,6 @@ import 'package:flutter_app/model/watch_count_model.dart';
 import 'package:flutter_app/page/video/video_list_model/recommend_list_model.dart';
 import 'package:flutter_app/utils/utils.dart';
 import 'package:flutter_app/utils/version_util.dart';
-import 'package:flutter_app/widget/common_widget/LoadingWidget.dart';
 import 'package:flutter_app/widget/dialog/confirm_dialog.dart';
 import 'package:flutter_app/widget/dialog/loading_dialog.dart';
 import 'package:flutter_app/widget/dialog/no_permission_dialog.dart';
@@ -113,12 +112,6 @@ void _doInit(Action action, Context<SplashState> ctx) async {
   // 一直检查网络，必须
   var line = await _checkNetAlways(action, ctx);
   assert(TextUtil.isNotEmpty(line));
-
-
-  LoadingWidget loadingWidget = LoadingWidget(title: "选线中...",);
-
-  loadingWidget.show(FlutterBase.appContext);
-
   // 初始化网络层
   _initNetManager(line);
 
@@ -130,7 +123,6 @@ void _doInit(Action action, Context<SplashState> ctx) async {
     FijkLog.setLevel(FijkLogLevel.Silent);
   });
 
-
   // token或者设备id登陆,先登录，后升级，不然渠道一升级就没有量了
   UserInfoModel userInfo = await _devLogin(ctx.context);
   Config.lfCheatGuide = userInfo.lfCheatGuide;
@@ -139,10 +131,6 @@ void _doInit(Action action, Context<SplashState> ctx) async {
   List<CheckVersionBean> listVersion = await _getRemoteConfig(ctx);
 
 
-  loadingWidget.cancel();
-
-  //开始定时器
-  _startTimer(ctx);
 
   // 检查更新
   await _checkUpdate(ctx.context, listVersion);
@@ -152,6 +140,8 @@ void _doInit(Action action, Context<SplashState> ctx) async {
   if (null != userInfo && userInfo?.uid != null) {
     ctx.state.loginSuccess = true;
 
+    //开始定时器
+    _startTimer(ctx);
     // 初始化localserver缓存
     _initLocalServer();
     await _playCount(ctx);
@@ -287,147 +277,137 @@ Future<String> _checkNetAlways(Action action, Context<SplashState> ctx) async {
       context: ctx.context,
       child: Dialog(
         backgroundColor: Colors.transparent,
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          child: Container(
-            height: Dimens.pt308,
-            // height: Dimens.pt180,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              // image: DecorationImage(
-              //   fit: BoxFit.cover,
-              //   image: AssetImage("assets/images/bad_network_dialog.png"),
-              // ),
-               gradient: LinearGradient(
-                   begin: Alignment.topCenter,
-                   end: Alignment.bottomCenter,
-                   colors: [
-                     Color.fromRGBO(199, 255, 249, 1),
-                     Color.fromRGBO(255, 255, 255, 1),
-                   ]),
-            ),
+        child: Center(
+          child: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
             child: Container(
-              margin: EdgeInsets.only(
-                left: Dimens.pt20,
-                right: Dimens.pt20,
-                top: Dimens.pt10,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: AppColors.primaryColor,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("系统提示",style: TextStyle(color: Colors.black,fontSize: 18),),
-                    ],
-                  ),
-                  EasyRichText(
-                    "APP线路检测失败\n\n解决方案: \n\n"
-                        "1.请检测您的网络是否正常，手机是否开了VPN或10分钟后再尝试访问。"
-                        "\n2.前往官网地址 uapp.bio 下载最新版。"
-                        "\n3.官方邮箱：qiyoushequ@gmail.com"
-                        "\n4.前往Telegram妻友社区官方交流群",
-                    defaultStyle:TextStyle(
-                        color: Colors.black
+              child: Container(
+                margin: EdgeInsets.only(
+                  left: Dimens.pt20,
+                  right: Dimens.pt20,
+                  top: Dimens.pt10,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("系统提示",style: TextStyle(color: Colors.white,fontSize: 18),),
+                    SizedBox(height: 12),
+                    Container(color: Colors.white.withOpacity(0.1), height: 1,),
+                    SizedBox(height: 16),
+                    EasyRichText(
+                      "APP线路检测失败\n\n解决方案: \n\n"
+                          "1.请检测您的网络是否正常，手机是否开了VPN或10分钟后再尝试访问。"
+                          "\n2.前往官网地址 uapp.bio 下载最新版。"
+                          "\n3.官方邮箱：qiyoushequ@gmail.com"
+                          "\n4.前往Telegram91猎奇官方交流群",
+                      defaultStyle:TextStyle(
+                          color: Colors.white
+                      ),
+                      patternList: [
+                        EasyRichTextPattern(
+                          targetString: EasyRegexPattern.webPattern,
+                          urlType: 'web',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.white,
+                          ),
+                        ),
+                        EasyRichTextPattern(
+                          targetString: 'haijiao.fm',
+                          urlType: 'web',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.white,
+                          ),
+                        ),
+                        EasyRichTextPattern(
+                          targetString: 'haijiao9999@gmail.com',
+                          urlType: 'email',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.white,
+                          ),
+                        ),
+                        EasyRichTextPattern(
+                          targetString: 'APP线路检测失败',
+                          urlType: '',
+                          style: TextStyle(
+                            //decoration: TextDecoration.underline,
+                            color: Colors.white,
+                          ),
+                        ),
+                        EasyRichTextPattern(
+                          targetString: '解决方案',
+                          urlType: '',
+                          style: TextStyle(
+                            //decoration: TextDecoration.underline,
+                            color: Colors.white,
+                            fontSize: Dimens.pt16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
-                    patternList: [
-                      EasyRichTextPattern(
-                        targetString: EasyRegexPattern.webPattern,
-                        urlType: 'web',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.black,
-                        ),
-                      ),
-                      EasyRichTextPattern(
-                        targetString: 'haijiao.fm',
-                        urlType: 'web',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.black,
-                        ),
-                      ),
-                      EasyRichTextPattern(
-                        targetString: 'haijiao9999@gmail.com',
-                        urlType: 'email',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.black,
-                        ),
-                      ),
-                      EasyRichTextPattern(
-                        targetString: 'APP线路检测失败',
-                        urlType: '',
-                        style: TextStyle(
-                          //decoration: TextDecoration.underline,
-                          color: Colors.black,
-                        ),
-                      ),
-                      EasyRichTextPattern(
-                        targetString: '解决方案',
-                        urlType: '',
-                        style: TextStyle(
-                          //decoration: TextDecoration.underline,
-                          color: Colors.black,
-                          fontSize: Dimens.pt16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () async {
-                            safePopPage();
-                            loadingDialog.show(ctx.context,
-                                message: "线路选择中...");
-                            await _getNewDomain(action, ctx);
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20)),
-                             gradient: AppColors.linearBackGround,
-                            ),
-                            padding: EdgeInsets.only(top: 10, bottom: 10),
-                            child: Text(
-                              "切换线路",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 12),
+                    SizedBox(height: 24),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () async {
+                              safePopPage();
+                              loadingDialog.show(ctx.context,
+                                  message: "线路选择中...");
+                              await _getNewDomain(action, ctx);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                                  color: Colors.white.withOpacity(0.3)
+                              ),
+                              padding: EdgeInsets.only(top: 10, bottom: 10),
+                              child: Text(
+                                "切换线路",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: Dimens.pt10,
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            launchUrl("https://t.me/qiyoushequ");
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20)),
+                        SizedBox(
+                          width: Dimens.pt10,
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              launchUrl("https://t.me/qiyoushequ");
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(20)),
                                 gradient: AppColors.linearBackGround,
-                            ),
-                            padding: EdgeInsets.only(top: 10, bottom: 10),
-                            child: Text(
-                              "前往群聊",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 12),
+                              ),
+                              padding: EdgeInsets.only(top: 10, bottom: 10),
+                              child: Text(
+                                "前往群聊",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    SizedBox(height: 24),
+                  ],
+                ),
               ),
             ),
           ),

@@ -102,9 +102,6 @@ class _HotListDSJPageState extends State<HotListDSJPage>
                                   onTap: () {
                                     Map<String, dynamic> maps = Map();
                                     maps["videoId"] = item.id;
-
-                                    maps["videoModel"] = item;
-
                                     Gets.Get.to(
                                         () => FilmTvVideoDetailPage()
                                             .buildPage(maps),

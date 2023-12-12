@@ -125,7 +125,8 @@ class _CNavigationBarItemState extends State<CNavigationBarItem> {
   Widget buildImgBtn(int index, String title, String defImage, String activeImage) {
     Color color = Color(0xff95949a);
     if (currentIndex == index) {
-      color = Color(0xff61d3be);
+      color = Color(0xffca452e);
+
     }
 
     return Container(
@@ -296,7 +297,7 @@ class _CNavigationBarItemState extends State<CNavigationBarItem> {
           child: Container(
             width: 56,
             child: buildImgBtn(
-                menuIndex, "暗网", "assets/images/hj_home_icon_anwang.png", "assets/images/hj_home_icon_anwang_select.png"),
+                menuIndex, "猎奇", "assets/images/hj_home_icon_anwang.png", "assets/images/hj_home_icon_anwang_select.png"),
           ),
         ),
       ),

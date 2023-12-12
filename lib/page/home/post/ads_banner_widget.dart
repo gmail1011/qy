@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -22,14 +23,15 @@ class AdsBannerWidget extends StatefulWidget {
   final int autoPlayDuration;
 
   final BoxFit fit;
-
+  final MainAxisAlignment mainAxisAlignment;
   AdsBannerWidget(this.models,
       {Key key,
       this.width,
       this.height,
       this.fit,
       this.autoPlayDuration = 5000,
-      this.onItemClick})
+      this.onItemClick,
+      this.mainAxisAlignment,})
       : super(key: key);
 
   @override
@@ -55,14 +57,17 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
   Widget build(BuildContext context) {
     double moduleW = widget.width;
     double moduleH = widget.height;
-
+    if(widget.models?.isNotEmpty != true){
+      return SizedBox();
+    }
     return Container(
       width: moduleW,
       height: moduleH,
       child: Stack(
+        fit: StackFit.expand,
         children: <Widget>[
 
-          widget.models.isEmpty ? Container() :  CarouselSlider.builder(
+          CarouselSlider.builder(
             itemCount: widget.models?.length ?? 0,
 
           options: CarouselOptions(
@@ -134,6 +139,7 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
             child: CIndicator(
               itemCount: widget.models?.length ?? 0,
               selectIndex: selectIndex,
+              mainAxisAlignment: widget.mainAxisAlignment,
             ),
           ),
         ],
@@ -154,7 +160,8 @@ class CIndicator extends StatefulWidget {
       this.itemCount,
       this.selectIndex,
       this.space = 5.0,
-      this.callBack})
+      this.callBack,
+      this.mainAxisAlignment,})
       : super(key: key);
 
   ///
@@ -162,7 +169,7 @@ class CIndicator extends StatefulWidget {
   final int selectIndex;
   final double space;
   final Function(int) callBack;
-
+  final MainAxisAlignment mainAxisAlignment;
   @override
   _CIndicatorState createState() => new _CIndicatorState();
 }
@@ -216,7 +223,7 @@ class _CIndicatorState extends State<CIndicator> {
     }
     var wd = Container(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.center,
         children: list,
       ),
     );

@@ -36,7 +36,6 @@ import 'package:flutter_app/weibo_page/widget/bloggerPage.dart';
 import 'package:flutter_app/weibo_page/widget/word_rich_text.dart';
 import 'package:flutter_app/widget/common_widget/error_widget.dart';
 import 'package:flutter_app/widget/common_widget/header_widget.dart';
-import 'package:flutter_app/widget/common_widget/loading_widget.dart';
 import 'package:flutter_app/widget/common_widget/ys_pull_refresh.dart';
 import 'package:flutter_app/widget/dialog/alert_tool.dart';
 import 'package:flutter_app/widget/dialog/dialog_entry.dart';
@@ -59,67 +58,78 @@ import '../action.dart';
 import 'state.dart';
 
 Widget buildView(FilmVideoIntroductionState state, Dispatch dispatch, ViewService viewService) {
-  return pullYsRefresh(
-    enablePullDown: true,
-    enablePullUp: !(state.videoList == null || state.videoList.isEmpty),
-    refreshController: state.refreshController,
-    onRefresh: () async {
-      await dispatch(FilmVideoIntroductionActionCreator.refreshData());
-    },
-    onLoading: () async {
-      await dispatch(FilmVideoIntroductionActionCreator.loadMoreData());
-    },
-    child: CustomScrollView(
-      slivers: [
-        ///简介
-        _createIntroductionUI(state, dispatch, viewService),
+  return Container(
+    child: Builder(builder: (BuildContext context) {
+      return pullYsRefresh(
+        enablePullDown: true,
+        enablePullUp: !(state.videoList == null || state.videoList.isEmpty),
+        refreshController: state.refreshController,
+        onRefresh: () async {
+          await dispatch(FilmVideoIntroductionActionCreator.refreshData());
+        },
+        onLoading: () async {
+          await dispatch(FilmVideoIntroductionActionCreator.loadMoreData());
+        },
+        child: CustomScrollView(
+          slivers: [
+            ///简介
+            _createIntroductionUI(state, dispatch, viewService),
 
-        ///广告UI
-        _buildAdsUI(state, dispatch, viewService),
+            ///广告UI
+            _buildAdsUI(state, dispatch, viewService),
 
-        ///精品推荐UI
-        _createRecommandUI(viewService.context),
+            ///精品推荐UI
+            _createRecommandUI(viewService.context),
 
-        ///判断列表是否为空
-        (state.videoList == null || state.videoList.isEmpty)
-            ? SliverToBoxAdapter(
-          child: state.dataReq
-              ? Container(margin: EdgeInsets.only(top: 60),child: LoadingWidget(),)
-              : Container(
-            margin: EdgeInsets.only(bottom: 80),
-            child: CErrorWidget(Lang.EMPTY_DATA, retryOnTap: () {
-              dispatch(FilmVideoIntroductionActionCreator.refreshData());
-            }),
-          ),
-        )
-            : SliverPadding(
-          padding: EdgeInsets.only(left: 16.w, right: 16.w),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-              if (state.videoList.isEmpty) {
-                return Container();
-              }
-              VideoModel videoItem = state.videoList[index];
-              return GestureDetector(
-                onTap: () {
-                  if (videoItem?.id == state.viewModel?.id) {
-                    showToast(msg: "视频正在播放～");
-                    l.e("_reloadNewVideo:", "视频正在播放");
-                    return;
-                  }
-                  dispatch(FilmVideoIntroductionActionCreator.reloadNewVideo(videoItem));
-                },
-                child: _buildRecommendListItem(videoItem, viewService),
-              );
-            }, childCount: state.videoList?.length ?? 0),
-          ),
+            ///判断列表是否为空
+            (state.videoList == null || state.videoList.isEmpty)
+                ? SliverToBoxAdapter(
+                    child: state.dataReq
+                        ? Container()
+                        : Container(
+                            margin: EdgeInsets.only(bottom: 80),
+                            child: CErrorWidget(Lang.EMPTY_DATA, retryOnTap: () {
+                              dispatch(FilmVideoIntroductionActionCreator.refreshData());
+                            }),
+                          ),
+                  )
+                : SliverPadding(
+                    padding: EdgeInsets.only(left: 16.w, right: 16.w),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+                        if (state.videoList.isEmpty) {
+                          return Container();
+                        }
+                        VideoModel videoItem = state.videoList[index];
+                        return GestureDetector(
+                          onTap: () {
+                            if (videoItem?.id == state.viewModel?.id) {
+                              showToast(msg: "视频正在播放～");
+                              l.e("_reloadNewVideo:", "视频正在播放");
+                              return;
+                            }
+                            dispatch(FilmVideoIntroductionActionCreator.reloadNewVideo(videoItem));
+                          },
+                          child: _buildRecommendListItem(videoItem, viewService),
+                        );
+                      }, childCount: state.videoList?.length ?? 0),
+                    ),
+                  ),
+          ],
         ),
-      ],
-    ),
+      );
+    }),
   );
 }
 
 Widget _buildRecommendListItem(VideoModel videoModel, ViewService viewService) {
+  String tagTextDesc = "";
+  if (videoModel?.tags?.isNotEmpty == true) {
+    tagTextDesc = videoModel.tags.first.name;
+  }
+  for (int i = 1; i < (videoModel.tags?.length ?? 0) && i < 3; i++) {
+    tagTextDesc += ("、" + videoModel.tags[i].name);
+  }
   return Container(
     width: 408,
     height: 90,
@@ -134,13 +144,13 @@ Widget _buildRecommendListItem(VideoModel videoModel, ViewService viewService) {
           width: 182,
           height: 90,
         ),
+        SizedBox(width: 10),
         Expanded(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                margin: EdgeInsets.only(left: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
@@ -157,50 +167,48 @@ Widget _buildRecommendListItem(VideoModel videoModel, ViewService viewService) {
                     ),
                     SizedBox(width: 8)
                   ],
-                )),
-            Container(
-              margin: EdgeInsets.only(top: 8,left: 10),
-              child: videoModel?.tags == null
-                  ? Container()
-                  : Wrap(
-                      alignment: WrapAlignment.start,
-                      direction: Axis.horizontal,
-                      spacing: 8.0,
-                      runSpacing: 4.0,
-                      children: videoModel?.tags?.map((e) => _createTagItem(e, videoModel?.id, viewService))?.toList(),
-                    ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 8, left: 10),
-              child: Row(
-                children: [
-                  Image.asset(
-                    "assets/images/time_logo.png",
-                    width: 16,
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    TimeHelper.getTimeText(videoModel.playTime.toDouble()),
+                ),
+              ),
+              if (tagTextDesc.isNotEmpty == true)
+                Container(
+                  margin: EdgeInsets.only(top: 8),
+                  child: Text(
+                    tagTextDesc,
                     style: TextStyle(color: Color(0xff9fa19f), fontSize: 12.w),
                   ),
-                  SizedBox(width: 16),
-                  Image.asset(
-                    "assets/images/play_count.png",
-                    width: 16,
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    videoModel.playCountDesc,
-                    style: TextStyle(
-                      color: Color(0xff9fa19f),
-                      fontSize: 12.w,
+                ),
+              Container(
+                margin: EdgeInsets.only(top: 8),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      "assets/images/time_logo.png",
+                      width: 16,
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ))
+                    SizedBox(width: 4),
+                    Text(
+                      TimeHelper.getTimeText(videoModel.playTime.toDouble()),
+                      style: TextStyle(color: Color(0xff9fa19f), fontSize: 12.w),
+                    ),
+                    SizedBox(width: 16),
+                    Image.asset(
+                      "assets/images/play_count.png",
+                      width: 16,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      videoModel.playCountDescFive,
+                      style: TextStyle(
+                        color: Color(0xff9fa19f),
+                        fontSize: 12.w,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ],
     ),
   );
@@ -221,7 +229,6 @@ SliverToBoxAdapter _createIntroductionUI(FilmVideoIntroductionState state, Dispa
           Container(
             margin: EdgeInsets.only(top: 7.w),
             alignment: Alignment.centerLeft,
-
             child: Text(
               state.viewModel?.title ?? "",
               maxLines: 3,
@@ -501,56 +508,59 @@ Widget getTalkHotTop(FilmVideoIntroductionState state, Dispatch dispatch, ViewSe
 
 ///点赞，分享，收藏，缓存，线路切换
 Widget _createFunctionUI(FilmVideoIntroductionState state, Dispatch dispatch, ViewService viewService) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      _createFunctionItemUI(AssetsImages.ICON_VIDEO_FUNC04, "下载", onTap: () async {
-        ///判断当前是否要购买视频
-        if (needBuyVideo(state.viewModel)) {
-          _showBuyVideoDialogUI(viewService, state.viewModel);
-          return;
-        }
-        int downloadCount = GlobalStore.getWallet().downloadCount ?? 0;
-        if (downloadCount == null || downloadCount <= 0) {
-          if (!(state.viewModel.freeArea ?? false)) {
-            showDialog(
-                context: viewService.context,
-                barrierDismissible: false,
-                builder: (BuildContext context) {
-                  return SingleBtnDialogView(
-                    title: "提示",
-                    content: "下载次数已用完，购买VIP获取次数",
-                    btnText: "购买VIP",
-                    callback: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) {
-                          return RechargeVipPage("");
-                        },
-                      )).then((value) => {GlobalStore.refreshWallet(false)});
-                    },
-                  );
-                });
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 32),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        _createFunctionItemUI(AssetsImages.ICON_VIDEO_FUNC04, "下载", onTap: () async {
+          ///判断当前是否要购买视频
+          if (needBuyVideo(state.viewModel)) {
+            _showBuyVideoDialogUI(viewService, state.viewModel);
             return;
           }
-          showToast(msg: "下载次数不足");
-          return;
-        }
-        dispatch(FilmVideoIntroductionActionCreator.cacheVideo());
-      }),
+          int downloadCount = GlobalStore.getWallet().downloadCount ?? 0;
+          if (downloadCount == null || downloadCount <= 0) {
+            if (!(state.viewModel.freeArea ?? false)) {
+              showDialog(
+                  context: viewService.context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return SingleBtnDialogView(
+                      title: "提示",
+                      content: "下载次数已用完，购买VIP获取次数",
+                      btnText: "购买VIP",
+                      callback: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return RechargeVipPage("");
+                          },
+                        )).then((value) => {GlobalStore.refreshWallet(false)});
+                      },
+                    );
+                  });
+              return;
+            }
+            showToast(msg: "下载次数不足");
+            return;
+          }
+          dispatch(FilmVideoIntroductionActionCreator.cacheVideo());
+        }),
 
-      _buildLikeItem(state.viewModel.vidStatus.hasLiked, state.viewModel.likeCount, dispatch),
+        _buildLikeItem(state.viewModel.vidStatus.hasLiked, state.viewModel.likeCount, dispatch),
 
-      ///收藏
-      _buildCollectItem(state.viewModel, dispatch),
+        ///收藏
+        _buildCollectItem(state.viewModel, dispatch),
 
-      ///赚钱
-      _createFunctionItemUI("assets/weibo/video_share.png", "分享", onTap: () {
-        // showShareVideoDialog(viewService.context, () async {
-        //   await Future.delayed(Duration(milliseconds: 500));
-        // }, videoModel: state.viewModel, isLongVideo: true, isFvVideo: true);
-        Gets.Get.to(MineSharePage());
-      }),
-    ],
+        ///赚钱
+        _createFunctionItemUI("assets/weibo/video_share.png", "分享", onTap: () {
+          showShareVideoDialog(viewService.context, () async {
+            await Future.delayed(Duration(milliseconds: 500));
+          }, videoModel: state.viewModel, isLongVideo: true, isFvVideo: true);
+          //Gets.Get.to(MineSharePage());
+        }),
+      ],
+    ),
   );
 }
 
@@ -767,7 +777,7 @@ SliverToBoxAdapter _createRecommandUI(BuildContext context) {
                 const SizedBox(width: 16),
                 Text(
                   "精彩推荐",
-                  style: TextStyle(fontSize: 14.w, color: Colors.white, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w500),
                 ),
               ],
             ),

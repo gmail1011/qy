@@ -201,12 +201,6 @@ Widget buildView(
                                         Map<String, dynamic> maps = Map();
                                         maps["videoId"] = state
                                             .searchMovieData.xList[index].id;
-
-                                        VideoModel videos  =  VideoModel.fromJson(state
-                                            .searchMovieData.xList[index].toJson());
-
-                                        maps["videoModel"] = videos;
-
                                         Gets.Get.to(
                                           FilmTvVideoDetailPage()
                                               .buildPage(maps),

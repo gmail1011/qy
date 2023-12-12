@@ -69,10 +69,6 @@ class _HotListZYPageState extends State<HotListZYPage> {
                               onTap: () {
                                 Map<String, dynamic> maps = Map();
                                 maps["videoId"] = item.id;
-
-
-                                maps["videoModel"] = item;
-
                                 Gets.Get.to(
                                     () =>
                                         FilmTvVideoDetailPage().buildPage(maps),

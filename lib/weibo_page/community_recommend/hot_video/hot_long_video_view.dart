@@ -113,9 +113,6 @@ class _HotLongVideoViewState extends State<HotLongVideoView> {
                 onTap: () {
                   Map<String, dynamic> maps = Map();
                   maps["videoId"] = commonPostResHotVideo.list[index].id;
-
-                  maps["videoModel"] = commonPostResHotVideo.list[index];
-
                   Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps),
                       opaque: false);
                 },

@@ -151,15 +151,13 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
                           margin: EdgeInsets.only(bottom: 1),
                           child: Text(
                             meInfo.name ?? "",
-                            style: const TextStyle(
-                                color: const Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 16.0),
+                            style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 16.0),
                           ),
                         ),
                         SizedBox(height: 5),
                         Text(
                           "剩余观看次数${meInfo.watchCount}",
-                          style: const TextStyle(
-                              color: const Color(0xffacbabf), fontWeight: FontWeight.w400, fontSize: 14.0),
+                          style: const TextStyle(color: const Color(0xffacbabf), fontWeight: FontWeight.w400, fontSize: 14.0),
                         )
                       ],
                     ),
@@ -171,7 +169,7 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
           SizedBox(height: 20),
           InkWell(
             onTap: () {
-              Gets.Get.to(() =>RechargeVipPage(""),opaque: false);
+              Gets.Get.to(() => RechargeVipPage(""), opaque: false);
             },
             child: Container(
               width: 298,
@@ -184,7 +182,10 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
                 child: Text(
                   "开通VIP  无限次数免费观看",
                   style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w500, fontSize: 14.0),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
@@ -204,77 +205,67 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
                   ),
                 ),
                 child: pullYsRefresh(
-                    refreshController: refreshController,
-                    enablePullUp: false,
-                    onRefresh: () async {
-                      Future.delayed(Duration(milliseconds: 1000), () {
-                        _initTaskList();
-                      });
-                    },
-                    child: SingleChildScrollView(
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(8, 22, 8, 0),
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "福利任务\t\t",
-                                        style: const TextStyle(
-                                            color: const Color(0xff000000),
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16.0),
-                                      ),
-                                      Text(
-                                        "提示：若状态未更新 请下拉刷新哦～",
-                                        style: const TextStyle(
-                                            color: const Color(0xff3e5157),
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 12.0),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "邀请人数$shareCount人",
-                                        style: const TextStyle(
-                                            color: const Color(0xff666666),
-                                            fontSize: 12.0),
-                                      ),
-                                      Text(
-                                        "我的积分${wallet.integral}",
-                                        style: const TextStyle(
-                                            color: const Color(0xff666666),
-                                            fontSize: 12.0),
-                                      ),
-                                      _buildTaskBtn("兑换VIP", 0, () {
-                                        Gets.Get.to(() =>RechargeVipPage(""),opaque: false);
-                                      })
-                                    ],
-                                  ),
-                                ],
-                              ),
+                  refreshController: refreshController,
+                  enablePullUp: false,
+                  onRefresh: () async {
+                    Future.delayed(Duration(milliseconds: 1000), () {
+                      _initTaskList();
+                    });
+                  },
+                  child: SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(8, 22, 8, 0),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "福利任务\t\t",
+                                      style: const TextStyle(color: const Color(0xff000000), fontWeight: FontWeight.w500, fontSize: 16.0),
+                                    ),
+                                    Text(
+                                      "提示：若状态未更新 请下拉刷新哦～",
+                                      style: const TextStyle(color: const Color(0xff3e5157), fontWeight: FontWeight.w300, fontSize: 12.0),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "邀请人数$shareCount人",
+                                      style: const TextStyle(color: const Color(0xff666666), fontSize: 12.0),
+                                    ),
+                                    Text(
+                                      "我的积分${wallet.integral}",
+                                      style: const TextStyle(color: const Color(0xff666666), fontSize: 12.0),
+                                    ),
+                                    _buildTaskBtn("兑换VIP", 0, () {
+                                      Gets.Get.to(() => RechargeVipPage(""), opaque: false);
+                                    })
+                                  ],
+                                ),
+                              ],
                             ),
-                            SizedBox(height: 10),
-                            ListView.builder(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: taskList.length ?? 0,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return _buildTaskItem(taskList[index]);
-                                }),
-                          ],
-                        ),
+                          ),
+                          SizedBox(height: 10),
+                          ListView.builder(
+                              padding: EdgeInsets.only(top: 10, bottom: 10),
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: taskList.length ?? 0,
+                              itemBuilder: (BuildContext context, int index) {
+                                return _buildTaskItem(taskList[index]);
+                              }),
+                        ],
                       ),
                     ),
+                  ),
                 ),
               ),
             ),
@@ -286,73 +277,70 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
 
   Widget _buildTaskItem(DailyTask item) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
-      decoration: BoxDecoration(
-        color: Color(0xfffafafa),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Container(
-        height: 40,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ClipOval(
-                    child: CustomNetworkImage(
-                      imageUrl: item.img,
-                      width: 40,
-                      height: 40,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(left: 12, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(bottom: 2),
-                            child: Text(
-                              item.title ?? "",
-                              style:  TextStyle(
-                                  color:  Color(0xff393639), fontWeight: FontWeight.w500, fontSize: 14.0),
-                            ),
-                          ),
-                          Text(
-                            item.desc,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                color: const Color(0xffaaaaaa), fontWeight: FontWeight.w400, fontSize: 12.0),
-                          )
-                        ],
+        margin: EdgeInsets.only(bottom: 10),
+        padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
+        decoration: BoxDecoration(
+          color: Color(0xfffafafa),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Container(
+          height: 40,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ClipOval(
+                      child: CustomNetworkImage(
+                        imageUrl: item.img,
+                        width: 40,
+                        height: 40,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(left: 12, right: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(bottom: 2),
+                              child: Text(
+                                item.title ?? "",
+                                style: TextStyle(color: Color(0xff393639), fontWeight: FontWeight.w500, fontSize: 14.0),
+                              ),
+                            ),
+                            Text(
+                              item.desc,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(color: const Color(0xffaaaaaa), fontWeight: FontWeight.w400, fontSize: 12.0),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            _buildTaskBtn(_getTaskStatus(item.status), item.status, () {
-              switch (item.status) {
-                case 0: //未完成
-                  taskJump(item.link);
-                  if (item.doType == 2) _doTask(item.id, item.doType);
-                  break;
-                case 1: //待领取
-                  _receiveTask(item.id, item.doType);
-              }
-              if (item.status != 2) AnalyticsEvent.clickActive(item.title, item.id);
-            })
-          ],
-        ),
-      )
-    );
+              _buildTaskBtn(_getTaskStatus(item.status), item.status, () {
+                switch (item.status) {
+                  case 0: //未完成
+                    taskJump(item.link);
+                    if (item.doType == 2) _doTask(item.id, item.doType);
+                    break;
+                  case 1: //待领取
+                    _receiveTask(item.id, item.doType);
+                }
+                if (item.status != 2) AnalyticsEvent.clickActive(item.title, item.id);
+              })
+            ],
+          ),
+        ));
   }
 
   String _getTaskStatus(int status) {
@@ -384,26 +372,24 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
             gradient: LinearGradient(
               colors: status == 1
                   ? [
-                Color.fromRGBO(100, 255, 239, 1),
-                Color.fromRGBO(0, 214, 190, 1),
-              ]
+                      Color(0xffca452e),
+                      Color(0xffca452e),
+                    ]
                   : status == 2
-                  ? [
-                Color.fromRGBO(150, 150, 150, 1),
-                Color.fromRGBO(150, 150, 150, 1),
-              ]
-                  : [
-                Color.fromRGBO(100, 255, 239, 1),
-                Color.fromRGBO(0, 214, 190, 1),
-              ],
+                      ? [
+                          Color.fromRGBO(150, 150, 150, 1),
+                          Color.fromRGBO(150, 150, 150, 1),
+                        ]
+                      : [
+                          Color(0xffca452e),
+                          Color(0xffca452e),
+                        ],
             )),
         child: Center(
           child: Text(
             btnTxt,
             style: TextStyle(
-                color: status == 1 ? Color(0xff333333) : Colors.white.withOpacity(0.9),
-                fontWeight: FontWeight.w500,
-                fontSize: 12.0),
+                color: status == 1 ? Color(0xff333333) : Colors.white.withOpacity(0.9), fontWeight: FontWeight.w500, fontSize: 12.0),
           ),
         ),
       ),
@@ -435,7 +421,7 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
           }));
           break;
         case "yinseinner://vip_page":
-          Gets.Get.to(() =>RechargeVipPage(""),opaque: false);
+          Gets.Get.to(() => RechargeVipPage(""), opaque: false);
           break;
         case "yinseinner://wallet_page":
           Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
@@ -455,19 +441,12 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
           break;
         default:
           if (link.contains("video?id=")) {
-            String id = link
-                .split("=")
-                .last;
+            String id = link.split("=").last;
             Map<String, dynamic> maps = Map();
             maps["videoId"] = id;
-
-
-
             Gets.Get.to(FilmTvVideoDetailPage().buildPage(maps), opaque: false);
           } else if (link.contains("postInfo?id=")) {
-            String id = link
-                .split("=")
-                .last;
+            String id = link.split("=").last;
             Gets.Get.to(CommunityDetailPage().buildPage({"videoId": id}), opaque: false);
           }
       }

@@ -17,13 +17,17 @@ import 'package:flutter_app/new_page/mine/mine_invite_code_input_page.dart';
 import 'package:flutter_app/new_page/mine/mine_original_page.dart';
 import 'package:flutter_app/new_page/mine/mine_share_page.dart';
 import 'package:flutter_app/new_page/mine/setting_page.dart';
+import 'package:flutter_app/new_page/msg/my_msg_page.dart';
 import 'package:flutter_app/new_page/recharge/recharge_gold_page.dart';
 import 'package:flutter_app/new_page/recharge/recharge_vip_page.dart';
 import 'package:flutter_app/new_page/welfare/SpecialWelfareView.dart';
 import 'package:flutter_app/page/ai/floating_ai_move_view.dart';
+import 'package:flutter_app/page/home/mine/history/history_page.dart';
 import 'package:flutter_app/page/home/mine/view.dart';
 import 'package:flutter_app/page/home/post/ads_banner_widget.dart';
+import 'package:flutter_app/page/home/post/page/history/history_page.dart';
 import 'package:flutter_app/utils/EventBusUtils.dart';
+import 'package:flutter_app/utils/utils.dart';
 import 'package:flutter_app/widget/common_widget/header_widget.dart';
 import 'package:flutter_app/widget/common_widget/ys_pull_refresh.dart';
 import 'package:flutter_app/widget/dialog/confirm_dialog.dart';
@@ -138,7 +142,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
       },
     ));
     menu2.add(Menu(
-      "原创入驻",
+      "官方招募",
       "",
       "assets/images/hj_mine_icon_publish.png",
       () {
@@ -148,6 +152,14 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
       },
     ));
 
+    menu3.add(Menu(
+      "我的历史",
+      "",
+      "assets/images/hj_mine_icon_history.png",
+          () {
+        pushToPage(HistoryRecordPage(), context: context);
+      },
+    ));
     menu3.add(Menu(
       "我的购买",
       "",
@@ -279,7 +291,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
                               GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                                    return MessagePage();
+                                    return MyMsgPage();
                                   }));
                                 },
                                 child: Container(
@@ -419,7 +431,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
                         "账号凭证 >",
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.white,
+                          color: AppColors.primaryTextColor
                         ),
                       ),
                     ),
@@ -439,7 +451,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
         Gets.Get.to(() =>RechargeVipPage(""),opaque: false);
       },
       child: Container(
-        height: 74,
+        height: 66,
         width: screen.screenWidth,
         padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/hj_mine_bg_vip.png"))),
@@ -448,7 +460,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
             GlobalStore.isVIP() ? "当前${meInfo?.vipName}" : "VIP限时特惠  畅享全场",
             style: TextStyle(
               fontSize: 14,
-              color: AppColors.primaryTextColor,
+              color: Colors.white,
             ),
           ),
           SizedBox(height: 10),
@@ -459,7 +471,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
                 "\t\t剩余可下载次数${wallet?.downloadCount ?? 0}",
             style: TextStyle(
               fontSize: 12,
-              color: Colors.white,
+              color: Color(0xfff5c39c),
             ),
           ),
         ]),
@@ -477,7 +489,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
             crossAxisCount: 3,
             crossAxisSpacing: 5,
             mainAxisSpacing: 0,
-            childAspectRatio: 110 / 115,
+            childAspectRatio: 111 / 115,
           ),
           itemCount: menus.length,
           itemBuilder: (BuildContext context, int index) {
@@ -623,17 +635,13 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
   Widget _buildADSView() {
     return Visibility(
       visible: ((adsList?.length ?? 0) != 0),
-      child: AdsBannerWidget(adsList, width: 720, height: 110 , onItemClick: (index) {
-        var ad = adsList[index];
-        JRouter().handleAdsInfo(ad.href, id: ad.id);
-      }),
-      /*child: AspectRatio(
+      child: AspectRatio(
         aspectRatio: 720 / 200,
         child: AdsBannerWidget(adsList, onItemClick: (index) {
           var ad = adsList[index];
           JRouter().handleAdsInfo(ad.href, id: ad.id);
         }),
-      ),*/
+      ),
     );
   }
 }

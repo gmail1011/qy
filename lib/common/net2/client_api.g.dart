@@ -4219,16 +4219,18 @@ class _ClientApi implements ClientApi {
   }
 
   @override
-  Future<dynamic> getDynamic(int pageNumber, int pageSize) async {
+  Future<dynamic> getDynamic(int pageNumber, int pageSize, {int dynamicMsgType}) async {
     ArgumentError.checkNotNull(pageNumber, 'pageNumber');
     ArgumentError.checkNotNull(pageSize, 'pageSize');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       'pageNumber': pageNumber,
       'pageSize': pageSize,
+      'dynamicMsgType': dynamicMsgType,
     };
     final _data = {};
     _data.removeWhere((k, v) => v == null);
+    queryParameters.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/msg/dynamic/list',
         queryParameters: queryParameters,
         options: RequestOptions(method: 'GET', headers: <String, dynamic>{}, extra: _extra, baseUrl: baseUrl),

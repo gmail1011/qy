@@ -71,13 +71,15 @@ class WordImageWidgetForHjll extends StatefulWidget {
   final bool isMyCollect;
   final int maxImageCount;
   final Color tagColor;
+  final Color bgColor;
   final EdgeInsetsGeometry padding;
   String randomTag;
   LinearGradient linearGradient;
 
   Function(int) visibleCallBack;
   Function(int) hideCallBack;
-
+  final bool isEdit;
+  final Function(VideoModel) deleteCallback; // 点击删除回调
   WordImageWidgetForHjll({
     Key key,
     this.videoModel,
@@ -105,6 +107,9 @@ class WordImageWidgetForHjll extends StatefulWidget {
     this.isHaiJiaoLLDetail = false,
     this.tagColor,
     this.padding,
+    this.bgColor,
+    this.isEdit = false,
+    this.deleteCallback,
   }) : super(key: key);
 
   @override
@@ -116,10 +121,7 @@ class WordImageWidgetForHjll extends StatefulWidget {
 class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
   String videoUrl;
 
-  VideoPlayerController controller;
-
   String videoError = "";
-  bool isPlaying = false;
 
   GlobalKey key = GlobalKey();
 
@@ -150,22 +152,6 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
     if (widget.isHaiJiaoLLDetail) {
       isHorizontalVideoUI = true;
     }
-    if (widget.autoPlayStyle ?? false) {
-      PostVideoLogic.addListener(playListen);
-      initVideoController();
-    }
-  }
-
-  void playListen(int index, bool play) {
-    if (play == true && widget.index == index) {
-      initVideoController();
-    } else {
-      controller?.pause();
-      if (isPlaying) {
-        safeFlashUI();
-      }
-      isPlaying = false;
-    }
   }
 
   Future<bool> safeFlashUI() async {
@@ -194,103 +180,10 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
     return false;
   }
 
-  startPlay() {
-    if (controller != null) {
-      controller.play();
-    }
-    // PostVideoLogic.play(widget.index);
-  }
-
-  pausePlay() {
-    if (controller != null) {
-      controller.pause();
-    }
-    // PostVideoLogic.pauseAll();
-  }
-
-  initVideoController() async {
-    videoUrl = CacheServer().getLocalUrl(widget.videoModel.sourceURL);
-    try {
-      if (controller == null) {
-        controller = VideoPlayerController.network(videoUrl);
-        safeFlashUI();
-        controller?.addListener(_listenCallback);
-        await controller?.initialize();
-        aspectRatio = controller.value.aspectRatio;
-        if (aspectRatio > 1) {
-          isHorizontalVideoUI = true;
-        } else {
-          isHorizontalVideoUI = false;
-        }
-        controller?.setVolume(0);
-        if (widget.index == PostVideoLogic.playingIndex) {
-          if (mounted) {
-            controller?.play();
-            if (isPlaying == false) {
-              safeFlashUI();
-            }
-            isPlaying = true;
-          }
-        }
-      } else {
-        if (controller?.value.initialized == true) {
-          controller?.play();
-          if (isPlaying == false) {
-            safeFlashUI();
-          }
-          isPlaying = true;
-        }
-      }
-    } catch (e) {
-      videoError = e.toString();
-      safeFlashUI();
-      debugLog("post video error: $e");
-    }
-  }
-
-  initData() async {
-    videoUrl = CacheServer().getLocalUrl(widget.videoModel.sourceURL);
-
-    controller = VideoPlayerController.network(videoUrl);
-
-    await controller.initialize();
-    aspectRatio = controller.value.aspectRatio;
-    if (aspectRatio > 1) {
-      isHorizontalVideoUI = true;
-    } else {
-      isHorizontalVideoUI = false;
-    }
-    if (Config.autoPlayVoiceClose) {
-      controller?.setVolume(0);
-    } else {
-      controller?.setVolume(1);
-    }
-    controller.addListener(() async {
-      if (controller.value.position.inSeconds >= 10) {
-        controller.seekTo(Duration(milliseconds: 0));
-      }
-    });
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
-
-
-  void _listenCallback() {
-    int offset = controller?.value.position.inSeconds ?? 0;
-    if (offset > 10) {
-      controller?.seekTo(const Duration(seconds: 0));
-    }
-  }
-
   @override
   void dispose() {
     ImageCache _imageCache = PaintingBinding.instance.imageCache;
     _imageCache.clear();
-    controller?.removeListener(_listenCallback);
-    controller?.dispose();
-    PostVideoLogic.removeListener(playListen);
     clearAllCache();
     super.dispose();
   }
@@ -306,40 +199,6 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
     }
 
     VideoResolution videoResolution;
-    if (widget.autoPlayStyle ?? false) {
-      double vHeight = 250;
-      double vWidth = 360;
-      if (widget.videoModel?.resolution?.isNotEmpty ?? false) {
-        List<String> list = widget.videoModel?.resolution?.split("*") ?? [];
-        if (list.length == 2) {
-          vWidth = double.parse(list[0]);
-          vHeight = double.parse(list[1]);
-        }
-      }
-      //横屏
-      if (vWidth > vHeight) {
-        videoResolution = configVideoSize(
-          328,
-          328 * 9 / 16,
-          widget.videoModel?.resolutionWidth(),
-          widget.videoModel?.resolutionHeight(),
-          true,
-        );
-        if (videoResolution.videoWidth > screen.screenWidth) {
-          //32 为左右边距
-          videoResolution.videoWidth = screen.screenWidth - 32;
-        }
-      } else {
-        if (aspectRatio == null) {
-          aspectRatio = 0.5;
-        }
-        videoResolution =
-            configVideoSize(360 * aspectRatio, 360, widget.videoModel?.resolutionWidth(), widget.videoModel?.resolutionHeight(), true);
-        if (videoResolution.videoHeight > 360) {
-          videoResolution.videoHeight = 360;
-        }
-      }
-    }
 
     return widget.videoModel == null
         ? Center(
@@ -389,285 +248,280 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
   ///创建视频列表
   Widget _buildRecommandVideoUI(VideoResolution videoResolution, double width, double height, double width1, double height1) {
     return Container(
-      color: Color.fromRGBO(22, 21, 42, 1),
-      padding: widget.padding ?? EdgeInsets.only(top: 12.w),
       margin: EdgeInsets.only(bottom: 15.w),
-      child: GestureDetector(
-          onTap: widget.isDetail == true
-              ? null
-              : () {
-            if (widget.videoModel.status == 2) {
-              showReasonDialog();
-            } else {
-              bus.emit(EventBusUtils.closeActivityFloating);
-              pausePlay();
-              Gets.Get.to(
-                  CommunityDetailPage().buildPage({
-                    "videoId": widget.videoModel.id,
-                    "randomTag": widget.randomTag,
-                    "randomLinearGradient": widget.linearGradient
-                  }),
-                  opaque: false)
-                  .then((value) {
-                bus.emit(EventBusUtils.showActivityFloating);
-              });
-            }
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              widget.showPostTimeText
-                  ? Container(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  "发布时间：${formatTimeTwo(widget.videoModel.reviewAt)}",
-                  style: TextStyle(color: Color.fromRGBO(192, 193, 209, 1), fontSize: 12),
-                ),
-              )
-                  : SizedBox(),
-              (widget.showLeftLine ?? false)
-                  ? Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    child: _mainContent(videoResolution, width, height, width1, height1),
-                  ),
-                  Positioned(
-                      left: 0,
-                      top: 0,
-                      bottom: 0,
-                      child: Container(
-                        margin: EdgeInsets.only(top: 10, bottom: 10),
-                        width: 2,
-                        color: Color.fromRGBO(0, 214, 190, 1),
-                      ))
-                ],
-              )
-                  : _mainContent(videoResolution, width, height, width1, height1)
-            ],
-          )),
+      child: Stack(
+        children: [
+          Container(
+            color: widget.bgColor ?? Color.fromRGBO(36, 36, 36, 1),
+            padding: widget.padding ?? EdgeInsets.only(top: 12.w),
+            child:  GestureDetector(
+                onTap: widget.isDetail == true
+                    ? null
+                    : () {
+                  if (widget.videoModel.status == 2) {
+                    showReasonDialog();
+                  } else {
+                    bus.emit(EventBusUtils.closeActivityFloating);
+                    Gets.Get.to(
+                        CommunityDetailPage().buildPage({
+                          "videoId": widget.videoModel.id,
+                          "randomTag": widget.randomTag,
+                          "randomLinearGradient": widget.linearGradient
+                        }),
+                        opaque: false)
+                        .then((value) {
+                      bus.emit(EventBusUtils.showActivityFloating);
+                    });
+                  }
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    widget.showPostTimeText
+                        ? Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        "发布时间：${formatTimeTwo(widget.videoModel.reviewAt)}",
+                        style: TextStyle(color: Color.fromRGBO(192, 193, 209, 1), fontSize: 12),
+                      ),
+                    )
+                        : SizedBox(),
+                    (widget.showLeftLine ?? false)
+                        ? Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          child: _mainContent(videoResolution, width, height, width1, height1),
+                        ),
+                        Positioned(
+                            left: 0,
+                            top: 0,
+                            bottom: 0,
+                            child: Container(
+                              margin: EdgeInsets.only(top: 10, bottom: 10),
+                              width: 2,
+                              color: Color(0xffca452e),
+                            ))
+                      ],
+                    )
+                        : _mainContent(videoResolution, width, height, width1, height1)
+                  ],
+                )),
+          ),
+          if(widget.isEdit)
+            Positioned.fill(child: _buildEidtWidget()),
+        ],
+      ),
     );
   }
 
   Widget _mainContent(VideoResolution videoResolution, double width, double height, double width1, double height1) {
     //因为之前逻辑已经处理，视频类帖子时，默认去掉第一个封面图片。（时间情况，图片列表可能不包含封面）
     //为了快捷处理，当视频帖子，图片列表没有封面时，把封面加上
-    if((widget.videoModel.newsType == "SP" || widget.videoModel.newsType == "MOVIE")){
-      if(!widget.videoModel.seriesCover.contains(widget.videoModel.cover)){
+    if ((widget.videoModel.newsType == "SP" || widget.videoModel.newsType == "MOVIE")) {
+      if (!widget.videoModel.seriesCover.contains(widget.videoModel.cover)) {
         widget.videoModel.seriesCover.insert(0, widget.videoModel.cover);
       }
     }
     return Container(
       padding: EdgeInsets.only(left: 10, top: 0, right: 10, bottom: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          (widget.hideTopUserInfo ?? false)
-              ? SizedBox()
-              : Row(
+          if (widget.hideTopUserInfo == false)
+            Row(
+              children: [
+                Stack(
+                  alignment: AlignmentDirectional.center,
                   children: [
-                    Stack(
-                      alignment: AlignmentDirectional.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            bus.emit(EventBusUtils.closeActivityFloating);
+                    GestureDetector(
+                      onTap: () {
+                        bus.emit(EventBusUtils.closeActivityFloating);
 
-                            Map<String, dynamic> arguments = {
-                              'uid': widget.videoModel.publisher.uid,
-                              'uniqueId': DateTime.now().toIso8601String(),
-                            };
+                        Map<String, dynamic> arguments = {
+                          'uid': widget.videoModel.publisher.uid,
+                          'uniqueId': DateTime.now().toIso8601String(),
+                        };
 
-                            pausePlay();
-
-                            Gets.Get.to(() => BloggerPage(arguments), opaque: false).then((value) {});
-                          },
-                          child: HeaderWidget(
-                            headPath: widget.videoModel.publisher?.portrait ?? "",
-                            level: (widget.videoModel.publisher?.superUser ?? false) ? 1 : 0,
-                            headWidth: 52.w,
-                            headHeight: 52.w,
-                            levelSize: 17.w,
-                            positionedSize: 0,
-                            isCertified: widget.videoModel?.publisher?.merchantUser == 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            bus.emit(EventBusUtils.closeActivityFloating);
-                            Map<String, dynamic> arguments = {
-                              'uid': widget.videoModel.publisher.uid,
-                              'uniqueId': DateTime.now().toIso8601String(),
-                            };
-
-                            pausePlay();
-
-                            bus.emit(EventBusUtils.closeActivityFloating);
-
-                            Gets.Get.to(() => BloggerPage(arguments), opaque: false).then((value) {
-                              bus.emit(EventBusUtils.showActivityFloating);
-                            });
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                child: Text(
-                                  widget.videoModel.publisher?.name ?? "",
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.nsp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              // TextUtils.isEmt(ic_uptag)
-                              (widget.videoModel.publisher.upTag == null || widget.videoModel.publisher.upTag == "")
-                                  ? SizedBox()
-                                  : Image.asset("assets/weibo/ic_uptag.png", width: 12, height: 12),
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 6.w,
-                        ),
-                        GestureDetector(
-                          child: Container(
-                            color: Colors.transparent,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                ((widget.videoModel.publisher?.isVip ?? false) &&
-                                        (TextUtil.isNotEmpty(widget.videoModel.publisher.vipName)))
-                                    ? Container(
-                                        padding: EdgeInsets.only(left: 5, right: 5, top: 1, bottom: 1),
-                                        margin: EdgeInsets.only(right: 6),
-                                        child: Text(
-                                          "${widget.videoModel.publisher.vipName ?? ""}",
-                                          style: TextStyle(color: Color.fromRGBO(102, 56, 0, 1), fontSize: 8),
-                                        ),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(Radius.circular(2)),
-                                            gradient: LinearGradient(
-                                                colors: [Color.fromRGBO(238, 217, 180, 1), Color.fromRGBO(174, 138, 95, 1)])),
-                                      )
-                                    : Container(),
-                                Text(
-                                  formatTimeTwo(widget.videoModel.reviewAt),
-                                  style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12.nsp),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    Offstage(
-                      offstage: false,
-                      child: GestureDetector(
-                        onTap: () async {
-                          // 自己不能关注自己
-                          if (GlobalStore.isMe(widget.videoModel.publisher.uid)) {
-                            showToast(msg: Lang.GLOBAL_TIP_TXT1);
-                            return;
-                          }
-                          bool isFollow = !(widget.videoModel.publisher.hasFollowed ?? false);
-
-                          widget.videoModel.publisher.hasFollowed = isFollow;
-
-                          int followUID = widget.videoModel.publisher.uid;
-                          try {
-                            await netManager.client.getFollow(followUID, isFollow);
-                            setState(() {});
-                          } catch (e) {
-                            //l.d('getFollow', e.toString());
-                            showToast(msg: Lang.FOLLOW_ERROR, gravity: ToastGravity.CENTER);
-                          }
-                        },
-                        child: Visibility(
-                          visible: true,
-                          child: (widget.videoModel.publisher?.hasFollowed ?? false)
-                              ? // Rectangle 2784
-                              Container(
-                                  width: 64,
-                                  height: 28,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(32)),
-                                    border: Border.all(color: Color(0xff999999)),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "已关注",
-                                      style: TextStyle(color: Color(0xff999999), fontSize: 12),
-                                    ),
-                                  ),
-                                )
-                              : Container(
-                                  width: 63,
-                                  height: 28,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: AppColors.primaryTextColor),
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "+",
-                                        style: TextStyle(color: AppColors.primaryTextColor, fontWeight: FontWeight.bold, fontSize: 13),
-                                      ),
-                                      Text(
-                                        "关注",
-                                        style: TextStyle(color: AppColors.primaryTextColor, fontSize: 12),
-                                      ),
-                                    ],
-                                  )),
-                        ),
+                        Gets.Get.to(() => BloggerPage(arguments), opaque: false).then((value) {});
+                      },
+                      child: HeaderWidget(
+                        headPath: widget.videoModel.publisher?.portrait ?? "",
+                        level: (widget.videoModel.publisher?.superUser ?? false) ? 1 : 0,
+                        headWidth: 52.w,
+                        headHeight: 52.w,
+                        levelSize: 17.w,
+                        positionedSize: 0,
+                        isCertified: widget.videoModel?.publisher?.merchantUser == 1,
                       ),
                     ),
-
-                    ///帖子状态
-                    Visibility(
-                      visible: widget.isMyPublish,
-                      child: Text(
-                        "${widget.videoModel.status == 2 ? "审核拒绝" : widget.videoModel.status == 0 ? "待审核" : ""}",
-                        style: TextStyle(
-                            color: widget.videoModel.status == 2
-                                ? AppColors.primaryTextColor
-                                : widget.videoModel.status == 0
-                                    ? Colors.lightBlue
-                                    : Colors.white,
-                            fontSize: 14),
-                      ),
-                    )
                   ],
                 ),
-          SizedBox(
-            height: 16.w,
-          ),
+                SizedBox(
+                  width: 8.w,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        bus.emit(EventBusUtils.closeActivityFloating);
+                        Map<String, dynamic> arguments = {
+                          'uid': widget.videoModel.publisher.uid,
+                          'uniqueId': DateTime.now().toIso8601String(),
+                        };
+
+                        bus.emit(EventBusUtils.closeActivityFloating);
+
+                        Gets.Get.to(() => BloggerPage(arguments), opaque: false).then((value) {
+                          bus.emit(EventBusUtils.showActivityFloating);
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            child: Text(
+                              widget.videoModel.publisher?.name ?? "",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.nsp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 4.w,
+                          ),
+                          // TextUtils.isEmt(ic_uptag)
+                          (widget.videoModel.publisher.upTag == null || widget.videoModel.publisher.upTag == "")
+                              ? SizedBox()
+                              : Image.asset("assets/weibo/ic_uptag.png", width: 12, height: 12),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 6.w,
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        color: Colors.transparent,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            ((widget.videoModel.publisher?.isVip ?? false) && (TextUtil.isNotEmpty(widget.videoModel.publisher.vipName)))
+                                ? Container(
+                                    padding: EdgeInsets.only(left: 5, right: 5, top: 1, bottom: 1),
+                                    margin: EdgeInsets.only(right: 6),
+                                    child: Text(
+                                      "${widget.videoModel.publisher.vipName ?? ""}",
+                                      style: TextStyle(color: Color.fromRGBO(102, 56, 0, 1), fontSize: 8),
+                                    ),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(2)),
+                                        gradient:
+                                            LinearGradient(colors: [Color.fromRGBO(238, 217, 180, 1), Color.fromRGBO(174, 138, 95, 1)])),
+                                  )
+                                : Container(),
+                            Text(
+                              formatTimeTwo(widget.videoModel.reviewAt),
+                              style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12.nsp),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                if (widget.isMyPublish != true)
+                  GestureDetector(
+                    onTap: () async {
+                      // 自己不能关注自己
+                      if (GlobalStore.isMe(widget.videoModel.publisher.uid)) {
+                        showToast(msg: Lang.GLOBAL_TIP_TXT1);
+                        return;
+                      }
+                      bool isFollow = !(widget.videoModel.publisher.hasFollowed ?? false);
+
+                      widget.videoModel.publisher.hasFollowed = isFollow;
+
+                      int followUID = widget.videoModel.publisher.uid;
+                      try {
+                        await netManager.client.getFollow(followUID, isFollow);
+                        setState(() {});
+                      } catch (e) {
+                        //l.d('getFollow', e.toString());
+                        showToast(msg: Lang.FOLLOW_ERROR, gravity: ToastGravity.CENTER);
+                      }
+                    },
+                    child: Visibility(
+                      visible: true,
+                      child: (widget.videoModel.publisher?.hasFollowed ?? false)
+                          ? // Rectangle 2784
+                          Container(
+                              width: 64,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(32)),
+                                border: Border.all(color: Color(0xff999999)),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "已关注",
+                                  style: TextStyle(color: Color(0xff999999), fontSize: 12),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              width: 63,
+                              height: 28,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.primaryTextColor),
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "+",
+                                    style: TextStyle(color: AppColors.primaryTextColor, fontWeight: FontWeight.bold, fontSize: 13),
+                                  ),
+                                  Text(
+                                    "关注",
+                                    style: TextStyle(color: AppColors.primaryTextColor, fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                            ),
+                    ),
+                  ),
+              ],
+            ),
+          if (widget.isMyPublish == true)
+            Container(
+              padding: EdgeInsets.only(top: 4, bottom: 2),
+              child: Text(
+                "发布时间: ${formatTimeTwo(widget.videoModel.createdAt)}",
+                style: TextStyle(
+                  color: Color(0xffc0c1d0),
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          SizedBox(height: 16.w),
           GestureDetector(
             onTap: () {
               if (widget.videoModel.status == 2) {
                 showReasonDialog();
               } else {
                 bus.emit(EventBusUtils.closeActivityFloating);
-                pausePlay();
                 Gets.Get.to(
                         CommunityDetailPage().buildPage({
                           "videoId": widget.videoModel.id,
@@ -704,30 +558,23 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
               ),
             ),
           ),
-          SizedBox(
-            height: 15,
-          ),
-          (widget.showTopInfo)
-              ? Row(
-                  children: [
-                    Text(
-                      "${widget.videoModel.playCountDescThree}",
-                      style: TextStyle(color: Color.fromRGBO(172, 186, 191, 1), fontSize: 12),
-                    ),
-                    Expanded(child: SizedBox()),
-                    Text(
-                      "发布时间：${formatTimeTwo(widget.videoModel.reviewAt)}",
-                      style: TextStyle(color: Color.fromRGBO(172, 186, 191, 1), fontSize: 12),
-                    )
-                  ],
+          SizedBox(height: 15),
+          if (widget.showTopInfo == true)
+            Row(
+              children: [
+                Text(
+                  "${widget.videoModel.playCountDescThree}",
+                  style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12),
+                ),
+                Expanded(child: SizedBox()),
+                Text(
+                  "发布时间：${formatTimeTwo(widget.videoModel.reviewAt)}",
+                  style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12),
                 )
-              : SizedBox(),
-          (widget.showTopInfo)
-              ? SizedBox(
-                  height: 15,
-                )
-              : SizedBox(),
-          ((widget.videoModel.content != null && widget.videoModel.content != "") && (widget.isHaiJiaoLLDetail ?? false))
+              ],
+            ),
+          (widget.showTopInfo) ? SizedBox(height: 15) : SizedBox(),
+          ((widget.videoModel.content?.isNotEmpty == true) && (widget.isHaiJiaoLLDetail ?? false))
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -737,7 +584,11 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                     ),
                     Text(
                       "${widget.videoModel.content}",
-                      style: TextStyle(color: Colors.white, fontSize: 14, height: 1.4,),
+                      style: TextStyle(
+                        color: Color(0xff999999),
+                        fontSize: 14,
+                        height: 1.4,
+                      ),
                     ),
                     SizedBox(
                       height: 10,
@@ -747,25 +598,74 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
               : SizedBox(),
           (widget.isHaiJiaoLLDetail)
               ? _detailContent()
-              : Stack(
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      height: (widget.showLeftLine ?? false) ? height1 : height,
-                      constraints: BoxConstraints(minHeight: (widget.showLeftLine ?? false) ? height1 : height),
-                      child: (widget.videoModel.newsType == "SP" || widget.videoModel.newsType == "MOVIE")
-                          ? GestureDetector(
-                              child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                (widget.videoModel.seriesCover == null || widget.videoModel.seriesCover?.length == 0)
-                                    ? Container(
-                                        height: height,
-                                        width: width,
-                                        child: ClipRRect(
+              : Container(
+                  alignment: Alignment.centerLeft,
+                  height: (widget.showLeftLine ?? false) ? height1 : height,
+                  constraints: BoxConstraints(minHeight: (widget.showLeftLine ?? false) ? height1 : height),
+                  child: (widget.videoModel.newsType == "SP" || widget.videoModel.newsType == "MOVIE")
+                      ? GestureDetector(
+                          child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            (widget.videoModel.seriesCover == null || widget.videoModel.seriesCover?.length == 0)
+                                ? Container(
+                                    height: height,
+                                    width: width,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                                      child: Stack(
+                                        alignment: AlignmentDirectional.centerStart,
+                                        fit: StackFit.expand,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              Map<String, dynamic> maps = Map();
+                                              maps["videoId"] = widget.videoModel.id;
+
+                                              bus.emit(EventBusUtils.closeActivityFloating);
+
+                                              Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
+                                                bus.emit(EventBusUtils.showActivityFloating);
+                                              });
+                                            },
+                                            child: CustomNetworkImageNew(
+                                              fit: BoxFit.cover,
+                                              height: height,
+                                              width: width,
+                                              imageUrl: widget.videoModel.cover,
+                                              useQueue: true,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              "assets/images/hjll_community_play_icon.png",
+                                              width: 30,
+                                              height: 30,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ))
+                                : Expanded(
+                                    child: GridView.builder(
+                                    padding: EdgeInsets.zero,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: 13,
+                                      mainAxisSpacing: 1,
+                                      childAspectRatio: 1,
+                                    ),
+                                    itemCount: widget.videoModel.seriesCover.length > 3 ? 3 : widget.videoModel.seriesCover.length,
+                                    itemBuilder: (BuildContext context, int indexs) {
+                                      int realDataIndex = indexs + 1;
+                                      if (realDataIndex == 3 || realDataIndex == widget.videoModel.seriesCover.length) {
+                                        return ClipRRect(
                                           borderRadius: BorderRadius.all(Radius.circular(4)),
                                           child: Stack(
                                             alignment: AlignmentDirectional.centerStart,
+                                            fit: StackFit.expand,
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
@@ -774,17 +674,13 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
 
                                                   bus.emit(EventBusUtils.closeActivityFloating);
 
-                                                  maps["videoModel"] = widget.videoModel;
-
                                                   Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
                                                     bus.emit(EventBusUtils.showActivityFloating);
                                                   });
                                                 },
                                                 child: CustomNetworkImageNew(
+                                                  imageUrl: getImagePath(widget.videoModel.cover, true, false),
                                                   fit: BoxFit.cover,
-                                                  height: height,
-                                                  width: width,
-                                                  imageUrl: widget.videoModel.cover,
                                                   useQueue: true,
                                                 ),
                                               ),
@@ -798,167 +694,121 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                                               ),
                                             ],
                                           ),
-                                        ))
-                                    : Expanded(
-                                        child: GridView.builder(
-                                        physics: NeverScrollableScrollPhysics(),
-                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
-                                          crossAxisSpacing: 13,
-                                          mainAxisSpacing: 1,
-                                          childAspectRatio: 1,
-                                        ),
-                                        itemCount: widget.videoModel.seriesCover.length > 3 ? 3 : widget.videoModel.seriesCover.length,
-                                        itemBuilder: (BuildContext context, int indexs) {
-                                          int realDataIndex = indexs + 1;
-                                          if (realDataIndex == 3 || realDataIndex == widget.videoModel.seriesCover.length) {
-                                            return ClipRRect(
-                                              borderRadius: BorderRadius.all(Radius.circular(4)),
-                                              child: Stack(
-                                                alignment: AlignmentDirectional.centerStart,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      Map<String, dynamic> maps = Map();
-                                                      maps["videoId"] = widget.videoModel.id;
-
-                                                      bus.emit(EventBusUtils.closeActivityFloating);
-
-                                                      maps["videoModel"] = widget.videoModel;
-
-                                                      Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false)
-                                                          .then((value) {
-                                                        bus.emit(EventBusUtils.showActivityFloating);
-                                                      });
-                                                    },
-                                                    child:  CustomNetworkImageNew(
-                                                      width: width,
-                                                      height: height,
-                                                      imageUrl: getImagePath(widget.videoModel.cover, true, false),
-                                                      fit: BoxFit.cover,
-                                                      useQueue: true,
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Image.asset(
-                                                      "assets/images/hjll_community_play_icon.png",
-                                                      width: 30,
-                                                      height: 30,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          }
-                                          return ClipRRect(
-                                            borderRadius: BorderRadius.all(Radius.circular(4)),
-                                            child: Stack(
-                                              alignment: AlignmentDirectional.center,
-                                              children: [
-                                                CustomNetworkImageNew(
-                                                  width: width,
-                                                  height: height,
-                                                  imageUrl: getImagePath(widget.videoModel.seriesCover[realDataIndex], true, false),
-                                                  fit: BoxFit.cover,
-                                                  useQueue: true,
-                                                ),
-                                              ],
+                                        );
+                                      }
+                                      return ClipRRect(
+                                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                                        child: Stack(
+                                          fit: StackFit.expand,
+                                          alignment: AlignmentDirectional.center,
+                                          children: [
+                                            CustomNetworkImageNew(
+                                              width: width,
+                                              height: height,
+                                              imageUrl: getImagePath(widget.videoModel.seriesCover[realDataIndex], true, false),
+                                              fit: BoxFit.cover,
+                                              useQueue: true,
                                             ),
-                                          );
-                                        },
-                                      ))
-                              ],
-                            ))
-                          : GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 13,
-                                mainAxisSpacing: 1,
-                                childAspectRatio: 1,
-                              ),
-                              itemCount: (widget.videoModel.seriesCover?.length ?? 0) > widget.maxImageCount
-                                  ? widget.maxImageCount
-                                  : widget.videoModel.seriesCover?.length ?? 0,
-                              itemBuilder: (BuildContext context, int indexs) {
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(4),
-                                      topLeft: Radius.circular(4),
-                                      bottomLeft: Radius.circular(4),
-                                      bottomRight: Radius.circular(4)),
-                                  child: GestureDetector(
-                                    // onTap: () async {
-                                    //   if (indexs == (widget.maxImageCount + 1)) {
-                                    //     if (widget.videoModel.isCoinVideo()) {
-                                    //       if (needBuyVideo(widget.videoModel)) {
-                                    //         var result = await showDialog(
-                                    //             context: context,
-                                    //             builder: (context) {
-                                    //               return CoinPostAlert(videoModel: widget.videoModel);
-                                    //             });
-                                    //
-                                    //         ///true表示支付成功
-                                    //         if (result != null && result is bool && result) {
-                                    //           widget.videoModel?.vidStatus?.hasPaid = true;
-                                    //           Config.videoId.add(widget.videoModel.id);
-                                    //           showToast(msg: "购买成功!");
-                                    //           await GlobalStore.updateUserInfo(null);
-                                    //           setState(() {});
-                                    //         }
-                                    //         return;
-                                    //       }
-                                    //     } else {
-                                    //       if (!GlobalStore.isVIP()) {
-                                    //         VipRankAlert.show(context, type: VipAlertType.vipPostImg);
-                                    //         return;
-                                    //       }
-                                    //     }
-                                    //   }
-                                    //   showPictureSwipe(context, widget.videoModel.seriesCover, indexs,
-                                    //       imageTyp: ImageTyp.NET, videoModel: widget.videoModel);
-                                    // },
-                                    child: Stack(
-                                      alignment: AlignmentDirectional.center,
-                                      children: [
-                                        CustomNetworkImageNew(
-                                          fit: BoxFit.cover,
-                                          height: (widget.showLeftLine ?? false) ? height1 : height,
-                                          width: (widget.showLeftLine ?? false) ? width1 : width,
-                                          imageUrl: widget.videoModel.seriesCover[indexs],
-                                          isGauss: isGaussValue(indexs, widget.maxImageCount),
-                                          useQueue: true,
+                                          ],
                                         ),
-                                        if (indexs == (widget.maxImageCount - 1) &&
-                                            widget.videoModel.seriesCover.length > widget.maxImageCount)
-                                          Container(
-                                            alignment: Alignment.bottomRight,
-                                            padding: EdgeInsets.fromLTRB(0, 0, 6, 6),
-                                            child: Container(
-                                              width: 30,//(widget.showLeftLine ?? false) ? width1 : width,
-                                              height: 17,//(widget.showLeftLine ?? false) ? height1 : height,
-                                              alignment: Alignment.center,
-                                              color: Colors.black.withOpacity(0.6),
-                                              child: Text(
-                                                "+" + (widget.videoModel.seriesCover.length - widget.maxImageCount).toString(),
-                                                style: TextStyle(fontSize: 12, color: Color(0xfff1f1f1)),
-                                              ),
-                                            ),
-                                          ),
-                                      ],
+                                      );
+                                    },
+                                  ))
+                          ],
+                        ))
+                      : GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 13,
+                            mainAxisSpacing: 1,
+                            childAspectRatio: 1,
+                          ),
+                          itemCount: (widget.videoModel.seriesCover?.length ?? 0) > widget.maxImageCount
+                              ? widget.maxImageCount
+                              : widget.videoModel.seriesCover?.length ?? 0,
+                          itemBuilder: (BuildContext context, int indexs) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(4),
+                                  topLeft: Radius.circular(4),
+                                  bottomLeft: Radius.circular(4),
+                                  bottomRight: Radius.circular(4)),
+                              child: GestureDetector(
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    CustomNetworkImageNew(
+                                      fit: BoxFit.cover,
+                                      height: (widget.showLeftLine ?? false) ? height1 : height,
+                                      width: (widget.showLeftLine ?? false) ? width1 : width,
+                                      imageUrl: widget.videoModel.seriesCover[indexs],
+                                      isGauss: isGaussValue(indexs, widget.maxImageCount),
+                                      useQueue: true,
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                    ),
-                  ],
+                                    if (indexs == (widget.maxImageCount - 1) && widget.videoModel.seriesCover.length > widget.maxImageCount)
+                                      Container(
+                                        alignment: Alignment.bottomRight,
+                                        padding: EdgeInsets.fromLTRB(0, 0, 6, 6),
+                                        margin: EdgeInsets.only(bottom: 4),
+                                        child: Container(
+                                          width: 30,
+                                          //(widget.showLeftLine ?? false) ? width1 : width,
+                                          height: 17,
+                                          //(widget.showLeftLine ?? false) ? height1 : height,
+                                          alignment: Alignment.center,
+                                          color: Colors.black.withOpacity(0.6),
+                                          child: Text(
+                                            "+" + (widget.videoModel.seriesCover.length - widget.maxImageCount).toString(),
+                                            style: TextStyle(fontSize: 12, color: Color(0xfff1f1f1)),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                 ),
-          SizedBox(
-            height: 10.w,
-          ),
+          SizedBox(height: 10),
           _bottomWidget(),
+          if (widget.isMyPublish == true) ...[
+            ///帖子状态
+            SizedBox(height: 8),
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: widget.videoModel.statusDesc,
+                    style: TextStyle(
+                      color: AppColors.primaryTextColor,
+                      fontSize: 14,
+                    ),
+                  ),
+                  if (widget.videoModel.status == 2)
+                    TextSpan(
+                      text: "  ${widget.videoModel.reason}",
+                      style: TextStyle(
+                        color: Color(0xff999999),
+                        fontSize: 12,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            SizedBox(height: 6),
+            Text(
+              "${formatTimeTwo(widget.videoModel.reviewAt)}",
+              style: TextStyle(
+                color: AppColors.primaryTextColor,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(height: 10),
+          ]
         ],
       ),
     );
@@ -995,7 +845,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                                       cacheManager: ImageCacheManager(),
                                       placeholder: (context, url) => Container(
                                         alignment: Alignment.center,
-                                        color: Color.fromRGBO(14, 20, 30, 1),
+                                        color: Color(0xff151515),
                                         child: Image.asset(
                                           "assets/weibo/loading_normal.png",
                                           width: 106,
@@ -1009,88 +859,98 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                         },
                       ),
                     ),
-              SizedBox(
-                height: 15,
-              ),
-              (widget.videoModel.videoCoin() > 0)
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${widget.videoModel.videoCoin()}金币解锁观看：",
-                          style: TextStyle(color: AppColors.primaryTextColor, fontSize: 16),
-                        ),
-                      ],
-                    )
-                  : SizedBox(),
+              SizedBox(height: 15),
               Container(
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(top: 3),
                 width: videoCoverWidth,
                 height: videoCoverHeight,
                 child: GestureDetector(
-                    onTap: () {
-                      if ((widget.videoModel.videoCoin() > 0) && (!widget.videoModel.vidStatus.hasPaid)) {
-                        showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) {
-                              return PostDetailCoinDialog(
-                                videoCoin: widget.videoModel.videoCoin(),
-                                leftCallback: () async {
-                                  bool buySuccess =
-                                      await buyProduct(context, widget.videoModel?.id, widget.videoModel?.title, widget.videoModel?.coins);
-                                  if (buySuccess) {
-                                    Map<String, dynamic> maps = Map();
-                                    maps["videoId"] = widget.videoModel.id;
-                                    bus.emit(EventBusUtils.closeActivityFloating);
-                                    maps["videoModel"] = widget.videoModel;
-                                    Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
-                                      safePopPage();
-                                      widget.videoModel.vidStatus.hasPaid = true;
-                                      setState(() {});
-                                    });
-                                  } else {
-                                    showToast(msg: "购买视频失败！");
-                                  }
-                                },
-                              );
-                            });
-                        return;
-                      }
-                      Map<String, dynamic> maps = Map();
-                      maps["videoId"] = widget.videoModel.id;
-                      bus.emit(EventBusUtils.closeActivityFloating);
-
-                      maps["videoModel"] = widget.videoModel;
-                      Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
-                        bus.emit(EventBusUtils.showActivityFloating);
-                      });
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                      child: Stack(
-                        alignment: AlignmentDirectional.centerStart,
-                        children: [
-                          CustomNetworkImage(
-                            fit: BoxFit.cover,
-                            width: videoCoverWidth,
-                            height: videoCoverHeight,
-                            imageUrl: widget.videoModel.cover,
-                            type: isHorizontalVideoUI ? ImgType.cover : ImgType.vertical,
+                  onTap: () {
+                    if ((widget.videoModel.videoCoin() > 0) && (!widget.videoModel.vidStatus.hasPaid)) {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return PostDetailCoinDialog(
+                              videoCoin: widget.videoModel.videoCoin(),
+                              leftCallback: () async {
+                                bool buySuccess =
+                                    await buyProduct(context, widget.videoModel?.id, widget.videoModel?.title, widget.videoModel?.coins);
+                                if (buySuccess) {
+                                  Map<String, dynamic> maps = Map();
+                                  maps["videoId"] = widget.videoModel.id;
+                                  bus.emit(EventBusUtils.closeActivityFloating);
+                                  Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
+                                    safePopPage();
+                                    widget.videoModel.vidStatus.hasPaid = true;
+                                    setState(() {});
+                                  });
+                                } else {
+                                  showToast(msg: "购买视频失败！");
+                                }
+                              },
+                            );
+                          });
+                      return;
+                    }
+                    Map<String, dynamic> maps = Map();
+                    maps["videoId"] = widget.videoModel.id;
+                    bus.emit(EventBusUtils.closeActivityFloating);
+                    Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
+                      bus.emit(EventBusUtils.showActivityFloating);
+                    });
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                    child: Stack(
+                      alignment: AlignmentDirectional.centerStart,
+                      children: [
+                        CustomNetworkImage(
+                          fit: BoxFit.cover,
+                          width: videoCoverWidth,
+                          height: videoCoverHeight,
+                          imageUrl: widget.videoModel.cover,
+                          type: isHorizontalVideoUI ? ImgType.cover : ImgType.vertical,
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            "assets/images/hjll_community_play_icon.png",
+                            width: 30,
+                            height: 30,
                           ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Image.asset(
-                              "assets/images/hjll_community_play_icon.png",
-                              width: 30,
-                              height: 30,
+                        ),
+                        if ((widget.videoModel.videoCoin() > 0))
+                          Positioned(
+                            top: 10,
+                            right: 10,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 22, vertical: 4),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: AppColors.primaryTextColor,
+                              ),
+                              child: Text(
+                                widget.videoModel.vidStatus.hasPaid == true ? "已解锁" : "${widget.videoModel.videoCoin()}金币解锁",
+                                style: TextStyle(color: Colors.white, fontSize: 12),
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                    )),
+                      ],
+                    ),
+                  ),
+                ),
               ),
+              if (widget.videoModel.videoCoin() > 0)
+                Container(
+                  padding: EdgeInsets.only(top: 15),
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "${widget.videoModel.videoCoin()}金币解锁",
+                    style: TextStyle(color: AppColors.primaryTextColor, fontSize: 16),
+                  ),
+                ),
             ],
           )
         : Column(
@@ -1114,7 +974,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                                     CachedNetworkImage(
                                       placeholder: (context, url) => Container(
                                         alignment: Alignment.center,
-                                        color: Color.fromRGBO(14, 20, 30, 1),
+                                        color: Color(0xff151515),
                                         child: Image.asset(
                                           "assets/weibo/loading_normal.png",
                                           width: 106,
@@ -1278,8 +1138,8 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                     },
                   ),
                   Expanded(child: SizedBox()),
-                  (widget.videoModel.tags != null && widget.videoModel.tags.length > 0)
-                      ? GestureDetector(
+                 if(widget.videoModel.tags != null && widget.videoModel.tags.length > 0)
+                       GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
                               return HjllCommunityQuanziDetailPage(
@@ -1293,11 +1153,10 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                             constraints: BoxConstraints(minWidth: 60.0),
                             alignment: Alignment.center,
                             child: Text(
-                              "#${widget.videoModel.tags[0].name ?? ""}",
-                              style: TextStyle(color: widget.tagColor ?? Color.fromRGBO(92, 185, 246, 1), fontSize: 12),
+                             "123123123",// "#${widget.videoModel.tags[0].name ?? ""}",
+                              style: TextStyle(color: widget.tagColor ?? Color(0xfff6c450), fontSize: 12),
                             ),
-                          ))
-                      : SizedBox(),
+                          ),),
                 ],
               ),
             ),
@@ -1333,9 +1192,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                     child: Container(
                       width: 166,
                       height: 35,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(4)),
-                          gradient: AppColors.linearBackGround),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(4)), gradient: AppColors.linearBackGround),
                       child: Center(
                         child: // 确定
                             Text(
@@ -1352,6 +1209,25 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildEidtWidget() {
+    return InkWell(
+      onTap: (){
+        widget.deleteCallback?.call(widget.videoModel);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color:  Color(0x99707070),
+        ),
+        alignment: Alignment.center,
+        child:  Image.asset(
+          "assets/images/delete_icon.png",
+          width: 30,
+          height: 30,
+        ),
+      ),
     );
   }
 }

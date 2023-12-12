@@ -55,134 +55,121 @@ Widget buildView(SearchState state, Dispatch dispatch, ViewService viewService) 
             // 返回一个 Sliver 数组给外部可滚动组件。
             return <Widget>[
               SliverStickyHeader(
-                  sticky: false,
-                  header: Material(
-                    color: AppColors.weiboBackgroundColor,
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        left: AppPaddings.appMargin,
-                        right: AppPaddings.appMargin,
-                        bottom: AppPaddings.appMargin,
-                      ),
-                      child: Column(
-                        children: [
-                          Visibility(
-                            visible: (state.searchHistorys?.length ?? 0) != 0,
-                            child: Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                sticky: false,
+                header: Container(
+                  color: Color(0xff151515),
+                  padding: EdgeInsets.only(
+                    left: AppPaddings.appMargin,
+                    right: AppPaddings.appMargin,
+                    bottom: AppPaddings.appMargin,
+                  ),
+                  child: Column(
+                    children: [
+                      Visibility(
+                        visible: (state.searchHistorys?.length ?? 0) != 0,
+                        child: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  SizedBox(
-                                    height: 20,
+                                  Text(
+                                    "历史搜索",
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(255, 255, 255, 1),
+                                      fontSize: Dimens.pt14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                        "搜索记录",
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(255, 255, 255, 1),
-                                          fontSize: Dimens.pt14,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        child: Container(
-                                          padding: EdgeInsets.fromLTRB(6, 3, 0, 3),
-                                          child: Text(
-                                            "清除记录",
-                                            style: TextStyle(
-                                              color: AppColors.primaryTextColor,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ),
-                                        onTap: () {
-                                          dispatch(SearchActionCreator.deleteAll());
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.only(bottom: 0, top: 10),
-                                    child: Wrap(
-                                        spacing: 0.0,
-                                        direction: Axis.horizontal,
-                                        runSpacing: 10.0,
-                                        alignment: WrapAlignment.start,
-                                        children: (state?.searchHistorys ?? []).map((item) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              dispatch(SearchActionCreator.onSubmitted(item));
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.only(left: 12, top: 5, bottom: 5),
-                                              margin: EdgeInsets.only(right: 10),
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(20),
-                                                color: Color.fromRGBO(31, 32, 49, 1),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text(
-                                                    item ?? '',
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(color: Colors.white, fontSize: 14),
-                                                  ),
-                                                  SizedBox(width: 10),
-                                                  Container(
-                                                    height: 12,
-                                                    width: 1,
-                                                    color: Colors.white,
-                                                  ),
-                                                  SizedBox(width: 8),
-                                                  InkWell(
-                                                    child: Container(
-                                                        padding: EdgeInsets.only(right: 11),
-                                                        child: Icon(
-                                                          Icons.clear,
-                                                          color: Colors.white,
-                                                          size: 16,
-                                                        )),
-                                                    onTap: () {
-                                                      dispatch(
-                                                        SearchActionCreator.delete(state?.searchHistorys?.indexOf(item)),
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          );
-                                        }).toList()),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
+                                  GestureDetector(
+                                    child: Container(
+                                      padding: EdgeInsets.fromLTRB(6, 3, 0, 3),
+                                      child: Image.asset("assets/images/delete.png", width: 20, height: 20,),
+                                    ),
+                                    onTap: () {
+                                      dispatch(SearchActionCreator.deleteAll());
+                                    },
+                                  )
                                 ],
                               ),
-                            ),
+                              Container(
+                                padding: EdgeInsets.only(bottom: 0, top: 10),
+                                child: Wrap(
+                                    spacing: 0.0,
+                                    direction: Axis.horizontal,
+                                    runSpacing: 10.0,
+                                    alignment: WrapAlignment.start,
+                                    children: (state?.searchHistorys ?? []).map((item) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          dispatch(SearchActionCreator.onSubmitted(item));
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.only(left: 12, top: 5, bottom: 5),
+                                          margin: EdgeInsets.only(right: 10),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: Color.fromRGBO(32, 32, 32, 1),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                item ?? '',
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(color: Color(0xff999999), fontSize: 14),
+                                              ),
+                                              SizedBox(width: 8),
+                                              InkWell(
+                                                child: Container(
+                                                    padding: EdgeInsets.only(right: 11),
+                                                    child: Icon(
+                                                      Icons.clear,
+                                                      color: Color(0xfffcfcfc),
+                                                      size: 16,
+                                                    )),
+                                                onTap: () {
+                                                  dispatch(
+                                                    SearchActionCreator.delete(state?.searchHistorys?.indexOf(item)),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }).toList()),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          (state.adsList == null || state.adsList.length == 0)
-                              ? SizedBox()
-                              : AdsBannerWidget(
-                                  state.adsList,
-                                  width: screen.screenWidth - 10 * 2,
-                                  height: (screen.screenWidth - 10 * 2) * (200 / 720),
-                                  onItemClick: (index) {
-                                    var ad = state.adsList[index];
-                                    JRouter().handleAdsInfo(ad.href, id: ad.id);
-                                  },
-                                ),
-                        ],
+                        ),
                       ),
-                    ),
-                  )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      (state.adsList == null || state.adsList.length == 0)
+                          ? SizedBox()
+                          : AdsBannerWidget(
+                        state.adsList,
+                        width: screen.screenWidth - 10 * 2,
+                        height: (screen.screenWidth - 10 * 2) * (200 / 720),
+                        onItemClick: (index) {
+                          var ad = state.adsList[index];
+                          JRouter().handleAdsInfo(ad.href, id: ad.id);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ];
           },
           body: BaseRequestView(
@@ -222,24 +209,24 @@ Widget buildView(SearchState state, Dispatch dispatch, ViewService viewService) 
                                       gradient: LinearGradient(
                                           colors: number == 1
                                               ? [
-                                                  Color.fromRGBO(255, 179, 66, 1),
-                                                  Color.fromRGBO(255, 100, 66, 1),
-                                                  Color.fromRGBO(255, 179, 66, 1),
-                                                ]
+                                            Color.fromRGBO(255, 179, 66, 1),
+                                            Color.fromRGBO(255, 100, 66, 1),
+                                            Color.fromRGBO(255, 179, 66, 1),
+                                          ]
                                               : number == 2
-                                                  ? [
-                                                      Color.fromRGBO(132, 239, 213, 1),
-                                                      Color.fromRGBO(132, 207, 239, 1),
-                                                    ]
-                                                  : number == 3
-                                                      ? [
-                                                          Color.fromRGBO(179, 248, 112, 1),
-                                                          Color.fromRGBO(104, 215, 87, 1),
-                                                        ]
-                                                      : [
-                                                          Color.fromRGBO(126, 125, 138, 1),
-                                                          Color.fromRGBO(155, 157, 165, 1),
-                                                        ])),
+                                              ? [
+                                            Color.fromRGBO(132, 239, 213, 1),
+                                            Color.fromRGBO(132, 207, 239, 1),
+                                          ]
+                                              : number == 3
+                                              ? [
+                                            Color.fromRGBO(179, 248, 112, 1),
+                                            Color.fromRGBO(104, 215, 87, 1),
+                                          ]
+                                              : [
+                                            Color.fromRGBO(126, 125, 138, 1),
+                                            Color.fromRGBO(155, 157, 165, 1),
+                                          ])),
                                   child: Text(
                                     "${number}",
                                     style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 13,),
@@ -304,10 +291,10 @@ _searchHistoryItem(String title, VoidCallback deleteClick) {
         GestureDetector(
           child: Container(
               child: Icon(
-            Icons.clear,
-            color: Color(0xff999999),
-            size: 16,
-          )),
+                Icons.clear,
+                color: Color(0xff999999),
+                size: 16,
+              )),
           onTap: deleteClick,
         )
       ],
@@ -316,11 +303,11 @@ _searchHistoryItem(String title, VoidCallback deleteClick) {
 }
 
 _searchHistoryItemHjll(
-  String title,
-  double containerWidth,
-  double containerHeight,
-  VoidCallback deleteClick,
-) {
+    String title,
+    double containerWidth,
+    double containerHeight,
+    VoidCallback deleteClick,
+    ) {
   return Container(
     color: Colors.transparent,
     child: Row(
@@ -333,10 +320,10 @@ _searchHistoryItemHjll(
         GestureDetector(
           child: Container(
               child: Icon(
-            Icons.clear,
-            color: Color(0xff999999),
-            size: 16,
-          )),
+                Icons.clear,
+                color: Color(0xff999999),
+                size: 16,
+              )),
           onTap: deleteClick,
         )
       ],

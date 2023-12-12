@@ -27,10 +27,10 @@ Widget buildView(
         titleSpacing: 0,
         toolbarHeight: Dimens.pt40,
         automaticallyImplyLeading: false,
-        backgroundColor: Color.fromRGBO(14, 20, 30, 1),
+        backgroundColor: Colors.black,
         title:HjllSearchWidget(),
         actions: [
-          HjllSearchButton(),
+          HjllSearchButton(isCommunity: true),
         ],
       ),
       body:Stack(
@@ -39,7 +39,8 @@ Widget buildView(
             children: [
               Container(
                 alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(left: 12),
+                padding: EdgeInsets.only(left: 12),
+                color: Colors.black,
                 child: commonTabBar(
                   TabBar(
                     controller: state.tabController,
@@ -52,12 +53,12 @@ Widget buildView(
                       ),
                     ).toList(),
                     indicator: RoundUnderlineTabIndicator(
-                      borderSide: BorderSide(color: Color.fromRGBO(0, 214, 190, 1), width: 3),
+                      borderSide: BorderSide(color: Color(0xffca452e), width: 3),
                     ),
                     indicatorSize: TabBarIndicatorSize.label,
                     unselectedLabelColor: Color.fromRGBO(153, 153, 153, 1),
                     unselectedLabelStyle: TextStyle(fontSize: Dimens.pt16),
-                    labelColor: Color.fromRGBO(0, 214, 190, 1),
+                    labelColor: Color(0xffca452e),
                     isScrollable: true,
                     labelStyle: TextStyle(fontSize: Dimens.pt18),
                     labelPadding: EdgeInsets.symmetric(horizontal: 10),

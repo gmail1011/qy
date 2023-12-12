@@ -33,11 +33,7 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
             state.isPayLoading ? LoadingWidget() : Container(),
             Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: AppColors.payBackgroundColors,
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
+               color: Color(0xff2e2e2e),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(Dimens.pt17),
                   topRight: Radius.circular(Dimens.pt17),
@@ -53,13 +49,13 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
                       "选择支付方式",
                       style: TextStyle(
                         fontSize: Dimens.pt17,
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     )),
                   ),
                   Center(
                     child: Divider(
-                      color: Color.fromRGBO(0, 0, 0, 0.1),
+                      color: Color.fromRGBO(255, 255, 255, 0.1),
                       height: 1,
                     ),
                   ),
@@ -73,85 +69,10 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
                           child: Container(height: 10,),
                         ),
 
-                        // state.vipItem != null
-                        //     ? SliverToBoxAdapter(
-                        //         child: Container(),
-                        //       )
-                        //     : SliverPadding(
-                        //         padding: EdgeInsets.only(
-                        //             left: Dimens.pt30,
-                        //             right: Dimens.pt46,
-                        //             top: Dimens.pt12,
-                        //             bottom: Dimens.pt6),
-                        //         sliver: SliverToBoxAdapter(
-                        //           child: GestureDetector(
-                        //             onTap: () {
-                        //               dispatch(PayForActionCreator.selectTickets(true));
-                        //             },
-                        //             child: Row(
-                        //               children: [
-                        //                 Image.asset(
-                        //                   "assets/weibo/ticket_icon.png",
-                        //                   width: Dimens.pt35,
-                        //                   height: Dimens.pt35,
-                        //                 ),
-                        //                 Container(
-                        //                   margin: EdgeInsets.only(
-                        //                     left: Dimens.pt10,
-                        //                   ),
-                        //                   child: Text(
-                        //                     "使用优惠卷",
-                        //                     style: TextStyle(
-                        //                       fontSize: Dimens.pt18,
-                        //                       color: Color.fromRGBO(254, 127, 15, 1),
-                        //                     ),
-                        //                   ),
-                        //                 ),
-                        //                 Config.goldTicketList == null
-                        //                     ? Container()
-                        //                     : Container(
-                        //                         decoration: BoxDecoration(
-                        //                           color: Color.fromRGBO(254, 127, 15, 1),
-                        //                           borderRadius: BorderRadius.all(Radius.circular(16)),
-                        //                         ),
-                        //                         margin: EdgeInsets.only(
-                        //                           left: Dimens.pt6,
-                        //                         ),
-                        //                         padding:
-                        //                             EdgeInsets.only(left: 6, right: 6, top: 2, bottom: 2),
-                        //                         child: Text(
-                        //                           Config.goldTicketList == null
-                        //                               ? ""
-                        //                               : Config.goldTicketList.name,
-                        //                           style: TextStyle(
-                        //                             fontSize: Dimens.pt15,
-                        //                             color: Colors.white,
-                        //                           ),
-                        //                         ),
-                        //                       ),
-                        //                 Spacer(),
-                        //                 Image.asset(
-                        //                   "assets/weibo/right_arrow_yellow.png",
-                        //                   width: Dimens.pt13,
-                        //                   height: Dimens.pt13,
-                        //                 ),
-                        //               ],
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
                         SliverList(
                           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
                             PayType payType = state.payList[index];
                             String giftStr = '';
-                            // if (payType.increaseAmount != null &&
-                            //     payType.increaseAmount != '0') {
-                            //   giftStr =
-                            //       "赠送${payType.increaseAmount}${Lang.GOLD_COIN}";
-                            // } else if (payType.incTax != null &&
-                            //     payType.incTax != '0') {
-                            //   giftStr = "赠送${payType.increaseAmount}%";
-                            // }
 
                             return _buildPayTypeItemUI(state, dispatch, payType, giftStr, index);
                           }, childCount: state.payList?.length ?? 0),
@@ -171,13 +92,13 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
                               Text(
                                 "温馨提示：",
                                 style:
-                                    TextStyle(color: Colors.black, fontWeight: FontWeight.w600 , fontSize: Dimens.pt13),
+                                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600 , fontSize: Dimens.pt13),
                               ),
                               SizedBox(height: Dimens.pt5),
                               Text(
                                 "1、跳转后请及时付款，超时支付无法到账，要重新发起。\n2、每天发起支付不能超过5次，连续发起且未支付，账号可能被加入黑名单。",
                                 style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 0.6),
+                                  color: Color.fromRGBO(255, 255, 255, 0.6),
                                   fontSize: Dimens.pt12,
                                   height: 1.5,
                                 ),
@@ -191,7 +112,7 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
                   ),
                   SizedBox(height: Dimens.pt12),
 
-                  commonSubmitButton("立即支付", onTap: () {
+                  commonSubmitButton("￥${(state.vipItem == null ? 0 : state.vipItem.discountedPrice ?? 0) ~/ 10}/立即支付", onTap: () {
                     ///1.金币购买会员
                     if (state.payRadioType == -1) {
                       l.e("购买会员", "金币购买会员");
@@ -221,7 +142,7 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
 
                       Text(
                         "支付中如有问题，请咨询  ",
-                        style: TextStyle(color: Colors.black, fontSize: Dimens.pt12),
+                        style: TextStyle(color: Colors.white, fontSize: Dimens.pt12),
                       ),
 
 
@@ -250,11 +171,7 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
             state.isPayLoading ? LoadingWidget() : Container(),
             Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: AppColors.payBackgroundColors,
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
+                color: Color(0xff2e2e2e),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(Dimens.pt17),
                   topRight: Radius.circular(Dimens.pt17),
@@ -357,7 +274,7 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
                                       Text(
                                         VariableConfig.goldTickets.list[index].name,
                                         style: TextStyle(
-                                            color: Color.fromRGBO(0, 214, 190, 1),
+                                            color: Color(0xffca452e),
                                             fontWeight: FontWeight.bold,
                                             fontSize: Dimens.pt23),
                                       ),
@@ -383,7 +300,7 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
                                     inactiveBgColor: Color.fromRGBO(252, 228, 202, 1),
                                     inactiveBorderColor: Color.fromRGBO(175, 175, 175, 1),
                                     type: GFCheckboxType.circle,
-                                    activeBgColor: Color.fromRGBO(0, 214, 190, 1),
+                                    activeBgColor: Color(0xffca452e),
                                     onChanged: (value) {
                                       VariableConfig.goldTickets.list.forEach((element) {
                                         if (VariableConfig.goldTickets.list[index] == element) {
@@ -499,13 +416,13 @@ Widget _buildBuyVIPGoldCoinUI(PayForState state, Dispatch dispatch) {
                   padding: EdgeInsets.only(left: Dimens.pt10),
                   child: Text(
                     Lang.PAY_FOR_TIP6,
-                    style: TextStyle(color: Colors.black, fontSize: Dimens.pt16),
+                    style: TextStyle(color: Colors.white, fontSize: Dimens.pt16),
                   ),
                 ),
               ),
               Radio(
                 value: -1,
-                activeColor: Color.fromRGBO(0, 214, 190, 1),
+                activeColor: Color(0xffca452e),
                 focusColor: Color(0xFF4F515A),
                 onChanged: (value) {
                   l.e("payRadioType", "$value");
@@ -559,7 +476,7 @@ Widget _buildPayTypeItemUI(PayForState state, Dispatch dispatch, PayType payType
                   children: <Widget>[
                     Text(
                       payType.typeName,
-                      style: TextStyle(color: Colors.black, fontSize: Dimens.pt16),
+                      style: TextStyle(color: Colors.white, fontSize: Dimens.pt16),
                     ),
                     Visibility(
                       visible: payType.isOfficial,
@@ -582,13 +499,13 @@ Widget _buildPayTypeItemUI(PayForState state, Dispatch dispatch, PayType payType
                 ),
                 child: Text(
                   giftStr,
-                  style: TextStyle(color: Color.fromRGBO(0, 214, 190, 1), fontSize: Dimens.pt10),
+                  style: TextStyle(color: Color(0xffca452e), fontSize: Dimens.pt10),
                 ),
               ),
             ),
             Radio(
               value: index,
-              activeColor: Color.fromRGBO(0, 214, 190, 1),
+              activeColor: Color(0xffca452e),
               focusColor: Color(0xFF4F515A),
               onChanged: (value) {
                 l.e("payRadioType", "$value");

@@ -29,13 +29,20 @@ import 'package:get/route_manager.dart' as Gets;
 import 'action.dart';
 import 'state.dart';
 
-Widget buildView(
-    FilmVideoCommentState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(FilmVideoCommentState state, Dispatch dispatch, ViewService viewService) {
   return Column(
     children: [
       // _header(state, viewService, state.quickSearch),
       SizedBox(height: 8),
-      Expanded(child: CommentListPage(state.videoId, hasHeader: false, footerComment :true,needReplay: false,isVideoDetail: true,)),
+      Expanded(
+        child: CommentListPage(
+          state.videoId,
+          hasHeader: false,
+          footerComment: true,
+          needReplay: true,
+          isVideoDetail: true,
+        ),
+      ),
       // Expanded(child: BaseRequestView(
       //       retryOnTap: () =>
       //           dispatch(FilmVideoCommentActionCreator.refreshCommentList()),
@@ -81,34 +88,29 @@ Widget _header(FilmVideoCommentState state, ViewService viewService, QuickSearch
             style: TextStyle(color: Colors.white, fontSize: 16),
           ),
           InkWell(
-            onTap: () async{
-              viewService.broadcast(
-                  FilmVideoCommentActionCreator.stopVideoPlay(state.videoId));
-              if(quickSearch.searchKeyword?.isNotEmpty == true){
+            onTap: () async {
+              viewService.broadcast(FilmVideoCommentActionCreator.stopVideoPlay(state.videoId));
+              if (quickSearch.searchKeyword?.isNotEmpty == true) {
                 Navigator.of(viewService.context).push(MaterialPageRoute(
                   builder: (context) {
-                    return SearchResultPage()
-                        .buildPage({"keyword": quickSearch.searchKeyword});
+                    return SearchResultPage().buildPage({"keyword": quickSearch.searchKeyword});
                   },
                 ));
-                 // Gets.Get.to(() => SearchResultPage()
-                 //    .buildPage({"keyword": quickSearch.searchKeyword}));
-              }else if (quickSearch.videoID?.isNotEmpty == true) {
+                // Gets.Get.to(() => SearchResultPage()
+                //    .buildPage({"keyword": quickSearch.searchKeyword}));
+              } else if (quickSearch.videoID?.isNotEmpty == true) {
                 Map<String, dynamic> maps = Map();
                 maps["videoId"] = quickSearch.videoID;
                 JRouter().go(FILM_TV_VIDEO_DETAIL_PAGE, arguments: maps);
               } else if (quickSearch.link?.isNotEmpty == true) {
                 JRouter().handleAdsInfo(quickSearch.link, id: quickSearch.id);
-              } else {
-
-              }
+              } else {}
             },
             child: Row(
               children: [
                 Text(
                   quickSearch.title,
-                  style:
-                  TextStyle(color: Color(0xffe9a43d), fontSize: 16),
+                  style: TextStyle(color: Color(0xffe9a43d), fontSize: 16),
                 ),
                 SizedBox(width: 1),
                 Image.asset(
@@ -127,20 +129,14 @@ Widget _header(FilmVideoCommentState state, ViewService viewService, QuickSearch
 
 ///获取评论列表的item
 Widget _getCommentItem(
-    FilmVideoCommentState state,
-    Dispatch dispatch,
-    BuildContext context,
-    CommentModel commentModel,
-    int index,
-    ViewService viewService) {
+    FilmVideoCommentState state, Dispatch dispatch, BuildContext context, CommentModel commentModel, int index, ViewService viewService) {
   //判断是否VIP
   bool isVip = _isVipByVipExpireDate(commentModel.vipExpireDate) ?? false;
   return Padding(
-    padding:
-        EdgeInsets.fromLTRB(Dimens.pt10, Dimens.pt10, Dimens.pt10, Dimens.pt5),
+    padding: EdgeInsets.fromLTRB(Dimens.pt10, Dimens.pt10, Dimens.pt10, Dimens.pt5),
     child: Stack(
       children: [
-        if(commentModel?.isGodComment == true)
+        if (commentModel?.isGodComment == true)
           Positioned(
             right: 8,
             child: Image.asset(
@@ -167,14 +163,10 @@ Widget _getCommentItem(
                       'uniqueId': DateTime.now().toIso8601String(),
                     };
 
-                    viewService.broadcast(
-                        FilmVideoCommentActionCreator.stopVideoPlay(state.videoId));
-                    var result = await Gets.Get.to(() => BloggerPage(arguments),
-                        opaque: false);
+                    viewService.broadcast(FilmVideoCommentActionCreator.stopVideoPlay(state.videoId));
+                    var result = await Gets.Get.to(() => BloggerPage(arguments), opaque: false);
                     l.e("_getCommentItem", "$result");
-                    viewService.broadcast(
-                        FilmVideoCommentActionCreator.notifyReStartPlayVideo(
-                            state.videoId));
+                    viewService.broadcast(FilmVideoCommentActionCreator.notifyReStartPlayVideo(state.videoId));
                   },
                   child: HeaderWidget(
                     headPath: commentModel?.userPortrait,
@@ -203,16 +195,12 @@ Widget _getCommentItem(
                           Text(
                             "${commentModel.userName}",
                             style: TextStyle(
-                                color: (isVip && commentModel.vipLevel > 0)
-                                    ? Color.fromRGBO(246, 197, 89, 1)
-                                    : Colors.white,
+                                color: (isVip && commentModel.vipLevel > 0) ? Color.fromRGBO(246, 197, 89, 1) : Colors.white,
                                 fontSize: Dimens.pt14,
                                 fontWeight: FontWeight.w600),
                           ),
                           buildHonorLevelUI(
-                              hasKingIcon:
-                              isVip && (commentModel.vipLevel ?? 0) > 0,
-                              honorLevelList: commentModel?.awardsExpire),
+                              hasKingIcon: isVip && (commentModel.vipLevel ?? 0) > 0, honorLevelList: commentModel?.awardsExpire),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -237,24 +225,17 @@ Widget _getCommentItem(
                             child: Row(
                               children: [
                                 Text(
-                                  DateTimeUtil.utc2iso2(
-                                      commentModel.createdAt ?? ""),
-                                  style: TextStyle(
-                                      fontSize: Dimens.pt12,
-                                      color: AppColors.recommentSubTextColor),
+                                  DateTimeUtil.utc2iso2(commentModel.createdAt ?? ""),
+                                  style: TextStyle(fontSize: Dimens.pt12, color: AppColors.recommentSubTextColor),
                                 ),
                                 const SizedBox(width: 8),
                                 GestureDetector(
                                   onTap: () {
-                                    _showInput(state, dispatch, context,
-                                        parentIndex: index);
+                                    _showInput(state, dispatch, context, parentIndex: index);
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.all(Dimens.pt5),
-                                    child: Text("回复",
-                                        style: TextStyle(
-                                            color: AppColors.recommentSubTextColor,
-                                            fontSize: Dimens.pt10)),
+                                    child: Text("回复", style: TextStyle(color: AppColors.recommentSubTextColor, fontSize: Dimens.pt10)),
                                   ),
                                 ),
                               ],
@@ -312,14 +293,9 @@ Widget _getCommentItem(
                         commentModel.commCount > 99
                             ? ' ${Lang.COMMENT_SHOW_MORE_REPLY}' //展開更多回復
                             : " ${commentModel.isRequestReply ? "关闭" : "展开"} ${commentModel.commCount} 条回复",
-                        style: TextStyle(
-                            color: AppColors.recommentSubTextColor,
-                            fontSize: Dimens.pt11),
+                        style: TextStyle(color: AppColors.recommentSubTextColor, fontSize: Dimens.pt11),
                       ),
-                      Icon(
-                          commentModel.isRequestReply
-                              ? Icons.arrow_drop_up
-                              : Icons.arrow_drop_down,
+                      Icon(commentModel.isRequestReply ? Icons.arrow_drop_up : Icons.arrow_drop_down,
                           color: AppColors.recommentSubTextColor),
                     ],
                   ),
@@ -341,13 +317,7 @@ Widget _getCommentItem(
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int childIndex) {
                       return _getReplyItem(
-                          state,
-                          dispatch,
-                          context,
-                          state.commentList[index].info[childIndex],
-                          index,
-                          childIndex,
-                          viewService);
+                          state, dispatch, context, state.commentList[index].info[childIndex], index, childIndex, viewService);
                     },
                   ),
                 ),
@@ -376,14 +346,8 @@ String _commentStr(FilmVideoCommentState state, int index) {
 }
 
 ///回复评论的ITEM
-Widget _getReplyItem(
-    FilmVideoCommentState state,
-    Dispatch dispatch,
-    BuildContext context,
-    ReplyModel replyModel,
-    int parentIndex,
-    int childIndex,
-    ViewService viewService) {
+Widget _getReplyItem(FilmVideoCommentState state, Dispatch dispatch, BuildContext context, ReplyModel replyModel, int parentIndex,
+    int childIndex, ViewService viewService) {
   //判断是否VIP
   bool isVip = _isVipByVipExpireDate(replyModel?.vipExpireDate) ?? false;
 
@@ -403,20 +367,16 @@ Widget _getReplyItem(
               'uid': replyModel?.userID ?? 0,
               'uniqueId': DateTime.now().toIso8601String(),
             };
-            viewService.broadcast(
-                FilmVideoCommentActionCreator.stopVideoPlay(state.videoId));
-            var result =
-                await Gets.Get.to(() => BloggerPage(arguments), opaque: false);
+            viewService.broadcast(FilmVideoCommentActionCreator.stopVideoPlay(state.videoId));
+            var result = await Gets.Get.to(() => BloggerPage(arguments), opaque: false);
             l.e("_getReplyItem", "$result");
-            viewService.broadcast(
-                FilmVideoCommentActionCreator.notifyReStartPlayVideo(
-                    state.videoId));
+            viewService.broadcast(FilmVideoCommentActionCreator.notifyReStartPlayVideo(state.videoId));
           },
           child: HeaderWidget(
             headPath: replyModel?.userPortrait,
             headHeight: Dimens.pt32,
             headWidth: Dimens.pt32,
-            level: ( replyModel.superUser ?? false)? 1 : 0,
+            level: (replyModel.superUser ?? false) ? 1 : 0,
             levelSize: Dimens.pt12,
             positionedSize: 0,
           ),
@@ -439,18 +399,14 @@ Widget _getReplyItem(
                   Text(
                     "${replyModel.userName}",
                     style: TextStyle(
-                        color: isVip && replyModel.vipLevel > 0
-                            ? Color.fromRGBO(246, 197, 89, 1)
-                            : Colors.white,
+                        color: isVip && replyModel.vipLevel > 0 ? Color.fromRGBO(246, 197, 89, 1) : Colors.white,
                         fontSize: Dimens.pt14,
                         fontWeight: FontWeight.w600),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: Dimens.pt5),
                   ),
-                  buildHonorLevelUI(
-                      hasKingIcon: isVip && replyModel.vipLevel > 0,
-                      honorLevelList: replyModel?.awardsExpire),
+                  buildHonorLevelUI(hasKingIcon: isVip && replyModel.vipLevel > 0, honorLevelList: replyModel?.awardsExpire),
                 ],
               ),
               const SizedBox(height: 6),
@@ -463,24 +419,18 @@ Widget _getReplyItem(
                   Expanded(
                     child: Text(
                       DateTimeUtil.utc2iso2(replyModel?.createdAt ?? ""),
-                      style: TextStyle(
-                          fontSize: Dimens.pt12,
-                          color: AppColors.recommentSubTextColor),
+                      style: TextStyle(fontSize: Dimens.pt12, color: AppColors.recommentSubTextColor),
                     ),
                   ),
                   const SizedBox(width: 8),
                   GestureDetector(
                     onTap: () {
                       ///点击评论进行回复
-                      _showInput(state, dispatch, context,
-                          parentIndex: parentIndex, childIndex: childIndex);
+                      _showInput(state, dispatch, context, parentIndex: parentIndex, childIndex: childIndex);
                     },
                     child: Padding(
                       padding: EdgeInsets.all(Dimens.pt8),
-                      child: Text("回复",
-                          style: TextStyle(
-                              color: AppColors.recommentSubTextColor,
-                              fontSize: Dimens.pt10)),
+                      child: Text("回复", style: TextStyle(color: AppColors.recommentSubTextColor, fontSize: Dimens.pt10)),
                     ),
                   ),
                   const SizedBox(width: 15),
@@ -548,8 +498,7 @@ Widget _getContentView(ReplyModel replyModel) {
 }
 
 ///取消点赞
-_cancelLike(FilmVideoCommentState state, int parentIndex,
-    {int childIndex = -1}) async {
+_cancelLike(FilmVideoCommentState state, int parentIndex, {int childIndex = -1}) async {
   // Map<String, dynamic> param = {};
   // param["type"] = "comment";
   // if (childIndex == -1) {
@@ -557,9 +506,7 @@ _cancelLike(FilmVideoCommentState state, int parentIndex,
   // } else {
   //   param["objID"] = commentList[parentIndex].info[childIndex].id;
   // }
-  String objID = childIndex == -1
-      ? state.commentList[parentIndex].id
-      : state.commentList[parentIndex].info[childIndex].id;
+  String objID = childIndex == -1 ? state.commentList[parentIndex].id : state.commentList[parentIndex].info[childIndex].id;
   String type = 'comment';
 
   // setState(() {
@@ -586,8 +533,7 @@ _cancelLike(FilmVideoCommentState state, int parentIndex,
 }
 
 ///点赞
-_sendLike(FilmVideoCommentState state, int parentIndex,
-    {int childIndex = -1}) async {
+_sendLike(FilmVideoCommentState state, int parentIndex, {int childIndex = -1}) async {
   // Map<String, dynamic> param = {};
   // param["type"] = "comment";
   // if (childIndex == -1) {
@@ -596,9 +542,7 @@ _sendLike(FilmVideoCommentState state, int parentIndex,
   //   param["objID"] = commentList[parentIndex].info[childIndex].id;
   // }
 
-  String objID = childIndex == -1
-      ? state.commentList[parentIndex].id
-      : state.commentList[parentIndex].info[childIndex].id;
+  String objID = childIndex == -1 ? state.commentList[parentIndex].id : state.commentList[parentIndex].info[childIndex].id;
   String type = 'comment';
 
   // setState(() {
@@ -619,16 +563,14 @@ _sendLike(FilmVideoCommentState state, int parentIndex,
 }
 
 ///输入框弹出
-_showInput(FilmVideoCommentState state, Dispatch dispatch, BuildContext context,
-    {int parentIndex = -1, int childIndex = -1}) {
+_showInput(FilmVideoCommentState state, Dispatch dispatch, BuildContext context, {int parentIndex = -1, int childIndex = -1}) {
   l.e("parentIndex", "$parentIndex");
   l.e("childIndex", "$childIndex");
 
   var hint = "参与评论～"; //二级评论不需要提示语 南宫要求
   if (parentIndex != -1 && childIndex != -1) {
     hint = "回复: ${state.commentList[parentIndex].info[childIndex].userName}";
-    state.textInputTip =
-        "回复: ${state.commentList[parentIndex].info[childIndex].userName}";
+    state.textInputTip = "回复: ${state.commentList[parentIndex].info[childIndex].userName}";
   } else if (parentIndex != -1) {
     hint = "回复: ${state.commentList[parentIndex].userName}";
     state.textInputTip = "回复: ${state.commentList[parentIndex].userName}";
@@ -666,8 +608,7 @@ _showInput(FilmVideoCommentState state, Dispatch dispatch, BuildContext context,
                   Expanded(
                     flex: 1,
                     child: TextField(
-                      style:
-                          TextStyle(fontSize: Dimens.pt15, color: Colors.white),
+                      style: TextStyle(fontSize: Dimens.pt15, color: Colors.white),
                       autofocus: true,
                       maxLength: 120,
                       cursorColor: Colors.white.withOpacity(0.6),
@@ -675,9 +616,7 @@ _showInput(FilmVideoCommentState state, Dispatch dispatch, BuildContext context,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(Dimens.pt10),
                         hintText: hint,
-                        hintStyle: TextStyle(
-                            fontSize: Dimens.pt15,
-                            color: Colors.white.withOpacity(0.5)),
+                        hintStyle: TextStyle(fontSize: Dimens.pt15, color: Colors.white.withOpacity(0.5)),
                         labelText: state.textInputTip,
                         counterStyle: TextStyle(
                           fontSize: Dimens.pt15,
@@ -707,17 +646,14 @@ _showInput(FilmVideoCommentState state, Dispatch dispatch, BuildContext context,
 
                       if (childIndex != -1) {
                         ///回复item
-                        dispatch(FilmVideoCommentActionCreator.sendReply(
-                            content, parentIndex, childIndex));
+                        dispatch(FilmVideoCommentActionCreator.sendReply(content, parentIndex, childIndex));
                       } else {
                         if (parentIndex != -1) {
                           ///评论item
-                          dispatch(FilmVideoCommentActionCreator.sendComment(
-                              content, parentIndex));
+                          dispatch(FilmVideoCommentActionCreator.sendComment(content, parentIndex));
                         } else {
                           ///自己发布评论
-                          dispatch(FilmVideoCommentActionCreator.sendComment(
-                              content, -1));
+                          dispatch(FilmVideoCommentActionCreator.sendComment(content, -1));
                         }
                       }
                       state.contentController.clear();
@@ -733,8 +669,7 @@ _showInput(FilmVideoCommentState state, Dispatch dispatch, BuildContext context,
 }
 
 ///底部评论widget
-Widget _footerComment(
-    FilmVideoCommentState state, Dispatch dispatch, BuildContext context) {
+Widget _footerComment(FilmVideoCommentState state, Dispatch dispatch, BuildContext context) {
   return GestureDetector(
     onTap: () {
       _showInput(state, dispatch, context);

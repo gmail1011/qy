@@ -123,7 +123,7 @@ class _MineViewBuyTableViewState extends State<MineViewBuyTableView>
         controller: requestController,
         child: Stack(children: [
           Container(
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: pullYsRefresh(
                 refreshController: refreshController,
                 onRefresh: () async {
@@ -134,13 +134,13 @@ class _MineViewBuyTableViewState extends State<MineViewBuyTableView>
                 onLoading: () => _loadData(false),
                 child: widget.type == 1
                     ? GridView.builder(
-                        padding: EdgeInsets.zero,
+                        padding:EdgeInsets.fromLTRB(10, 0, 10, 0),
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10,
-                            childAspectRatio: 0.9),
+                            childAspectRatio: 168/130,),
                         itemCount: videoList.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
                           return MineViewVideoCell(index, videoList[index]);
@@ -152,6 +152,7 @@ class _MineViewBuyTableViewState extends State<MineViewBuyTableView>
                         itemBuilder: (BuildContext context, int index) {
                           return WordImageWidgetForHjll(
                             videoModel: postList[index],
+                            padding: EdgeInsets.only(left: 10, right: 10, top: 12),
                             showTopInfo: false,
                           );
                           // return MineViewPostCell(index, postList[index]);

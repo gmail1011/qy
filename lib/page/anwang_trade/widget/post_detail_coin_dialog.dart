@@ -31,8 +31,8 @@ class PostDetailCoinDialog extends StatelessWidget {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                             colors: [
-                              Color.fromRGBO(100, 255, 239, 1),
-                              Color.fromRGBO(0, 214, 190, 1),
+                              Color(0xffca452e),
+                              Color(0xffca452e),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter
@@ -46,7 +46,7 @@ class PostDetailCoinDialog extends StatelessWidget {
                           //Image.asset("assets/weibo/post_detail_coin.png",width: 30,height: 30,),
                           Text("$videoCoin金币解锁继续",
                               style: TextStyle(
-                                color: Color(0xff333333),
+                                color: Colors.white,
                                 fontSize: 14,
                               )
                           )

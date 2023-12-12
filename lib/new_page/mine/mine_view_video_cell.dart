@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/assets/app_colors.dart';
@@ -85,172 +86,94 @@ class _MineViewVideoCellState extends State<MineViewVideoCell> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if(widget.videoModel.id=="-1"){ //AI视频换脸
+        if (widget.videoModel.id == "-1") {
+          //AI视频换脸
           pushToPage(AiVideoPage(widget.videoModel.sourceURL, "AI视频换脸"), opaque: true);
-        }else{
+        } else {
           Map<String, dynamic> maps = Map();
           maps["videoId"] = widget.videoModel.id;
-
-          maps['videoModel'] = widget.videoModel;
           Gets.Get.to(FilmTvVideoDetailPage().buildPage(maps), opaque: false);
         }
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            alignment: AlignmentDirectional.bottomCenter,
-            children: [
-              ///视频封面
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(2)),
-                child: CustomNetworkImage(
-                  imageUrl: widget.videoModel.cover,
-                  fit: BoxFit.cover,
-                  type: ImgType.cover,
-                  height: 113,
+          Expanded(
+            child: Stack(
+              alignment: AlignmentDirectional.bottomCenter,
+              fit: StackFit.expand,
+              children: [
+                ///视频封面
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(2)),
+                  child: CustomNetworkImage(
+                    imageUrl: widget.videoModel.cover,
+                    fit: BoxFit.cover,
+                    type: ImgType.cover,
+                    height: 113,
+                  ),
                 ),
-              ),
 
-              Visibility(
-                visible: isEdit,
-                child: Positioned.fill(
-                  child: InkWell(
-                    onTap: () => _deleteVideo(widget.videoModel.id),
-                    child: Container(
-                      color: const Color(0xff2d3645),
-                      child: Center(
-                        child: Image.asset("assets/images/hj_video_item_icon_del.png", width: 30, height: 30),
+                Visibility(
+                  visible: isEdit,
+                  child: Positioned.fill(
+                    child: InkWell(
+                      onTap: () => _deleteVideo(widget.videoModel.id),
+                      child: Container(
+                        color: Colors.black.withOpacity(0.3),
+                        child: Center(
+                          child: Image.asset("assets/images/delete_icon.png", width: 30, height: 30),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
 
-              ///播放次数
-              Container(
-                height: 18,
-                alignment: Alignment.center,
-                color: Colors.black.withOpacity(0.4),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 6, right: 6, bottom: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+                ///播放次数
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 18,
+                    alignment: Alignment.center,
+                    color: Colors.black.withOpacity(0.4),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 6, right: 6, bottom: 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "${getShowFansCountStr(widget.videoModel.playCount)}播放",
-                            style: TextStyle(
-                              color: Color.fromRGBO(227, 227, 227, 1),
-                              fontSize: 10,
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                "${getShowFansCountStr(widget.videoModel.playCount)}播放",
+                                style: TextStyle(
+                                  color: Color.fromRGBO(227, 227, 227, 1),
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ],
                           ),
+                          widget.videoModel.playTime == null
+                              ? SizedBox()
+                              : Text(
+                                  TimeHelper.getTimeText(widget.videoModel.playTime.toDouble()),
+                                  style: TextStyle(color: Color.fromRGBO(227, 227, 227, 1), fontSize: 10),
+                                ),
                         ],
                       ),
-                      widget.videoModel.playTime==null?SizedBox():Text(
-                        TimeHelper.getTimeText(widget.videoModel.playTime.toDouble()),
-                        style: TextStyle(color: Color.fromRGBO(227, 227, 227, 1), fontSize: 10),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-
-              ///售价
-              // Positioned(
-              //     top: -1,
-              //     left: -1,
-              //     child: Visibility(
-              //       visible: widget.videoModel.originCoins != null && widget.videoModel.originCoins != 0
-              //           ? true
-              //           : false,
-              //       child: Stack(alignment: Alignment.center, children: [
-              //         Container(
-              //           //height: 20,
-              //           decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.only(
-              //               bottomRight: Radius.circular(4),
-              //               topLeft: Radius.circular(4),
-              //             ),
-              //             gradient: LinearGradient(
-              //               colors: [
-              //                 Color.fromRGBO(247, 131, 97, 1),
-              //                 Color.fromRGBO(245, 75, 100, 1),
-              //               ],
-              //             ),
-              //           ),
-              //           padding: EdgeInsets.only(
-              //             left: 4,
-              //             right: 7,
-              //             top: 2,
-              //             bottom: 2,
-              //           ),
-              //           child: Row(
-              //             mainAxisAlignment: MainAxisAlignment.center,
-              //             children: [
-              //               ImageLoader.withP(ImageType.IMAGE_SVG,
-              //                       address: AssetsSvg.ICON_VIDEO_GOLD, width: 12, height: 12)
-              //                   .load(),
-              //               SizedBox(width: 4),
-              //               Text(widget.videoModel.originCoins.toString(),
-              //                   style: TextStyle(
-              //                     color: AppColors.textColorWhite,
-              //                     fontSize: 12,
-              //                   )),
-              //             ],
-              //           ),
-              //         ),
-              //       ]),
-              //     )),
-
-              ///是否VIP
-              // Positioned(
-              //     top: -1,
-              //     left: -1,
-              //     child: Visibility(
-              //       visible: widget.videoModel.originCoins == 0 ? true : false,
-              //       child: Stack(alignment: Alignment.center, children: [
-              //         Container(
-              //           //height: 20,
-              //           decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.only(
-              //               bottomRight: Radius.circular(4),
-              //               topLeft: Radius.circular(4),
-              //             ),
-              //             //color: Color.fromRGBO(255, 0, 169, 1),
-              //             gradient: LinearGradient(
-              //               colors: AppColors.buttonWeiBo,
-              //               begin: Alignment.centerLeft,
-              //               end: Alignment.centerRight,
-              //             ),
-              //           ),
-              //           padding: EdgeInsets.only(
-              //             left: 10,
-              //             right: 10,
-              //             top: 2,
-              //             bottom: 2,
-              //           ),
-              //           child: Row(
-              //             mainAxisAlignment: MainAxisAlignment.center,
-              //             children: [
-              //               Text(
-              //                 "VIP",
-              //                 style: TextStyle(color: Colors.white, fontSize: 12),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       ]),
-              //     )),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: 8),
 
           ///视频标题
           Text(
             widget.videoModel.title,
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start,
             style: TextStyle(
@@ -259,19 +182,6 @@ class _MineViewVideoCellState extends State<MineViewVideoCell> {
             ),
           ),
           SizedBox(height: 8),
-
-          ///底部内容
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(formatTime(widget.videoModel.createdAt),
-                  style: const TextStyle(color: const Color(0xffacbabf), fontSize: 11.0),
-                  textAlign: TextAlign.center),
-              Text("评论${widget.videoModel.commentCount}",
-                  style: const TextStyle(color: const Color(0xffacbabf), fontSize: 11.0),
-                  textAlign: TextAlign.center),
-            ],
-          )
         ],
       ),
     );

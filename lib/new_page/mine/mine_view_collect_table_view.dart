@@ -144,7 +144,7 @@ class _MineViewCollectTableViewState extends State<MineViewCollectTableView>
         controller: requestController,
         child: Stack(children: [
           Container(
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            margin: EdgeInsets.fromLTRB(0, 4, 0, 0),
             child: pullYsRefresh(
                 refreshController: refreshController,
                 onRefresh: () async {
@@ -155,24 +155,24 @@ class _MineViewCollectTableViewState extends State<MineViewCollectTableView>
                 onLoading: () => _loadData(false),
                 child: widget.type == 1
                     ? GridView.builder(
-                        padding: EdgeInsets.zero,
+                         padding: EdgeInsets.only(left: 10, right: 10),
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10,
-                            childAspectRatio: 0.9),
+                            childAspectRatio: 168/130,),
                         itemCount: videoList.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
                           return MineViewVideoCell(index, videoList[index]);
                         })
                     : ListView.builder(
-                        padding: EdgeInsets.only(top: 10, bottom: 10),
                         shrinkWrap: true,
                         itemCount: postList.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
                           return WordImageWidgetForHjll(
                             videoModel: postList[index],
+                            padding: EdgeInsets.only(left: 10, right: 10, top: 12),
                             showTopInfo: false,
                             isMyCollect: true,
                           );

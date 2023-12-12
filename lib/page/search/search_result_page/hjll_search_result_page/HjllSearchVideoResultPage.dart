@@ -115,36 +115,22 @@ class _HjlSearchVideoResultPageState extends State<HjlSearchVideoResultPage> {
              padding: EdgeInsets.only(left: 10,right: 10),
              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                crossAxisCount: 2,
-               mainAxisSpacing: 10.0,
+               mainAxisSpacing: 12.0,
                crossAxisSpacing: 7.0,
-               childAspectRatio: 201 / 182,
+               childAspectRatio: 168 / 130,
              ),
              itemBuilder: (context, index) {
                return GestureDetector(
                  onTap: (){
                    Map<String, dynamic> maps = Map();
                    maps["videoId"] = videoList[index]?.id;
-
-                   maps["videoModel"] = null;
-
-                   //maps["videoModel"] = videoList[index];
-
-                  // maps["isNeedInitVideoInfo"] = true;
-
                    Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps),
                        opaque: false);
                  },
-                 child: Container(
-                   child: SizedBox(
-                     width: (screen.screenWidth - 10*2-7)/2,
-                     height: ((screen.screenWidth - 10*2-7)/2)*(182/201),
-                     child: VideoCellWidget(
-                       videoModel: videoList[index],
-                       textLine: 2,
-                       imageWidth: (screen.screenWidth - 10*2-7)/2,
-                       imageHeight: ((screen.screenWidth - 10*2-7)/2)*(113/201),
-                     ),
-                   ),
+                 child: VideoCellWidget(
+                   videoModel: videoList[index],
+                   textLine: 1,
+                   isShowBottom: false,
                  ),
                );
              },

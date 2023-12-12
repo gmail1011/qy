@@ -374,7 +374,7 @@ _uploadVideoAction(
   var title = ctx.state.textTitleController?.text ?? '';
   var content = ctx.state.textController?.text ?? '';
 
-  var coin = ctx.state.textMoneyController?.text??0;
+  var coin = ctx.state.textMoneyController?.text ?? "0";
   if (TextUtil.isEmpty(title)) {
     showToast(msg: "请输入标题");
     return;
@@ -410,8 +410,12 @@ _uploadVideoAction(
   }
 
   ctx.state.uploadModel.city = ctx.state.locationCity;
-  ctx.state.uploadModel.coins = int.parse(coin);
-
+  try {
+    ctx.state.uploadModel.coins = int.tryParse(coin) ?? 0;
+  }catch(e){
+    ctx.state.uploadModel.coins = 0;
+    debugLog(e);
+  }
   String taskID = action.payload as String ?? "";
   ctx.state.uploadModel.taskID = taskID;
 

@@ -81,15 +81,15 @@ class _MineUpdateNamePageState extends State<MineUpdateNamePage> {
                     borderRadius: BorderRadius.circular(14),
                     gradient: LinearGradient(
                       colors: [
-                        Color.fromRGBO(100, 255, 239, 1),
-                        Color.fromRGBO(0, 214, 190, 1),
+                        Color(0xffca452e),
+                        Color(0xffca452e),
                       ],
                     ),
                   ),
                   child: Text(
                     "保存",
                     style: TextStyle(
-                      color: Color(0xf211211),
+                      color: Colors.white,
                       fontSize: 14,
                     ),
                   ),

@@ -241,7 +241,7 @@ class _AiRecordTableViewState extends State<AiRecordTableView> {
       child: Container(
         height: 92,
         decoration: BoxDecoration(
-          color: Color.fromRGBO(22, 21, 42, 1),
+          color: Color(0xff242424),
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         child: Row(
@@ -286,7 +286,7 @@ class _AiRecordTableViewState extends State<AiRecordTableView> {
                 width: 52,
                 alignment: Alignment.center,
                 child: Text(
-                  "生成中",
+                  "",//"生成中",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, color: Color(0xff898989)),
                 ),

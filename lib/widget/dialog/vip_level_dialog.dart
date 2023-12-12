@@ -34,8 +34,8 @@ Future<int> showVipLevelDialog(
                   borderRadius: BorderRadius.circular(10),
                   gradient: LinearGradient(
                     colors: [
-                      Color.fromRGBO(199, 255, 249, 1),
-                      Colors.white,
+                      Color(0xff2e2e2e),
+                      Color(0xff2e2e2e),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -55,7 +55,7 @@ Future<int> showVipLevelDialog(
                             Lang.VIP_LEVEL_DIALOG_TITLE,
                             style: TextStyle(
                               fontSize: 20,
-                              color: Colors.black,
+                              color: Colors.white,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -65,9 +65,8 @@ Future<int> showVipLevelDialog(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  Colors.black.withOpacity(0),
-                                  Colors.black,
-                                  Colors.black.withOpacity(0),
+                                  Colors.white.withOpacity(0.1),
+                                  Colors.white.withOpacity(0.1),
                                 ],
                               ),
                             ),
@@ -77,7 +76,7 @@ Future<int> showVipLevelDialog(
                             content,
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.black,
+                              color: Colors.white,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -98,11 +97,11 @@ Future<int> showVipLevelDialog(
                             width: Dimens.pt120,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(42),
-                                color: Colors.black.withOpacity(0.2)
+                                color: Colors.white.withOpacity(0.2)
                             ),
                             child: Text(
                               "稍后再说",
-                              style: TextStyle(fontSize: Dimens.pt14, color: Colors.white),
+                              style: TextStyle(fontSize: Dimens.pt14, color: Colors.white.withOpacity(0.6)),
                             ),
                           ),
                         ),
@@ -127,14 +126,14 @@ Future<int> showVipLevelDialog(
                               borderRadius: BorderRadius.circular(42),
                               gradient: LinearGradient(
                                 colors: [
-                                  Color.fromRGBO(97, 254, 238, 1),
-                                  Color.fromRGBO(1, 214, 190, 1),
+                                  Color(0xffca452e),
+                                  Color(0xffca452e),
                                 ],
                               ),
                             ),
                             child: Text(
                               "开通会员",
-                              style: TextStyle(fontSize: Dimens.pt14, color: Colors.black),
+                              style: TextStyle(fontSize: Dimens.pt14, color: Colors.white),
                             ),
                           ),
                         ),

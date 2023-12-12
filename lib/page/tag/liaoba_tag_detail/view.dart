@@ -9,7 +9,6 @@ import 'package:flutter_app/common/image/image_loader.dart';
 import 'package:flutter_app/common/local_router/jump_router.dart';
 import 'package:flutter_app/common/local_router/route_map.dart';
 import 'package:flutter_app/model/liao_ba_tags_detail_entity.dart';
-import 'package:flutter_app/model/video_model.dart';
 import 'package:flutter_app/widget/common_widget/base_request_view.dart';
 import 'package:flutter_app/widget/common_widget/common_widget.dart';
 import 'package:flutter_app/widget/common_widget/ys_pull_refresh.dart';
@@ -39,10 +38,6 @@ GestureDetector _buildVideoItemUI(
         Map<String, dynamic> maps = Map();
         maps["videoId"] = state.videoModelList[index]?.id;
         maps["sectionID"] = state.tagId;
-
-        VideoModel videos = VideoModel.fromJson(state.videoModelList[index].toJson());
-        maps["videoModel"] = videos;
-
         JRouter().go(FILM_TV_VIDEO_DETAIL_PAGE, arguments: maps);
       },
       child: Container(

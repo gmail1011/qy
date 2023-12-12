@@ -19,10 +19,10 @@ class FloatingCSView extends StatefulWidget {
 class _FloatingCSViewState extends State<FloatingCSView> {
   final _floatingGlobalKey = GlobalKey();
   double _bottom = 16;
-  double _right = 16;
+  double _right = 0;
   double _width;
 
-  double get _adSize => 50;
+  double get _adSize => 96;
 
   double get width {
     if (_width == null) {
@@ -83,7 +83,7 @@ class _FloatingCSViewState extends State<FloatingCSView> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: SizedBox(
-                height: _adSize,
+                height: 36,
                 width: _adSize,
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,

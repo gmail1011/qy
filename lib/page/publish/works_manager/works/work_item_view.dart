@@ -69,9 +69,6 @@ class _WorkItemViewState extends State<WorkItemView> {
     } else if ("MOVIE" == videoModel.newsType) {
       Map<String, dynamic> maps = Map();
       maps["videoId"] = videoModel.id;
-
-      maps["videoModel"] = videoModel;
-
       Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false);
     }
   }

@@ -16,7 +16,7 @@ import 'package:flutter_app/page/user/member_centre_page/wallet/gold_tickets.dar
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class Config {
-  static const DEBUG = false;
+  static const DEBUG = true;
   static const PROXY = false;
   static bool DNS_CUSTOM = false;
   static bool DNS_ALREADY_USE_NEWDOMAIN = false;
@@ -34,7 +34,7 @@ class Config {
 
   /// header里面，服务器返回,更新使用
   /// note-this:请保持pubspec.yaml一致
-  static const innerVersion = "1.5.1";
+  static const innerVersion = "1.5.0";
 
   /// ios tf 的内部包名
   /// note_this:不要修改这个值
@@ -126,15 +126,13 @@ class Config {
       ? [
           //"http://hjht.cestalt.com",
 
-          "http://163.53.216.122:9932",
+         // "http://163.53.216.122:9932",
+          "http://163.53.216.122:9491",
         ]
       : [
-
-          "https://qyadfapi.nmgzs.top",
           "https://dz699omw530y9.cloudfront.net",
           "https://d3mybiqstirk6c.cloudfront.net",
           "https://zk4o8.cc",
-
         ];
 
   ///ios使用域名
@@ -334,8 +332,8 @@ class Config {
     //     ]
     // ),
     LinearGradient(colors: [
-      Color.fromRGBO(132, 164, 249, 1),
-      Color.fromRGBO(0, 214, 190, 1),
+      Color(0xffca452e),
+      Color(0xffca452e),
     ]),
   ];
 }

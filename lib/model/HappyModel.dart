@@ -13,6 +13,12 @@ class HappyModel {
         shuApp?.add(ShuApp.fromJson(v));
       });
     }
+    if (json['hengApp'] != null) {
+      hengApp = [];
+      json['hengApp'].forEach((v) {
+        hengApp?.add(ShuApp.fromJson(v));
+      });
+    }
     if (json['adv'] != null) {
       adv = [];
       json['adv'].forEach((v) {
@@ -21,6 +27,7 @@ class HappyModel {
     }
   }
   List<ShuApp> shuApp;
+  List<ShuApp> hengApp;
   List<Adv> adv;
 
   Map<String, dynamic> toJson() {

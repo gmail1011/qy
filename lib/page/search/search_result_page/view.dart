@@ -52,7 +52,7 @@ Widget buildView(SearchResultState state, Dispatch dispatch, ViewService viewSer
               height: 32,
               margin: EdgeInsets.symmetric(vertical: 10),
               padding: EdgeInsets.only(left: 16),
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.center,
               child: HJCustomTabBar(
                 ["视频", "帖子"],
                 state.tabController,

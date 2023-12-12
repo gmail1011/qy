@@ -103,7 +103,7 @@ class _VipRankAlertState extends State<VipRankAlert> {
               borderRadius: BorderRadius.circular(10),
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(199, 255, 249, 1),
+                  Color(0xffca452e),
                   Colors.white,
                 ],
                 begin: Alignment.topCenter,
@@ -191,8 +191,8 @@ class _VipRankAlertState extends State<VipRankAlert> {
           borderRadius: BorderRadius.circular(42 * scale / 2),
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(97, 254, 238, 1),
-              Color.fromRGBO(1, 214, 190, 1),
+              Color(0xffca452e),
+               Color(0xffca452e),
             ],
           ),
         ),
@@ -248,8 +248,8 @@ class _VipRankAlertState extends State<VipRankAlert> {
               borderRadius: BorderRadius.circular(42 * scale / 2),
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(97, 254, 238, 1),
-                  Color.fromRGBO(1, 214, 190, 1),
+                  Color(0xffca452e),
+                   Color(0xffca452e),
                 ],
               ),
             ),

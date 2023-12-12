@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/assets/lang.dart';
 import 'package:flutter_app/assets/svg.dart';
@@ -129,31 +130,31 @@ class PictureMangeWidget extends StatelessWidget {
           child: Container(
             width: 83.w,
             height: 83.w,
-            padding: EdgeInsets.all(30),
-            decoration: ShapeDecoration(
-              color: AppColors.weiboJianPrimaryBackground,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(
-                  width: 1,
-                  color: Color.fromRGBO(44, 48, 58, 1),
-                  style: BorderStyle.solid,
-                ),
+          //  padding: EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/ai_add_bg.png"),
+                fit: BoxFit.fill,
               ),
-              /*shape: ShapeBorder(
-              side: BorderSide(
-                width: 1,
-                color: Color.fromRGBO(44, 48, 58, 1),
-                style: BorderStyle.solid,
-              ),
-            ),*/
             ),
-            child: Center(
-                child: Image.asset(
-              "assets/images/hls_ai_icon_plus.png",
-              width: 34,
-              height: 34,
-            )),
+            child: Column(
+              mainAxisAlignment:  MainAxisAlignment.center,
+                children:[
+                  Image.asset(
+                    "assets/images/hls_ai_icon_plus.png",
+                    width: 30,
+                    height: 30,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "图片大小低于2Mb",
+                    style: TextStyle(
+                      color: Color(0xff999999),
+                      fontSize: 12,
+                    ),
+                  ),
+                ]
+            ),
           ),
           onTap: addItemCallback,
         );
@@ -167,7 +168,7 @@ class PictureMangeWidget extends StatelessWidget {
             width: 83.w,
             height: 83.w,
             decoration: BoxDecoration(
-              color: Color(0xff1f2030),
+              color: Color(0xff202020),
               borderRadius: BorderRadius.circular(5),
             ),
             child: Column(
@@ -195,6 +196,21 @@ class PictureMangeWidget extends StatelessWidget {
       } else if (picWidgetList.length > 9) {}
     }
 
+    if(isAi){
+      return Container(
+        child: GridView(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: isAi ? mainAixCount : 3, //横轴三个子widget
+            childAspectRatio: 1, //宽高比为1时，子widget
+            mainAxisSpacing: Dimens.pt4,
+            crossAxisSpacing: Dimens.pt4,
+          ),
+          children: picWidgetList,
+        ),
+      );
+    }
     return Column(
       children: [
         // Container(alignment: Alignment.centerLeft,child: Text(uploadType == UploadType.UPLOAD_IMG ? "选择图片" : "选择视频",style: TextStyle(color: Colors.white,fontSize: 18.nsp),)),
