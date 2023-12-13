@@ -26,14 +26,7 @@ class SystemWordDialog extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(0, 24, 0, 27),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          gradient: LinearGradient(
-            colors: [
-              AppColors.primaryTextColor,
-              Colors.white,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+          color: Color(0xff2e2e2e)
         ),
         child: Column(
           children: [
@@ -41,22 +34,14 @@ class SystemWordDialog extends StatelessWidget {
               "系统公告",
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.w500,
               ),
             ),
             const SizedBox(height: 10),
             Container(
               height: 1,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.black.withOpacity(0),
-                    Colors.black,
-                    Colors.black.withOpacity(0),
-                  ],
-                ),
-              ),
+              color: Colors.white.withOpacity(0.1),
             ),
             SizedBox(height: 10),
             Expanded(
@@ -66,6 +51,7 @@ class SystemWordDialog extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: EasyRichText(
                     content,
+                    defaultStyle: TextStyle(color: Colors.white,fontSize: 12),
                     patternList: [
                       EasyRichTextPattern(
                         targetString: EasyRegexPattern.webPattern,
@@ -132,7 +118,7 @@ class SystemWordDialog extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   "我知道了",
-                  style: TextStyle(color: Colors.black, fontSize: 12),
+                  style: TextStyle(color: Colors.white, fontSize: 12),
                 ),
               ),
               // child: Image.asset(

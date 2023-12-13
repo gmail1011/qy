@@ -67,7 +67,7 @@ class _UpdateDialog extends State<UpdateDialog> {
           width: 340.w,
           height: 400.w,
           decoration: BoxDecoration(
-            color: Color(0xff464646),
+            color: Color(0xff2e2e2e),
           ),
           child: Padding(
             padding: EdgeInsets.only(top: 21.w, left: 23.w, right: 23.w),
