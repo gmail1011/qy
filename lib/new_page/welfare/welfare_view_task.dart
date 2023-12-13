@@ -151,13 +151,13 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
                           margin: EdgeInsets.only(bottom: 1),
                           child: Text(
                             meInfo.name ?? "",
-                            style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 16.0),
+                            style:  TextStyle(color:  Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 16.0),
                           ),
                         ),
                         SizedBox(height: 5),
                         Text(
                           "剩余观看次数${meInfo.watchCount}",
-                          style: const TextStyle(color: const Color(0xffacbabf), fontWeight: FontWeight.w400, fontSize: 14.0),
+                          style:  TextStyle(color:  Color(0xffacbabf), fontWeight: FontWeight.w400, fontSize: 14.0),
                         )
                       ],
                     ),
@@ -198,7 +198,7 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xff242424),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(23),
                     topRight: Radius.circular(23),
@@ -225,11 +225,11 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
                                   children: [
                                     Text(
                                       "福利任务\t\t",
-                                      style: const TextStyle(color: const Color(0xff000000), fontWeight: FontWeight.w500, fontSize: 16.0),
+                                      style:  TextStyle(color:  Colors.white, fontWeight: FontWeight.w500, fontSize: 16.0),
                                     ),
                                     Text(
                                       "提示：若状态未更新 请下拉刷新哦～",
-                                      style: const TextStyle(color: const Color(0xff3e5157), fontWeight: FontWeight.w300, fontSize: 12.0),
+                                      style:  TextStyle(color: Color(0xff999999), fontWeight: FontWeight.w300, fontSize: 12.0),
                                     )
                                   ],
                                 ),
@@ -239,11 +239,11 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
                                   children: [
                                     Text(
                                       "邀请人数$shareCount人",
-                                      style: const TextStyle(color: const Color(0xff666666), fontSize: 12.0),
+                                      style:  TextStyle(color:  Color(0xff999999), fontSize: 12.0),
                                     ),
                                     Text(
                                       "我的积分${wallet.integral}",
-                                      style: const TextStyle(color: const Color(0xff666666), fontSize: 12.0),
+                                      style:  TextStyle(color:  Color(0xff999999), fontSize: 12.0),
                                     ),
                                     _buildTaskBtn("兑换VIP", 0, () {
                                       Gets.Get.to(() => RechargeVipPage(""), opaque: false);
@@ -280,7 +280,7 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
         margin: EdgeInsets.only(bottom: 10),
         padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
         decoration: BoxDecoration(
-          color: Color(0xfffafafa),
+          color: Color(0xff333333),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Container(
@@ -311,14 +311,14 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
                               margin: EdgeInsets.only(bottom: 2),
                               child: Text(
                                 item.title ?? "",
-                                style: TextStyle(color: Color(0xff393639), fontWeight: FontWeight.w500, fontSize: 14.0),
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14.0),
                               ),
                             ),
                             Text(
                               item.desc,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(color: const Color(0xffaaaaaa), fontWeight: FontWeight.w400, fontSize: 12.0),
+                              style:  TextStyle(color:  Color(0xffaaaaaa), fontWeight: FontWeight.w400, fontSize: 12.0),
                             )
                           ],
                         ),
@@ -389,7 +389,7 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
           child: Text(
             btnTxt,
             style: TextStyle(
-                color: status == 1 ? Color(0xff333333) : Colors.white.withOpacity(0.9), fontWeight: FontWeight.w500, fontSize: 12.0),
+                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12.0),
           ),
         ),
       ),

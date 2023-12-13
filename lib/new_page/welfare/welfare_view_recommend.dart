@@ -140,7 +140,7 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
                             padding: EdgeInsets.only(left: 14, right: 14, top: 5, bottom: 5),
                             child: Text(
                               "立即提现",
-                              style: TextStyle(color: Colors.black, fontSize: 12),
+                              style: TextStyle(color: Colors.white, fontSize: 12),
                             ),
                           ),
                         )),

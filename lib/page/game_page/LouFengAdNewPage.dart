@@ -161,7 +161,10 @@ class _LouFengAdNewPageState extends State<LouFengAdNewPage> {
                 width: 8,
                 decoration: BoxDecoration(
                   color: AppColors.primaryTextColor,
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(4),
+                    bottomRight: Radius.circular(4),
+                  ),
                 ),
               ),
               SizedBox(width: 12),
@@ -235,7 +238,10 @@ class _LouFengAdNewPageState extends State<LouFengAdNewPage> {
                 width: 8,
                 decoration: BoxDecoration(
                   color: AppColors.primaryTextColor,
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(4),
+                    bottomRight: Radius.circular(4),
+                  ),
                 ),
               ),
               SizedBox(width: 12),
@@ -293,7 +299,10 @@ class _LouFengAdNewPageState extends State<LouFengAdNewPage> {
                 width: 8,
                 decoration: BoxDecoration(
                   color: AppColors.primaryTextColor,
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(4),
+                    bottomRight: Radius.circular(4),
+                  ),
                 ),
               ),
               SizedBox(width: 12),
