@@ -309,8 +309,8 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                           itemHeight: 30,
                           itemWidth: 80,
                           type: PopWindowType.bottomRight,
-                          itemTitleColor: Colors.black,
-                          dividerColor: Colors.black.withOpacity(0.1),
+                          itemTitleColor: Colors.white,
+                          dividerColor: Colors.white.withOpacity(0.1),
                           backgroundColor: Color.fromRGBO(34, 34, 34, 1),
                           itemsData: state.listPopModel,
                           gradient: LinearGradient(
