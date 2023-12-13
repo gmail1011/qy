@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/config/config.dart';
 import 'package:flutter_app/common/local_router/route_map.dart';
 import 'package:flutter_app/page/hjll_community/hjll_community_child/page.dart';
@@ -53,12 +54,12 @@ Widget buildView(
                       ),
                     ).toList(),
                     indicator: RoundUnderlineTabIndicator(
-                      borderSide: BorderSide(color: Color(0xffca452e), width: 3),
+                      borderSide: BorderSide(color: AppColors.primaryTextColor, width: 3),
                     ),
                     indicatorSize: TabBarIndicatorSize.label,
                     unselectedLabelColor: Color.fromRGBO(153, 153, 153, 1),
                     unselectedLabelStyle: TextStyle(fontSize: Dimens.pt16),
-                    labelColor: Color(0xffca452e),
+                    labelColor: AppColors.primaryTextColor,
                     isScrollable: true,
                     labelStyle: TextStyle(fontSize: Dimens.pt18),
                     labelPadding: EdgeInsets.symmetric(horizontal: 10),
