@@ -67,13 +67,7 @@ class _UpdateDialog extends State<UpdateDialog> {
           width: 340.w,
           height: 400.w,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColors.primaryTextColor,
-                  Color.fromRGBO(255, 255, 255, 1),
-                ]),
+            color: Color(0xff464646),
           ),
           child: Padding(
             padding: EdgeInsets.only(top: 21.w, left: 23.w, right: 23.w),
@@ -83,7 +77,7 @@ class _UpdateDialog extends State<UpdateDialog> {
 
                 Text(
                   "系统升级",
-                  style: TextStyle(fontSize: 20.nsp, color: Colors.black),
+                  style: TextStyle(fontSize: 20.nsp, color: Colors.white),
                 ),
 
                 SizedBox(height: 10,),
@@ -96,7 +90,7 @@ class _UpdateDialog extends State<UpdateDialog> {
                   children: [
                     Text(
                       "更新版本",
-                      style: TextStyle(fontSize: 14.nsp, color: Colors.black),
+                      style: TextStyle(fontSize: 14.nsp, color: Colors.white),
                     ),
                     SizedBox(
                       width: 8.w,
@@ -127,7 +121,7 @@ class _UpdateDialog extends State<UpdateDialog> {
                             ? ""
                             : widget.updateInfo.description.replaceAll("|", "\n"),
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 14,
                             height: 1.6),
                       ),
@@ -145,7 +139,7 @@ class _UpdateDialog extends State<UpdateDialog> {
                   },
                   child: Text(
                     "保存账号凭证 >",
-                    style: TextStyle(fontSize: 14.nsp, color: Colors.black),
+                    style: TextStyle(fontSize: 14.nsp, color: Colors.white),
                   ),
                 ),
 
@@ -170,13 +164,14 @@ class _UpdateDialog extends State<UpdateDialog> {
                               padding: EdgeInsets.only(left: 16,right: 16,top: 6,bottom: 6),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: Color.fromRGBO(190, 190, 190, 1),
+                                color: Colors.white.withOpacity(0.3),
                               ),
                               child: Text(
                                 "暂不升级",
                                 style: TextStyle(
-                                    color: Color.fromRGBO(66, 84, 83, 1),
-                                    fontSize: 16.w),
+                                    color: Colors.white,
+                                    fontSize: 16.w,
+                                ),
                               ),
                             ),
                           ),

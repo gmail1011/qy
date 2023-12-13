@@ -604,7 +604,7 @@ class _AiStripClothPageState extends State<AiStripClothPage> {
                                                           child: Container(
                                                             padding: EdgeInsets.fromLTRB(6, 2, 6, 2),
                                                             decoration: BoxDecoration(
-                                                              gradient: AppColors.linearBackGround,
+                                                              color:Color(0xffe85266),
                                                               borderRadius: BorderRadius.only(
                                                                 bottomRight: Radius.circular(8),
                                                                 topLeft: Radius.circular(8),
@@ -753,7 +753,7 @@ class _AiStripClothPageState extends State<AiStripClothPage> {
                                                           child: Container(
                                                             padding: EdgeInsets.fromLTRB(6, 2, 6, 2),
                                                             decoration: BoxDecoration(
-                                                              gradient: AppColors.linearBackGround,
+                                                              color:Color(0xffe85266),
                                                               borderRadius: BorderRadius.only(
                                                                 bottomRight: Radius.circular(8),
                                                                 topLeft: Radius.circular(8),

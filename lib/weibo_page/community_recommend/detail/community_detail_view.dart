@@ -241,7 +241,7 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                                         },
                                         likeCount: state.videoModel.likeCount ?? 0,
                                         countBuilder: (int count, bool isLiked, String text) {
-                                          var color = isLiked ? Color.fromRGBO(245, 75, 100, 1) : Colors.white.withOpacity(0.6);
+                                          var color =  Colors.white.withOpacity(0.6);
 
                                           Widget result;
                                           if (count == 0) {
