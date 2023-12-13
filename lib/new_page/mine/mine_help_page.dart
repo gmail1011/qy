@@ -54,6 +54,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(height: 10),
                       Text(
                         "我遇到的问题",
                         style: const TextStyle(
@@ -135,6 +136,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
                             // _onExChangeCode();
                           },
                           decoration: InputDecoration(
+                             border: InputBorder.none,
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 20.0, horizontal: 10),
                               hintText:

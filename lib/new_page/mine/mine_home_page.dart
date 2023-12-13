@@ -454,7 +454,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
         height: 66,
         width: screen.screenWidth,
         padding: EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/hj_mine_bg_vip.png"))),
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/hj_mine_bg_vip.png"),fit: BoxFit.fill)),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             GlobalStore.isVIP() ? "当前${meInfo?.vipName}" : "VIP限时特惠  畅享全场",
