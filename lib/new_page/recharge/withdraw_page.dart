@@ -438,7 +438,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                           Text(
                             "${(wallet?.income ?? 0) ~/ 10}",
                             style: const TextStyle(
-                                color: const Color(0xffca452e), fontWeight: FontWeight.w900, fontSize: 20.0),
+                                color: const AppColors.primaryTextColor, fontWeight: FontWeight.w900, fontSize: 20.0),
                           )
                         ],
                       ),
@@ -532,7 +532,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                           ),
                           Radio(
                             value: selectMap["alipay"],
-                            activeColor: Color(0xffca452e),
+                            activeColor: AppColors.primaryTextColor,
                             focusColor: Color(0xFF4F515A),
                             onChanged: (value) {
 
@@ -569,7 +569,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                           ),
                           Radio(
                             value: selectMap["usdt"],
-                            activeColor: Color(0xffca452e),
+                            activeColor: AppColors.primaryTextColor,
                             focusColor: Color(0xFF4F515A),
                             onChanged: (value) {
 
@@ -705,7 +705,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                             text: "合计扣除"),
                         TextSpan(
                             style: const TextStyle(
-                                color: const Color(0xffca452e),
+                                color: const AppColors.primaryTextColor,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 12.0),
                             text: "$handlingFee元"),
@@ -717,7 +717,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                             text: "\t实际到账:"),
                         TextSpan(
                             style: const TextStyle(
-                                color: const Color(0xffca452e),
+                                color: const AppColors.primaryTextColor,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 12.0),
                             text: "$actualAmount元")
@@ -791,7 +791,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         child: Text(
                           "在线客服",
                           style: const TextStyle(
-                              color: Color(0xffca452e),
+                              color: AppColors.primaryTextColor,
                               fontSize: 12.0),
                         ),
                       ),

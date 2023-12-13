@@ -372,8 +372,8 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
             gradient: LinearGradient(
               colors: status == 1
                   ? [
-                      Color(0xffca452e),
-                      Color(0xffca452e),
+                      AppColors.primaryTextColor,
+                      AppColors.primaryTextColor,
                     ]
                   : status == 2
                       ? [
@@ -381,8 +381,8 @@ class _WelfareViewTaskState extends State<WelfareViewTask> {
                           Color.fromRGBO(150, 150, 150, 1),
                         ]
                       : [
-                          Color(0xffca452e),
-                          Color(0xffca452e),
+                          AppColors.primaryTextColor,
+                          AppColors.primaryTextColor,
                         ],
             )),
         child: Center(

@@ -126,8 +126,8 @@ Future<int> showVipLevelDialog(
                               borderRadius: BorderRadius.circular(42),
                               gradient: LinearGradient(
                                 colors: [
-                                  Color(0xffca452e),
-                                  Color(0xffca452e),
+                                  AppColors.primaryTextColor,
+                                  AppColors.primaryTextColor,
                                 ],
                               ),
                             ),

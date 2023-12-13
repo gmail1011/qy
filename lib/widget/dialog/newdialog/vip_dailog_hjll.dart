@@ -55,7 +55,7 @@ class VipDialogHjllView extends StatelessWidget {
                                 gradient: LinearGradient(
                                     colors: [
                                       Color.fromRGBO(132, 164, 249, 1),
-                                      Color(0xffca452e),
+                                      AppColors.primaryTextColor,
                                     ]
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(4))
@@ -78,7 +78,7 @@ class VipDialogHjllView extends StatelessWidget {
                                 gradient: LinearGradient(
                                     colors: [
                                       Color.fromRGBO(132, 164, 249, 1),
-                                      Color(0xffca452e),
+                                      AppColors.primaryTextColor,
                                     ]
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(4))

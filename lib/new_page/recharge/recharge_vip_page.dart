@@ -336,8 +336,8 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(90)),
                       gradient: LinearGradient(colors: [
-                        Color(0xffca452e),
-                        Color(0xffca452e),
+                        AppColors.primaryTextColor,
+                        AppColors.primaryTextColor,
                       ]),
                     ),
                     child: Center(
@@ -366,7 +366,7 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                         text: "支付问题反馈，点击联系  "),
                     TextSpan(
                         style: TextStyle(
-                          color: Color(0xffca452e),
+                          color: AppColors.primaryTextColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 12.0,
                         ),

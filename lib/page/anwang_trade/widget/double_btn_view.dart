@@ -95,7 +95,7 @@ class DoubleBtnDialogView extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             gradient: LinearGradient(colors: [
                                               Color.fromRGBO(132, 164, 249, 1),
-                                              Color(0xffca452e),
+                                              AppColors.primaryTextColor,
                                             ]),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20.5))),
@@ -122,7 +122,7 @@ class DoubleBtnDialogView extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             gradient: LinearGradient(colors: [
                                               Color.fromRGBO(132, 164, 249, 1),
-                                              Color(0xffca452e),
+                                              AppColors.primaryTextColor,
                                             ]),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20.5))),

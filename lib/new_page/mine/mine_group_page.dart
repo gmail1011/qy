@@ -153,7 +153,7 @@ class _MineGroupPageState extends State<MineGroupPage> {
                 height: 28,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(18)),
-                    gradient: LinearGradient(colors: [const Color(0xffca452e), const Color(0xffca452e)])),
+                    gradient: LinearGradient(colors: [const AppColors.primaryTextColor, const AppColors.primaryTextColor])),
                 child: Center(
                   child: Text(
                     "立即加入",

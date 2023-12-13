@@ -210,7 +210,7 @@ class _MineSharePageState extends State<MineSharePage> with AutomaticKeepAliveCl
                     ),
                     TextSpan(
                       style: const TextStyle(
-                        color: const Color(0xffca452e),
+                        color: const AppColors.primaryTextColor,
                         fontWeight: FontWeight.w400,
                         fontSize: 16.0,
                       ),
@@ -242,7 +242,7 @@ class _MineSharePageState extends State<MineSharePage> with AutomaticKeepAliveCl
                           text: "我的推广码\t\t"),
                       TextSpan(
                           style: const TextStyle(
-                            color: const Color(0xffca452e),
+                            color: const AppColors.primaryTextColor,
                             fontWeight: FontWeight.w600,
                             fontSize: 24,
                           ),

@@ -27,7 +27,7 @@ class SystemWordDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           gradient: LinearGradient(
             colors: [
-              Color(0xffca452e),
+              AppColors.primaryTextColor,
               Colors.white,
             ],
             begin: Alignment.topCenter,
@@ -125,8 +125,8 @@ class SystemWordDialog extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(19),
                     gradient: LinearGradient(colors: [
-                      Color(0xffca452e),
-                      Color(0xffca452e),
+                      AppColors.primaryTextColor,
+                      AppColors.primaryTextColor,
                     ])),
                 alignment: Alignment.center,
                 child: Text(

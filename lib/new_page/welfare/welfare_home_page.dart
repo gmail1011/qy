@@ -47,7 +47,7 @@ class _WelfareHomePageState extends State<WelfareHomePage> with TickerProviderSt
               alignment: Alignment.center,
               child: TabBar(
                 isScrollable: true,
-                labelStyle: TextStyle(fontSize: 18, color: Color(0xffca452e)),
+                labelStyle: TextStyle(fontSize: 18, color: AppColors.primaryTextColor),
                 unselectedLabelStyle: TextStyle(fontSize: 14, color: Color(0xff999999)),
                 indicator: CustomTabBarIndicator(),
                 controller: _tabController,

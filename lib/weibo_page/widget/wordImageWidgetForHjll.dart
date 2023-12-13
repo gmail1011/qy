@@ -301,7 +301,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                             child: Container(
                               margin: EdgeInsets.only(top: 10, bottom: 10),
                               width: 2,
-                              color: Color(0xffca452e),
+                              color: AppColors.primaryTextColor,
                             ))
                       ],
                     )

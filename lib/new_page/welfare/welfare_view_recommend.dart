@@ -390,7 +390,7 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
                     ),
                     TextSpan(
                       style: const TextStyle(
-                        color: const Color(0xffca452e),
+                        color: const AppColors.primaryTextColor,
                         fontWeight: FontWeight.w400,
                         fontSize: 16.0,
                       ),
@@ -422,7 +422,7 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
                           text: "我的推广码\t\t"),
                       TextSpan(
                           style: const TextStyle(
-                            color: const Color(0xffca452e),
+                            color: const AppColors.primaryTextColor,
                             fontWeight: FontWeight.w600,
                             fontSize: 24,
                           ),

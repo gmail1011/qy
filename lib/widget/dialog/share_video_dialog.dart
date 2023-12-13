@@ -266,8 +266,8 @@ class _ShareVideoDialog extends State<ShareVideoView> with TickerProviderStateMi
                             borderRadius: BorderRadius.circular(19),
                             gradient: LinearGradient(
                               colors: [
-                                Color(0xffca452e),
-                                Color(0xffca452e),
+                                AppColors.primaryTextColor,
+                                AppColors.primaryTextColor,
                               ],
                             ),
                           ),

@@ -274,7 +274,7 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
                                       Text(
                                         VariableConfig.goldTickets.list[index].name,
                                         style: TextStyle(
-                                            color: Color(0xffca452e),
+                                            color: AppColors.primaryTextColor,
                                             fontWeight: FontWeight.bold,
                                             fontSize: Dimens.pt23),
                                       ),
@@ -300,7 +300,7 @@ Widget buildView(PayForState state, Dispatch dispatch, ViewService viewService) 
                                     inactiveBgColor: Color.fromRGBO(252, 228, 202, 1),
                                     inactiveBorderColor: Color.fromRGBO(175, 175, 175, 1),
                                     type: GFCheckboxType.circle,
-                                    activeBgColor: Color(0xffca452e),
+                                    activeBgColor: AppColors.primaryTextColor,
                                     onChanged: (value) {
                                       VariableConfig.goldTickets.list.forEach((element) {
                                         if (VariableConfig.goldTickets.list[index] == element) {
@@ -422,7 +422,7 @@ Widget _buildBuyVIPGoldCoinUI(PayForState state, Dispatch dispatch) {
               ),
               Radio(
                 value: -1,
-                activeColor: Color(0xffca452e),
+                activeColor: AppColors.primaryTextColor,
                 focusColor: Color(0xFF4F515A),
                 onChanged: (value) {
                   l.e("payRadioType", "$value");
@@ -499,13 +499,13 @@ Widget _buildPayTypeItemUI(PayForState state, Dispatch dispatch, PayType payType
                 ),
                 child: Text(
                   giftStr,
-                  style: TextStyle(color: Color(0xffca452e), fontSize: Dimens.pt10),
+                  style: TextStyle(color: AppColors.primaryTextColor, fontSize: Dimens.pt10),
                 ),
               ),
             ),
             Radio(
               value: index,
-              activeColor: Color(0xffca452e),
+              activeColor: AppColors.primaryTextColor,
               focusColor: Color(0xFF4F515A),
               onChanged: (value) {
                 l.e("payRadioType", "$value");

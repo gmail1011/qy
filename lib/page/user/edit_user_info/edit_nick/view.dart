@@ -30,8 +30,8 @@ Widget buildView(EditNickNameState state, Dispatch dispatch, ViewService viewSer
             borderRadius: BorderRadius.circular(14),
             gradient: LinearGradient(
               colors: [
-                Color(0xffca452e),
-                Color(0xffca452e),
+                AppColors.primaryTextColor,
+                AppColors.primaryTextColor,
               ],
             ),
           ),

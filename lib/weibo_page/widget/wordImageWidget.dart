@@ -645,16 +645,16 @@ class WordImageWidgetState extends State<WordImageWidget> {
                           decoration: BoxDecoration(
                             border: Border(
                               top: BorderSide(
-                                  color: Color(0xffca452e),
+                                  color: AppColors.primaryTextColor,
                                   width: Dimens.pt1),
                               left: BorderSide(
-                                  color: Color(0xffca452e),
+                                  color: AppColors.primaryTextColor,
                                   width: Dimens.pt1),
                               right: BorderSide(
-                                  color: Color(0xffca452e),
+                                  color: AppColors.primaryTextColor,
                                   width: Dimens.pt1),
                               bottom: BorderSide(
-                                  color: Color(0xffca452e),
+                                  color: AppColors.primaryTextColor,
                                   width: Dimens.pt1),
                             ),
                             borderRadius: BorderRadius.circular(14),
@@ -662,8 +662,8 @@ class WordImageWidgetState extends State<WordImageWidget> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("+",style: TextStyle(color: Color(0xffca452e),fontWeight: FontWeight.bold,fontSize: 13),),
-                              Text("关注",style: TextStyle(color: Color(0xffca452e),fontSize: 12),),
+                              Text("+",style: TextStyle(color: AppColors.primaryTextColor,fontWeight: FontWeight.bold,fontSize: 13),),
+                              Text("关注",style: TextStyle(color: AppColors.primaryTextColor,fontSize: 12),),
                             ],
                           )
                       ),
@@ -1368,7 +1368,7 @@ class WordImageWidgetState extends State<WordImageWidget> {
             Expanded(child: SizedBox()),
             (widget.videoModel.tags!=null && widget.videoModel.tags.length>0)?
             Text(
-              "#${widget.videoModel.tags[0].name??""}",style: TextStyle(color: Color(0xffca452e),fontSize: 12),
+              "#${widget.videoModel.tags[0].name??""}",style: TextStyle(color: AppColors.primaryTextColor,fontSize: 12),
             ):SizedBox(),
           ],
         ),

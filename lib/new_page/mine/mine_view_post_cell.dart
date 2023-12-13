@@ -271,7 +271,7 @@ class _MineViewPostCellState extends State<MineViewPostCell> {
                         },
                         child: Text(
                           "#${getTagBeanFirst().name}",
-                          style: const TextStyle(color: const Color(0xffca452e), fontSize: 12.0),
+                          style: const TextStyle(color: const AppColors.primaryTextColor, fontSize: 12.0),
                         ),
                       ),
                     )
@@ -412,12 +412,12 @@ class _MineViewPostCellState extends State<MineViewPostCell> {
               height: 26,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(13)),
-                border: Border.all(color: const Color(0xffca452e), width: 1),
+                border: Border.all(color: const AppColors.primaryTextColor, width: 1),
               ),
               child: Center(
                 child: Text(
                   "+ 关注",
-                  style: const TextStyle(color: const Color(0xffca452e), fontSize: 12.0),
+                  style: const TextStyle(color: const AppColors.primaryTextColor, fontSize: 12.0),
                 ),
               ),
             ),

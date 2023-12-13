@@ -64,7 +64,7 @@ class PostSuccessDialogHjllView extends StatelessWidget {
                           height: 35,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: Color(0xffca452e),
+                            color: AppColors.primaryTextColor,
                             borderRadius: BorderRadius.all(Radius.circular(4)),
                           ),
                           child: Text(

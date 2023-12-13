@@ -80,7 +80,7 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                                   padding: EdgeInsets.only(top: 2),
                                   child: Text(
                                     "${state.viewModel?.videoCoin()}",
-                                    style: TextStyle(color: Color(0xffca452e), fontSize: 14),
+                                    style: TextStyle(color: AppColors.primaryTextColor, fontSize: 14),
                                   ),
                                 ),
                                 SizedBox(
@@ -184,7 +184,7 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                                     decoration: BoxDecoration(
                                         gradient: LinearGradient(colors: [
                                           Color.fromRGBO(132, 164, 249, 1),
-                                          Color(0xffca452e),
+                                          AppColors.primaryTextColor,
                                         ]),
                                         borderRadius: BorderRadius.all(Radius.circular(4))),
                                     child: Text(
@@ -207,7 +207,7 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                                     decoration: BoxDecoration(
                                         gradient: LinearGradient(colors: [
                                           Color.fromRGBO(132, 164, 249, 1),
-                                          Color(0xffca452e),
+                                          AppColors.primaryTextColor,
                                         ]),
                                         borderRadius: BorderRadius.all(Radius.circular(4))),
                                     child: Text(

@@ -224,7 +224,7 @@ class _MineAccountProfilePageState extends State<MineAccountProfilePage> {
             //           style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 16.0),
             //           text: "我的推广码\t\t"),
             //       TextSpan(
-            //           style: const TextStyle(color: const Color(0xffca452e), fontWeight: FontWeight.w900, fontSize: 24.0),
+            //           style: const TextStyle(color: const AppColors.primaryTextColor, fontWeight: FontWeight.w900, fontSize: 24.0),
             //           text: meInfo.promotionCode ?? ""),
             //     ],
             //   ),

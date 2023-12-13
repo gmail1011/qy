@@ -71,7 +71,7 @@ class _UpdateDialog extends State<UpdateDialog> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color(0xffca452e),
+                  AppColors.primaryTextColor,
                   Color.fromRGBO(255, 255, 255, 1),
                 ]),
           ),

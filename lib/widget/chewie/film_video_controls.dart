@@ -526,8 +526,8 @@ class _FilmVideoControlsState extends State<FilmVideoControls>
           },
           colors: chewieController.materialProgressColors ??
               ChewieProgressColors(
-                  playedColor: Color(0xffca452e),
-                  handleColor: Color(0xffca452e),
+                  playedColor: AppColors.primaryTextColor,
+                  handleColor: AppColors.primaryTextColor,
                   bufferedColor: Colors.grey,
                   backgroundColor: Colors.white),
         ),
