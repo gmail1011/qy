@@ -18,49 +18,51 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.fromLTRB(16, 12, 16, 0),
-        child: Column(
-          children: [
-            Container(
-              height: 90,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: _buildMenuItem(
-                      0,
-                      "测试题",
-                      "探索真实人性",
-                      Color(0xff538df7),
-                      "assets/images/title_hot_logo.png",
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.fromLTRB(16, 12, 16, 0),
+          child: Column(
+            children: [
+              Container(
+                height: 90,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _buildMenuItem(
+                        0,
+                        "测试题",
+                        "探索真实人性",
+                        Color(0xff538df7),
+                        "assets/images/title_hot_logo.png",
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: _buildMenuItem(
-                      1,
-                      "热门话题",
-                      "探索真实人性",
-                      Color(0xff6866f6),
-                      "assets/images/title_logo.png",
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: _buildMenuItem(
+                        1,
+                        "热门话题",
+                        "探索真实人性",
+                        Color(0xff6866f6),
+                        "assets/images/title_logo.png",
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: pullYsRefresh(
-                refreshController: controller,
-                enablePullUp: false,
-                child: ListView.builder(
-                  itemCount: 0,
-                  itemBuilder: (context, index) {
-                    return Container();
-                  },
+                  ],
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: pullYsRefresh(
+                  refreshController: controller,
+                  enablePullUp: false,
+                  child: ListView.builder(
+                    itemCount: 0,
+                    itemBuilder: (context, index) {
+                      return Container();
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -91,6 +93,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
                 SizedBox(height: 1),
                 Text(
                   desc,
+                  maxLines: 1,
                   style: TextStyle(
                     color: Color(0xffcccccc),
                     fontSize: 12,
