@@ -313,14 +313,14 @@ Widget _buildHeaderUI() {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("91猎奇",
+                Text("海角社区",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                     )),
                 SizedBox(height: 3),
                 Text(
-                  "最大认证换妻平台",
+                  "最大乱伦交友平台",
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.6),
                     fontSize: 12,

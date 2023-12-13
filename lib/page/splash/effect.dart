@@ -303,7 +303,7 @@ Future<String> _checkNetAlways(Action action, Context<SplashState> ctx) async {
                           "1.请检测您的网络是否正常，手机是否开了VPN或10分钟后再尝试访问。"
                           "\n2.前往官网地址 uapp.bio 下载最新版。"
                           "\n3.官方邮箱：qiyoushequ@gmail.com"
-                          "\n4.前往Telegram91猎奇官方交流群",
+                          "\n4.前往Telegram海角社区官方交流群",
                       defaultStyle:TextStyle(
                           color: Colors.white
                       ),

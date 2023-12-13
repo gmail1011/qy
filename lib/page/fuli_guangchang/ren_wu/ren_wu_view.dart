@@ -105,7 +105,7 @@ Widget buildView(RenWuState state, Dispatch dispatch, ViewService viewService) {
                                         "3.本活动周期为七个自然日，每七个自然日的最后一日23:59:59会清空所有活跃值，请用户尽快领取奖励。\n\n"
                                         "4.同一台设备，同一个用户，七个自然日内只能领取1次奖励。\n\n"
                                         "5.本活动所获得的优惠券会在购买相应商品时作出提示。可前往我的-设置-优惠券查看，请一定在有效期内使用，避免过期失效。\n\n"
-                                        "6.本活动最终解释权归91猎奇官方所有。",
+                                        "6.本活动最终解释权归海角社区官方所有。",
                                         style: TextStyle(
                                             color:
                                                 Colors.black.withOpacity(0.5),

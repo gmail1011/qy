@@ -74,8 +74,7 @@ class _MineInviteCodeInputPageState extends State<MineInviteCodeInputPage> {
             Container(
               height: 42,
               padding: EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(2)), color: const Color(0xff202733)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(2)), color: const Color(0xff666666)),
               child: TextField(
                 keyboardType: TextInputType.text,
                 autofocus: true,
@@ -91,7 +90,12 @@ class _MineInviteCodeInputPageState extends State<MineInviteCodeInputPage> {
                 onSubmitted: (text) {
                   _bindPromotionCode();
                 },
-                decoration: InputDecoration(hintText: "请输入", hintStyle: TextStyle(color: Color(0xff434c55))),
+                decoration: InputDecoration(
+                  hintText: "请输入",
+                  hintStyle: TextStyle(
+                    color: Colors.white.withOpacity(0.6),
+                  ),
+                ),
               ),
             ),
             SizedBox(height: 30),
@@ -101,14 +105,11 @@ class _MineInviteCodeInputPageState extends State<MineInviteCodeInputPage> {
               },
               child: Container(
                 height: 47,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    gradient: AppColors.linearBackGround),
+                decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(30)), gradient: AppColors.linearBackGround),
                 child: Center(
                   child: Text(
                     "确定",
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w600, fontSize: 14.0),
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14.0),
                   ),
                 ),
               ),

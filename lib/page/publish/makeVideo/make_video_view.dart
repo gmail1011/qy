@@ -351,7 +351,7 @@ GestureDetector _buildMakeMoneyUI(int workCreateCount) {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-            "已有$workCreateCount人  成为91猎奇认证大V",
+            "已有$workCreateCount人  成为海角社区认证大V",
             style: TextStyle(
                 color: AppColors.userPayTextColor, fontSize: Dimens.pt12),
           ),

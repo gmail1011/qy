@@ -451,7 +451,7 @@ void _initVideoPlayer(
           ///弹出金币购买提示框
           l.d("--------->", "弹出金币购买提示框");
           // _showGoldcoinBuyDialog(ctx);
-          //91猎奇逻辑
+          //海角社区逻辑
           _hjllUpdateVideoBuyVideo(ctx);
         }
         if ((ctx.state.videoPlayerController?.value?.position?.inSeconds ??
@@ -467,7 +467,7 @@ void _initVideoPlayer(
           ///弹出VIP购买弹出框
           l.d("--------->", "弹出VIP购买弹出框");
           // _showVipBuyDialog(ctx, false);
-          //91猎奇逻辑
+          //海角社区逻辑
           _hjllUpdateVideoBuyVip(ctx);
         }
       }
@@ -620,7 +620,7 @@ _hjllBuyVip(Action action, Context<FilmTvVideoDetailState> ctx) {
       VipPopUpsType.vip);
 }
 
-///91猎奇购买金币视频
+///海角社区购买金币视频
 _hjllBuyCoinVideo(Action action, Context<FilmTvVideoDetailState> ctx) async {
   bool buySuccess = await _buyProduct(ctx.context, ctx.state.viewModel);
   if (buySuccess) {
@@ -1153,7 +1153,7 @@ void _dispose(Action action, Context<FilmTvVideoDetailState> ctx) {
   ctx.state.chewieController?.dispose();
   ctx.state.timer?.cancel();
 
-  if (ctx.state.videoPlayerController.value != null) {
+  if (ctx.state.videoPlayerController?.value != null) {
     ///发送观看记录
     sendRecord(ctx.state.videoPlayerController.value.position,
         ctx.state.videoPlayerController.value.duration, ctx.state.viewModel);
