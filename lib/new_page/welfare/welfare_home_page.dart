@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/new_page/mine/mine_share_page.dart';
 import 'package:flutter_app/new_page/welfare/welfare_view_app_center.dart';
 import 'package:flutter_app/new_page/welfare/welfare_view_recommend.dart';

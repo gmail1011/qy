@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/config/config.dart';
 import 'package:flutter_app/common/local_router/jump_router.dart';
 import 'package:flutter_app/common/local_router/route_map.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/assets/images.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/local_router/jump_router.dart';
@@ -271,7 +272,7 @@ class _MineViewPostCellState extends State<MineViewPostCell> {
                         },
                         child: Text(
                           "#${getTagBeanFirst().name}",
-                          style: const TextStyle(color: const AppColors.primaryTextColor, fontSize: 12.0),
+                          style:  TextStyle(color:  AppColors.primaryTextColor, fontSize: 12.0),
                         ),
                       ),
                     )
@@ -412,12 +413,12 @@ class _MineViewPostCellState extends State<MineViewPostCell> {
               height: 26,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(13)),
-                border: Border.all(color: const AppColors.primaryTextColor, width: 1),
+                border: Border.all(color:  AppColors.primaryTextColor, width: 1),
               ),
               child: Center(
                 child: Text(
                   "+ 关注",
-                  style: const TextStyle(color: const AppColors.primaryTextColor, fontSize: 12.0),
+                  style: const TextStyle(color:  AppColors.primaryTextColor, fontSize: 12.0),
                 ),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/new_page/welfare/SpecialWelfareHomePage.dart';
 import 'package:flutter_app/new_page/welfare/SpecialWelfareViewRecommend.dart';
 import 'package:flutter_base/utils/navigator_util.dart';

@@ -214,7 +214,7 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
                 SizedBox(height: 16),
                 Text(
                   "分享领VIP",
-                  style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 14.0),
+                  style:  TextStyle(color:  Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 14.0),
                 ),
                 SizedBox(height: 10),
                 Row(
@@ -234,12 +234,12 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
                         children: [
                           Text(
                             "推广人数",
-                            style: const TextStyle(color: Color.fromRGBO(255, 255, 255, 0.6), fontSize: 14.0),
+                            style:  TextStyle(color: Color.fromRGBO(255, 255, 255, 0.6), fontSize: 14.0),
                           ),
                           SizedBox(height: 3),
                           Text(
                             total.toString(),
-                            style: const TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 14.0),
+                            style:  TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 14.0),
                           ),
                         ],
                       ),
@@ -259,12 +259,12 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
                         children: [
                           Text(
                             "累计天数",
-                            style: const TextStyle(color: Color.fromRGBO(255, 255, 255, 0.6), fontSize: 14.0),
+                            style:  TextStyle(color: Color.fromRGBO(255, 255, 255, 0.6), fontSize: 14.0),
                           ),
                           SizedBox(height: 3),
                           Text(
                             sumday == null ? "0" : sumday.toString(),
-                            style: const TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 14.0),
+                            style:  TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 14.0),
                           ),
                         ],
                       ),
@@ -280,8 +280,8 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
                 Center(
                   child: Text(
                     "成功邀请1人送3天VIP",
-                    style: const TextStyle(
-                      color: const Color(0xffef8649),
+                    style:  TextStyle(
+                      color:  Color(0xffef8649),
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                     ),
@@ -351,7 +351,7 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
           decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)), gradient: AppColors.linearBackGround),
           child: Text(
             btnTxt,
-            style: const TextStyle(
+            style:  TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w500,
               fontSize: 14,
@@ -382,15 +382,15 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
                   text: TextSpan(children: [
                     TextSpan(
                       text: "累计邀请",
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
                         fontSize: 16.0,
                       ),
                     ),
                     TextSpan(
-                      style: const TextStyle(
-                        color: const AppColors.primaryTextColor,
+                      style:  TextStyle(
+                        color:  AppColors.primaryTextColor,
                         fontWeight: FontWeight.w400,
                         fontSize: 16.0,
                       ),
@@ -415,14 +415,14 @@ class _WelfareViewRecommendState extends State<WelfareViewRecommend> with Automa
                   text: TextSpan(
                     children: [
                       TextSpan(
-                          style: const TextStyle(
+                          style:  TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                           ),
                           text: "我的推广码\t\t"),
                       TextSpan(
-                          style: const TextStyle(
-                            color: const AppColors.primaryTextColor,
+                          style:  TextStyle(
+                            color:  AppColors.primaryTextColor,
                             fontWeight: FontWeight.w600,
                             fontSize: 24,
                           ),

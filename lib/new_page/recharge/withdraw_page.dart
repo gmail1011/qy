@@ -369,8 +369,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                 }, // 提现记录
                 child: Text(
                   "提现记录",
-                  style: const TextStyle(
-                      color: const Color(0xffffffff),
+                  style:  TextStyle(
+                      color:  Color(0xffffffff),
                       fontWeight: FontWeight.w400,
                       fontSize: 12.0),
                 ))
@@ -432,13 +432,13 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         children: [
                           Text(
                             "可提金额（元）：",
-                            style: const TextStyle(
-                                color: const Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 12.0),
+                            style:  TextStyle(
+                                color:  Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 12.0),
                           ),
                           Text(
                             "${(wallet?.income ?? 0) ~/ 10}",
-                            style: const TextStyle(
-                                color: const AppColors.primaryTextColor, fontWeight: FontWeight.w900, fontSize: 20.0),
+                            style:  TextStyle(
+                                color:  AppColors.primaryTextColor, fontWeight: FontWeight.w900, fontSize: 20.0),
                           )
                         ],
                       ),
@@ -482,7 +482,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(2)),
-                            color: const Color(0xff242424)),
+                            color:  Color(0xff242424)),
                         child: TextField(
                           controller: moneyController,
                           maxLines: 1,
@@ -620,7 +620,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                             padding: EdgeInsets.only(left: 10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(2)),
-                                color: const Color(0xff242424)),
+                                color:  Color(0xff242424)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -667,7 +667,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(2)),
-                              color: const Color(0xff242424)),
+                              color:  Color(0xff242424)),
                           child: TextField(
                             controller: usdtController,
                             maxLines: 1,
@@ -698,26 +698,26 @@ class _WithdrawPageState extends State<WithdrawPage> {
                   RichText(
                       text: TextSpan(children: [
                         TextSpan(
-                            style: const TextStyle(
-                                color: const Color(0xffffffff),
+                            style:  TextStyle(
+                                color:  Color(0xffffffff),
                                 fontWeight: FontWeight.w900,
                                 fontSize: 12.0),
                             text: "合计扣除"),
                         TextSpan(
-                            style: const TextStyle(
-                                color: const AppColors.primaryTextColor,
+                            style:  TextStyle(
+                                color:  AppColors.primaryTextColor,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 12.0),
                             text: "$handlingFee元"),
                         TextSpan(
-                            style: const TextStyle(
-                                color: const Color(0xffffffff),
+                            style:  TextStyle(
+                                color:  Color(0xffffffff),
                                 fontWeight: FontWeight.w900,
                                 fontSize: 12.0),
                             text: "\t实际到账:"),
                         TextSpan(
-                            style: const TextStyle(
-                                color: const AppColors.primaryTextColor,
+                            style:  TextStyle(
+                                color:  AppColors.primaryTextColor,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 12.0),
                             text: "$actualAmount元")
@@ -726,8 +726,8 @@ class _WithdrawPageState extends State<WithdrawPage> {
                   SizedBox(height: 20),
                   Text(
                     "提现规则：",
-                    style: const TextStyle(
-                        color: const Color(0xffffffff),
+                    style:  TextStyle(
+                        color:  Color(0xffffffff),
                         fontWeight: FontWeight.w900,
                         fontSize: 12.0),
                   ),
@@ -738,7 +738,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         "2、每次提现收取15%手续费。\n"
                         "3、收款账户卡号和姓名必须一致,为避免恶意刷单,到账时间为T+15天 \n"
                         "4、银行卡每次提现最低200元起,USDT每次提现最低2000元起 \n",
-                    style: const TextStyle(
+                    style:  TextStyle(
                         color: Color.fromRGBO(153, 153, 153, 1),
                         fontWeight: FontWeight.w400,
                         fontSize: 12.0,
@@ -759,7 +759,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         child: // 确定
                         Text(
                           "确定提现",
-                          style: const TextStyle(
+                          style:  TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
                               fontSize: 18),
@@ -775,7 +775,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                     children: [
                       Text(
                         "提现将在15个工作日内到账，如未收到，请联系",
-                        style: const TextStyle(
+                        style:  TextStyle(
                             color: Color.fromRGBO(227, 227, 227, 1),
                             fontSize: 12.0),
                       ),
@@ -790,7 +790,7 @@ class _WithdrawPageState extends State<WithdrawPage> {
                         },
                         child: Text(
                           "在线客服",
-                          style: const TextStyle(
+                          style:  TextStyle(
                               color: AppColors.primaryTextColor,
                               fontSize: 12.0),
                         ),

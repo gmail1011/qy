@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
 import 'package:flutter_app/model/office_item_entity.dart';
@@ -153,7 +154,7 @@ class _MineGroupPageState extends State<MineGroupPage> {
                 height: 28,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(18)),
-                    gradient: LinearGradient(colors: [const AppColors.primaryTextColor, const AppColors.primaryTextColor])),
+                    gradient: LinearGradient(colors: [ AppColors.primaryTextColor,  AppColors.primaryTextColor])),
                 child: Center(
                   child: Text(
                     "立即加入",
