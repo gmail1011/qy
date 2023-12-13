@@ -102,6 +102,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
                   ],
                 ),
               ),
+              SizedBox(height: 18),
               Expanded(
                 child: _buildListContent(),
               ),
