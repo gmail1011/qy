@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/model/ads_model.dart';
 import 'package:flutter_app/model/announcement_entity.dart';
 import 'package:flutter_app/model/anwangVipCard/AnWangVipCard.dart';
@@ -332,8 +333,8 @@ class Config {
     //     ]
     // ),
     LinearGradient(colors: [
-      Color(0xffca452e),
-      Color(0xffca452e),
+      AppColors.primaryTextColor,
+      AppColors.primaryTextColor,
     ]),
   ];
 }

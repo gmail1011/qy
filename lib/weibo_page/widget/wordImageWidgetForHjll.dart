@@ -1091,7 +1091,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                     likeCount: widget.videoModel?.likeCount ?? 0,
                     likeCountAnimationType: LikeCountAnimationType.none,
                     countBuilder: (int count, bool isLiked, String text) {
-                      var color = isLiked ? Color.fromRGBO(245, 75, 100, 1) : Colors.white.withOpacity(0.6);
+                      var color =  Colors.white.withOpacity(0.6);
                       Widget result;
                       if (count == 0) {
                         result = Text(
@@ -1153,8 +1153,8 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                             constraints: BoxConstraints(minWidth: 60.0),
                             alignment: Alignment.center,
                             child: Text(
-                             "123123123",// "#${widget.videoModel.tags[0].name ?? ""}",
-                              style: TextStyle(color: widget.tagColor ?? Color(0xfff6c450), fontSize: 12),
+                              "#${widget.videoModel.tags[0].name ?? ""}",
+                              style: TextStyle(color: widget.tagColor ?? AppColors.primaryTextColor, fontSize: 12),
                             ),
                           ),),
                 ],

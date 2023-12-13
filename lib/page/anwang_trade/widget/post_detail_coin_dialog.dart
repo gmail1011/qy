@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_base/utils/navigator_util.dart';
 import 'package:flutter_base/utils/screen.dart';
 
@@ -31,8 +32,8 @@ class PostDetailCoinDialog extends StatelessWidget {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                             colors: [
-                              Color(0xffca452e),
-                              Color(0xffca452e),
+                              AppColors.primaryTextColor,
+                              AppColors.primaryTextColor,
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter

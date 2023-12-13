@@ -59,8 +59,8 @@ class _WordRichTextState extends State<WordRichText> {
   VideoModel _realVideoModel;
   var text = "";
   LinearGradient gradient = LinearGradient(colors: [
-    Color.fromRGBO(255, 74, 74, 1),
-    Color.fromRGBO(255, 74, 74, 1),
+    AppColors.primaryTextColor,
+    AppColors.primaryTextColor,
   ]);
 
   VideoModel get realVideoModel {
