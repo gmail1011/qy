@@ -74,7 +74,7 @@ android {
   defaultConfig {
     minSdkVersion 21
     targetSdkVersion 29
-    applicationId "com.pf.hjsq2024"
+    applicationId "com.pf.hjsqeles"
     manifestPlaceholders =
         [appName: "海角社区", icon: "@mipmap/ic_launcher", round: "@mipmap/ic_launcher"]
     versionCode flutterVersionCode.toInteger()

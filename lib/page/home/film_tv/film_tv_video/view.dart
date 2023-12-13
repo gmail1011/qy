@@ -111,10 +111,12 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage("assets/images/home_tag_bg.png"),
-                                      fit: BoxFit.fill,
-                                    ),
+                                    color: Color(0xff242424),
+                                    borderRadius: BorderRadius.circular(2),
+                                    // image: DecorationImage(
+                                    //   image: AssetImage("assets/images/home_tag_bg.png"),
+                                    //   fit: BoxFit.fill,
+                                    // ),
                                   ),
                                   alignment: Alignment.center,
                                   width: (screen.screenWidth - 10 * 2 - 8 * 3) / 4,

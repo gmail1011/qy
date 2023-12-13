@@ -125,7 +125,7 @@ class _CNavigationBarItemState extends State<CNavigationBarItem> {
   Widget buildImgBtn(int index, String title, String defImage, String activeImage) {
     Color color = Color(0xff95949a);
     if (currentIndex == index) {
-      color = Color(0xffca452e);
+      color = AppColors.primaryTextColor;
 
     }
 
@@ -298,6 +298,21 @@ class _CNavigationBarItemState extends State<CNavigationBarItem> {
             width: 56,
             child: buildImgBtn(
                 menuIndex, "猎奇", "assets/images/hj_home_icon_anwang.png", "assets/images/hj_home_icon_anwang_select.png"),
+          ),
+        ),
+      ),
+    );
+    menuIndex++;
+    navigationBarList.add(
+      Expanded(
+        child: GestureDetector(
+          onTap: () {
+            onTap(menuIndex);
+          },
+          child: Container(
+            width: 56,
+            child: buildImgBtn(
+                menuIndex, "消息", "assets/images/hj_home_icon_msg.png", "assets/images/hj_home_icon_msg_select.png"),
           ),
         ),
       ),

@@ -13,6 +13,7 @@ import 'package:flutter_app/new_page/welfare/welfare_home_page.dart';
 import 'package:flutter_app/page/game_page/game_page_page.dart';
 import 'package:flutter_app/page/hjll_community/hjll_community_home/page.dart';
 import 'package:flutter_app/page/home/post/page.dart';
+import 'package:flutter_app/page/home_msg/home_msg_page.dart';
 import 'package:flutter_app/weibo_page/community_page.dart';
 import 'package:flutter_app/weibo_page/loufeng/LouFengH5Page.dart';
 import 'package:flutter_app/weibo_page/loufeng/page.dart';
@@ -72,6 +73,7 @@ HomeState initState(Map<String, dynamic> args) {
   var pageList = [
     routers.buildPage(FILM_TV_PAGE, {"dataType": 0}),
     routers.buildPage(FILM_TV_PAGE, {"dataType": 1}),
+    HomeMsgPage(),
     HjllCommunityPage().buildPage(null),
     MineHomePage()
   ];

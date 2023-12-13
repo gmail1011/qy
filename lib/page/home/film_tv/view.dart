@@ -69,12 +69,12 @@ Widget buildView(FilmTelevisionState state, Dispatch dispatch, ViewService viewS
                             )
                             .toList(),
                     indicator: RoundUnderlineTabIndicator(
-                      borderSide: BorderSide(color: Color(0xffca452e), width: 3),
+                      borderSide: BorderSide(color: AppColors.primaryTextColor, width: 3),
                     ),
                     indicatorSize: TabBarIndicatorSize.label,
                     unselectedLabelColor: Color.fromRGBO(153, 153, 153, 1),
                     unselectedLabelStyle: TextStyle(fontSize: Dimens.pt16),
-                    labelColor: Color(0xffca452e),
+                    labelColor: AppColors.primaryTextColor,
                     isScrollable: true,
                     labelStyle: TextStyle(fontSize: Dimens.pt18),
                     labelPadding: EdgeInsets.symmetric(horizontal: 10),
