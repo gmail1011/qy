@@ -134,7 +134,7 @@ Widget _buildRecommendListItem(VideoModel videoModel, ViewService viewService) {
     width: 408,
     height: 90,
     margin: EdgeInsets.only(top: 10),
-    color: Color(0xff161529),
+    color: Color(0xff242424),
     child: Row(
       children: [
         CustomNetworkImage(

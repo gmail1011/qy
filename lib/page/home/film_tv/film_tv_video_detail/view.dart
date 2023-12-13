@@ -360,10 +360,7 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                 height: 40,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                      Color(0xffca452e),
-                      Color(0xffca452e),
-                    ]),
+                    color: AppColors.primaryTextColor,
                     borderRadius: BorderRadius.all(Radius.circular(28))),
                 child: Text(
                   "返回",
