@@ -69,12 +69,12 @@ class _MineInviteCodeInputPageState extends State<MineInviteCodeInputPage> {
       child: Scaffold(
         appBar: CustomAppbar(title: "邀请码"),
         body: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
+          margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: Column(children: [
             Container(
-              height: 42,
+              height: 38,
               padding: EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(2)), color: const Color(0xff666666)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(2)), color:  Color(0xff242424)),
               child: TextField(
                 keyboardType: TextInputType.text,
                 autofocus: true,
@@ -109,7 +109,7 @@ class _MineInviteCodeInputPageState extends State<MineInviteCodeInputPage> {
                 child: Center(
                   child: Text(
                     "确定",
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14.0),
+                    style:  TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14.0),
                   ),
                 ),
               ),
