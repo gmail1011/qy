@@ -623,7 +623,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                                               maps["videoId"] = widget.videoModel.id;
 
                                               bus.emit(EventBusUtils.closeActivityFloating);
-
+                                              maps["videoModel"] = widget.videoModel;
                                               Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
                                                 bus.emit(EventBusUtils.showActivityFloating);
                                               });
@@ -673,7 +673,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                                                   maps["videoId"] = widget.videoModel.id;
 
                                                   bus.emit(EventBusUtils.closeActivityFloating);
-
+                                                  maps["videoModel"] = widget.videoModel;
                                                   Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
                                                     bus.emit(EventBusUtils.showActivityFloating);
                                                   });
@@ -881,6 +881,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                                   Map<String, dynamic> maps = Map();
                                   maps["videoId"] = widget.videoModel.id;
                                   bus.emit(EventBusUtils.closeActivityFloating);
+                                  maps["videoModel"] = widget.videoModel;
                                   Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
                                     safePopPage();
                                     widget.videoModel.vidStatus.hasPaid = true;
@@ -897,6 +898,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                     Map<String, dynamic> maps = Map();
                     maps["videoId"] = widget.videoModel.id;
                     bus.emit(EventBusUtils.closeActivityFloating);
+                    maps["videoModel"] = widget.videoModel;
                     Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
                       bus.emit(EventBusUtils.showActivityFloating);
                     });
