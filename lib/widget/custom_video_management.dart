@@ -87,7 +87,7 @@ class _VideoUploadState extends State<VideoUploadMangeWidget> {
             Text(
               " 默认第一张为封面 ",
               style: TextStyle(
-                  color: Color(0xffca452e),fontSize: 10),
+                  color: Color(0xffef8549),fontSize: 10),
             ),
 
             Text(

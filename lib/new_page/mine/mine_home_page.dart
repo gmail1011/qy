@@ -152,14 +152,14 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
       },
     ));
 
-    menu3.add(Menu(
-      "我的历史",
-      "",
-      "assets/images/hj_mine_icon_history.png",
-          () {
-        pushToPage(HistoryRecordPage(), context: context);
-      },
-    ));
+    // menu3.add(Menu(
+    //   "我的历史",
+    //   "",
+    //   "assets/images/hj_mine_icon_history.png",
+    //       () {
+    //     pushToPage(HistoryRecordPage(), context: context);
+    //   },
+    // ));
     menu3.add(Menu(
       "我的购买",
       "",
@@ -532,7 +532,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
   Widget _buildH4XMenuUI(List<Menu> menus) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0x99161e2c),
+        color: Color(0xff242424),
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: GridView.builder(
@@ -576,7 +576,7 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
   Widget _buildVerticalMenuUI(List<Menu> menus) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0x99161e2c),
+        color: Color(0xff242424),
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: ListView.builder(

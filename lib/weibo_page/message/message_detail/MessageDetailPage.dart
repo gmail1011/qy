@@ -389,6 +389,41 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
             padding: EdgeInsets.only(left: 16, right: 16),
             child: Row(
               children: [
+                GestureDetector(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 22),
+                    child: isSending
+                        ? SizedBox(
+                      width: 32,
+                      height: 32,
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Brightness.dark),
+                        child: CupertinoActivityIndicator(),
+                      ),
+                    )
+                        : Image.asset(
+                      "assets/weibo/icon_msg_select_imag.png",
+                      width: 32,
+                      height: 32,
+                    ),
+                  ),
+                  onTap: () async {
+                    var list = await _pickImg(1);
+                    _messageList?.insert(
+                      0,
+                      new ListElement(
+                          sendUid: GlobalStore.getMe().uid, takeUid: widget._messageListDataList?.takeUid, imgUrl: null, localUrl: list[0]),
+                    );
+                    setState(() {});
+
+                    ///上传多张图片
+                    MultiImageModel multiImageModel =
+                    await taskManager.addTaskToQueue(MultiImageUploadTask(list), (progress, {msg, isSuccess}) {});
+                    remotePIcList = multiImageModel.filePath;
+                    _sendImageMessage();
+                  },
+                ),
+                SizedBox(width: 8),
                 Expanded(
                   flex: 1,
                   child: Container(
@@ -422,33 +457,6 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
                       ),
                       style: TextStyle(color: Colors.white, fontSize: 16.w),
                       decoration: InputDecoration(
-                        // suffixIcon: Visibility(
-                        //   visible: _isClear,
-                        //   child: GestureDetector(
-                        //     onTap: () {
-                        //       print("object");
-                        //       setState(
-                        //         () {
-                        //           _textEditingController.clear();
-                        //           _inputText = '';
-                        //           _isClear = false;
-                        //         },
-                        //       );
-                        //     },
-                        //     child: Container(
-                        //       color: Colors.transparent,
-                        //       margin: EdgeInsets.only(
-                        //         top: 6.w,
-                        //         bottom: 6.w,
-                        //       ),
-                        //       child: Image.asset(
-                        //         "assets/weibo/search_close.png",
-                        //         width: 18.w,
-                        //         height: 18.w,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         fillColor: Color.fromRGBO(44, 44, 44, 1),
                         hintText: "请输入内容【本次私信需要消费${Config.sendMsgPrice}金币】",
                         hintStyle: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 10),
@@ -469,41 +477,6 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
                 ),
                 SizedBox(width: 12),
                 GestureDetector(
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 22),
-                    child: isSending
-                        ? SizedBox(
-                            width: 32,
-                            height: 32,
-                            child: CupertinoTheme(
-                              data: CupertinoThemeData(brightness: Brightness.dark),
-                              child: CupertinoActivityIndicator(),
-                            ),
-                          )
-                        : Image.asset(
-                            "assets/weibo/icon_msg_select_imag.png",
-                            width: 32,
-                            height: 32,
-                          ),
-                  ),
-                  onTap: () async {
-                    var list = await _pickImg(1);
-                    _messageList?.insert(
-                      0,
-                      new ListElement(
-                          sendUid: GlobalStore.getMe().uid, takeUid: widget._messageListDataList?.takeUid, imgUrl: null, localUrl: list[0]),
-                    );
-                    setState(() {});
-
-                    ///上传多张图片
-                    MultiImageModel multiImageModel =
-                        await taskManager.addTaskToQueue(MultiImageUploadTask(list), (progress, {msg, isSuccess}) {});
-                    remotePIcList = multiImageModel.filePath;
-                    _sendImageMessage();
-                  },
-                ),
-                SizedBox(width: 12),
-                GestureDetector(
                   onTap: () {
                     _sendMessage();
                     //focusNode.requestFocus();
@@ -520,7 +493,7 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
                             ),
                           )
                         : Image.asset(
-                            "assets/weibo/images/icon_send_comment.png",
+                            "assets/weibo/images/icon_send_comment_two.png",
                             width: 32,
                             height: 32,
                           ),
@@ -571,7 +544,7 @@ Widget _buildMessageLeftItemUI(String content, String imageUrl, String localUrl,
             padding: (content?.isNotEmpty == true)
                 ? EdgeInsets.fromLTRB(14, 8, 14, 8)
                 : EdgeInsets.fromLTRB(14, 0, 14, 8),
-            color: content?.isNotEmpty == true ? Colors.white : Colors.transparent,
+            color: content?.isNotEmpty == true ? Color(0xff333333) : Colors.transparent,
             direction: BubbleDirection.left,
             child: (content?.isNotEmpty != true)
                 ? GestureDetector(
@@ -601,7 +574,7 @@ Widget _buildMessageLeftItemUI(String content, String imageUrl, String localUrl,
                     maxLines: 100,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black,
+                      color: Colors.white,
                       height: 1.5,
                     ),
                   ),
@@ -624,7 +597,7 @@ Widget _buildMessageRightItemUI(String content, String imageUrl, String localUrl
             padding: (content?.isNotEmpty == true)
                 ? EdgeInsets.fromLTRB(14, 8, 14, 8)
                 : EdgeInsets.fromLTRB(14, 0, 14, 8),
-            color: Colors.white,
+            color: AppColors.primaryTextColor,
             direction: BubbleDirection.right,
             child: (content == null || content == "")
                 ? GestureDetector(
@@ -660,7 +633,7 @@ Widget _buildMessageRightItemUI(String content, String imageUrl, String localUrl
               content ?? "",
               softWrap: true,
               maxLines: 100,
-              style: TextStyle(fontSize: 14, color: Colors.black, height: 1.5),
+              style: TextStyle(fontSize: 14, color: Colors.white, height: 1.5),
             ),
           ),
         ),

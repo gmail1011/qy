@@ -248,8 +248,8 @@ class BloggerPageState extends State<BloggerPage> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(13),
                                 gradient: LinearGradient(colors: [
-                                   Color(0xffca452e),
-                                   Color(0xffca452e)
+                                   AppColors.primaryTextColor,
+                                  AppColors.primaryTextColor,
                                 ])),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
