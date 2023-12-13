@@ -46,6 +46,14 @@ Effect<FilmVideoIntroductionState> buildEffect() {
 void _initState(Action action, Context<FilmVideoIntroductionState> ctx) async {
   ctx.state.dataReq = true;
 
+  ///获取广告
+  List<AdsInfoBean> list = await getAdvByType(7);
+  ctx.state.adsList = (list ?? []);
+
+  _refreshData(action, ctx);
+
+  //ctx.dispatch(FilmVideoIntroductionActionCreator.updateUI());
+
   for(int i=0;i<Address.cdnAddressLists.length;i++){
     DomainInfo domainInfo = Address.cdnAddressLists[i];
     PopModel popModel =PopModel(
@@ -56,12 +64,6 @@ void _initState(Action action, Context<FilmVideoIntroductionState> ctx) async {
   }
   ctx.state.domainInfo = Address.currentDomainInfo;
   CacheServer().setSelectLine(ctx.state.domainInfo.url);
-
-  ///获取广告
-  List<AdsInfoBean> list = await getAdvByType(7);
-  ctx.state.adsList = (list ?? []);
-  _refreshData(action, ctx);
-
 
   FBroadcast.instance().register(VariableConfig.refreshVideoInfo, (value, callback) {
 
@@ -106,11 +108,14 @@ void _refreshData(
       ctx.state.videoList.addAll(works.list);
     }
     ctx.state.refreshController?.refreshCompleted(resetFooterState: true);
+
+    ctx.dispatch(FilmVideoIntroductionActionCreator.updateUI());
+
   } catch (e) {
     l.e("getRecommandVideoList-error:", "$e");
     ctx.state.refreshController?.refreshFailed();
   }
-  ctx.dispatch(FilmVideoIntroductionActionCreator.updateUI());
+
 }
 
 ///请求加载更多数据
@@ -162,7 +167,7 @@ void _operateLike(
       ctx.state.viewModel?.vidStatus?.hasLiked = false;
     } else {
       var response =
-          await netManager.client.sendLike(ctx.state.viewModel?.id, "video");
+      await netManager.client.sendLike(ctx.state.viewModel?.id, "video");
       l.e("_operateLike-response:", "$response");
 
       ctx.state.viewModel?.vidStatus?.hasLiked = true;
@@ -229,7 +234,7 @@ void _cacheVideo(Action action, Context<FilmVideoIntroductionState> ctx) async {
   }
 
   bool isCached =
-      CachedVideoStore().inCachedList(ctx.state.viewModel?.sourceURL);
+  CachedVideoStore().inCachedList(ctx.state.viewModel?.sourceURL);
   if (isCached) {
     showToast(msg: Lang.ALREADY_CACHED_TIP);
     return;

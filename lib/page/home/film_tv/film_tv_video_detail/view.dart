@@ -233,138 +233,142 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
               state.tabController == null
                   ? Container()
                   : Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.only(top: 2),
-                      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.1)))),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          commonTabBar(
-                            CustomTabBar(
-                              isScrollable: true,
-                              controller: state.tabController,
-                              physics: GlobalStore.isVIP() ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
-                              tabs: [
-                                Container(
-                                  margin: EdgeInsets.only(top: 12, bottom: 6),
-                                  child: Text("简介"),
-                                  height: 22,
-                                ),
-                                Container(
-                                  height: 22,
-                                  margin: EdgeInsets.only(top: 12, right: 2, bottom: 6),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                                    children: [
-                                      Text("评论 "),
-                                      Text(
-                                        "${getShowCountStr(state.viewModel?.commentCount ?? 0)}",
-                                        // style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(top: 2),
+                decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.1)))),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    commonTabBar(
+                      CustomTabBar(
+                        isScrollable: true,
+                        controller: state.tabController,
+                        physics: GlobalStore.isVIP() ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
+                        tabs: [
+                          Container(
+                            margin: EdgeInsets.only(top: 12, bottom: 6),
+                            child: Text("简介"),
+                            height: 22,
+                          ),
+                          Container(
+                            height: 22,
+                            margin: EdgeInsets.only(top: 12, right: 2, bottom: 6),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              children: [
+                                Text("评论 "),
+                                Text(
+                                  "${getShowCountStr(state.viewModel?.commentCount ?? 0)}",
+                                  // style: TextStyle(fontSize: 12),
                                 ),
                               ],
-                              unselectedLabelColor: Color(0xff9c9c9c),
-                              unselectedLabelStyle: TextStyle(fontSize: Dimens.pt14),
-                              labelColor: Colors.white,
-                              labelStyle: TextStyle(fontSize: Dimens.pt14, fontWeight: FontWeight.w500),
-                              labelPadding: EdgeInsets.symmetric(horizontal: 12),
-                              imagePath: "assets/images/tab_indicator.png",
                             ),
                           ),
-                          Expanded(child: SizedBox()),
-                          (TextUtil.isEmpty(state.domainInfo?.desc))
-                              ? SizedBox()
-                              : GestureDetector(
-                                  child: Container(
-                                      key: state.rightKey,
-                                      margin: EdgeInsets.only(top: 2, right: 17),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "${state.domainInfo?.desc}",
-                                            style: TextStyle(color: Color.fromRGBO(153, 153, 153, 1), fontSize: 12),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Image.asset(
-                                            "assets/images/line_switch.png",
-                                            width: 12,
-                                            height: 12,
-                                          )
-                                        ],
-                                      ) // 下拉按钮的文字
-                                      ),
-                                  onTap: () {
-                                    AlertTool.showPopMenu(
-                                      viewService.context,
-                                      noTriangle: true,
-                                      originKey: state.rightKey,
-                                      itemHeight: 30,
-                                      itemWidth: 80,
-                                      type: PopWindowType.bottomRight,
-                                      itemTitleColor: Colors.white,
-                                      dividerColor: Colors.white.withOpacity(0.1),
-                                      backgroundColor: Color.fromRGBO(34, 34, 34, 1),
-                                      itemsData: state.listPopModel,
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color.fromRGBO(46, 46, 46, 1),
-                                          Color.fromRGBO(46, 46, 46, 1),
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      ),
-                                      clickCallback: (index, model) async {
-                                        Address.cdnAddress = Address.cdnAddressLists[index].url;
-                                        Address.currentDomainInfo = Address.cdnAddressLists[index];
-                                        state.domainInfo = Address.cdnAddressLists[index];
-                                        CacheServer().addReqFilter(LOCAL_TS_FILTER, Address.cdnAddress);
-                                        await VideoCacheManager().emptyCache();
-                                        CacheServer().setSelectLine(Address.cdnAddress);
-                                        dispatch(FilmTvVideoDetailActionCreator.updateUI());
-                                      },
-                                    );
-                                  },
-                                )
                         ],
+                        unselectedLabelColor: Color(0xff9c9c9c),
+                        unselectedLabelStyle: TextStyle(fontSize: Dimens.pt14),
+                        labelColor: Colors.white,
+                        labelStyle: TextStyle(fontSize: Dimens.pt14, fontWeight: FontWeight.w500),
+                        labelPadding: EdgeInsets.symmetric(horizontal: 12),
+                        imagePath: "assets/images/tab_indicator.png",
                       ),
                     ),
+                    Expanded(child: SizedBox()),
+                    (TextUtil.isEmpty(state.domainInfo?.desc))
+                        ? SizedBox()
+                        : GestureDetector(
+                      child: Container(
+                          key: state.rightKey,
+                          margin: EdgeInsets.only(top: 2, right: 17),
+                          child: Row(
+                            children: [
+                              Text(
+                                "${state.domainInfo?.desc}",
+                                style: TextStyle(color: Color.fromRGBO(153, 153, 153, 1), fontSize: 12),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 2),
+                                child: Image.asset(
+                                  "assets/images/line_switch.png",
+                                  width: 12,
+                                  height: 12,
+                                ),
+                              )
+                            ],
+                          ) // 下拉按钮的文字
+                      ),
+                      onTap: () {
+                        AlertTool.showPopMenu(
+                          viewService.context,
+                          noTriangle: true,
+                          originKey: state.rightKey,
+                          itemHeight: 30,
+                          itemWidth: 80,
+                          type: PopWindowType.bottomRight,
+                          itemTitleColor: Colors.black,
+                          dividerColor: Colors.black.withOpacity(0.1),
+                          backgroundColor: Color.fromRGBO(34, 34, 34, 1),
+                          itemsData: state.listPopModel,
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromRGBO(46, 46, 46, 1),
+                              Color.fromRGBO(46, 46, 46, 1),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                          clickCallback: (index, model) async {
+                            Address.cdnAddress = Address.cdnAddressLists[index].url;
+                            Address.currentDomainInfo = Address.cdnAddressLists[index];
+                            state.domainInfo = Address.cdnAddressLists[index];
+                            CacheServer().addReqFilter(LOCAL_TS_FILTER, Address.cdnAddress);
+                            await VideoCacheManager().emptyCache();
+                            CacheServer().setSelectLine(Address.cdnAddress);
+                            dispatch(FilmTvVideoDetailActionCreator.updateUI());
+                          },
+                        );
+                      },
+                    )
+                  ],
+                ),
+              ),
               SizedBox(height: 6),
               state.tabController == null
                   ? Container()
                   : Flexible(
-                      child: Container(
-                        child: TabBarView(
-                          physics: GlobalStore.isVIP() ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
-                          controller: state.tabController,
-                          children: [
-                            FilmVideoIntroductionPage().buildPage({"viewModel": state.viewModel}),
-                            FilmVideoCommentPage().buildPage({"videoId": state.videoId}),
-                          ],
-                          dragStartBehavior: DragStartBehavior.down,
-                        ),
-                      ),
-                    ),
+                child: Container(
+                  child: TabBarView(
+                    physics: GlobalStore.isVIP() ? BouncingScrollPhysics() : NeverScrollableScrollPhysics(),
+                    controller: state.tabController,
+                    children: [
+                      state.viewModel ==null ? Center(child: LoadingWidget(color: Colors.transparent),) : FilmVideoIntroductionPage().buildPage({"viewModel": state.viewModel}),
+                      FilmVideoCommentPage().buildPage({"videoId": state.videoId}),
+                    ],
+                    dragStartBehavior: DragStartBehavior.down,
+                  ),
+                ),
+              ),
             ],
           ),
           Positioned(
-            right: 10,
-            bottom: 60,
             child: GestureDetector(
               child: Container(
-                width: 40,
-                height: 40,
+                width: 55,
+                height: 55,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: AppColors.primaryTextColor,
+                    gradient: LinearGradient(colors: [
+                      Color(0xff8ef9eb),
+                      Color.fromRGBO(0, 214, 190, 1),
+                    ]),
                     borderRadius: BorderRadius.all(Radius.circular(28))),
                 child: Text(
                   "返回",
-                  style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 12),
+                  style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 16),
                 ),
               ),
               onTap: () {
@@ -377,6 +381,8 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                 safePopPage();
               },
             ),
+            right: 10,
+            bottom: 55,
           )
         ],
       ));
@@ -387,31 +393,47 @@ Widget _createVodeo(FilmTvVideoDetailState state, Dispatch dispatch, BuildContex
   return Stack(
     alignment: Alignment.center,
     children: [
-      (state.videoInited == false || state.tabController == null || state.chewieController == null)
+      (state.videoInited == false || state.chewieController == null)
           ? Container(
+        width: screen.screenWidth,
+        height: screen.screenWidth / 1.78,
+        color: AppColors.videoBackgroundColor,
+        child: Stack(
+
+          alignment: AlignmentDirectional.center,
+
+          children: [
+
+            CustomNetworkImage(
+              imageUrl: state.viewModel.cover,
+              fit: BoxFit.cover,
               width: screen.screenWidth,
               height: screen.screenWidth / 1.78,
-              color: AppColors.videoBackgroundColor,
-              child: LoadingWidget(color: Colors.transparent),
-            )
-          : Container(
-              width: screen.screenWidth,
-              height: screen.screenWidth / 1.78,
-              alignment: Alignment.bottomCenter,
-              color: Colors.black,
-              child: Chewie(controller: state.chewieController),
             ),
+
+            LoadingWidget(color: Colors.transparent),
+
+          ],
+        ),
+      )
+          : Container(
+        width: screen.screenWidth,
+        height: screen.screenWidth / 1.78,
+        alignment: Alignment.bottomCenter,
+        color: Colors.black,
+        child: Chewie(controller: state.chewieController),
+      ),
       Positioned(
         top: 16,
         right: 16,
         child: (state.videoInited == false && (state.videoStatus == 0 || state.videoStatus == 4 || state.videoStatus == 5))
             ? Container()
             : _buildVideoStatus(
-                context,
-                dispatch,
-                state.videoStatus,
-                state.vStatusName,
-              ),
+          context,
+          dispatch,
+          state.videoStatus,
+          state.vStatusName,
+        ),
       ),
     ],
   );
@@ -425,7 +447,7 @@ GestureDetector _buildVideoStatus(BuildContext context, Dispatch dispatch, int v
     },
     child: Container(
       padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
-      decoration: BoxDecoration(color: AppColors.primaryTextColor, borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: Color.fromRGBO(0, 214, 190, 0.9), borderRadius: BorderRadius.circular(20)),
       child: Text(
         vStausName ?? "",
         style: TextStyle(color: Colors.white, fontSize: 12),
@@ -491,42 +513,42 @@ Widget _buildAdsUI(FilmTvVideoDetailState state, Dispatch dispatch, ViewService 
                   decoration: BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.5), borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: (state.countdownTime <= 0)
                       ? Row(
-                          children: [
-                            Text(
-                              '关闭',
-                              style: TextStyle(
-                                color: Color(0xffff7f0f),
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Row(
-                          children: [
-                            Text(
-                              ' ${state.countdownTime}秒后',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              state.isCanClose ? " 关闭" : '关闭',
-                              style: TextStyle(
-                                color: state.isCanClose ? Color(0xffff7f0f) : Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
-                            if (GlobalStore.isVIP() == false && state.isCanClose == false)
-                              Text(
-                                ' VIP跳过广告',
-                                style: TextStyle(
-                                  color: Color(0xffff7f0f),
-                                  fontSize: 12,
-                                ),
-                              ),
-                          ],
+                    children: [
+                      Text(
+                        '关闭',
+                        style: TextStyle(
+                          color: Color(0xffff7f0f),
+                          fontSize: 12,
                         ),
+                      ),
+                    ],
+                  )
+                      : Row(
+                    children: [
+                      Text(
+                        ' ${state.countdownTime}秒后',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        state.isCanClose ? " 关闭" : '关闭',
+                        style: TextStyle(
+                          color: state.isCanClose ? Color(0xffff7f0f) : Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                      if (GlobalStore.isVIP() == false && state.isCanClose == false)
+                        Text(
+                          ' VIP跳过广告',
+                          style: TextStyle(
+                            color: Color(0xffff7f0f),
+                            fontSize: 12,
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),

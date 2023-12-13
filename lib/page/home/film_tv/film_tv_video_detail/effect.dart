@@ -23,7 +23,6 @@ import 'package:flutter_app/new_page/recharge/recharge_gold_page.dart';
 import 'package:flutter_app/new_page/recharge/recharge_vip_page.dart';
 import 'package:flutter_app/new_page/welfare/SpecialWelfareHomePage.dart';
 import 'package:flutter_app/new_page/welfare/welfare_view_task.dart';
-import 'package:flutter_app/page/home/mine/history/history_record_util.dart';
 import 'package:flutter_app/page/home/post/vipPop_banner_widget.dart';
 import 'package:flutter_app/page/video/player_util.dart';
 import 'package:flutter_app/utils/analyticsEvent.dart';
@@ -79,13 +78,14 @@ Effect<FilmTvVideoDetailState> buildEffect() {
 
 ///请求视频信息
 void _initState(Action action, Context<FilmTvVideoDetailState> ctx) async {
+
+  ctx.state.tabController =
+      TabController(length: 2, vsync: ScrollableState());
+
   //如果当前是缓存视频
-  if ((ctx.state.isCacheVideo ?? false) && ctx.state.viewModel != null) {
+  if (ctx.state.viewModel != null) {
     await _adsCountdown(action, ctx);
     _initVideoPlayer(ctx);
-    ctx.state.tabController =
-        TabController(length: 2, vsync: ScrollableState());
-
     ctx.state.tabController.addListener(() {
       debugPrint("ewe23ewfefe");
     });
@@ -110,7 +110,7 @@ void _initState(Action action, Context<FilmTvVideoDetailState> ctx) async {
   for (int i = 0; i < Address.cdnAddressLists.length; i++) {
     DomainInfo domainInfo = Address.cdnAddressLists[i];
     PopModel popModel =
-        PopModel(name: domainInfo.desc, fontSize: Dimens.pt13, id: i);
+    PopModel(name: domainInfo.desc, fontSize: Dimens.pt13, id: i);
     ctx.state.listPopModel.add(popModel);
   }
   ctx.state.domainInfo = Address.currentDomainInfo;
@@ -118,8 +118,9 @@ void _initState(Action action, Context<FilmTvVideoDetailState> ctx) async {
 
   FBroadcast.instance().register(VariableConfig.refreshVideo, (value, callback) {
 
-
-    ctx.state.chewieController.pause();
+    if(ctx.state.chewieController != null){
+      ctx.state.chewieController.pause();
+    }
 
     ctx.state.videoInited = false;
 
@@ -131,24 +132,26 @@ void _initState(Action action, Context<FilmTvVideoDetailState> ctx) async {
 
     ctx.state.videoId = viewModel.id;
 
-    _refreshVideoDetail(action, ctx, isSwitchVideo: true);
+    _refreshVideoDetail(action, ctx, isSwitchVideo: true, newModel: value);
 
   });
 }
 
 ///刷新视频列表
 void _refreshVideoDetail(Action action, Context<FilmTvVideoDetailState> ctx,
-    {bool isSwitchVideo = false}) async {
+    {bool isSwitchVideo = false, VideoModel newModel}) async {
   try {
     String videoId = ctx.state.videoId ?? "";
-    if (videoId.isEmpty) {
+    if (videoId.isEmpty && newModel == null) {
       return;
     }
     ctx.state.baseRequestController?.requesting();
-    var data =
-        await netManager.client.getVideoDetail(videoId, ctx.state.sectionId);
-    if (data != null) {
-      ctx.state.viewModel = VideoModel.fromJson(data.toJson());
+    if(newModel == null) {
+      var data = await netManager.client.getVideoDetail(videoId, ctx.state.sectionId);
+      newModel =  VideoModel.fromJson(data.toJson());
+    }
+    if (newModel != null) {
+      ctx.state.viewModel = newModel;
       await _adsCountdown(action, ctx);
 
       if(isSwitchVideo){
@@ -175,6 +178,8 @@ void _refreshVideoDetail(Action action, Context<FilmTvVideoDetailState> ctx,
     } else {
       ctx.state.baseRequestController?.requestFail();
     }
+
+    ctx.dispatch(FilmTvVideoDetailActionCreator.updateUI());
   } catch (e) {
     l.e("getVideoDetail-error:", "$e");
     ctx.state.baseRequestController?.requestFail();
@@ -331,36 +336,38 @@ void _saveVideoHistoryCache(Context<FilmTvVideoDetailState> ctx) async {
 
 ///初始化视频播放器
 void _initVideoPlayer(
-  Context<FilmTvVideoDetailState> ctx, {
-  int inSeconds,
-}) async {
+    Context<FilmTvVideoDetailState> ctx, {
+      int inSeconds,
+    }) async {
   try {
-    _saveVideoHistoryCache(ctx);
+    // _saveVideoHistoryCache(ctx);
 
     ///播放次数判断
     await _playCount(ctx);
 
     String videoUrl = CacheServer().getLocalUrl(ctx.state.viewModel?.sourceURL);
     ctx.state.videoPlayerController = VideoPlayerController.network(videoUrl);
+    int curT =  DateTime.now().millisecondsSinceEpoch;
+
     await ctx.state.videoPlayerController?.initialize();
 
     ctx.state.chewieController = ChewieController(
       videoPlayerController: ctx.state.videoPlayerController,
       autoInitialize: true,
-      //autoPlay: true,
+      autoPlay: true,
       aspectRatio: isHorizontalVideo(
-              resolutionWidth(ctx.state.viewModel?.resolution),
-              resolutionHeight(ctx.state.viewModel?.resolution))
+          resolutionWidth(ctx.state.viewModel?.resolution),
+          resolutionHeight(ctx.state.viewModel?.resolution))
           ? 1.78
           : resolutionWidth(ctx.state.viewModel?.resolution) /
-              resolutionHeight(ctx.state.viewModel?.resolution),
+          resolutionHeight(ctx.state.viewModel?.resolution),
       looping: true,
       customControls: FilmVideoControls(),
       errorBuilder: (context, error) {
         return GestureDetector(
           onTap: () async {
             Duration inSeconds =
-                await ctx.state.videoPlayerController?.position;
+            await ctx.state.videoPlayerController?.position;
             l.e("controller-inSeconds:", "${inSeconds?.inSeconds}");
 
             ///重新开始播放
@@ -391,13 +398,21 @@ void _initVideoPlayer(
         );
       },
     );
-
+    ctx.dispatch(FilmTvVideoDetailActionCreator.updateUI());
     ///是否重载视频
     bool isReloadVideo = (inSeconds ?? 0) > 0;
 
     ctx.state.videoListener = () async {
       try {
         videoFinish(ctx);
+
+        if(ctx.state.videoPlayerController.value.position.inSeconds == 1){
+          if(!ctx.state.chewieController.isPlaying){
+            ctx.state.videoPlayerController.play();
+            ctx.state.chewieController.play();
+          }
+        }
+
       } catch (e) {}
       if (ctx.state.viewModel.watch.isFreeWatch) {
         return;
@@ -428,8 +443,10 @@ void _initVideoPlayer(
             isReloadVideo = false;
             l.e("判断已购买或者VIP视频，跳转到指定位置", "开始播放");
             //跳转到指定位置
-            ctx.state.videoPlayerController
-                ?.seekTo(Duration(seconds: inSeconds - 1));
+            //ctx.state.videoPlayerController?.seekTo(Duration(seconds: inSeconds - 1));
+
+            ctx.state.videoPlayerController?.seekTo(Duration(seconds: 0));
+
           }
         }
       }
@@ -439,8 +456,8 @@ void _initVideoPlayer(
           !ctx.state.viewModel.watch.isFreeWatch) {
         ///检查免费时间,是否需要弹出购买视频
         if ((ctx.state.videoPlayerController?.value?.position?.inSeconds ??
-                    0) >=
-                ctx.state.viewModel?.freeTime &&
+            0) >=
+            ctx.state.viewModel?.freeTime &&
             needBuyVideo(ctx.state.viewModel) &&
             !Config.videoId.contains(ctx.state.viewModel?.id)) {
           if (ctx.state.isStopPlayStatus ?? false) {
@@ -451,12 +468,12 @@ void _initVideoPlayer(
           ///弹出金币购买提示框
           l.d("--------->", "弹出金币购买提示框");
           // _showGoldcoinBuyDialog(ctx);
-          //海角社区逻辑
+          //妻友社区逻辑
           _hjllUpdateVideoBuyVideo(ctx);
         }
         if ((ctx.state.videoPlayerController?.value?.position?.inSeconds ??
-                    0) >=
-                ctx.state.viewModel?.freeTime &&
+            0) >=
+            ctx.state.viewModel?.freeTime &&
             needBuyVip(ctx.state.viewModel) &&
             !Config.videoId.contains(ctx.state.viewModel?.id)) {
           if (ctx.state.isStopPlayStatus ?? false) {
@@ -467,7 +484,7 @@ void _initVideoPlayer(
           ///弹出VIP购买弹出框
           l.d("--------->", "弹出VIP购买弹出框");
           // _showVipBuyDialog(ctx, false);
-          //海角社区逻辑
+          //妻友社区逻辑
           _hjllUpdateVideoBuyVip(ctx);
         }
       }
@@ -620,7 +637,7 @@ _hjllBuyVip(Action action, Context<FilmTvVideoDetailState> ctx) {
       VipPopUpsType.vip);
 }
 
-///海角社区购买金币视频
+///妻友社区购买金币视频
 _hjllBuyCoinVideo(Action action, Context<FilmTvVideoDetailState> ctx) async {
   bool buySuccess = await _buyProduct(ctx.context, ctx.state.viewModel);
   if (buySuccess) {
@@ -694,7 +711,7 @@ Future<bool> _buyProduct(BuildContext context, VideoModel videoModel) async {
     WBLoadingDialog.show(context);
 
     var result =
-        await netManager.client.postBuyVideo(productID, name, amount, 1);
+    await netManager.client.postBuyVideo(productID, name, amount, 1);
     l.e("购买视频返回数据", "$result");
     WBLoadingDialog.dismiss(context);
     GlobalStore.updateUserInfo(null);
@@ -821,10 +838,10 @@ void _onShowVipDialog(Context<FilmTvVideoDetailState> ctx) async {
     return Config.pops.length > 0
         ? _showVipPop(ctx)
         : showDialog(
-            context: ctx.context,
-            builder: (BuildContext context) {
-              return VipDialog();
-            });
+        context: ctx.context,
+        builder: (BuildContext context) {
+          return VipDialog();
+        });
   }, uniqueId: "VipDialog");
 
   l.e("——————>", "展示VIP 购买对话框返回结果：$result");
@@ -934,7 +951,7 @@ _showVipPop(ctx) {
         return Dialog(
           backgroundColor: Colors.white.withOpacity(0),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
           child: StatefulBuilder(builder: (context, states) {
             return Container(
               child: VipPopBannerWidget(
@@ -1153,13 +1170,10 @@ void _dispose(Action action, Context<FilmTvVideoDetailState> ctx) {
   ctx.state.chewieController?.dispose();
   ctx.state.timer?.cancel();
 
-  if (ctx.state.videoPlayerController?.value != null) {
+  if (ctx.state.videoPlayerController.value != null) {
     ///发送观看记录
     sendRecord(ctx.state.videoPlayerController.value.position,
         ctx.state.videoPlayerController.value.duration, ctx.state.viewModel);
-  }
-  if(ctx.state.viewModel != null) {
-    HistoryRecordUtil.insertVideoModel(ctx.state.viewModel);
   }
 }
 
@@ -1180,7 +1194,7 @@ Future _adsCountdown(Action action, Context<FilmTvVideoDetailState> ctx) async {
   ///获取广告
   List<AdsInfoBean> list = await getAdsByType(AdsType.freeVideo);
   List<AdsInfoBean> newList =
-      list?.where((it) => (it.duration ?? 0) > 0)?.toList();
+  list?.where((it) => (it.duration ?? 0) > 0)?.toList();
   ctx.state.adsList = newList;
   if (newList.isNotEmpty == true) {
     ctx.state.adsIndex = Random().nextInt(newList.length) % newList.length;
