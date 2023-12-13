@@ -114,7 +114,7 @@ class AppColors {
     Color.fromRGBO(137, 217, 255, 1),
   ];
 
-  static const buttonWeiBo = <Color>[Color.fromRGBO(132, 164, 249, 1), Color(0xffca452e)];
+  static const buttonWeiBo = <Color>[AppColors.primaryTextColor, AppColors.primaryTextColor,];
 
   static const buttonRed = <Color>[
     Color.fromRGBO(222, 173, 252, 1),
@@ -130,7 +130,7 @@ class AppColors {
   //   Color(0xFFFE7F0F),
   //   Color(0xFFEA8B25),
   // ];
-  static const vipSubmitBtnColors = <Color>[const Color(0xffca452e), const Color(0xffca452e),];
+  static const vipSubmitBtnColors = <Color>[AppColors.primaryTextColor, AppColors.primaryTextColor,];
 
   static const Color weiboJianPrimaryBackground = Color.fromRGBO(36, 36, 36, 1);
   static const Color weiboBackgroundColor = Color.fromRGBO(36, 36, 36, 1);
@@ -158,22 +158,19 @@ class AppColors {
   //   Color(0xFFffffff),
   // ];
   static const payBackgroundColors = <Color>[
-    Color(0xffca452e),
+    AppColors.primaryTextColor,
     Color.fromRGBO(255, 255, 255, 1),
   ];
 
 
-  /*static const linearBackGround = <Color>[
-    Color(0xffca452e),
-    Color(0xffca452e),
-  ];*/
+
 
   static LinearGradient linearBackGround =  LinearGradient(
     begin: Alignment.centerLeft,
       end: Alignment.centerRight,
       colors: [
-        Color(0xffca452e),
-    Color(0xffca452e),
+        AppColors.primaryTextColor,
+        AppColors.primaryTextColor,
   ]);
 
   static const Color withdrawsubTextColor = Color(0xFF7EA0BE);
