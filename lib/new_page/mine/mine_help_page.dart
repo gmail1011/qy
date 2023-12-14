@@ -61,6 +61,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("=========> ${list.isNotEmpty}");
     return FullBg(
       child: Scaffold(
           appBar: CustomAppbar(title: "意见反馈"),
@@ -186,16 +187,20 @@ class _MineHelpPageState extends State<MineHelpPage> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Visibility(
-                                  visible: list.length > 0,
-                                  child: Row(
-                                      children: list.map((e) =>
-                                          ImageLoader.withP(
-                                                  ImageType.IMAGE_FILE,
-                                                  address: e,
-                                                  width: 111,
-                                                  height: 111)
-                                              .load()))),
+                             if(list.isNotEmpty)
+                               Row(
+                                   children:list.map((e) =>
+                                       Container(
+                                         width: 111,
+                                         height: 111,
+                                         child:ImageLoader.withP(
+                                             ImageType.IMAGE_FILE,
+                                             address: e,
+                                             width: 111,
+                                             height: 111)
+                                             .load(),
+                                       )).toList()),
+
                               InkWell(
                                 onTap: () {
                                   _selectImage();
@@ -375,7 +380,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
   }
 
   Future<List<String>> _selectImage() async {
-    list = await _pickImg(1);
+    list.addAll(await _pickImg(1));
     if (ArrayUtil.isEmpty(list) || list.length < 1) {
       showToast(msg: Lang.PLEASE_THREE_UP_PHOTO, gravity: ToastGravity.CENTER);
       return [];
@@ -414,6 +419,11 @@ class _MineHelpPageState extends State<MineHelpPage> {
       loadingWidget.cancel();
       if (result != null && result == "success") {
         showToast(msg: "提交成功～");
+        list.clear();
+        for(TextEditingController controller in controllerList){
+          controller.clear();
+        }
+        controller.clear();
         setState(() {});
         GlobalStore.refreshWallet();
       } else {
@@ -427,5 +437,6 @@ class _MineHelpPageState extends State<MineHelpPage> {
       loadingWidget.cancel();
       showToast(msg: e.toString());
     }
+
   }
 }
