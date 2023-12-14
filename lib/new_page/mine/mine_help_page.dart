@@ -1,8 +1,23 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/assets/app_colors.dart';
+import 'package:flutter_app/assets/lang.dart';
+import 'package:flutter_app/common/net2/net_manager.dart';
+import 'package:flutter_app/common/tasks/multi_image_upload_task.dart';
+import 'package:flutter_app/global_store/store.dart';
 import 'package:flutter_app/new_page/mine/floating_cs_view.dart';
+import 'package:flutter_app/widget/LoadingWidget.dart';
 import 'package:flutter_app/widget/appbar/custom_appbar.dart';
+import 'package:flutter_app/widget/dialog/confirm_dialog.dart';
 import 'package:flutter_app/widget/full_bg.dart';
+import 'package:flutter_base/flutter_base.dart';
+import 'package:flutter_base/utils/array_util.dart';
+import 'package:flutter_base/utils/log.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_pickers/image_pickers.dart';
 
 ///帮助反馈
 class MineHelpPage extends StatefulWidget {
@@ -14,10 +29,7 @@ class MineHelpPage extends StatefulWidget {
 
 class _MineHelpPageState extends State<MineHelpPage> {
   TextEditingController controller;
-  TextEditingController controller1 = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  TextEditingController controller3 = TextEditingController();
-  TextEditingController controller4 = TextEditingController();
+  List<TextEditingController> controllerList= [TextEditingController(),TextEditingController(),TextEditingController(),TextEditingController()];
   List questionTitleList = [
     {"question": "充值提现问题？", "index": "0"},
     {"question": "观看使用问题", "index": "1"},
@@ -161,6 +173,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
                       ),
                       SizedBox(height: 12),
                       InkWell(
+                        onTap: (){_selectImage();},
                         child: Container(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 51, 51, 51)),
@@ -205,6 +218,43 @@ class _MineHelpPageState extends State<MineHelpPage> {
           )),
     );
   }
+  ///选择图片
+  Future<List<String>> _pickImg(int needCount) async {
+    List<String> ret = [];
+    var listMedia = await ImagePickers.pickerPaths(
+      uiConfig: UIConfig(uiThemeColor: AppColors.primaryColor),
+      galleryMode: GalleryMode.image,
+      selectCount: needCount,
+      showCamera: true,
+    );
+    if (ArrayUtil.isEmpty(listMedia)) return ret;
+
+    if (Platform.isAndroid) {
+      for (var index = 0; index < listMedia.length; index++) {
+        var path = listMedia[index].path;
+        if (path != null) {
+          ret.add(path);
+        }
+      }
+    } else {
+      for (var index = 0; index < listMedia.length; index++) {
+        var path = listMedia[index].path;
+        var file = File(path);
+        var size = await file.readAsBytes();
+        //大于300kb的图需要压缩
+        if ((size.length / 1024) > 300) {
+          var compressFile = await FlutterNativeImage.compressImage(path, percentage: 40, quality: 50);
+          path = compressFile.path;
+        }
+        if (path != null) {
+          ret.add(path);
+        } else {
+          showToast(msg: "添加图片失败");
+        }
+      }
+    }
+    return ret;
+  }
 
   Widget _getItem(context, item) {
     return Container(
@@ -221,13 +271,30 @@ class _MineHelpPageState extends State<MineHelpPage> {
                    fontWeight: FontWeight.w700,
                    fontSize: 16.0),
              ),),
-              Text(
-                item["hitText"] ?? "",
-                style: const TextStyle(
-                    color: const Color(0xff808080),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.0),
-              ),
+                  TextField(
+                    maxLines: 1,
+                    keyboardType: TextInputType.text,
+                    autofocus: true,
+                    autocorrect: true,
+                    textInputAction: TextInputAction.search,
+                    cursorColor: Colors.white,
+                    textAlign: TextAlign.left,
+                    controller: controllerList[int.parse(item["index"])],
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                    onChanged: (text) {
+
+                    },
+                    onSubmitted: (text) {
+                      // _onExChangeCode();
+                    },
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 4.0, horizontal: 10),
+                        hintText:item["hitText"] ?? "",
+                        hintStyle: TextStyle(color: Color(0xff434c55))),
+                  )
+
             ]),
             SizedBox(height: 9,),
             Divider(
@@ -262,5 +329,59 @@ class _MineHelpPageState extends State<MineHelpPage> {
         ],
       ),
     );
+  }
+
+  Future<List<String>> _selectImage() async {
+    var list = await _pickImg(1);
+    if (ArrayUtil.isEmpty(list) || list.length < 1) {
+      showToast(msg: Lang.PLEASE_THREE_UP_PHOTO, gravity: ToastGravity.CENTER);
+      return [];
+    }
+    _submitAiImage(list);
+  }
+  Future<List<String>>  _submitAiImage(List<String> path) async {
+    if (path.isEmpty) {
+      showConfirm(context, title: "提示", content: "请选择图片");
+      //VipRankAlert.show(context, type: VipAlertType.ai);
+      return [];
+    }
+
+    LoadingWidget loadingWidget = LoadingWidget();
+    int price = 0;
+    List<String> picList=[];
+    if(controller.text.isEmpty) {
+      showToast(msg: "请填写反馈内容");
+    }
+    loadingWidget.show(context);
+    try {
+      var multiImageModel = await taskManager.addTaskToQueue(MultiImageUploadTask(path), (progress, {msg, isSuccess}) {
+        l.e("progress", "$progress");
+      });
+      //   showToast(msg: "图片上传成功～");
+      picList = multiImageModel?.filePath ?? [];
+      String content=controller.text??"";
+      String location="";
+      String device="";
+      String carrier="";
+      List<String> img=[];
+      String contact="";
+      String fType="";
+      var result = await netManager.client.feedbackMutil(content,location,device,carrier,img,contact,fType);
+      loadingWidget.cancel();
+      if (result != null && result == "success") {
+        showToast(msg: "提交成功～");
+        setState(() {});
+        GlobalStore.refreshWallet();
+      } else {
+        showToast(msg: "提交失败:$result");
+      }
+    } on DioError catch (e) {
+      loadingWidget.cancel();
+      var error = e.error;
+      showToast(msg: error.message);
+    } catch (e) {
+      loadingWidget.cancel();
+      showToast(msg: e.toString());
+    }
   }
 }
