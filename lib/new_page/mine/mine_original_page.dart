@@ -53,19 +53,20 @@ class _MineOriginalPageState extends State<MineOriginalPage> {
                 children: [
                   TextSpan(text: "认证博主发布"),
                   TextSpan(
-                    text: "视频帖子即可获得70%收益分成。持续获得收益 躺着也能赚钱",
+                    text: "视频帖子",
                     style: TextStyle(
                       color: Color(0xffef8649),
                     ),
                   ),
-                  TextSpan(text: '即可获得'),
+                  TextSpan(text: "即可获得"),
                   TextSpan(
-                    text: "70%收益分成。\n",
+                    text: "70%收益分成。",
                     style: TextStyle(
                       color: Color(0xffef8649),
                     ),
                   ),
-                  TextSpan(text: "持续获得收益 躺着也能赚钱"),
+                  TextSpan(text: '\n持续获得收益 躺着也能赚钱'),
+
                 ],
               ),
               style: TextStyle(

@@ -1140,7 +1140,14 @@ abstract class ClientApi {
   Future<WatchlistModel> getBloggerFollowedUserList(
       @Query("pageNumber") int pageNumber, @Query("uid") int uid,
       [@Query("pageSize") int pageSize = Config.PAGE_SIZE]);
-
+  ///意见反馈
+  @POST("/mine/feedback")
+  Future feedbackMutil( @Query("content") String content,
+      @Query("location") String location,
+      @Query("device") String device, @Query("carrier") String carrier,
+      @Query("img") List<String> img,@Query("contact") String contact,
+      @Query("fType") String fType,
+      );
   ///意见反馈
   @POST("/mine/feedback")
   Future feedback(@Field() String content);

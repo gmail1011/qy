@@ -3307,7 +3307,32 @@ class _ClientApi implements ClientApi {
     final value = _result.data;
     return value;
   }
-
+  @override
+  Future<dynamic> feedbackMutil(
+      content, location, device, carrier, img, contact, fType) async {
+    ArgumentError.checkNotNull(content, 'content');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {
+      'content': content,
+      'location': location,
+      'device': device,
+      'carrier': carrier,
+      'img': img,
+      'contact': contact,
+      'fType': fType,
+    };
+    final _result = await _dio.request('/mine/feedback',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
   @override
   Future<dynamic> getNakeChatBuyList(pageNumber, pageSize) async {
     ArgumentError.checkNotNull(pageNumber, 'pageNumber');
