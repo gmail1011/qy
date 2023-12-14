@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/assets/lang.dart';
+import 'package:flutter_app/common/image/image_loader.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
 import 'package:flutter_app/common/tasks/multi_image_upload_task.dart';
 import 'package:flutter_app/global_store/store.dart';
@@ -29,6 +30,7 @@ class MineHelpPage extends StatefulWidget {
 
 class _MineHelpPageState extends State<MineHelpPage> {
   TextEditingController controller;
+  List<String> list = [];
   List<TextEditingController> controllerList = [
     TextEditingController(),
     TextEditingController(),
@@ -177,19 +179,40 @@ class _MineHelpPageState extends State<MineHelpPage> {
                             fontSize: 14.0),
                       ),
                       SizedBox(height: 12),
-                      InkWell(
-                        onTap: () {
-                          _selectImage();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 51, 51, 51)),
-                          width: 111,
-                          height: 111,
-                          child: Icon(
-                            Icons.add,
-                            size: 30,
-                            color: Colors.white,
+                      Container(
+                        height: 111,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Visibility(
+                                  visible: list.length > 0,
+                                  child: Row(
+                                      children: list.map((e) =>
+                                          ImageLoader.withP(
+                                                  ImageType.IMAGE_FILE,
+                                                  address: e,
+                                                  width: 111,
+                                                  height: 111)
+                                              .load()))),
+                              InkWell(
+                                onTap: () {
+                                  _selectImage();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 51, 51, 51)),
+                                  width: 111,
+                                  height: 111,
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -202,21 +225,26 @@ class _MineHelpPageState extends State<MineHelpPage> {
                             fontSize: 12.0),
                       ),
                       SizedBox(height: 59),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 45),
-                        decoration: BoxDecoration(
-                            color: AppColors.primaryTextColor,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(40))),
-                        width: double.maxFinite,
-                        height: 44,
-                        alignment: Alignment.center,
-                        child: Text(
-                          "提交意见",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
+                      InkWell(
+                        onTap: () {
+                          _submitAiImage(list);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 45),
+                          decoration: BoxDecoration(
+                              color: AppColors.primaryTextColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(40))),
+                          width: double.maxFinite,
+                          height: 44,
+                          alignment: Alignment.center,
+                          child: Text(
+                            "提交意见",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
                       )
                     ],
@@ -308,7 +336,6 @@ class _MineHelpPageState extends State<MineHelpPage> {
                       hintStyle: TextStyle(color: Color(0xff434c55))),
                 ),
               )
-
             ]),
             SizedBox(
               height: 9,
@@ -348,12 +375,12 @@ class _MineHelpPageState extends State<MineHelpPage> {
   }
 
   Future<List<String>> _selectImage() async {
-    var list = await _pickImg(1);
+    list = await _pickImg(1);
     if (ArrayUtil.isEmpty(list) || list.length < 1) {
       showToast(msg: Lang.PLEASE_THREE_UP_PHOTO, gravity: ToastGravity.CENTER);
       return [];
     }
-    _submitAiImage(list);
+    setState(() {});
   }
 
   Future<List<String>> _submitAiImage(List<String> path) async {
@@ -362,9 +389,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
       //VipRankAlert.show(context, type: VipAlertType.ai);
       return [];
     }
-
     LoadingWidget loadingWidget = LoadingWidget();
-    int price = 0;
     List<String> picList = [];
     if (controller.text.isEmpty) {
       showToast(msg: "请填写反馈内容");
