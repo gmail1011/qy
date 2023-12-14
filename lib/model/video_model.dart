@@ -251,6 +251,7 @@ class VideoModel {
     return "观看"+((playCount > 10000) ? (playCount / 10000).toStringAsFixed(1) + "万" : playCount.toString())+"人";
   }
 
+
   String get playCountDescTwo {
     if (playCount == null) return "";
     return ((playCount > 10000) ? (playCount / 10000).toStringAsFixed(1) + "万" : playCount.toString())+"播放";
@@ -270,6 +271,10 @@ class VideoModel {
     return (playCount > 10000) ? (playCount / 10000).toStringAsFixed(1) + "w" : playCount.toString();
   }
 
+  String get commentCountDesc {
+    if (commentCount == null) return "";
+    return (commentCount > 10000) ? (commentCount / 10000).toStringAsFixed(1) + "w" : commentCount.toString();
+  }
   static VideoModel fromJson(Map<String, dynamic> map) {
     if (map == null) return null;
     VideoModel dataBean = VideoModel();
