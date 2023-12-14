@@ -43,7 +43,7 @@ class _SystemMsgPageState extends State<SystemMsgPage> {
 
   Future _loadData({int page = 1}) async {
     try {
-      dynamic commonPostRes = await netManager.client.getSystemMessage(1, 10);
+      dynamic commonPostRes = await netManager.client.getSystemMessage(page, 10);
       MessageListData messageListData = MessageListData().fromJson(commonPostRes);
       xList ??= [];
       if (page == 1) {

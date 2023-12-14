@@ -8,7 +8,9 @@ import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/image/custom_network_image_new.dart';
 import 'package:flutter_app/common/manager/cs_manager.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
+import 'package:flutter_app/page/home_msg/question_answ_page.dart';
 import 'package:flutter_app/page/home_msg/system_msg_page.dart';
+import 'package:flutter_app/page/home_msg/topic_discuss_page.dart';
 import 'package:flutter_app/utils/utils.dart';
 import 'package:flutter_app/weibo_page/message/message_detail/MessageDetailPage.dart';
 import 'package:flutter_app/weibo_page/message/message_list_entity.dart';
@@ -195,55 +197,64 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
   }
 
   Widget _buildMenuItem(int index, String title, String desc, Color bgColor, String imagePath) {
-    return Container(
-      height: 90,
-      padding: EdgeInsets.fromLTRB(12, 12, 10, 12),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(height: 1),
-                Text(
-                  desc,
-                  maxLines: 1,
-                  style: TextStyle(
-                    color: Color(0xffcccccc),
-                    fontSize: 12,
-                  ),
-                ),
-                Spacer(),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(color: Colors.white.withOpacity(0.8), borderRadius: BorderRadius.circular(20)),
-                  child: Text(
-                    index == 0 ? "立即测试" : "前往群聊",
+    return GestureDetector(
+      onTap: (){
+        if(index == 0){
+          pushToPage(QuestionAnswPage());
+        }else {
+          pushToPage(TopicDiscussPage());
+        }
+      },
+      child: Container(
+        height: 90,
+        padding: EdgeInsets.fromLTRB(12, 12, 10, 12),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
                     style: TextStyle(
-                      color: Color(0xff333333),
-                      fontSize: 10,
+                      color: Colors.white,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 1),
+                  Text(
+                    desc,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Color(0xffcccccc),
+                      fontSize: 12,
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    decoration: BoxDecoration(color: Colors.white.withOpacity(0.8), borderRadius: BorderRadius.circular(20)),
+                    child: Text(
+                      index == 0 ? "立即测试" : "前往群聊",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(width: 10),
-          Image.asset(imagePath, width: 60),
-        ],
+            SizedBox(width: 10),
+            Image.asset(imagePath, width: 60),
+          ],
+        ),
       ),
     );
   }
