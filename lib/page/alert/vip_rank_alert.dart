@@ -104,8 +104,8 @@ class _VipRankAlertState extends State<VipRankAlert> {
               borderRadius: BorderRadius.circular(10),
               gradient: LinearGradient(
                 colors: [
-                  AppColors.primaryTextColor,
-                  Colors.white,
+                  Color(0xff2e2e2e),
+                  Color(0xff2e2e2e),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -117,22 +117,14 @@ class _VipRankAlertState extends State<VipRankAlert> {
                   titleText,
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Container(
                   height: 1,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black.withOpacity(0),
-                        Colors.black,
-                        Colors.black.withOpacity(0),
-                      ],
-                    ),
-                  ),
+                  color: Colors.white.withOpacity(0.1),
                 ),
                 SizedBox(height: 28 * scale),
                 _buildDescText(scale),
@@ -172,7 +164,7 @@ class _VipRankAlertState extends State<VipRankAlert> {
         style: TextStyle(
           fontSize: 18 * scale,
           fontWeight: FontWeight.w500,
-          color: Colors.black,
+          color: Colors.white,
         ),
       ),
     );
@@ -224,7 +216,7 @@ class _VipRankAlertState extends State<VipRankAlert> {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(42 * scale / 2),
-              color: Colors.black.withOpacity(0.2)
+              color: Colors.white.withOpacity(0.3)
             ),
             child: Text(
               "稍后再说",
