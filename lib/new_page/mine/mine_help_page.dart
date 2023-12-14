@@ -360,12 +360,12 @@ class _MineHelpPageState extends State<MineHelpPage> {
       //   showToast(msg: "图片上传成功～");
       picList = multiImageModel?.filePath ?? [];
       String content=controller.text??"";
-      String location="";
-      String device="";
-      String carrier="";
-      List<String> img=[];
-      String contact="";
-      String fType="";
+      String location=controllerList[0].text??"";
+      String device=controllerList[1].text??"";
+      String carrier=controllerList[2].text??"";
+      List<String> img=picList;
+      String contact=controllerList[3].text??"";
+      String fType="img";
       var result = await netManager.client.feedbackMutil(content,location,device,carrier,img,contact,fType);
       loadingWidget.cancel();
       if (result != null && result == "success") {
