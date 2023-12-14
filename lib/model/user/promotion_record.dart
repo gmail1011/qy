@@ -39,14 +39,17 @@ class Promotion {
   String name;
   String bindPhone;
   String createAt;
+  String coverImg;
 
-  Promotion({this.userId, this.name, this.bindPhone, this.createAt});
+  Promotion({this.userId, this.name, this.bindPhone, this.createAt,this.coverImg});
 
   Promotion.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
     name = json['name'];
     bindPhone = json['bindPhone'];
     createAt = json['createAt'];
+    coverImg = json['coverImg'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +58,7 @@ class Promotion {
     data['name'] = this.name;
     data['bindPhone'] = this.bindPhone;
     data['createAt'] = this.createAt;
+    data['coverImg'] = this.coverImg;
     return data;
   }
 }

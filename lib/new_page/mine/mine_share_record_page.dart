@@ -6,6 +6,7 @@ import 'package:flutter_app/model/user/promotion_record.dart';
 import 'package:flutter_app/utils/date_time_util.dart';
 import 'package:flutter_app/widget/appbar/custom_appbar.dart';
 import 'package:flutter_app/widget/common_widget/base_request_view.dart';
+import 'package:flutter_app/widget/common_widget/header_widget.dart';
 import 'package:flutter_app/widget/common_widget/ys_pull_refresh.dart';
 import 'package:flutter_app/widget/full_bg.dart';
 import 'package:flutter_base/utils/log.dart';
@@ -100,17 +101,6 @@ class _MineShareRecordPageState extends State<MineShareRecordPage> {
       body: BaseRequestView(
         controller: requestController,
         child: Column(children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Row(
-              children: [
-                _buildT1View(1, "用户ID"),
-                // _buildT1View(1, "手机号"),
-                _buildT1View(1, "用户名"),
-                _buildT1View(1, "时间"),
-              ],
-            ),
-          ),
           Expanded(
             child: Container(
               margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -129,6 +119,7 @@ class _MineShareRecordPageState extends State<MineShareRecordPage> {
                       itemBuilder: (BuildContext context, int index) {
                         return _buildItemView(index, dataList[index]);
                       })),
+
             ),
           ),
         ]),
@@ -141,10 +132,23 @@ class _MineShareRecordPageState extends State<MineShareRecordPage> {
       height: 20,
       child: Row(
         children: [
-          _buildT2View(1, "${item.userId}"),
+          HeaderWidget(
+            headPath: item?.coverImg ?? "",
+            level: 0,
+            headWidth: 38,
+            headHeight: 38,
+            levelSize: 14,
+            positionedSize: 0,
+            defaultHead: Image.asset(
+              "assets/weibo/loading_normal.png",
+              width: 38,
+              height: 38,
+              fit: BoxFit.cover,
+            ),
+          ),
           _buildT2View(1, item.name),
           // _buildT2View(1, "已激活"),
-          _buildT2View(1, DateTimeUtil.utc2iso(item.createAt)),
+          _buildT2View(1, "注册时间:  ${DateTimeUtil.utc2isoYMD(item.createAt)}"),
         ],
       ),
     );
