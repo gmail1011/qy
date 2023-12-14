@@ -41,69 +41,72 @@ class _TopicDiscussPageState extends State<TopicDiscussPage> {
           ),
         ),
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(16, 10, 8, 10),
-                  child: Image.asset(
-                    "assets/images/video_back.png",
-                    width: 24,
-                    height: 24,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(0, 10, 8, 0),
+                    child: Image.asset(
+                      "assets/images/video_back.png",
+                      width: 24,
+                      height: 24,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 18),
-              Text(
-                "#海角知识课堂#",
-                style: TextStyle(
-                  color: Color(0xff3867f6),
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 18),
-              Container(
-                alignment: Alignment.topCenter,
-                child: Image.asset(
-                  "assets/images/topic_title.png",
-                  width: 24,
-                  height: 24,
-                ),
-              ),
-              SizedBox(height: 16),
-              Container(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  "每周五18:00更新",
+                SizedBox(height: 18),
+                Text(
+                  "#海角知识课堂#",
                   style: TextStyle(
                     color: Color(0xff3867f6),
                     fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-              SizedBox(height: 12),
-              Expanded(
-                child: pullYsRefresh(
-                  refreshController: refreshController,
-                  onRefresh: _loadData,
-                  enablePullUp: false,
-                  child: ListView.builder(
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.only(bottom: 12),
-                        child: TopicInfoCell(),
-                      );
-                    },
+                SizedBox(height: 18),
+                Container(
+                  alignment: Alignment.topCenter,
+                  child: Image.asset(
+                    "assets/images/topic_title.png",
+                    width: 200,
+                    height: 37,
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 16),
+                Container(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    "每周五18:00更新",
+                    style: TextStyle(
+                      color: Color(0xff3867f6),
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12),
+                Expanded(
+                  child: pullYsRefresh(
+                    refreshController: refreshController,
+                    onRefresh: _loadData,
+                    enablePullUp: false,
+                    child: ListView.builder(
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: TopicInfoCell(),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

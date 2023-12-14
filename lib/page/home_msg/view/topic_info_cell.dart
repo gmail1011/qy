@@ -60,12 +60,14 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
     double imageHeight =  90;
     double imageWidth =  160;
     return Container(
-      color: Colors.white.withOpacity(0.8),
       padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Column(
         children: [
           SizedBox(
-            width: imageWidth,
             height: imageHeight,
             child: Row(
               children: [
@@ -131,7 +133,10 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
             height: 28,
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: 12),
-            color: AppColors.primaryTextColor.withOpacity(0.2),
+            decoration: BoxDecoration(
+              color: AppColors.primaryTextColor.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(5),
+            ),
             child: Row(
               children: [
                 SizedBox(width: 10),
