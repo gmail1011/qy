@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
@@ -98,6 +99,7 @@ class _SystemMsgPageState extends State<SystemMsgPage> {
           return Container(
             color: Color(0xff242424),
             padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
+            margin: EdgeInsets.only(bottom: 12),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,9 +111,9 @@ class _SystemMsgPageState extends State<SystemMsgPage> {
                     fontSize: 14,
                   ),
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: 6),
                 Text(
-                  formatTime(model.createdAt),
+                  formatTimeThree(model.createdAt),
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.6),
                     fontSize: 12,

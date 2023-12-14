@@ -322,19 +322,22 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
 
   Widget _buildMessageCell(int index) {
     bool isSysMsgType = isSystemMsg(index);
-    MessageListDataList model = xList[chatMsgIndex(index)];
+    MessageListDataList model;
     if(isSysMsgType){
       model = systemMsgModel.xList.first;
+    }else if(xList.isNotEmpty == true){
+      model = xList[chatMsgIndex(index)];
     }
-    String imageUrl = isSysMsgType ? "" : model.userAvatar;
-    String userName = isSysMsgType ? "系统消息": model.userName;
-    String createTime =  model.createdAt;
-    String descText = isSysMsgType ?  model.content : model.preContent;
-    int readNum = isSysMsgType ?  systemMsgModel.unread : model.noReadNum;
+    String imageUrl = isSysMsgType ? "" : model?.userAvatar;
+    String userName = isSysMsgType ? "系统消息": model?.userName;
+    String createTime =  model?.createdAt;
+    String descText = isSysMsgType ?  model?.content : model?.preContent;
+    int readNum = isSysMsgType ?  systemMsgModel.unread : model?.noReadNum;
     return GestureDetector(
       onTap: () async {
         if(isSysMsgType){
             pushToPage(SystemMsgPage(systemMsgModel: systemMsgModel));
+            return;
         }
         Loadings.LoadingWidget loadings = new Loadings.LoadingWidget(
           title: "正在加载...",
@@ -370,7 +373,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
                     GestureDetector(
                       onTap: () {
                         Map<String, dynamic> arguments = {
-                          'uid': xList[index].userId,
+                          'uid': model.userId,
                           'uniqueId': DateTime.now().toIso8601String(),
                         };
                         pushToPage(BloggerPage(arguments));
@@ -394,7 +397,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
                   SizedBox(width: 6),
                   Spacer(),
                   Text(
-                    formatTime(createTime),
+                    formatTimeThree(createTime),
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xff999999),

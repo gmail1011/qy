@@ -269,7 +269,7 @@ String formatTime(String _utcTime) {
   return "";
 }
 
-String formatTimeTwo(String _utcTime) {
+String formatTimeTwo(String _utcTime, {String formats}) {
   if(_utcTime == null) {
     return "";
   }
@@ -308,8 +308,37 @@ String formatTimeTwo(String _utcTime) {
   if (year > 0 && year < 12) {
     return "$year年前";
   }
-  return DateUtil.formatDate(date, format: DateFormats.y_mo_d);
+  return DateUtil.formatDate(date, format: formats ?? DateFormats.y_mo_d);
 }
+
+String formatTimeThree(String _utcTime) {
+  if(_utcTime == null) {
+    return "";
+  }
+  var now = DateTime.now();
+  var date = DateTime.parse(_utcTime).toLocal();
+  int changeTime =
+      (now.millisecondsSinceEpoch - date.millisecondsSinceEpoch) ~/ 1000; //秒
+
+  final int s = changeTime;
+  if (s >= 0 && s < 60) {
+    return "刚刚";
+  }
+  final int m = s ~/ 60;
+  if (m > 0 && m < 60) {
+    return "$m分钟前";
+  }
+  final int h = m ~/ 60;
+  if (h > 0 && h < 24) {
+    return "$h小时前";
+  }
+  final int d = h ~/ 24;
+  if (d > 0 && d < 7) {
+    return "$d天前";
+  }
+  return DateUtil.formatDate(date, format: DateFormats.y_mo_d_h_m);
+}
+
 
 /// 保存数据到相册
 Future<bool> savePngDataToAblumn(Uint8List pngBytes) async {
