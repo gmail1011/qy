@@ -29,7 +29,12 @@ class MineHelpPage extends StatefulWidget {
 
 class _MineHelpPageState extends State<MineHelpPage> {
   TextEditingController controller;
-  List<TextEditingController> controllerList= [TextEditingController(),TextEditingController(),TextEditingController(),TextEditingController()];
+  List<TextEditingController> controllerList = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
   List questionTitleList = [
     {"question": "充值提现问题？", "index": "0"},
     {"question": "观看使用问题", "index": "1"},
@@ -148,7 +153,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
                             // _onExChangeCode();
                           },
                           decoration: InputDecoration(
-                             border: InputBorder.none,
+                              border: InputBorder.none,
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 20.0, horizontal: 10),
                               hintText:
@@ -173,7 +178,9 @@ class _MineHelpPageState extends State<MineHelpPage> {
                       ),
                       SizedBox(height: 12),
                       InkWell(
-                        onTap: (){_selectImage();},
+                        onTap: () {
+                          _selectImage();
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 51, 51, 51)),
@@ -188,7 +195,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
                       ),
                       SizedBox(height: 12),
                       Text(
-                         "以方便我们给您回复,有效的改进建议,有惊喜赠送哟!",
+                        "以方便我们给您回复,有效的改进建议,有惊喜赠送哟!",
                         style: const TextStyle(
                             color: const Color(0xff808080),
                             fontWeight: FontWeight.w400,
@@ -198,17 +205,19 @@ class _MineHelpPageState extends State<MineHelpPage> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 45),
                         decoration: BoxDecoration(
-                          color: AppColors.primaryTextColor,
-                          borderRadius: BorderRadius.all(Radius.circular(40))
-                        ),
-                        width:double.maxFinite,
+                            color: AppColors.primaryTextColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40))),
+                        width: double.maxFinite,
                         height: 44,
                         alignment: Alignment.center,
-                        child: Text("提交意见",style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600
-                        ),),
+                        child: Text(
+                          "提交意见",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600),
+                        ),
                       )
                     ],
                   ),
@@ -218,6 +227,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
           )),
     );
   }
+
   ///选择图片
   Future<List<String>> _pickImg(int needCount) async {
     List<String> ret = [];
@@ -243,7 +253,8 @@ class _MineHelpPageState extends State<MineHelpPage> {
         var size = await file.readAsBytes();
         //大于300kb的图需要压缩
         if ((size.length / 1024) > 300) {
-          var compressFile = await FlutterNativeImage.compressImage(path, percentage: 40, quality: 50);
+          var compressFile = await FlutterNativeImage.compressImage(path,
+              percentage: 40, quality: 50);
           path = compressFile.path;
         }
         if (path != null) {
@@ -261,42 +272,47 @@ class _MineHelpPageState extends State<MineHelpPage> {
         margin: EdgeInsets.only(top: 20),
         child: Column(
           children: [
-            Row(crossAxisAlignment: CrossAxisAlignment.start,
-
-                children: [
-             Container(width: 110,child:  Text(
-               item["question"],
-               style: const TextStyle(
-                   color: const Color(0xffc6c6c6),
-                   fontWeight: FontWeight.w700,
-                   fontSize: 16.0),
-             ),),
-                  TextField(
-                    maxLines: 1,
-                    keyboardType: TextInputType.text,
-                    autofocus: true,
-                    autocorrect: true,
-                    textInputAction: TextInputAction.search,
-                    cursorColor: Colors.white,
-                    textAlign: TextAlign.left,
-                    controller: controllerList[int.parse(item["index"])],
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                    onChanged: (text) {
-
-                    },
-                    onSubmitted: (text) {
-                      // _onExChangeCode();
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 4.0, horizontal: 10),
-                        hintText:item["hitText"] ?? "",
-                        hintStyle: TextStyle(color: Color(0xff434c55))),
-                  )
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Container(
+                width: 110,
+                child: Text(
+                  item["question"],
+                  style: const TextStyle(
+                      color: const Color(0xffc6c6c6),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.0),
+                ),
+              ),
+              Container(
+                width: 100,
+                height: 35,
+                child: TextField(
+                  maxLines: 1,
+                  keyboardType: TextInputType.text,
+                  autofocus: true,
+                  autocorrect: true,
+                  textInputAction: TextInputAction.search,
+                  cursorColor: Colors.white,
+                  textAlign: TextAlign.left,
+                  controller: controllerList[int.parse(item["index"])],
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                  onChanged: (text) {},
+                  onSubmitted: (text) {
+                    // _onExChangeCode();
+                  },
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 10),
+                      hintText: item["hitText"] ?? "",
+                      hintStyle: TextStyle(color: Color(0xff434c55))),
+                ),
+              )
 
             ]),
-            SizedBox(height: 9,),
+            SizedBox(
+              height: 9,
+            ),
             Divider(
               height: 1,
               color: Colors.white.withOpacity(0.2),
@@ -339,7 +355,8 @@ class _MineHelpPageState extends State<MineHelpPage> {
     }
     _submitAiImage(list);
   }
-  Future<List<String>>  _submitAiImage(List<String> path) async {
+
+  Future<List<String>> _submitAiImage(List<String> path) async {
     if (path.isEmpty) {
       showConfirm(context, title: "提示", content: "请选择图片");
       //VipRankAlert.show(context, type: VipAlertType.ai);
@@ -348,25 +365,27 @@ class _MineHelpPageState extends State<MineHelpPage> {
 
     LoadingWidget loadingWidget = LoadingWidget();
     int price = 0;
-    List<String> picList=[];
-    if(controller.text.isEmpty) {
+    List<String> picList = [];
+    if (controller.text.isEmpty) {
       showToast(msg: "请填写反馈内容");
     }
     loadingWidget.show(context);
     try {
-      var multiImageModel = await taskManager.addTaskToQueue(MultiImageUploadTask(path), (progress, {msg, isSuccess}) {
+      var multiImageModel = await taskManager.addTaskToQueue(
+          MultiImageUploadTask(path), (progress, {msg, isSuccess}) {
         l.e("progress", "$progress");
       });
       //   showToast(msg: "图片上传成功～");
       picList = multiImageModel?.filePath ?? [];
-      String content=controller.text??"";
-      String location=controllerList[0].text??"";
-      String device=controllerList[1].text??"";
-      String carrier=controllerList[2].text??"";
-      List<String> img=picList;
-      String contact=controllerList[3].text??"";
-      String fType="img";
-      var result = await netManager.client.feedbackMutil(content,location,device,carrier,img,contact,fType);
+      String content = controller.text ?? "";
+      String location = controllerList[0].text ?? "";
+      String device = controllerList[1].text ?? "";
+      String carrier = controllerList[2].text ?? "";
+      List<String> img = picList;
+      String contact = controllerList[3].text ?? "";
+      String fType = "img";
+      var result = await netManager.client.feedbackMutil(
+          content, location, device, carrier, img, contact, fType);
       loadingWidget.cancel();
       if (result != null && result == "success") {
         showToast(msg: "提交成功～");
