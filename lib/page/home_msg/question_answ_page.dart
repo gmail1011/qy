@@ -4,10 +4,12 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/assets/app_colors.dart';
+import 'package:flutter_app/page/home_msg/view/question_result_alert.dart';
 import 'package:flutter_app/page/home_msg/view/question_view.dart';
 import 'package:flutter_app/widget/common_widget/common_widget.dart';
 import 'package:flutter_app/widget/common_widget/error_widget.dart';
 import 'package:flutter_app/widget/common_widget/loading_widget.dart';
+import 'package:flutter_base/utils/screen.dart';
 
 class QuestionAnswPage extends StatefulWidget {
   @override
@@ -21,13 +23,24 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
 
   PageController pageController = PageController();
 
-
-  bool  get isLastPage => false;
+  int get allCount => 10;
+  bool  get isLastPage{
+    if(pageController?.hasClients == true){
+      if((pageController.offset + 50) >= screen.screenWidth * (allCount - 1)){
+        return true;
+      }
+    }
+    return false;
+  }
 
 
   @override
   void initState() {
     super.initState();
+    pageController.addListener(() {
+      setState(() {
+      });
+    });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _loadData();
     });
@@ -40,17 +53,17 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
     return Scaffold(
       appBar: getCommonAppBar("题目"),
       body: Container(
-        padding: EdgeInsets.fromLTRB(16, 24, 16, 16),
+        padding: EdgeInsets.fromLTRB(0, 24, 0, 16),
         child: Column(
           children: [
             Expanded(
               child: PageView.builder(
                 controller: pageController,
-                itemCount: 10,
+                itemCount: allCount,
                 itemBuilder: (context, index) {
                   return QuestionView(
                     index: index,
-                    allCount: 10,
+                    allCount: allCount,
                   );
                 },
               ),
@@ -58,14 +71,16 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
             SizedBox(height: 16),
             Container(
               height: 44,
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
                   Expanded(
                     flex: 136,
                     child: GestureDetector(
                       onTap: (){
-                        int preIndex = (pageController.page - 1).toInt();
-                        pageController.jumpToPage(min(0, preIndex));
+                        double offset = pageController.offset;
+                        offset = offset - screen.screenWidth;
+                        pageController.jumpTo(max(0, offset));
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -88,7 +103,13 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
                     flex: 195,
                     child: GestureDetector(
                       onTap: (){
-
+                        if(isLastPage){
+                          QuestionResultAlert.show(context, type: 1, descText: "1231231312323");
+                        }else {
+                          double offset = pageController.offset;
+                          offset = offset + screen.screenWidth;
+                          pageController.jumpTo(min(screen.screenWidth*allCount, offset));
+                        }
                       },
                       child: Container(
                         alignment: Alignment.center,

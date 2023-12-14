@@ -28,93 +28,99 @@ class _QuestionViewState extends State<QuestionView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(1),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: LinearGradient(
-          colors: [
-            Colors.white.withOpacity(0.6),
-            Colors.black.withOpacity(0),
-          ],
-        ),
-      ),
+      alignment: Alignment.topCenter,
       child: Container(
-        padding: EdgeInsets.fromLTRB(16, 24, 16, 16),
+        padding: EdgeInsets.all(1),
+        margin: EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Color(0xff242424),
+          gradient: LinearGradient(
+            colors: [
+              Colors.white.withOpacity(0.6),
+              Colors.black.withOpacity(0),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              children: [
-                Text(
-                  widget.index.toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(width: 6),
-                Text(
-                  "/${widget.allCount}",
-                  style: TextStyle(
-                    color: Color(0xff999999),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              height: 6,
-              decoration: BoxDecoration(
-                color: AppColors.primaryTextColor.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(3),
-              ),
-              child: Row(
+        child: Container(
+          padding: EdgeInsets.fromLTRB(16, 24, 16, 16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Color(0xff242424),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
                 children: [
-                  Expanded(
-                    flex: widget.index,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryTextColor,
-                        borderRadius: BorderRadius.circular(3),
-                      ),
+                  Text(
+                    (widget.index + 1).toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  if (widget.allCount - widget.index > 0)
-                    Expanded(
-                      flex: widget.allCount - widget.index,
-                      child: SizedBox(),
+                  SizedBox(width: 6),
+                  Text(
+                    "/${widget.allCount}",
+                    style: TextStyle(
+                      color: Color(0xff999999),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
                     ),
+                  ),
                 ],
               ),
-            ),
-            SizedBox(height: 28),
-            Text(
-              "这是海角官方发送的讨论话题离开家绿卡发动机来说领导看见风口浪尖了历史的开房记录独立空间?",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                height: 1.6,
+              Container(
+                height: 6,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryTextColor.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: widget.index + 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryTextColor,
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                      ),
+                    ),
+                    if (widget.allCount - widget.index > 1)
+                      Expanded(
+                        flex: widget.allCount - widget.index,
+                        child: SizedBox(),
+                      ),
+                  ],
+                ),
               ),
-            ),
-            _buildTopicItem("A.文字描述，文字描述，肯德基", false),
-            _buildTopicItem("B.文字描述，文字描述，肯德基看交换空间卡来开房记录的是恐惧了空间了空间", false),
-            _buildTopicItem("A.文字描述，文字描述，肯德基", false),
-          ],
+              SizedBox(height: 28),
+              Text(
+                "这是海角官方发送的讨论话题离开家绿卡发动机来说领导看见风口浪尖了历史的开房记录独立空间?",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  height: 1.6,
+                ),
+              ),
+              SizedBox(height: 18),
+              _buildTopicItem("A.文字描述，文字描述，肯德基", false),
+              _buildTopicItem("B.文字描述，文字描述，肯德基看交换空间卡来开房记录的是恐惧了空间了空间", true),
+              _buildTopicItem("A.文字描述，文字描述，肯德基", false),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  //question_selected.png
   Widget _buildTopicItem(String title, bool isSelected) {
     return Container(
       margin: EdgeInsets.only(bottom: 12),
@@ -141,7 +147,7 @@ class _QuestionViewState extends State<QuestionView> {
               bottom: 0,
               right: 0,
               child: Image.asset(
-                "assets/images/isSelected.png",
+                "assets/images/question_selected.png",
                 width: 26,
                 height: 18,
               ),
