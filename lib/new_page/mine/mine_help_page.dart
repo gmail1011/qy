@@ -329,7 +329,9 @@ class _MineHelpPageState extends State<MineHelpPage> {
                   textAlign: TextAlign.left,
                   controller: controllerList[int.parse(item["index"])],
                   style: TextStyle(color: Colors.white, fontSize: 14),
-                  onChanged: (text) {},
+                  onChanged: (text) {
+
+                  },
                   onSubmitted: (text) {
                     // _onExChangeCode();
                   },
@@ -417,7 +419,7 @@ class _MineHelpPageState extends State<MineHelpPage> {
       var result = await netManager.client.feedbackMutil(
           content, location, device, carrier, img, contact, fType);
       loadingWidget.cancel();
-      if (result != null && result == "success") {
+      if (result != null && result["msg"] == "success") {
         showToast(msg: "提交成功～");
         list.clear();
         for(TextEditingController controller in controllerList){
