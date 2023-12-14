@@ -4,6 +4,7 @@ import 'package:flutter_app/model/video_model.dart';
 import 'ads_model.dart';
 
 class DomainSourceModel {
+  bool customerService;
   AdsBean ads;
   List<String> domain;
   List<SourceBean> source;
@@ -41,6 +42,7 @@ class DomainSourceModel {
   static DomainSourceModel fromJson(Map<String, dynamic> map) {
     if (map == null) return null;
     DomainSourceModel domainSourceModelBean = DomainSourceModel();
+    domainSourceModelBean.customerService = map['customerService'];
     if (map.containsKey('ads')) {
       domainSourceModelBean.ads = AdsBean.fromMap(map['ads']);
     }

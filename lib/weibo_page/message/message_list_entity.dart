@@ -14,6 +14,8 @@ class MessageListData with JsonConvert<MessageListData> {
 	bool hasNext;
 	@JSONField(name: "list")
 	List<MessageListDataList> xList;
+	int total;
+	int unread;
 }
 
 class MessageListDataList with JsonConvert<MessageListDataList> {
@@ -27,4 +29,8 @@ class MessageListDataList with JsonConvert<MessageListDataList> {
 	int noReadNum;
 	String preContent;
 	String createdAt;
+	String content;
+	String title;
+	int contentType;
+	bool isRead;
 }

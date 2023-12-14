@@ -505,6 +505,7 @@ Future<List<CheckVersionBean>> _getRemoteConfig(
       Config.followNewsStatus = domainSourceModel.followNewsStatus;
       Config.messageNewsStatus = domainSourceModel.messageNewsStatus;
       Config.sendMsgPrice = domainSourceModel.sendMsgPrice;
+      Config.customerService = domainSourceModel.customerService;
       domainSourceModel.ads.adsInfoList.forEach((element) {
         if (element.position == 0) {
           Config.splashAds = element;

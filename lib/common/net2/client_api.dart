@@ -2090,6 +2090,8 @@ abstract class ClientApi {
   // sysType  设备类型. android或ios
   Future<dynamic> recreationList(String id,String type);
 
+  Future<dynamic>  getSystemMessage(int pageNumber, int pageSize);
+
 }
 
 //执行脚本

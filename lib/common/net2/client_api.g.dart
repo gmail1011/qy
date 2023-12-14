@@ -5736,5 +5736,24 @@ class _ClientApi implements ClientApi {
     return HappyModel.fromJson(value);
   }
 
+  Future<dynamic>  getSystemMessage(int pageNumber, int pageSize) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      "pageNumber": pageNumber,
+      "pageSize": pageSize,
+    };
+    final _data = {};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('/msg/system',
+        queryParameters: queryParameters,
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
 
 }

@@ -1,9 +1,14 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/config/config.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
+import 'package:flutter_app/common/image/custom_network_image_new.dart';
+import 'package:flutter_app/common/manager/cs_manager.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
+import 'package:flutter_app/page/home_msg/system_msg_page.dart';
 import 'package:flutter_app/utils/utils.dart';
 import 'package:flutter_app/weibo_page/message/message_detail/MessageDetailPage.dart';
 import 'package:flutter_app/weibo_page/message/message_list_entity.dart';
@@ -27,6 +32,47 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
   RefreshController refreshController = RefreshController();
   int pageNumber = 1;
   List<MessageListDataList> xList;
+  MessageListData systemMsgModel;
+
+  int get allCount {
+    int count = (xList.length ?? 0);
+    if (Config.customerService != false) {
+      count++;
+    }
+    if (systemMsgModel?.xList?.isNotEmpty == true) {
+      count++;
+    }
+    return count;
+  }
+
+  int chatMsgIndex(int index) {
+    int count = index;
+    if (Config.customerService != false) {
+      count--;
+    }
+    if (systemMsgModel?.xList?.isNotEmpty == true) {
+      count--;
+    }
+    return min(0, count);
+  }
+
+  bool isSystemMsg(int index) {
+    if (systemMsgModel?.xList?.isNotEmpty == true && index == 0) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isKefu(int index) {
+    if (Config.customerService != false) {
+      if (systemMsgModel?.xList?.isNotEmpty == true && index == 1) {
+        return true;
+      } else if (index == 0) {
+        return true;
+      } else {}
+    }
+    return false;
+  }
 
   @override
   void initState() {
@@ -36,13 +82,19 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
     });
   }
 
-  Future _loadAllMsg() async{
-    _loadSystemMsg();
+  Future _loadAllMsg() async {
+    await _loadSystemMsg();
     _loadPersonalMessage();
   }
 
-  Future _loadSystemMsg () async{
-
+  Future _loadSystemMsg() async {
+    try {
+      dynamic commonPostRes = await netManager.client.getSystemMessage(1, 10);
+      systemMsgModel = MessageListData().fromJson(commonPostRes);
+    } catch (e) {
+      debugLog(e);
+    }
+    setState(() {});
   }
 
   Future _loadPersonalMessage({int page = 1}) async {
@@ -114,12 +166,12 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
   }
 
   Widget _buildListContent() {
-    if(xList == null){
+    if (xList == null) {
       return LoadingCenterWidget();
-    }else if(xList?.isNotEmpty != true){
+    } else if (allCount == 0) {
       return CErrorWidget(
         "暂无数据",
-        retryOnTap: (){
+        retryOnTap: () {
           xList = null;
           setState(() {});
           _loadAllMsg();
@@ -129,10 +181,13 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
     return pullYsRefresh(
       refreshController: refreshController,
       onRefresh: _loadAllMsg,
-      onLoading:() => _loadPersonalMessage(page: pageNumber + 1),
+      onLoading: () => _loadPersonalMessage(page: pageNumber + 1),
       child: ListView.builder(
-        itemCount: xList.length,
+        itemCount: allCount,
         itemBuilder: (context, index) {
+          if (isKefu(index)) {
+            return _buildKefuCell();
+          }
           return _buildMessageCell(index);
         },
       ),
@@ -193,121 +248,205 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
     );
   }
 
-  Widget _buildMessageCell(int index) {
-    MessageListDataList messageListDataList = xList[index];
+  Widget _buildKefuCell() {
     return GestureDetector(
       onTap: () async {
+        csManager.openServices(context);
+      },
+      child: Container(
+        color: Colors.transparent,
+        margin: EdgeInsets.only(bottom: 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 40,
+              child: Row(
+                children: [
+                  Image.asset(
+                    "assets/images/kefu_logo.png",
+                    width: 40,
+                    height: 40,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    "在线客服",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Spacer(),
+                  Text(
+                    "",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xff999999),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 18,
+              margin: EdgeInsets.only(left: 50),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      "",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xff999999),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                ],
+              ),
+            ),
+            SizedBox(height: 8),
+            Container(
+              margin: EdgeInsets.only(left: 50),
+              height: 1,
+              color: Color(0xff333333),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMessageCell(int index) {
+    bool isSysMsgType = isSystemMsg(index);
+    MessageListDataList model = xList[chatMsgIndex(index)];
+    if(isSysMsgType){
+      model = systemMsgModel.xList.first;
+    }
+    String imageUrl = isSysMsgType ? "" : model.userAvatar;
+    String userName = isSysMsgType ? "系统消息": model.userName;
+    String createTime =  model.createdAt;
+    String descText = isSysMsgType ?  model.content : model.preContent;
+    int readNum = isSysMsgType ?  systemMsgModel.unread : model.noReadNum;
+    return GestureDetector(
+      onTap: () async {
+        if(isSysMsgType){
+            pushToPage(SystemMsgPage(systemMsgModel: systemMsgModel));
+        }
         Loadings.LoadingWidget loadings = new Loadings.LoadingWidget(
           title: "正在加载...",
         );
         loadings.show(context);
-        dynamic videoss = await netManager.client.getSessionId(messageListDataList.userId);
+        dynamic videoss = await netManager.client.getSessionId(model.userId);
         loadings.cancel();
         MessageListDataList message = new MessageListDataList();
-        message.userId = messageListDataList.userId;
-        message.takeUid = messageListDataList.userId;
-        message.userAvatar = messageListDataList.userAvatar;
+        message.userId = model.userId;
+        message.takeUid = model.userId;
+        message.userAvatar = model.userAvatar;
         message.sessionId = videoss;
-        message.userName = messageListDataList.userName;
+        message.userName = model.userName;
         pushToPage(MessageDetailPage(message));
       },
       child: Container(
-          color: Colors.transparent,
-          margin: EdgeInsets.only(left: 6, right: 6, bottom: 19),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
+        color: Colors.transparent,
+        margin: EdgeInsets.only(bottom: 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 40,
+              child: Row(
                 children: [
-                  Stack(
-                    children: [
-                      GestureDetector(
-                        child: ClipOval(
-                          child: CustomNetworkImage(
-                            fit: BoxFit.cover,
-                            width: 48,
-                            height: 48,
-                            imageUrl: xList[index].userAvatar ?? "",
-                          ),
-                        ),
-                        onTap: () {
-                          Map<String, dynamic> arguments = {
-                            'uid': xList[index].userId,
-                            'uniqueId': DateTime.now().toIso8601String(),
-                          };
-                          pushToPage(BloggerPage(arguments));
-                        },
+                  if (isSysMsgType)
+                    Image.asset(
+                      "assets/images/system_msg_logo.png",
+                      width: 40,
+                      height: 40,
+                    )
+                  else
+                    GestureDetector(
+                      onTap: () {
+                        Map<String, dynamic> arguments = {
+                          'uid': xList[index].userId,
+                          'uniqueId': DateTime.now().toIso8601String(),
+                        };
+                        pushToPage(BloggerPage(arguments));
+                      },
+                      child: CustomNetworkImageNew(
+                        fit: BoxFit.cover,
+                        width: 40,
+                        height: 40,
+                        imageUrl: imageUrl,
+                        radius: 24,
                       ),
-                      Positioned(
-                          top: 0,
-                          right: 0,
-                          child: Visibility(
-                            visible: xList[index].noReadNum > 0 ? true : false,
-                            child: ClipOval(
-                              child: Container(
-                                width: 18,
-                                height: 18,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  xList[index].noReadNum.toString(),
-                                  style: TextStyle(color: Colors.white, fontSize: 10),
-                                ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                    Color.fromRGBO(247, 131, 97, 1),
-                                    Color.fromRGBO(245, 75, 100, 1),
-                                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-                                ),
-                              ),
-                            ),
-                          )),
-                    ],
-                  ),
+                    ),
                   SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              xList[index].userName,
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
-                            ),
-                            SizedBox(
-                              width: 6,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          xList[index].preContent,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xffadadad),
-                          ),
-                        ),
-                      ],
+                  Text(
+                    userName,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
                     ),
                   ),
+                  SizedBox(width: 6),
+                  Spacer(),
                   Text(
-                    formatTime(xList[index].createdAt),
-                    style: TextStyle(fontSize: 12, color: Color(0xffadadad)),
+                    formatTime(createTime),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xff999999),
+                    ),
                   ),
                 ],
               ),
-              SizedBox(height: 8),
-              Container(
-                margin: EdgeInsets.only(left: 58),
-                height: 1,
-                color: Color(0xff333333),
+            ),
+            Container(
+              height: 18,
+              margin: EdgeInsets.only(left: 50),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      descText,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xff999999),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  if (readNum > 0)
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: Color(0xffea336c),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        readNum.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                ],
               ),
-            ],
-          )
+            ),
+            SizedBox(height: 8),
+            Container(
+              margin: EdgeInsets.only(left: 50),
+              height: 1,
+              color: Color(0xff333333),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -39,6 +39,12 @@ messageListDataFromJson(MessageListData data, Map<String, dynamic> json) {
 	if (json['hasNext'] != null) {
 		data.hasNext = json['hasNext'];
 	}
+	if (json['total'] != null) {
+		data.total = json['total'];
+	}
+	if (json['unread'] != null) {
+		data.unread = json['unread'];
+	}
 	if (json['list'] != null) {
 		data.xList = (json['list'] as List).map((v) => MessageListDataList().fromJson(v)).toList();
 	}
@@ -87,6 +93,18 @@ messageListDataListFromJson(MessageListDataList data, Map<String, dynamic> json)
 	}
 	if (json['preContent'] != null) {
 		data.preContent = json['preContent'].toString();
+	}
+	if (json['content'] != null) {
+		data.content = json['content'];
+	}
+	if (json['title'] != null) {
+		data.title = json['title'];
+	}
+	if (json['contentType'] != null) {
+		data.contentType = json['contentType'];
+	}
+	if (json['isRead'] != null) {
+		data.isRead = json['isRead'];
 	}
 	if (json['createdAt'] != null) {
 		data.createdAt = json['createdAt'].toString();

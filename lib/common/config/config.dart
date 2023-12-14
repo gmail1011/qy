@@ -26,7 +26,7 @@ class Config {
   static bool isAbleClickProductBuy = true;
 
   static const PROXY_URL = "PROXY 192.168.1.150:8888";
-
+  static bool customerService = true;
   static String dataBuriedPoint = ""; // "/api/embed/prd/dataAdd";
   // 打开cdn源站 避免访问平凡无法测试的情况
   static const OPEN_SOURCE = false;
@@ -128,7 +128,8 @@ class Config {
           //"http://hjht.cestalt.com",
 
          // "http://163.53.216.122:9932",
-          "http://163.53.216.122:9491",
+         // "http://163.53.216.122:9491",
+          "https://hj2024.cestalt.com",
         ]
       : [
           "https://dz699omw530y9.cloudfront.net",
