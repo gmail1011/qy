@@ -137,7 +137,7 @@ class _TopicDiscussPageState extends State<TopicDiscussPage> {
       return pullYsRefresh(
         refreshController: refreshController,
         onRefresh: _loadData,
-        enablePullUp: false,
+        onLoading: () => _loadData(page: pageNumber + 1),
         child: ListView.builder(
           itemCount: dataModel.length ?? 0,
           itemBuilder: (context, index) {

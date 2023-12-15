@@ -51,7 +51,7 @@ class ActivityModel{
   String img;
   ActivityJoin join;
   ActivityModel.fromJson(Map<String, dynamic> json) {
-    json = {};
+    json ??= {};
     id = json['id'];
     img = json['img'];
     title = json['title'];
@@ -72,7 +72,7 @@ class ActivityJoin{
 
 
   ActivityJoin.fromJson(Map<String, dynamic> json) {
-    json = {};
+    json ??= {};
     link = json['link'];
     desc = json['desc'];
   }
