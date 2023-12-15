@@ -213,17 +213,9 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
               ),
               const SizedBox(height: 18),
               Container(
+                height: (343 / 68) * (screen.screenWidth - 16*2) + 13,
                 child: Stack(
                   children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      child: Image.asset(
-                        "assets/images/imply_text.png",
-                        width: 72,
-                        height: 26,
-                      ),
-                    ),
                     Positioned(
                       top: 13,
                       left: 0,
@@ -232,6 +224,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                         aspectRatio: 343 / 68,
                         child: Container(
                           alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(12, 4, 12, 0),
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage("assets/images/bord_yellow_bg.png"),
@@ -247,6 +240,15 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                             ),
                           ),
                         ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: Image.asset(
+                        "assets/images/imply_text.png",
+                        width: 72,
+                        height: 26,
                       ),
                     ),
                   ],
