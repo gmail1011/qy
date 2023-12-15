@@ -5781,4 +5781,42 @@ class _ClientApi implements ClientApi {
     return value;
   }
 
+  Future<dynamic>  getTopicList(int pageNumber, int pageSize)async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      "pageNumber": pageNumber,
+      "pageSize": pageSize,
+    };
+    final _data = {};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('/topic/list',
+        queryParameters: queryParameters,
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
+
+  Future<dynamic>  getTopicDetail(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      "id": id,
+    };
+    final _data = {};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('/topic/getByID',
+        queryParameters: queryParameters,
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
 }

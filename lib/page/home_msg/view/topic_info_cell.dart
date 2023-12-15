@@ -9,13 +9,13 @@ import 'package:flutter_app/assets/svg.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/image/custom_network_image_new.dart';
 import 'package:flutter_app/global_store/store.dart';
+import 'package:flutter_app/model/activity_response.dart';
 import 'package:flutter_app/model/video_model.dart';
 import 'package:flutter_app/utils/svg_util.dart';
 import 'package:flutter_app/widget/time_helper.dart';
 
 class TopicInfoCell extends StatefulWidget {
-  final VideoModel videoModel;
-
+  final ActivityModel videoModel;
 
   TopicInfoCell({
     Key key,
@@ -34,31 +34,19 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
     super.initState();
   }
 
-  VideoModel get realModel {
-    VideoModel realModel;
+  ActivityModel get realModel {
+    ActivityModel realModel;
     if (widget.videoModel != null) {
       realModel = widget.videoModel;
     }
-    realModel ??= VideoModel();
+    realModel ??= ActivityModel();
     return realModel;
-  }
-
-  String get tagDesc {
-    String tagText = "";
-    for (int i = 0; i < (realModel.tags.length ?? 0) && i < 3; i++) {
-      if (i == 0) {
-        tagText = realModel.tags[i].name;
-      } else {
-        tagText += "、" + realModel.tags[i].name;
-      }
-    }
-    return tagText;
   }
 
   @override
   Widget build(BuildContext context) {
-    double imageHeight =  90;
-    double imageWidth =  160;
+    double imageHeight = 90;
+    double imageWidth = 160;
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -79,7 +67,7 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
                     children: [
                       Container(
                         child: CustomNetworkImageNew(
-                          imageUrl: realModel.cover ?? "",
+                          imageUrl: realModel.img ?? "",
                           fit: BoxFit.cover,
                           width: imageHeight,
                           height: imageHeight,
@@ -100,7 +88,7 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        realModel?.title ?? "-----",
+                        realModel?.title ?? "",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -110,16 +98,16 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
                         ),
                       ),
                       Text(
-                        "@${realModel.publisher?.name}",
+                        "@${realModel.desc}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Color(0xff666666), fontSize: 12),
                       ),
                       Row(
                         children: [
-                          _buildCountItem(realModel.playCountDescFive, "assets/images/"),
+                          _buildCountItem(realModel.playCountDesc, "assets/images/play_grey.png"),
                           SizedBox(width: 18),
-                          _buildCountItem(realModel.commentCountDesc, "assets/images/"),
+                          _buildCountItem(realModel.commentDesc, "assets/images/comment_grey.png"),
                         ],
                       ),
                     ],
@@ -139,13 +127,21 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
             ),
             child: Row(
               children: [
+                Image.asset(
+                  "assets/images/blue_char.png",
+                  width: 14,
+                  height: 14,
+                ),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    "----------",
+                    realModel.commentDesc,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Color(0xff333333), fontSize: 12),
+                    style: TextStyle(
+                      color: Color(0xff333333),
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ],
@@ -156,21 +152,22 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
     );
   }
 
-  Widget _buildBottomData(VideoModel model) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.black.withOpacity(0.6),
-      ),
-      child: Text(
-        TimeHelper.getTimeText(model?.playTime?.toDouble() ?? 0),
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 10,
-        ),
-      ),
-    );
+  Widget _buildBottomData(ActivityModel model) {
+    return SizedBox();
+    // return Container(
+    //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.circular(16),
+    //     color: Colors.black.withOpacity(0.6),
+    //   ),
+    //   child: Text(
+    //     TimeHelper.getTimeText(model?.playTime?.toDouble() ?? 0),
+    //     style: TextStyle(
+    //       color: Colors.white,
+    //       fontSize: 10,
+    //     ),
+    //   ),
+    // );
   }
 
   Widget _buildCountItem(String text, String imagePath) {

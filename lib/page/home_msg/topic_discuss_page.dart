@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/net2/net_manager.dart';
+import 'package:flutter_app/model/activity_response.dart';
 import 'package:flutter_app/page/home_msg/view/topic_info_cell.dart';
 import 'package:flutter_app/widget/common_widget/common_widget.dart';
 import 'package:flutter_app/widget/common_widget/error_widget.dart';
 import 'package:flutter_app/widget/common_widget/loading_widget.dart';
 import 'package:flutter_app/widget/common_widget/ys_pull_refresh.dart';
+import 'package:flutter_base/utils/log.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TopicDiscussPage extends StatefulWidget {
@@ -15,8 +18,9 @@ class TopicDiscussPage extends StatefulWidget {
 }
 
 class _TopicDiscussPageState extends State<TopicDiscussPage> {
-  var dataModel;
+  List<ActivityModel> dataModel;
   RefreshController refreshController = RefreshController();
+  int pageNumber = 1;
   @override
   void initState() {
     super.initState();
@@ -25,9 +29,28 @@ class _TopicDiscussPageState extends State<TopicDiscussPage> {
     });
   }
 
-  void _loadData() async {
+  void _loadData({int page = 1}) async {
 
-    refreshController?.refreshCompleted();
+    try {
+      dynamic response = await netManager.client.getTopicList(page, 10);
+      ActivityResponse messageListData = ActivityResponse.fromJson(response);
+      dataModel ??= [];
+      if (page == 1) {
+        dataModel.clear();
+      }
+      pageNumber = page;
+      dataModel.addAll(messageListData.list ?? []);
+      if (messageListData.hasNext == true) {
+        refreshController.loadComplete();
+      } else {
+        refreshController.loadNoData();
+      }
+    } catch (e) {
+      dataModel ??= [];
+      debugLog(e);
+    }
+    refreshController.refreshCompleted();
+    setState(() {});
   }
 
   @override
@@ -89,22 +112,7 @@ class _TopicDiscussPageState extends State<TopicDiscussPage> {
                   ),
                 ),
                 SizedBox(height: 12),
-                Expanded(
-                  child: pullYsRefresh(
-                    refreshController: refreshController,
-                    onRefresh: _loadData,
-                    enablePullUp: false,
-                    child: ListView.builder(
-                      itemCount: 3,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          padding: EdgeInsets.only(bottom: 12),
-                          child: TopicInfoCell(),
-                        );
-                      },
-                    ),
-                  ),
-                ),
+                Expanded(child: _buildContent()),
               ],
             ),
           ),
@@ -116,7 +124,7 @@ class _TopicDiscussPageState extends State<TopicDiscussPage> {
   Widget _buildContent() {
     if (dataModel == null) {
       return LoadingCenterWidget();
-    } else if (dataModel == null) {
+    } else if (dataModel?.isEmpty == true) {
       return CErrorWidget(
         "暂无数据",
         retryOnTap: () {
@@ -126,7 +134,20 @@ class _TopicDiscussPageState extends State<TopicDiscussPage> {
         },
       );
     } else {
-      return Container();
+      return pullYsRefresh(
+        refreshController: refreshController,
+        onRefresh: _loadData,
+        enablePullUp: false,
+        child: ListView.builder(
+          itemCount: dataModel.length ?? 0,
+          itemBuilder: (context, index) {
+            return Container(
+              padding: EdgeInsets.only(bottom: 12),
+              child: TopicInfoCell(videoModel: dataModel[index],),
+            );
+          },
+        ),
+      );
     }
   }
 }
