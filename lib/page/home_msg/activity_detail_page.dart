@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
+import 'package:flutter_app/common/image/custom_network_image_new.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
 import 'package:flutter_app/common/tasks/multi_image_upload_task.dart';
 import 'package:flutter_app/model/activity_response.dart';
@@ -37,19 +38,20 @@ class ActivityDetailPage extends StatefulWidget {
 }
 
 class _ActivityDetailPageState extends State<ActivityDetailPage> {
-  ActivityModel model;
+  ActivityModel activityModel;
   bool isSending = false;
   RefreshController controller = RefreshController();
   List<CommentModel> commentList;
   int pageNumber = 1;
   TextEditingController _textEditingController = TextEditingController();
   FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _loadData(widget.id ?? "");
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
       _loadUpdateData();
+      await _loadData(widget.id ?? "");
       _getCommentList();
     });
   }
@@ -63,24 +65,24 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
     }
   }
 
-  void _loadData(String id) async {
+  Future _loadData(String id) async {
     try {
       var response = await netManager.client.getTopicDetail(id);
       if (response is Map) {
-        model = ActivityModel.fromJson(response as Map<String, dynamic>);
+        activityModel = ActivityModel.fromJson(response as Map<String, dynamic>);
       }
     } catch (e) {
       debugLog(e);
     }
-    model ??= ActivityModel();
+    activityModel ??= ActivityModel();
     setState(() {});
   }
 
-  Future<bool> _getCommentList({int page = 1, int size = 10}) async {
-    String objID = model?.id;
+  Future _getCommentList({int page = 1, int size = 10}) async {
+    String objID = activityModel?.id ?? "";
     String curTime = DateTimeUtil.format2utc(DateTime.now()) ?? "";
     try {
-      CommentListRes commentListRes = await netManager.client.getCommentList(objID, curTime, page, size, objType:1);
+      CommentListRes commentListRes = await netManager.client.getCommentList(objID, curTime, page, size, objType: 1);
       commentList ??= [];
       pageNumber = page;
       if (page == 1) {
@@ -131,7 +133,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
       for (Media assetEntity in mediaList) {
         imagePaths.add(assetEntity.path);
       }
-      if(imagePaths.isEmpty){
+      if (imagePaths.isEmpty) {
         showToast(msg: "请选择图片");
         return;
       }
@@ -143,16 +145,16 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
 
   ///发表评论
   void _sendComment({String content, String imagePath}) async {
-    String objID = model?.id;
+    String objID = activityModel?.id;
     int level = 1;
     try {
       isSending = true;
       setState(() {});
       _focusNode.unfocus();
       String imageUrl;
-      if(imagePath?.isNotEmpty == true){
+      if (imagePath?.isNotEmpty == true) {
         MultiImageModel multiImageModel = await taskManager.addTaskToQueue(MultiImageUploadTask([imagePath]));
-        if(multiImageModel.filePath?.isNotEmpty != true){
+        if (multiImageModel.filePath?.isNotEmpty != true) {
           isSending = false;
           setState(() {});
           showToast(msg: "图片上传失败");
@@ -161,13 +163,13 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
         imageUrl = multiImageModel.filePath.first;
       }
       CommentModel commentModel;
-      if(imageUrl?.isNotEmpty == true){
+      if (imageUrl?.isNotEmpty == true) {
         commentModel = await netManager.client.sendComment(objID, level, "", objType: 1, image: imageUrl);
-      }else {
+      } else {
         commentModel = await netManager.client.sendComment(objID, level, content, objType: 1);
       }
       commentList.insert(0, commentModel);
-      if(content?.isNotEmpty == true){
+      if (content?.isNotEmpty == true) {
         _textEditingController.text = "";
       }
       _handleMessageTimeDesc();
@@ -182,7 +184,32 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getCommonAppBar("活动详情"),
+      appBar: getCommonAppBar(
+        "",
+        titleWidget: Row(
+          children: [
+            SizedBox(
+              width: 30,
+              height: 30,
+              child: CustomNetworkImageNew(
+                width: 30,
+                height: 30,
+                imageUrl: activityModel?.publisher?.portrait ?? "",
+                radius: 15,
+              ),
+            ),
+            SizedBox(width: 6),
+            Text(
+              activityModel?.publisher?.name ?? "",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
       body: Column(
         children: [
           Expanded(child: _buildContent()),
@@ -193,13 +220,13 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
   }
 
   Widget _buildContent() {
-    if (model == null) {
+    if (activityModel == null) {
       return LoadingCenterWidget();
-    } else if (model?.id == null) {
+    } else if (activityModel?.id == null) {
       return CErrorWidget(
         "暂无数据",
         retryOnTap: () {
-          model = null;
+          activityModel = null;
           setState(() {});
           _loadData(widget.id ?? "");
         },
@@ -216,8 +243,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
               ),
               _buildCommentView(),
             ],
-          )
-      );
+          ));
     }
   }
 
@@ -231,12 +257,12 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           AspectRatio(
             aspectRatio: 720 / 300,
             child: CustomNetworkImage(
-              imageUrl: model?.image,
+              imageUrl: activityModel?.image,
             ),
           ),
           const SizedBox(height: 16),
           Text(
-            model.title,
+            activityModel.title,
             style: TextStyle(
               color: Colors.white,
               fontSize: 14,
@@ -254,7 +280,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
               alignment: WrapAlignment.start,
               children: HtmlParser(
                 width: screen.screenWidth - 16 * 2,
-              ).parse(model?.content ?? ""),
+              ).parse(activityModel?.content ?? ""),
             ),
           ),
           const SizedBox(height: 12),
@@ -311,7 +337,6 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
     );
   }
 
-
   Widget _buildCommentView() {
     if (commentList == null) {
       return SliverToBoxAdapter(
@@ -326,7 +351,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           height: 300,
           child: CErrorWidget(
             "暂无评论数据",
-            retryOnTap: (){
+            retryOnTap: () {
               commentList = null;
               setState(() {});
               _getCommentList();
@@ -337,7 +362,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
     }
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
+        (BuildContext context, int index) {
           return ChatItemCell(
             model: commentList[index],
           );
@@ -359,18 +384,18 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
               margin: EdgeInsets.only(bottom: 22),
               child: isSending
                   ? SizedBox(
-                width: 32,
-                height: 32,
-                child: CupertinoTheme(
-                  data: CupertinoThemeData(brightness: Brightness.dark),
-                  child: CupertinoActivityIndicator(),
-                ),
-              )
+                      width: 32,
+                      height: 32,
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Brightness.dark),
+                        child: CupertinoActivityIndicator(),
+                      ),
+                    )
                   : Image.asset(
-                "assets/weibo/icon_msg_select_imag.png",
-                width: 32,
-                height: 32,
-              ),
+                      "assets/weibo/icon_msg_select_imag.png",
+                      width: 32,
+                      height: 32,
+                    ),
             ),
             onTap: _selectedImage,
           ),
@@ -398,15 +423,14 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                 },
                 maxLines: 1,
                 maxLength: 120,
-                buildCounter: (_, {currentLength, maxLength, isFocused}) =>
-                    Container(
-                      height: 20,
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        currentLength.toString() + "/" + maxLength.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ),
+                buildCounter: (_, {currentLength, maxLength, isFocused}) => Container(
+                  height: 20,
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    currentLength.toString() + "/" + maxLength.toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
                 style: TextStyle(color: Colors.white, fontSize: 16),
                 decoration: InputDecoration(
                   fillColor: Color.fromRGBO(44, 44, 44, 1),
@@ -428,7 +452,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           SizedBox(width: 12),
           GestureDetector(
             onTap: () {
-              if(_textEditingController.text.isEmpty){
+              if (_textEditingController.text.isEmpty) {
                 showToast(msg: "请输入内容");
                 return;
               }
@@ -438,18 +462,18 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
               margin: EdgeInsets.only(bottom: 22),
               child: isSending
                   ? SizedBox(
-                width: 32,
-                height: 32,
-                child: CupertinoTheme(
-                  data: CupertinoThemeData(brightness: Brightness.dark),
-                  child: CupertinoActivityIndicator(),
-                ),
-              )
+                      width: 32,
+                      height: 32,
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Brightness.dark),
+                        child: CupertinoActivityIndicator(),
+                      ),
+                    )
                   : Image.asset(
-                "assets/weibo/images/icon_send_comment_two.png",
-                width: 32,
-                height: 32,
-              ),
+                      "assets/weibo/images/icon_send_comment_two.png",
+                      width: 32,
+                      height: 32,
+                    ),
             ),
           ),
         ],

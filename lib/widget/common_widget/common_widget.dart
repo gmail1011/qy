@@ -214,12 +214,12 @@ Widget buildCommonButton(String text,
 
 /// 获取统一通用的appbar
 Widget getCommonAppBar(String title,
-    {VoidCallback onBack, bool centerTitle = true, List<Widget> actions}) {
+    {Widget titleWidget, VoidCallback onBack, bool centerTitle = true, List<Widget> actions}) {
   return AppBar(
     elevation: 0,
     centerTitle: centerTitle,
     titleSpacing: .0,
-    title: Text(
+    title: titleWidget ?? Text(
       title,
       style: TextStyle(
         fontSize: AppFontSize.fontSize18,
