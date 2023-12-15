@@ -12,6 +12,7 @@ import 'package:flutter_app/model/activity_response.dart';
 import 'package:flutter_app/model/comment_model.dart';
 import 'package:flutter_app/model/multi_image_model.dart';
 import 'package:flutter_app/model/res/comment_list_res.dart';
+import 'package:flutter_app/page/home_msg/view/activity_detail_view.dart';
 import 'package:flutter_app/page/home_msg/view/chat_item_cell.dart';
 import 'package:flutter_app/utils/date_time_util.dart';
 import 'package:flutter_app/widget/common_widget/common_widget.dart';
@@ -239,102 +240,12 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
-                child: _buildDetailConent(),
+                child: ActivityDetailView(activityModel: activityModel),
               ),
               _buildCommentView(),
             ],
           ));
     }
-  }
-
-  Widget _buildDetailConent() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AspectRatio(
-            aspectRatio: 720 / 300,
-            child: CustomNetworkImage(
-              imageUrl: activityModel?.image,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            activityModel.title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Container(
-            height: 1,
-            color: Colors.white.withOpacity(0.1),
-          ),
-          DefaultTextStyle(
-            style: const TextStyle(color: Colors.white),
-            child: Wrap(
-              alignment: WrapAlignment.start,
-              children: HtmlParser(
-                width: screen.screenWidth - 16 * 2,
-              ).parse(activityModel?.content ?? ""),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Container(
-            height: 1,
-            color: Colors.white.withOpacity(0.1),
-          ),
-          const SizedBox(height: 18),
-          Container(
-            height: (68 / 343) * (screen.screenWidth - 16 * 2) + 13,
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 13,
-                  left: 0,
-                  right: 0,
-                  child: AspectRatio(
-                    aspectRatio: 343 / 68,
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.fromLTRB(12, 4, 12, 0),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/bord_yellow_bg.png"),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Text(
-                        "群内禁止发送任何私人联系方式，请大家谨防诈骗，所有言论均是用户私人行为，平台不做任何担保。",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          height: 1.3,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  child: Image.asset(
-                    "assets/images/imply_text.png",
-                    width: 72,
-                    height: 26,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 18),
-        ],
-      ),
-    );
   }
 
   Widget _buildCommentView() {
@@ -403,8 +314,6 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           Expanded(
             flex: 1,
             child: Container(
-              //margin: EdgeInsets.only(top: Dimens.pt10, right: Dimens.pt10,),
-              //constraints: BoxConstraints(maxHeight: 30.w,minHeight: 30.w),
               alignment: Alignment.centerLeft,
               height: 66,
               child: TextField(
@@ -418,9 +327,6 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                 controller: _textEditingController,
                 focusNode: _focusNode,
                 onChanged: (text) {},
-                onSubmitted: (text) {
-                  //_sendMessage();
-                },
                 maxLines: 1,
                 maxLength: 120,
                 buildCounter: (_, {currentLength, maxLength, isFocused}) => Container(
