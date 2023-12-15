@@ -53,107 +53,12 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getCommonAppBar("活动详情"),
-      body: _buildContent(),
-      // bottomSheet: Container(
-      //   height: 83,
-      //   color: Color.fromRGBO(31, 31, 31, 1),
-      //   padding: EdgeInsets.only(left: 16, right: 16),
-      //   child: Row(
-      //     children: [
-      //       GestureDetector(
-      //         child: Container(
-      //           margin: EdgeInsets.only(bottom: 22),
-      //           child: isSending
-      //               ? SizedBox(
-      //                   width: 32,
-      //                   height: 32,
-      //                   child: CupertinoTheme(
-      //                     data: CupertinoThemeData(brightness: Brightness.dark),
-      //                     child: CupertinoActivityIndicator(),
-      //                   ),
-      //                 )
-      //               : Image.asset(
-      //                   "assets/weibo/icon_msg_select_imag.png",
-      //                   width: 32,
-      //                   height: 32,
-      //                 ),
-      //         ),
-      //         onTap: () async {},
-      //       ),
-      //       SizedBox(width: 8),
-      //       Expanded(
-      //         flex: 1,
-      //         child: Container(
-      //           //margin: EdgeInsets.only(top: Dimens.pt10, right: Dimens.pt10,),
-      //           //constraints: BoxConstraints(maxHeight: 30.w,minHeight: 30.w),
-      //           alignment: Alignment.centerLeft,
-      //           height: 66,
-      //           child: TextField(
-      //             keyboardType: TextInputType.text,
-      //             autofocus: false,
-      //             autocorrect: true,
-      //             onTap: () {},
-      //             textInputAction: TextInputAction.done,
-      //             cursorColor: Colors.white,
-      //             textAlign: TextAlign.left,
-      //             // controller: _textEditingController,
-      //             // focusNode: _focusNode,
-      //             onChanged: (text) {},
-      //             onSubmitted: (text) {
-      //               //_sendMessage();
-      //             },
-      //             maxLines: 1,
-      //             maxLength: 120,
-      //             buildCounter: (_, {currentLength, maxLength, isFocused}) => Container(
-      //               height: 20,
-      //               alignment: Alignment.centerRight,
-      //               child: Text(
-      //                 currentLength.toString() + "/" + maxLength.toString(),
-      //                 style: TextStyle(color: Colors.white, fontSize: 12),
-      //               ),
-      //             ),
-      //             style: TextStyle(color: Colors.white, fontSize: 16),
-      //             decoration: InputDecoration(
-      //               fillColor: Color.fromRGBO(44, 44, 44, 1),
-      //               hintText: "请输入内容",
-      //               hintStyle: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 10),
-      //               contentPadding: EdgeInsets.fromLTRB(10, 10, 5, 10),
-      //               filled: true,
-      //               isCollapsed: true,
-      //               border: OutlineInputBorder(
-      //                   borderSide: BorderSide(color: Color.fromRGBO(44, 44, 44, 1)), borderRadius: BorderRadius.circular(26)),
-      //               focusedBorder: OutlineInputBorder(
-      //                 borderSide: BorderSide(color: Color.fromRGBO(44, 44, 44, 1)),
-      //                 borderRadius: BorderRadius.circular(26),
-      //               ),
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //       SizedBox(width: 12),
-      //       GestureDetector(
-      //         onTap: () {},
-      //         child: Container(
-      //           margin: EdgeInsets.only(bottom: 22),
-      //           child: isSending
-      //               ? SizedBox(
-      //                   width: 32,
-      //                   height: 32,
-      //                   child: CupertinoTheme(
-      //                     data: CupertinoThemeData(brightness: Brightness.dark),
-      //                     child: CupertinoActivityIndicator(),
-      //                   ),
-      //                 )
-      //               : Image.asset(
-      //                   "assets/weibo/images/icon_send_comment_two.png",
-      //                   width: 32,
-      //                   height: 32,
-      //                 ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      body: Column(
+        children: [
+          Expanded(child: _buildContent()),
+          _buildBottomMenu(),
+        ],
+      ),
     );
   }
 
@@ -213,7 +118,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
               ),
               const SizedBox(height: 18),
               Container(
-                height: (343 / 68) * (screen.screenWidth - 16*2) + 13,
+                height: (68/343) * (screen.screenWidth - 16*2) + 13,
                 child: Stack(
                   children: [
                     Positioned(
@@ -260,5 +165,109 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
         ),
       );
     }
+  }
+
+
+  Widget _buildBottomMenu(){
+    return Container(
+      height: 83,
+      color: Color.fromRGBO(31, 31, 31, 1),
+      padding: EdgeInsets.only(left: 16, right: 16),
+      child: Row(
+        children: [
+          GestureDetector(
+            child: Container(
+              margin: EdgeInsets.only(bottom: 22),
+              child: isSending
+                  ? SizedBox(
+                width: 32,
+                height: 32,
+                child: CupertinoTheme(
+                  data: CupertinoThemeData(brightness: Brightness.dark),
+                  child: CupertinoActivityIndicator(),
+                ),
+              )
+                  : Image.asset(
+                "assets/weibo/icon_msg_select_imag.png",
+                width: 32,
+                height: 32,
+              ),
+            ),
+            onTap: () async {},
+          ),
+          SizedBox(width: 8),
+          Expanded(
+            flex: 1,
+            child: Container(
+              //margin: EdgeInsets.only(top: Dimens.pt10, right: Dimens.pt10,),
+              //constraints: BoxConstraints(maxHeight: 30.w,minHeight: 30.w),
+              alignment: Alignment.centerLeft,
+              height: 66,
+              child: TextField(
+                keyboardType: TextInputType.text,
+                autofocus: false,
+                autocorrect: true,
+                onTap: () {},
+                textInputAction: TextInputAction.done,
+                cursorColor: Colors.white,
+                textAlign: TextAlign.left,
+                // controller: _textEditingController,
+                // focusNode: _focusNode,
+                onChanged: (text) {},
+                onSubmitted: (text) {
+                  //_sendMessage();
+                },
+                maxLines: 1,
+                maxLength: 120,
+                buildCounter: (_, {currentLength, maxLength, isFocused}) => Container(
+                  height: 20,
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    currentLength.toString() + "/" + maxLength.toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+                style: TextStyle(color: Colors.white, fontSize: 16),
+                decoration: InputDecoration(
+                  fillColor: Color.fromRGBO(44, 44, 44, 1),
+                  hintText: "请输入内容",
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 14),
+                  contentPadding: EdgeInsets.fromLTRB(10, 10, 5, 10),
+                  filled: true,
+                  isCollapsed: true,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromRGBO(44, 44, 44, 1)), borderRadius: BorderRadius.circular(26)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color.fromRGBO(44, 44, 44, 1)),
+                    borderRadius: BorderRadius.circular(26),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 12),
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              margin: EdgeInsets.only(bottom: 22),
+              child: isSending
+                  ? SizedBox(
+                width: 32,
+                height: 32,
+                child: CupertinoTheme(
+                  data: CupertinoThemeData(brightness: Brightness.dark),
+                  child: CupertinoActivityIndicator(),
+                ),
+              )
+                  : Image.asset(
+                "assets/weibo/images/icon_send_comment_two.png",
+                width: 32,
+                height: 32,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
