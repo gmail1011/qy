@@ -18,6 +18,19 @@ class DateTimeUtil {
     }
   }
 
+  static String utc4iso(String formattedString) {
+    if (formattedString == null || formattedString.isEmpty) return '';
+    try {
+      DateTime dateTime = DateTime.parse(formattedString).toLocal();
+      String m = _twoDigits(dateTime.month);
+      String d = _twoDigits(dateTime.day);
+      String h = _twoDigits(dateTime.hour);
+      String min = _twoDigits(dateTime.minute);
+      return "$m-$d $h:$min";
+    } catch (e) {
+      return '';
+    }
+  }
   ///日期时间本地格式化
   static String utc2isoYMD(String formattedString) {
     if (formattedString == null || formattedString.isEmpty) return '';

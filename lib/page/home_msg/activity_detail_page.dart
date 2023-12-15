@@ -3,15 +3,27 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
+import 'package:flutter_app/common/tasks/multi_image_upload_task.dart';
 import 'package:flutter_app/model/activity_response.dart';
+import 'package:flutter_app/model/comment_model.dart';
+import 'package:flutter_app/model/multi_image_model.dart';
+import 'package:flutter_app/model/res/comment_list_res.dart';
+import 'package:flutter_app/page/home_msg/view/chat_item_cell.dart';
+import 'package:flutter_app/utils/date_time_util.dart';
 import 'package:flutter_app/widget/common_widget/common_widget.dart';
 import 'package:flutter_app/widget/common_widget/error_widget.dart';
 import 'package:flutter_app/widget/common_widget/loading_widget.dart';
+import 'package:flutter_app/widget/common_widget/ys_pull_refresh.dart';
 import 'package:flutter_app/widget/richTextParsing/html_parser.dart';
+import 'package:flutter_base/task_manager/task_manager.dart';
 import 'package:flutter_base/utils/log.dart';
 import 'package:flutter_base/utils/screen.dart';
+import 'package:flutter_base/utils/toast_util.dart';
+import 'package:image_pickers/image_pickers.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ActivityDetailPage extends StatefulWidget {
   final String id;
@@ -27,24 +39,28 @@ class ActivityDetailPage extends StatefulWidget {
 class _ActivityDetailPageState extends State<ActivityDetailPage> {
   ActivityModel model;
   bool isSending = false;
-
+  RefreshController controller = RefreshController();
+  List<CommentModel> commentList;
+  int pageNumber = 1;
+  TextEditingController _textEditingController = TextEditingController();
+  FocusNode _focusNode = FocusNode();
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _loadData(widget.id ?? "");
       _loadUpdateData();
+      _getCommentList();
     });
   }
 
-  void _loadUpdateData() async{
+  void _loadUpdateData() async {
     try {
       var response = await netManager.client.getTopicUpdate(widget.id ?? "");
       debugLog(response);
     } catch (e) {
       debugLog(e);
     }
-
   }
 
   void _loadData(String id) async {
@@ -57,6 +73,109 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
       debugLog(e);
     }
     model ??= ActivityModel();
+    setState(() {});
+  }
+
+  Future<bool> _getCommentList({int page = 1, int size = 10}) async {
+    String objID = model?.id;
+    String curTime = DateTimeUtil.format2utc(DateTime.now()) ?? "";
+    try {
+      CommentListRes commentListRes = await netManager.client.getCommentList(objID, curTime, page, size, objType:1);
+      commentList ??= [];
+      pageNumber = page;
+      if (page == 1) {
+        commentList.clear();
+      }
+      if (commentListRes.hasNext ?? false) {
+        controller.loadComplete();
+      } else {
+        controller.loadNoData();
+      }
+      commentList.addAll(commentListRes?.list ?? []);
+      _handleMessageTimeDesc();
+      setState(() {});
+    } catch (e) {
+      debugLog('getCommentList= ${e.toString()}');
+      controller.loadComplete();
+    }
+    commentList ??= [];
+    setState(() {});
+  }
+
+  void _handleMessageTimeDesc() {
+    CommentModel preModel;
+    for (int i = 0; i < (commentList?.length ?? 0); i++) {
+      var model = commentList[i];
+      model.createAtDesc ??= DateTimeUtil.utc4iso(model.createdAt);
+      if (model.isShowTime == null) {
+        if (model.createAtDesc == preModel?.createAtDesc) {
+          model.isShowTime = false;
+        } else {
+          model.isShowTime = true;
+        }
+      }
+      preModel = model;
+    }
+  }
+
+  void _selectedImage() async {
+    try {
+      List<Media> mediaList = await ImagePickers.pickerPaths(
+        uiConfig: UIConfig(uiThemeColor: AppColors.primaryColor),
+        selectCount: 1,
+        showCamera: false,
+        cropConfig: CropConfig(enableCrop: false),
+      );
+
+      List<String> imagePaths = [];
+      for (Media assetEntity in mediaList) {
+        imagePaths.add(assetEntity.path);
+      }
+      if(imagePaths.isEmpty){
+        showToast(msg: "请选择图片");
+        return;
+      }
+      _sendComment(imagePath: imagePaths.first);
+    } catch (e) {
+      l.e("pickImages-e", "$e");
+    }
+  }
+
+  ///发表评论
+  void _sendComment({String content, String imagePath}) async {
+    String objID = model?.id;
+    int level = 1;
+    try {
+      isSending = true;
+      setState(() {});
+      _focusNode.unfocus();
+      String imageUrl;
+      if(imagePath?.isNotEmpty == true){
+        MultiImageModel multiImageModel = await taskManager.addTaskToQueue(MultiImageUploadTask([imagePath]));
+        if(multiImageModel.filePath?.isNotEmpty != true){
+          isSending = false;
+          setState(() {});
+          showToast(msg: "图片上传失败");
+          return;
+        }
+        imageUrl = multiImageModel.filePath.first;
+      }
+      CommentModel commentModel;
+      if(imageUrl?.isNotEmpty == true){
+        commentModel = await netManager.client.sendComment(objID, level, "", objType: 1, image: imageUrl);
+      }else {
+        commentModel = await netManager.client.sendComment(objID, level, content, objType: 1);
+      }
+      commentList.insert(0, commentModel);
+      if(content?.isNotEmpty == true){
+        _textEditingController.text = "";
+      }
+      _handleMessageTimeDesc();
+      setState(() {});
+    } catch (e) {
+      showToast(msg: e.toString());
+    }
+    isSending = false;
     setState(() {});
   }
 
@@ -86,100 +205,149 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
         },
       );
     } else {
-      return SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AspectRatio(
-                aspectRatio: 720 / 300,
-                child: CustomNetworkImage(
-                  imageUrl: model?.image,
-                ),
+      return pullYsRefresh(
+          refreshController: controller,
+          enablePullDown: false,
+          onLoading: () => _getCommentList(page: pageNumber + 1),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: _buildDetailConent(),
               ),
-              const SizedBox(height: 16),
-              Text(
-                model.title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Container(
-                height: 1,
-                color: Colors.white.withOpacity(0.1),
-              ),
-              DefaultTextStyle(
-                style: const TextStyle(color: Colors.white),
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  children: HtmlParser(
-                    width: screen.screenWidth - 16 * 2,
-                  ).parse(model?.content ?? ""),
-                ),
-              ),
-              const SizedBox(height: 12),
-              Container(
-                height: 1,
-                color: Colors.white.withOpacity(0.1),
-              ),
-              const SizedBox(height: 18),
-              Container(
-                height: (68/343) * (screen.screenWidth - 16*2) + 13,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 13,
-                      left: 0,
-                      right: 0,
-                      child: AspectRatio(
-                        aspectRatio: 343 / 68,
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.fromLTRB(12, 4, 12, 0),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/bord_yellow_bg.png"),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          child: Text(
-                            "群内禁止发送任何私人联系方式，请大家谨防诈骗，所有言论均是用户私人行为，平台不做任何担保。",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              height: 1.3,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      child: Image.asset(
-                        "assets/images/imply_text.png",
-                        width: 72,
-                        height: 26,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 18),
+              _buildCommentView(),
             ],
-          ),
-        ),
+          )
       );
     }
   }
 
+  Widget _buildDetailConent() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AspectRatio(
+            aspectRatio: 720 / 300,
+            child: CustomNetworkImage(
+              imageUrl: model?.image,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            model.title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Container(
+            height: 1,
+            color: Colors.white.withOpacity(0.1),
+          ),
+          DefaultTextStyle(
+            style: const TextStyle(color: Colors.white),
+            child: Wrap(
+              alignment: WrapAlignment.start,
+              children: HtmlParser(
+                width: screen.screenWidth - 16 * 2,
+              ).parse(model?.content ?? ""),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Container(
+            height: 1,
+            color: Colors.white.withOpacity(0.1),
+          ),
+          const SizedBox(height: 18),
+          Container(
+            height: (68 / 343) * (screen.screenWidth - 16 * 2) + 13,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 13,
+                  left: 0,
+                  right: 0,
+                  child: AspectRatio(
+                    aspectRatio: 343 / 68,
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.fromLTRB(12, 4, 12, 0),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/bord_yellow_bg.png"),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: Text(
+                        "群内禁止发送任何私人联系方式，请大家谨防诈骗，所有言论均是用户私人行为，平台不做任何担保。",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          height: 1.3,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Image.asset(
+                    "assets/images/imply_text.png",
+                    width: 72,
+                    height: 26,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+        ],
+      ),
+    );
+  }
 
-  Widget _buildBottomMenu(){
+
+  Widget _buildCommentView() {
+    if (commentList == null) {
+      return SliverToBoxAdapter(
+        child: Container(
+          height: 300,
+          child: LoadingCenterWidget(),
+        ),
+      );
+    } else if (commentList.isEmpty) {
+      return SliverToBoxAdapter(
+        child: Container(
+          height: 300,
+          child: CErrorWidget(
+            "暂无评论数据",
+            retryOnTap: (){
+              commentList = null;
+              setState(() {});
+              _getCommentList();
+            },
+          ),
+        ),
+      );
+    }
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+          return ChatItemCell(
+            model: commentList[index],
+          );
+        },
+        childCount: commentList?.length ?? 0,
+      ),
+    );
+  }
+
+  Widget _buildBottomMenu() {
     return Container(
       height: 83,
       color: Color.fromRGBO(31, 31, 31, 1),
@@ -204,7 +372,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                 height: 32,
               ),
             ),
-            onTap: () async {},
+            onTap: _selectedImage,
           ),
           SizedBox(width: 8),
           Expanded(
@@ -222,22 +390,23 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                 textInputAction: TextInputAction.done,
                 cursorColor: Colors.white,
                 textAlign: TextAlign.left,
-                // controller: _textEditingController,
-                // focusNode: _focusNode,
+                controller: _textEditingController,
+                focusNode: _focusNode,
                 onChanged: (text) {},
                 onSubmitted: (text) {
                   //_sendMessage();
                 },
                 maxLines: 1,
                 maxLength: 120,
-                buildCounter: (_, {currentLength, maxLength, isFocused}) => Container(
-                  height: 20,
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    currentLength.toString() + "/" + maxLength.toString(),
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-                ),
+                buildCounter: (_, {currentLength, maxLength, isFocused}) =>
+                    Container(
+                      height: 20,
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        currentLength.toString() + "/" + maxLength.toString(),
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
                 style: TextStyle(color: Colors.white, fontSize: 16),
                 decoration: InputDecoration(
                   fillColor: Color.fromRGBO(44, 44, 44, 1),
@@ -258,7 +427,13 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           ),
           SizedBox(width: 12),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              if(_textEditingController.text.isEmpty){
+                showToast(msg: "请输入内容");
+                return;
+              }
+              _sendComment(content: _textEditingController.text);
+            },
             child: Container(
               margin: EdgeInsets.only(bottom: 22),
               child: isSending

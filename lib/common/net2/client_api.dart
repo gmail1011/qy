@@ -255,6 +255,7 @@ abstract class ClientApi {
     @Query("curTime") String curTime,
     @Query("pageNumber") int pageNumber,
     @Query("pageSize") int pageSize,
+    {int objType}
   );
 
   ///评论的全部回复列表
@@ -801,6 +802,7 @@ abstract class ClientApi {
     @Field() String objID,
     @Field() int level,
     @Field() String content,
+  { int objType,String image,}
   );
 
   ///发表评论(2)

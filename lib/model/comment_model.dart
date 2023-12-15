@@ -38,6 +38,8 @@ class CommentModel {
   int replyPageIndex = 1;
   List<ReplyModel> info = [];
   bool isTop;
+  String createAtDesc;
+  bool isShowTime;
   List<ReplyModel> get replyList{
     if(info?.isNotEmpty == true) {
       if (haveMoreData || !isShowReply) {
@@ -71,6 +73,7 @@ class CommentModel {
   bool superUser;
   int merchantUser;
   bool isGodComment;
+  String image;
   bool isOpen = false;
   bool get isShowOpen { // 显示展开
     //haveMoreData == false && isOpen == true && isRequestReply == false;
@@ -99,7 +102,7 @@ class CommentModel {
     if (map == null) return null;
     CommentModel commentModelBean = CommentModel();
     commentModelBean.isGodComment = map['isGodComment'];
-
+    commentModelBean.image = map['image'];
     commentModelBean.isTop = map['isTop'];
     commentModelBean.id = map['id'];
     commentModelBean.cid = map['cid'];

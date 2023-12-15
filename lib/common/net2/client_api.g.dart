@@ -328,7 +328,7 @@ class _ClientApi implements ClientApi {
   }
 
   @override
-  Future<CommentListRes> getCommentList(objID, curTime, pageNumber, pageSize) async {
+  Future<CommentListRes> getCommentList(objID, curTime, pageNumber, pageSize, {objType}) async {
     ArgumentError.checkNotNull(objID, 'objID');
     ArgumentError.checkNotNull(curTime, 'curTime');
     ArgumentError.checkNotNull(pageNumber, 'pageNumber');
@@ -338,9 +338,11 @@ class _ClientApi implements ClientApi {
       r'objID': objID,
       r'curTime': curTime,
       r'pageNumber': pageNumber,
-      r'pageSize': pageSize
+      r'pageSize': pageSize,
+      'objType': objType,
     };
     final _data = <String, dynamic>{};
+    queryParameters.removeWhere((key, value) => value == null);
     final _result = await _dio.request<Map<String, dynamic>>('/comment/list',
         queryParameters: queryParameters,
         options: RequestOptions(method: 'GET', headers: <String, dynamic>{}, extra: _extra, baseUrl: baseUrl),
@@ -1538,13 +1540,13 @@ class _ClientApi implements ClientApi {
   }
 
   @override
-  Future<CommentModel> sendComment(objID, level, content) async {
+  Future<CommentModel> sendComment(objID, level, content, { int objType, String image}) async {
     ArgumentError.checkNotNull(objID, 'objID');
     ArgumentError.checkNotNull(level, 'level');
     ArgumentError.checkNotNull(content, 'content');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = {'objID': objID, 'level': level, 'content': content};
+    final _data = {'objID': objID, 'level': level, 'content': content, "objType": objType, "image": image,};
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/comment/send',
         queryParameters: queryParameters,
