@@ -5819,4 +5819,24 @@ class _ClientApi implements ClientApi {
     final value = _result.data;
     return value;
   }
+
+  Future<dynamic>  getTopicUpdate(String id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+    };
+    final _data = {
+      "id": id,
+    };
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('/topic/play',
+        queryParameters: queryParameters,
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
 }

@@ -33,7 +33,18 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _loadData(widget.id ?? "");
+      _loadUpdateData();
     });
+  }
+
+  void _loadUpdateData() async{
+    try {
+      var response = await netManager.client.getTopicUpdate(widget.id ?? "");
+      debugLog(response);
+    } catch (e) {
+      debugLog(e);
+    }
+
   }
 
   void _loadData(String id) async {
@@ -85,7 +96,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
               AspectRatio(
                 aspectRatio: 720 / 300,
                 child: CustomNetworkImage(
-                  imageUrl: model?.img,
+                  imageUrl: model?.image,
                 ),
               ),
               const SizedBox(height: 16),

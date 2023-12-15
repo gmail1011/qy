@@ -2102,6 +2102,8 @@ abstract class ClientApi {
   Future<dynamic>  getTopicList(int pageNumber, int pageSize);
 
   Future<dynamic>  getTopicDetail(String id);
+
+  Future<dynamic>  getTopicUpdate(String id);
 }
 
 //执行脚本

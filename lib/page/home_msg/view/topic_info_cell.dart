@@ -73,7 +73,7 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
                       children: [
                         Container(
                           child: CustomNetworkImageNew(
-                            imageUrl: realModel.img ?? "",
+                            imageUrl: realModel.image ?? "",
                             fit: BoxFit.cover,
                             width: imageHeight,
                             height: imageHeight,
@@ -104,7 +104,7 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
                           ),
                         ),
                         Text(
-                          "@${realModel.desc}",
+                          "@${realModel.publisher?.name ?? ""}",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(color: Color(0xff666666), fontSize: 12),
@@ -141,7 +141,7 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      realModel.commentDesc,
+                      realModel.godComment,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -160,21 +160,20 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
   }
 
   Widget _buildBottomData(ActivityModel model) {
-    return SizedBox();
-    // return Container(
-    //   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    //   decoration: BoxDecoration(
-    //     borderRadius: BorderRadius.circular(16),
-    //     color: Colors.black.withOpacity(0.6),
-    //   ),
-    //   child: Text(
-    //     TimeHelper.getTimeText(model?.playTime?.toDouble() ?? 0),
-    //     style: TextStyle(
-    //       color: Colors.white,
-    //       fontSize: 10,
-    //     ),
-    //   ),
-    // );
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.black.withOpacity(0.6),
+      ),
+      child: Text(
+        TimeHelper.getTimeText(model?.playTime?.toDouble() ?? 0),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 10,
+        ),
+      ),
+    );
   }
 
   Widget _buildCountItem(String text, String imagePath) {

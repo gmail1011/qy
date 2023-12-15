@@ -1,5 +1,7 @@
 
 
+import 'new_video_model_entity.dart';
+
 class ActivityResponse{
   List<ActivityModel> list;
   bool hasNext;
@@ -26,6 +28,7 @@ class ActivityModel{
   String end;
   int like;
   int comment;
+
   ActivityModel();
   String get commentDesc{
     if((comment ?? 0) == 0){
@@ -36,8 +39,8 @@ class ActivityModel{
   }
 
   String get playCountDesc{
-    if (like == null) return "0";
-    return (like > 10000) ? (like / 10000).toStringAsFixed(1) + "w" : like.toString();
+    if (playCount == null) return "0";
+    return (playCount > 10000) ? (playCount / 10000).toStringAsFixed(1) + "w" : playCount.toString();
   }
 
   String get likeDesc{
@@ -47,13 +50,26 @@ class ActivityModel{
       return like.toString() ?? "点赞";
     }
   }
-  bool liked;
-  String img;
+  String image;
   ActivityJoin join;
+
+  String sourceUrl;
+  int playTime;
+  int playCount;
+  bool liked;
+  Publisher publisher;
+  String godComment;
+
   ActivityModel.fromJson(Map<String, dynamic> json) {
     json ??= {};
+    sourceUrl = json['sourceUrl'];
+    playTime = json['playTime'];
+    playCount = json['playCount'];
     id = json['id'];
-    img = json['img'];
+    liked = json['liked'];
+    publisher = Publisher.fromJson(json["publisher"]);
+    id = json['id'];
+    image = json['image'];
     title = json['title'];
     content = json['content'];
     desc = json['desc'];
@@ -61,7 +77,7 @@ class ActivityModel{
     end = json['end'];
     like = json['like'];
     comment = json['comment'];
-    liked = json['liked'];
+    godComment = json['godComment'];
     join = ActivityJoin.fromJson(json["join"]);
   }
 }
