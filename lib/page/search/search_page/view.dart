@@ -10,8 +10,10 @@ import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/image/image_loader.dart';
 import 'package:flutter_app/common/local_router/jump_router.dart';
 import 'package:flutter_app/model/tag/hot_tag_model.dart';
+import 'package:flutter_app/model/tags_detail_entity.dart';
 import 'package:flutter_app/model/video_model.dart';
 import 'package:flutter_app/page/anwang_trade/widget/TradeCellWidget.dart';
+import 'package:flutter_app/page/home/film_tv/film_tv_video/video_cell_widget.dart';
 import 'package:flutter_app/page/home/post/ads_banner_widget.dart';
 import 'package:flutter_app/page/search/search_view/search_appbar.dart';
 import 'package:flutter_app/page/user/video_user_center/page.dart';
@@ -35,6 +37,8 @@ import 'state.dart';
 Widget buildView(SearchState state, Dispatch dispatch, ViewService viewService) {
   double width = (screen.screenWidth - 10 * 3 - 46) / 4;
   double height = width * (32 / 88);
+  TagsDetailDataSectionsVideoInfo tagsDetailDataSectionsVideoInfo=TagsDetailDataSectionsVideoInfo();
+  // tagsDetailDataSectionsVideoInfo.
   return GestureDetector(
     onTap: () {
       FocusScope.of(viewService.context).requestFocus(FocusNode());
@@ -256,6 +260,39 @@ Widget buildView(SearchState state, Dispatch dispatch, ViewService viewService) 
                                   //   ],
                                   // )
                                 ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: GridView.builder(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        shrinkWrap: true,
+                        gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount:2,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: 5
+                        ),
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: (state.hotList == null || state.hotList == null) ? 0 : state.hotList.length,
+                        itemBuilder: (context, index) {
+                          HotTagItem hotTagItem = state.hotList[index];
+                          int number = index + 1;
+                          return GestureDetector(
+                            onTap: () {
+                              dispatch(SearchActionCreator.onSubmitted(hotTagItem.name));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(right: 10),
+                              child: SizedBox(
+                                width: 271,
+                                height: 177,
+                                child: VideoCellWidget(
+                                  // videoInfo: list[index],
+                                  textLine: 1,
+                                ),
                               ),
                             ),
                           );
