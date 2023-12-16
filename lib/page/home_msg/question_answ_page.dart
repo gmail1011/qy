@@ -27,7 +27,7 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
   TopicTypeResponse topicInfo;
   TopicDetailResponse dataModel;
   PageController pageController = PageController();
-
+  bool isLoading = false;
   int get allCount => dataModel?.list?.length ?? 0;
   bool  get isLastPage{
     if(pageController?.hasClients == true){
@@ -87,13 +87,16 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
       }
     }
     try {
+      if(isLoading) return;
+      isLoading = true;
       dynamic responseData = await netManager.client.postVoteSubmit(topicInfo.list.first.id, selectedArr);
       debugLog(responseData);
       QuestionResultAlert.show(context, type: 1, descText: "1231231312323");
     } catch (e) {
       debugLog(e);
     }
-
+    isLoading = false;
+    setState(() {});
   }
 
   @override
@@ -184,7 +187,7 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
                         color: AppColors.primaryTextColor,
                         borderRadius: BorderRadius.circular(22),
                       ),
-                      child: Text(
+                      child: isLoading ? CupertinoActivityIndicator() :  Text(
                         isLastPage ? "提交测试" : "下一题",
                         style: TextStyle(
                           fontSize: 18,
