@@ -206,6 +206,7 @@ Widget buildView(CommunityDetailState state, Dispatch dispatch, ViewService view
                                         WordImageWidgetForHjll(
                                           videoModel: state.videoModel,
                                           index: 0,
+                                          isShowSetTop:true,
                                           isHideBottom: true,
                                           hideTopUserInfo: true,
                                           isDetail: true,

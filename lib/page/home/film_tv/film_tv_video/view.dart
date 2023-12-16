@@ -379,28 +379,26 @@ Widget _buildAdImageItem(LiaoBaTagsDetailDataVideos videoItem, double width, dou
               //   height: imageHeight,
               //   fit: BoxFit.cover,
               // ),
-              KeepAliveWidget(
-                CachedNetworkImage(
-                  width: imageWidth,
-                  height: imageHeight,
-                  placeholder: (context, url) => Container(
-                    alignment: Alignment.center,
-                    color: Color(0xff151515),
-                    child: Image.asset(
-                      "assets/weibo/loading_normal.png",
-                      width: 53,
-                      height: 46,
-                    ),
+              CachedNetworkImage(
+                width: imageWidth,
+                height: imageHeight,
+                placeholder: (context, url) => Container(
+                  alignment: Alignment.center,
+                  color: Color(0xff151515),
+                  child: Image.asset(
+                    "assets/weibo/loading_normal.png",
+                    width: 53,
+                    height: 46,
                   ),
-                  imageUrl: getImagePath(videoItem.randomAdsInfo.cover, true, false),
-                  fit: BoxFit.cover,
-                  memCacheHeight: 600,
-                  cacheManager: ImageCacheManager(),
-                  fadeInCurve: Curves.linear,
-                  fadeOutCurve: Curves.linear,
-                  fadeInDuration: Duration(milliseconds: 100),
-                  fadeOutDuration: Duration(milliseconds: 100),
                 ),
+                imageUrl: getImagePath(videoItem.randomAdsInfo.cover, true, false),
+                fit: BoxFit.cover,
+                memCacheHeight: 600,
+                cacheManager: ImageCacheManager(),
+                fadeInCurve: Curves.linear,
+                fadeOutCurve: Curves.linear,
+                fadeInDuration: Duration(milliseconds: 100),
+                fadeOutDuration: Duration(milliseconds: 100),
               ),
               Positioned(
                 top: 0,

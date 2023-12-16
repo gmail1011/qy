@@ -69,7 +69,7 @@ Widget buildView(
               Expanded(child:  TabBarView(
                 controller: state.tabController,
                 children: Config.communityDataTags.map(
-                      (e) =>  KeepAliveWidget(HjllCommunityChild().buildPage({"videoName": e.moduleName,"sectionID":e.id})),
+                      (e) => HjllCommunityChild().buildPage({"videoName": e.moduleName,"sectionID":e.id}),
                 ).toList(),
               ),)
             ],
