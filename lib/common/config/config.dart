@@ -17,12 +17,12 @@ import 'package:flutter_app/page/user/member_centre_page/wallet/gold_tickets.dar
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class Config {
-  static const DEBUG = true;
+  static const DEBUG = false;
   static const PROXY = false;
   static bool DNS_CUSTOM = false;
   static bool DNS_ALREADY_USE_NEWDOMAIN = false;
   static String DNS_IP = "223.5.5.5";
-  static String GET_DOMAIN_URL = "http://123.56.28.222:1111/hjll";
+  static String GET_DOMAIN_URL = "http://123.56.28.222:1111/hj2024";
   static bool isAbleClickProductBuy = true;
 
   static const PROXY_URL = "PROXY 192.168.1.150:8888";

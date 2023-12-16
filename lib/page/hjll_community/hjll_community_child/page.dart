@@ -14,7 +14,6 @@ class HjllCommunityChild
           effect: buildEffect(),
           reducer: buildReducer(),
           view: buildView,
-          wrapper: keepAliveClientWrapper,
           dependencies: Dependencies<HjllCommunityChildState>(
               adapter: null,
               slots: <String, Dependent<HjllCommunityChildState>>{}),
