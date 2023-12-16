@@ -25,7 +25,7 @@ class TopicTypeModel {
   String createAt;
   String updateAt;
   String desc;
-
+  bool hasVoted;
   TopicTypeModel();
 
   TopicTypeModel.fromJson(dynamic json) {
@@ -35,6 +35,7 @@ class TopicTypeModel {
     createAt = json['createAt'];
     updateAt = json['updateAt'];
     desc = json['desc'];
+    hasVoted = json['hasVoted'];
   }
 
 }

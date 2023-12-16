@@ -28,23 +28,38 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
   TopicDetailResponse dataModel;
   PageController pageController = PageController();
   bool isLoading = false;
+
   int get allCount => dataModel?.list?.length ?? 0;
-  bool  get isLastPage{
-    if(pageController?.hasClients == true){
-      if((pageController.offset + 50) >= screen.screenWidth * (allCount - 1)){
+
+  bool get isLastPage {
+    if (pageController?.hasClients == true) {
+      if ((pageController.offset + 50) >= screen.screenWidth * (allCount - 1)) {
         return true;
       }
     }
     return false;
   }
 
+  bool get isFinishAnsw {
+    return topicInfo.list?.isNotEmpty == true && topicInfo.list.first.hasVoted == true;
+  }
+
+  String get rightButtonTitle {
+    if(isLastPage){
+      if(isFinishAnsw){
+        return "查看结果";
+      }else {
+        return "提交测试";
+      }
+    }
+    return "下一题";
+  }
 
   @override
   void initState() {
     super.initState();
     pageController.addListener(() {
-      setState(() {
-      });
+      setState(() {});
     });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _loadData();
@@ -56,7 +71,7 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
       dynamic responseData = await netManager.client.getVoteGroup(1, 10);
       debugLog(responseData);
       topicInfo = TopicTypeResponse.fromJson(responseData);
-      if(topicInfo?.list?.isNotEmpty == true) {
+      if (topicInfo?.list?.isNotEmpty == true) {
         responseData = await netManager.client.getVoteDetail(topicInfo.list.first.id, 1, 10);
         dataModel = TopicDetailResponse.fromJson(responseData);
       }
@@ -69,25 +84,29 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
   }
 
   void _submitVote() async {
+    if(isFinishAnsw){
+      QuestionResultAlert.show(context, type: 1, descText: "1231231312323");
+      return;
+    }
     List<String> selectedArr = [];
-    for(int i = 0; i < (dataModel?.list?.length ?? 0); i++){
+    for (int i = 0; i < (dataModel?.list?.length ?? 0); i++) {
       TopicDetailModel detailModel = dataModel.list[i];
       bool selected = false;
-      for(int j = 0; j < (detailModel?.options?.length ?? 0); j++){
+      for (int j = 0; j < (detailModel?.options?.length ?? 0); j++) {
         TopicSelectInfo selectInfo = detailModel?.options[j];
-        if(selectInfo.hasVoted == true){
+        if (selectInfo.hasVoted == true) {
           selected = true;
           selectedArr.add(selectInfo.id);
         }
       }
-      if(selected == false){
-        showToast(msg: "请完成第${i+1}题哦～");
+      if (selected == false) {
+        showToast(msg: "请完成第${i + 1}题哦～");
         pageController.jumpToPage(i);
         return;
       }
     }
     try {
-      if(isLoading) return;
+      if (isLoading) return;
       isLoading = true;
       dynamic responseData = await netManager.client.postVoteSubmit(topicInfo.list.first.id, selectedArr);
       debugLog(responseData);
@@ -147,7 +166,7 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
                 Expanded(
                   flex: 136,
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       double offset = pageController.offset;
                       offset = offset - screen.screenWidth;
                       pageController.jumpTo(max(0, offset));
@@ -172,13 +191,13 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
                 Expanded(
                   flex: 195,
                   child: GestureDetector(
-                    onTap: (){
-                      if(isLastPage){
+                    onTap: () {
+                      if (isLastPage) {
                         _submitVote();
-                      }else {
+                      } else {
                         double offset = pageController.offset;
                         offset = offset + screen.screenWidth;
-                        pageController.jumpTo(min(screen.screenWidth*allCount, offset));
+                        pageController.jumpTo(min(screen.screenWidth * allCount, offset));
                       }
                     },
                     child: Container(
@@ -187,14 +206,16 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
                         color: AppColors.primaryTextColor,
                         borderRadius: BorderRadius.circular(22),
                       ),
-                      child: isLoading ? CupertinoActivityIndicator() :  Text(
-                        isLastPage ? "提交测试" : "下一题",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: isLoading
+                          ? CupertinoActivityIndicator()
+                          : Text(
+                              rightButtonTitle,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                     ),
                   ),
                 ),
