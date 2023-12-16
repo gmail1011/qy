@@ -172,91 +172,99 @@ Widget buildView(SearchState state, Dispatch dispatch, ViewService viewService) 
               ),
             ];
           },
-          body: BaseRequestView(
-              controller: state.baseRequestController,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 10),
-                    child: Text(
-                      "热搜总榜",
-                      style: TextStyle(color: AppColors.primaryTextColor, fontSize: 14, fontWeight: FontWeight.w500),
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 18),
+            child: BaseRequestView(
+                controller: state.baseRequestController,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 0),
+                      child: Text(
+                        "热门搜索",
+                        style: TextStyle(color: AppColors.itemBgWhite, fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: (state.hotList == null || state.hotList == null) ? 0 : state.hotList.length,
-                      itemBuilder: (context, index) {
-                        HotTagItem hotTagItem = state.hotList[index];
-                        int number = index + 1;
-                        return GestureDetector(
-                          onTap: () {
-                            dispatch(SearchActionCreator.onSubmitted(hotTagItem.name));
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(top: 20, left: 10, right: 10),
-                            child: Row(
-                              children: [
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: 20,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      gradient: LinearGradient(
-                                          colors: number == 1
-                                              ? [
-                                            Color.fromRGBO(255, 179, 66, 1),
-                                            Color.fromRGBO(255, 100, 66, 1),
-                                            Color.fromRGBO(255, 179, 66, 1),
-                                          ]
-                                              : number == 2
-                                              ? [
-                                            Color.fromRGBO(132, 239, 213, 1),
-                                            Color.fromRGBO(132, 207, 239, 1),
-                                          ]
-                                              : number == 3
-                                              ? [
-                                            Color.fromRGBO(179, 248, 112, 1),
-                                            Color.fromRGBO(104, 215, 87, 1),
-                                          ]
-                                              : [
-                                            Color.fromRGBO(126, 125, 138, 1),
-                                            Color.fromRGBO(155, 157, 165, 1),
-                                          ])),
-                                  child: Text(
-                                    "${number}",
-                                    style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 13,),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 6,
-                                ),
-                                Text("${hotTagItem.name}", style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 12)),
-                                Expanded(child: SizedBox()),
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      "assets/weibo/icon_tag_hot.png",
-                                      width: 10,
-                                      height: 12,
+                    Expanded(
+                      child: GridView.builder(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        shrinkWrap: true,
+                        gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount:2,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 5
+                        ),
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: (state.hotList == null || state.hotList == null) ? 0 : state.hotList.length,
+                        itemBuilder: (context, index) {
+                          HotTagItem hotTagItem = state.hotList[index];
+                          int number = index + 1;
+                          return GestureDetector(
+                            onTap: () {
+                              dispatch(SearchActionCreator.onSubmitted(hotTagItem.name));
+                            },
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: 20,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        gradient: LinearGradient(
+                                            colors: number == 1
+                                                ? [
+                                              Color(0xFFFF5048),
+                                              Color(0xFFFF5048),
+                                              Color(0xFFFF5048),
+                                            ]
+                                                : number == 2
+                                                ? [
+                                              Color(0xFFFF7009),
+                                              Color(0xFFFF7009),
+                                            ]
+                                                : number == 3
+                                                ? [
+                                              Color(0xFFFFA452),
+                                              Color(0xFFFFA452)
+                                            ]
+                                                : [
+                                              Color.fromRGBO(126, 125, 138, 1),
+                                              Color.fromRGBO(155, 157, 165, 1),
+                                            ])),
+                                    child: Text(
+                                      "${number}",
+                                      style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 13,),
                                     ),
-                                    SizedBox(width: 2),
-                                    Text("${hotTagItem.hotDesc}", style: TextStyle(color: Color.fromRGBO(215, 106, 67, 1), fontSize: 12)),
-                                  ],
-                                )
-                              ],
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text("${hotTagItem.name}", style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1), fontSize: 12)),
+                                  // Expanded(child: SizedBox()),
+                                  // Row(
+                                  //   children: [
+                                  //     Image.asset(
+                                  //       "assets/weibo/icon_tag_hot.png",
+                                  //       width: 10,
+                                  //       height: 12,
+                                  //     ),
+                                  //     SizedBox(width: 2),
+                                  //     Text("${hotTagItem.hotDesc}", style: TextStyle(color: Color.fromRGBO(215, 106, 67, 1), fontSize: 12)),
+                                  //   ],
+                                  // )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              )),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                )),
+          ),
         ),
       ),
     ),
