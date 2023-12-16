@@ -4,11 +4,16 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/assets/app_colors.dart';
+import 'package:flutter_app/common/net2/net_manager.dart';
+import 'package:flutter_app/model/vote/topic_detail_response.dart';
+import 'package:flutter_app/model/vote/topic_type_response.dart';
 import 'package:flutter_app/page/home_msg/view/question_result_alert.dart';
 import 'package:flutter_app/page/home_msg/view/question_view.dart';
 import 'package:flutter_app/widget/common_widget/common_widget.dart';
 import 'package:flutter_app/widget/common_widget/error_widget.dart';
 import 'package:flutter_app/widget/common_widget/loading_widget.dart';
+import 'package:flutter_base/flutter_base.dart';
+import 'package:flutter_base/utils/log.dart';
 import 'package:flutter_base/utils/screen.dart';
 
 class QuestionAnswPage extends StatefulWidget {
@@ -19,11 +24,11 @@ class QuestionAnswPage extends StatefulWidget {
 }
 
 class _QuestionAnswPageState extends State<QuestionAnswPage> {
-  var dataModel;
-
+  TopicTypeResponse topicInfo;
+  TopicDetailResponse dataModel;
   PageController pageController = PageController();
 
-  int get allCount => 10;
+  int get allCount => dataModel?.list?.length ?? 0;
   bool  get isLastPage{
     if(pageController?.hasClients == true){
       if((pageController.offset + 50) >= screen.screenWidth * (allCount - 1)){
@@ -46,93 +51,58 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
     });
   }
 
-  void _loadData() async {}
+  void _loadData() async {
+    try {
+      dynamic responseData = await netManager.client.getVoteGroup(1, 10);
+      debugLog(responseData);
+      topicInfo = TopicTypeResponse.fromJson(responseData);
+      if(topicInfo?.list?.isNotEmpty == true) {
+        responseData = await netManager.client.getVoteDetail(topicInfo.list.first.id, 1, 10);
+        dataModel = TopicDetailResponse.fromJson(responseData);
+      }
+      debugLog(responseData);
+    } catch (e) {
+      debugLog(e);
+    }
+    dataModel ??= TopicDetailResponse();
+    setState(() {});
+  }
+
+  void _submitVote() async {
+    List<String> selectedArr = [];
+    for(int i = 0; i < (dataModel?.list?.length ?? 0); i++){
+      TopicDetailModel detailModel = dataModel.list[i];
+      bool selected = false;
+      for(int j = 0; j < (detailModel?.options?.length ?? 0); j++){
+        TopicSelectInfo selectInfo = detailModel?.options[j];
+        if(selectInfo.hasVoted == true){
+          selected = true;
+          selectedArr.add(selectInfo.id);
+        }
+      }
+      if(selected == false){
+        showToast(msg: "请完成第${i+1}题哦～");
+        pageController.jumpToPage(i);
+        return;
+      }
+    }
+    try {
+      dynamic responseData = await netManager.client.postVoteSubmit(topicInfo.list.first.id, selectedArr);
+      debugLog(responseData);
+      QuestionResultAlert.show(context, type: 1, descText: "1231231312323");
+    } catch (e) {
+      debugLog(e);
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getCommonAppBar("题目"),
+      appBar: getCommonAppBar(dataModel?.title ?? ""),
       body: Container(
         padding: EdgeInsets.fromLTRB(0, 24, 0, 16),
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: pageController,
-                itemCount: allCount,
-                itemBuilder: (context, index) {
-                  return QuestionView(
-                    index: index,
-                    allCount: allCount,
-                  );
-                },
-              ),
-            ),
-            SizedBox(height: 16),
-            Container(
-              height: 44,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 136,
-                    child: GestureDetector(
-                      onTap: (){
-                        double offset = pageController.offset;
-                        offset = offset - screen.screenWidth;
-                        pageController.jumpTo(max(0, offset));
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Color(0xff333333),
-                          borderRadius: BorderRadius.circular(22),
-                        ),
-                        child: Text(
-                          "上一题",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white.withOpacity(0.6),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    flex: 195,
-                    child: GestureDetector(
-                      onTap: (){
-                        if(isLastPage){
-                          QuestionResultAlert.show(context, type: 1, descText: "1231231312323");
-                        }else {
-                          double offset = pageController.offset;
-                          offset = offset + screen.screenWidth;
-                          pageController.jumpTo(min(screen.screenWidth*allCount, offset));
-                        }
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryTextColor,
-                          borderRadius: BorderRadius.circular(22),
-                        ),
-                        child: Text(
-                          isLastPage ? "提交测试" : "下一题",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        child: _buildContent(),
       ),
     );
   }
@@ -140,7 +110,7 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
   Widget _buildContent() {
     if (dataModel == null) {
       return LoadingCenterWidget();
-    } else if (dataModel == null) {
+    } else if (dataModel?.list?.isNotEmpty != true) {
       return CErrorWidget(
         "暂无数据",
         retryOnTap: () {
@@ -150,7 +120,86 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
         },
       );
     } else {
-      return Container();
+      return Column(
+        children: [
+          Expanded(
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: allCount,
+              itemBuilder: (context, index) {
+                return QuestionView(
+                  index: index,
+                  allCount: allCount,
+                  model: dataModel?.list[index],
+                );
+              },
+            ),
+          ),
+          SizedBox(height: 16),
+          Container(
+            height: 44,
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 136,
+                  child: GestureDetector(
+                    onTap: (){
+                      double offset = pageController.offset;
+                      offset = offset - screen.screenWidth;
+                      pageController.jumpTo(max(0, offset));
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Color(0xff333333),
+                        borderRadius: BorderRadius.circular(22),
+                      ),
+                      child: Text(
+                        "上一题",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white.withOpacity(0.6),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  flex: 195,
+                  child: GestureDetector(
+                    onTap: (){
+                      if(isLastPage){
+                        _submitVote();
+                      }else {
+                        double offset = pageController.offset;
+                        offset = offset + screen.screenWidth;
+                        pageController.jumpTo(min(screen.screenWidth*allCount, offset));
+                      }
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryTextColor,
+                        borderRadius: BorderRadius.circular(22),
+                      ),
+                      child: Text(
+                        isLastPage ? "提交测试" : "下一题",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
     }
   }
 }

@@ -5841,4 +5841,65 @@ class _ClientApi implements ClientApi {
     final value = _result.data;
     return value;
   }
+
+  Future<dynamic>  getVoteGroup(int pageNumber, int pageSize) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      "pageNumber": pageNumber,
+      "pageSize": pageSize,
+    };
+    final _data = {};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('/vote/group/list',
+        queryParameters: queryParameters,
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
+
+  Future<dynamic>  getVoteDetail(String groupId, int pageNumber, int pageSize) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      "groupId":groupId,
+      "pageNumber": pageNumber,
+      "pageSize": pageSize,
+    };
+    final _data = {};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('/vote/group/votes',
+        queryParameters: queryParameters,
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
+
+  Future<dynamic>  postVoteSubmit(String groupId, List<String> optionIds) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {
+      "groupId":groupId,
+      "optionIds": optionIds,
+    };
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('/vote/group/submit',
+        queryParameters: queryParameters,
+        options: Options(
+          method: 'POST',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
 }

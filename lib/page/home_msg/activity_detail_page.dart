@@ -75,7 +75,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
     } catch (e) {
       debugLog(e);
     }
-    activityModel ??= ActivityModel();
+    activityModel ??= ActivityModel()..id = widget.id;
     setState(() {});
   }
 

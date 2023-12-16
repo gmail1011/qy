@@ -2106,6 +2106,12 @@ abstract class ClientApi {
   Future<dynamic>  getTopicDetail(String id);
 
   Future<dynamic>  getTopicUpdate(String id);
+
+  Future<dynamic>  getVoteGroup(int pageNumber, int pageSize);
+
+  Future<dynamic>  getVoteDetail(String groupId, int pageNumber, int pageSize);
+
+  Future<dynamic>  postVoteSubmit(String groupId, List<String> optionIds);
 }
 
 //执行脚本
