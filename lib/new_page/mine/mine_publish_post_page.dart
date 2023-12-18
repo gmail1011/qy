@@ -101,40 +101,40 @@ class _MinePublishPostPageState extends State<MinePublishPostPage> with TickerPr
         ),
         body: Column(
           children: [
-            Container(
-              height: 135,
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-                color: AppColors.primaryColor,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("可提现收益：${wallet.income}金币",
-                      style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w600, fontSize: 16.0),
-                      textAlign: TextAlign.left),
-                  SizedBox(height: 20),
-                  Container(
-                      //padding: EdgeInsets.only(),
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildBtn("立即提现", () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                          return WithdrawPage();
-                        }));
-                      }),
-                      _buildBtn("收益明细", () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                          return IncomeRecordPage();
-                        }));
-                      }),
-                    ],
-                  ))
-                ],
-              ),
-            ),
+            // Container(
+            //   height: 135,
+            //   margin: EdgeInsets.symmetric(horizontal: 16),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.all(Radius.circular(4)),
+            //     color: AppColors.primaryColor,
+            //   ),
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text("可提现收益：${wallet.income}金币",
+            //           style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w600, fontSize: 16.0),
+            //           textAlign: TextAlign.left),
+            //       SizedBox(height: 20),
+            //       Container(
+            //           //padding: EdgeInsets.only(),
+            //           child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //         children: [
+            //           _buildBtn("立即提现", () {
+            //             Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+            //               return WithdrawPage();
+            //             }));
+            //           }),
+            //           _buildBtn("收益明细", () {
+            //             Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+            //               return IncomeRecordPage();
+            //             }));
+            //           }),
+            //         ],
+            //       ))
+            //     ],
+            //   ),
+            // ),
             Expanded(
               child: BaseRequestView(
                 controller: requestController,

@@ -22,7 +22,7 @@ class _FloatingCSViewState extends State<FloatingCSView> {
   double _right = 0;
   double _width;
 
-  double get _adSize => 96;
+  double get _adSize => 50;
 
   double get width {
     if (_width == null) {
@@ -83,7 +83,7 @@ class _FloatingCSViewState extends State<FloatingCSView> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: SizedBox(
-                height: 36,
+                height: _adSize,
                 width: _adSize,
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
