@@ -54,6 +54,9 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
         return "提交测试";
       }
     }
+    if (pageController?.hasClients == false && isFinishAnsw){
+      return "查看结果";
+    }
     return "下一题";
   }
 
