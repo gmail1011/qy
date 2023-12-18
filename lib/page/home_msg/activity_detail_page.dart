@@ -145,6 +145,10 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
     }
   }
 
+  void _voiceEvent() async {
+
+  }
+
   ///发表评论
   void _sendComment({String content, String imagePath}) async {
     String objID = activityModel?.id;
@@ -297,6 +301,28 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
       padding: EdgeInsets.only(left: 16, right: 16),
       child: Row(
         children: [
+
+          GestureDetector(
+            child: Container(
+              margin: EdgeInsets.only(bottom: 22),
+              child: isSending
+                  ? SizedBox(
+                width: 32,
+                height: 32,
+                child: CupertinoTheme(
+                  data: CupertinoThemeData(brightness: Brightness.dark),
+                  child: CupertinoActivityIndicator(),
+                ),
+              )
+                  : Image.asset(
+                "assets/images/voice.png.png",
+                width: 32,
+                height: 32,
+              ),
+            ),
+            onTap: _voiceEvent,
+          ),
+          SizedBox(width: 8),
           GestureDetector(
             child: Container(
               margin: EdgeInsets.only(bottom: 22),
