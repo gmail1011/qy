@@ -547,10 +547,10 @@ Widget _createFunctionUI(FilmVideoIntroductionState state, Dispatch dispatch, Vi
 
       ///赚钱
       _createFunctionItemUI("assets/weibo/video_share.png", "分享", onTap: () {
-        // showShareVideoDialog(viewService.context, () async {
-        //   await Future.delayed(Duration(milliseconds: 500));
-        // }, videoModel: state.viewModel, isLongVideo: true, isFvVideo: true);
-        Gets.Get.to(MineSharePage());
+        showShareVideoDialog(viewService.context, () async {
+          await Future.delayed(Duration(milliseconds: 500));
+        }, videoModel: state.viewModel, isLongVideo: true, isFvVideo: true);
+       // Gets.Get.to(MineSharePage());
       }),
     ],
   );
