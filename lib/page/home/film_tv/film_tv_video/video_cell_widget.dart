@@ -76,7 +76,7 @@ class VideoCellWidget extends StatelessWidget {
             children: [
               CustomNetworkImageNew(
                 imageUrl: realModel.cover ?? "",
-                fit: BoxFit.cover,
+                fit: imageFit ?? BoxFit.fill,
                 width: imageWidth,
                 height: imageHeight,
                 // placeholder:
@@ -97,7 +97,7 @@ class VideoCellWidget extends StatelessWidget {
           alignment: Alignment.topLeft,
           margin: EdgeInsets.only(top: 6),
           child: Text(
-            realModel.title ?? "",
+            (realModel.title ?? "") + "\n",
             maxLines: textLine ?? 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(

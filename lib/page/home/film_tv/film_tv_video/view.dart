@@ -215,7 +215,7 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                     crossAxisCount: 2,
                     mainAxisSpacing: 10.0,
                     crossAxisSpacing: 7.0,
-                    childAspectRatio: 201 / 182,
+                    childAspectRatio: 168/150,
                   ),
                   delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
