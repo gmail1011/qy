@@ -154,7 +154,7 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
                   }));
                 },
                 child: Text(
-                  "金币明细",
+                  "金币明细 >",
                   style: const TextStyle(
                     color: const Color(0xffffffff),
                     fontWeight: FontWeight.w400,
