@@ -405,7 +405,7 @@ Widget _createVodeo(FilmTvVideoDetailState state, Dispatch dispatch, BuildContex
           children: [
 
             CustomNetworkImage(
-              imageUrl: state.viewModel.cover,
+              imageUrl: state.viewModel?.cover ?? "",
               fit: BoxFit.cover,
               width: screen.screenWidth,
               height: screen.screenWidth / 1.78,
