@@ -366,7 +366,7 @@ class _RechargeVipPageState extends State<RechargeVipPage> {
                         text: "支付问题反馈，点击联系  "),
                     TextSpan(
                         style: TextStyle(
-                          color: AppColors.primaryTextColor,
+                          color: Color(0xffe5c892),
                           fontWeight: FontWeight.w400,
                           fontSize: 12.0,
                         ),
