@@ -83,10 +83,13 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
       debugLog(e);
     }
     dataModel ??= TopicDetailResponse();
+    pageController?.removeListener(_listenCallback);
     if(topicVoteModel?.hasVoted == true){
       pageController = PageController(initialPage: max(0, (dataModel?.list?.length ?? 0) - 1));
-      pageController.addListener(_listenCallback);
+    }else{
+      pageController = PageController(initialPage: 0);
     }
+    pageController.addListener(_listenCallback);
     setState(() {});
   }
 

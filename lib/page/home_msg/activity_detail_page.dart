@@ -1,11 +1,12 @@
 import 'dart:ui';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/image/custom_network_image_new.dart';
+import 'package:flutter_app/common/net2/api_exception.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
 import 'package:flutter_app/common/tasks/multi_image_upload_task.dart';
 import 'package:flutter_app/model/activity_response.dart';
@@ -175,7 +176,13 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
       }
       _handleMessageTimeDesc();
       setState(() {});
-    } catch (e) {
+    }  on DioError catch (e) {
+      if(e.error is ApiException){
+        showToast(msg: (e.error as ApiException).message?.toString() ?? "");
+      }else {
+        showToast(msg: e.toString());
+      }
+    }catch (e) {
       showToast(msg: e.toString());
     }
     isSending = false;

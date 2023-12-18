@@ -12,6 +12,7 @@ class QuestionView extends StatefulWidget {
   final int allCount;
   final TopicDetailModel model;
   final bool hasVoted;
+
   const QuestionView({
     Key key,
     this.index,
@@ -28,6 +29,8 @@ class QuestionView extends StatefulWidget {
 
 class _QuestionViewState extends State<QuestionView> {
   int get selectIndex => 0;
+
+  bool get isMulCheck => widget.model.isMulCheck == true;
 
   @override
   void initState() {
@@ -110,17 +113,27 @@ class _QuestionViewState extends State<QuestionView> {
                 ),
               ),
               SizedBox(height: 28),
-              Text(
-                widget.model?.title ?? "",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  height: 1.6,
-                ),
+              Text.rich(
+                  TextSpan(
+                    text: widget.model?.title ?? "",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      height: 1.6,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: isMulCheck ? " (多选)" : "",
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
               ),
-              SizedBox(height: 18),
-              ..._buildVotesMenu(),
+                  SizedBox(height: 18),
+                  ..._buildVotesMenu(),
             ],
           ),
         ),
@@ -156,12 +169,11 @@ class _QuestionViewState extends State<QuestionView> {
       "N.",
       "",
     ];
-    bool isMulCheck = widget.model.isMulCheck == true;
     return Container(
       margin: EdgeInsets.only(bottom: 12),
       child: InkWell(
         onTap: () {
-          if(widget.hasVoted == true) {
+          if (widget.hasVoted == true) {
             return;
           }
           if (isSelected == false && isMulCheck == false) {
