@@ -5902,4 +5902,25 @@ class _ClientApi implements ClientApi {
     final value = _result.data;
     return value;
   }
+
+  Future<dynamic>  getVoteResult(String groupId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      "groupId":groupId
+    };
+    final _data = {
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('/vote/group/result',
+        queryParameters: queryParameters,
+        options: Options(
+          method: 'GET',
+          headers: <String, dynamic>{},
+          extra: _extra,
+        ),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
+
 }

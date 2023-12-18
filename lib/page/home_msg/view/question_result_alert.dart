@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 
 class QuestionResultAlert extends StatefulWidget {
   final String descText;
-  final int type;
-  const QuestionResultAlert({Key key, this.descText, this.type}) : super(key: key);
+  final int score;
+  const QuestionResultAlert({Key key, this.descText, this.score}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     return _QuestionResultAlertState();
   }
 
-  static show(BuildContext context, {int type, String descText}) async {
+  static show(BuildContext context, {int score, String descText}) async {
     await showDialog(
       context: context,
       builder: (context) {
         return QuestionResultAlert(
           descText: descText,
-          type: type,
+          score: score,
         );
       },
     );
@@ -25,6 +25,22 @@ class QuestionResultAlert extends StatefulWidget {
 }
 
 class _QuestionResultAlertState extends State<QuestionResultAlert> {
+
+  // 0,1, 2,3,4
+  int get typeRank {
+    if(widget.score >= 0 && widget.score < 60) {
+      return 0;
+    }else if(widget.score >= 60 && widget.score < 70) {
+      return 1;
+    }else if(widget.score >= 70 && widget.score < 80) {
+      return 2;
+    }else if(widget.score >= 90) {
+      return 3;
+    }else {
+      return 0;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +62,7 @@ class _QuestionResultAlertState extends State<QuestionResultAlert> {
           child: Column(
             children: [
               SizedBox(height: 145),
-              Image.asset("assets/images/title_result_${widget.type}.png", width: 132, height: 36,),
+              Image.asset("assets/images/title_result_$typeRank.png", width: 132, height: 36,),
               SizedBox(height: 24),
               Container(
                 width: 232,

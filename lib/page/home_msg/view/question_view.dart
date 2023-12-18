@@ -11,12 +11,13 @@ class QuestionView extends StatefulWidget {
   final int index;
   final int allCount;
   final TopicDetailModel model;
-
+  final bool hasVoted;
   const QuestionView({
     Key key,
     this.index,
     this.allCount,
     this.model,
+    this.hasVoted,
   }) : super(key: key);
 
   @override
@@ -160,6 +161,9 @@ class _QuestionViewState extends State<QuestionView> {
       margin: EdgeInsets.only(bottom: 12),
       child: InkWell(
         onTap: () {
+          if(widget.hasVoted == true) {
+            return;
+          }
           if (isSelected == false && isMulCheck == false) {
             for (int i = 0; i < (widget.model?.options?.length ?? 0); i++) {
               TopicSelectInfo selectInfo = widget.model?.options[i];

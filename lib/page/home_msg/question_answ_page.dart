@@ -9,8 +9,10 @@ import 'package:flutter_app/model/vote/topic_detail_response.dart';
 import 'package:flutter_app/model/vote/topic_type_response.dart';
 import 'package:flutter_app/page/home_msg/view/question_result_alert.dart';
 import 'package:flutter_app/page/home_msg/view/question_view.dart';
+import 'package:flutter_app/utils/loading_async_task.dart';
 import 'package:flutter_app/widget/common_widget/common_widget.dart';
 import 'package:flutter_app/widget/common_widget/error_widget.dart';
+import 'package:flutter_app/widget/common_widget/loading_alert_widget.dart';
 import 'package:flutter_app/widget/common_widget/loading_widget.dart';
 import 'package:flutter_base/flutter_base.dart';
 import 'package:flutter_base/utils/log.dart';
@@ -24,9 +26,9 @@ class QuestionAnswPage extends StatefulWidget {
 }
 
 class _QuestionAnswPageState extends State<QuestionAnswPage> {
-  TopicTypeResponse topicInfo;
+  TopicTypeModel topicVoteModel;
   TopicDetailResponse dataModel;
-  PageController pageController = PageController();
+  PageController pageController;
   bool isLoading = false;
 
   int get allCount => dataModel?.list?.length ?? 0;
@@ -41,7 +43,7 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
   }
 
   bool get isFinishAnsw {
-    return topicInfo.list?.isNotEmpty == true && topicInfo.list.first.hasVoted == true;
+    return topicVoteModel?.hasVoted == true;
   }
 
   String get rightButtonTitle {
@@ -58,9 +60,6 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
   @override
   void initState() {
     super.initState();
-    pageController.addListener(() {
-      setState(() {});
-    });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _loadData();
     });
@@ -70,9 +69,10 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
     try {
       dynamic responseData = await netManager.client.getVoteGroup(1, 10);
       debugLog(responseData);
-      topicInfo = TopicTypeResponse.fromJson(responseData);
+      TopicTypeResponse topicInfo = TopicTypeResponse.fromJson(responseData);
       if (topicInfo?.list?.isNotEmpty == true) {
-        responseData = await netManager.client.getVoteDetail(topicInfo.list.first.id, 1, 10);
+        topicVoteModel = topicInfo.list.first;
+        responseData = await netManager.client.getVoteDetail(topicVoteModel.id, 1, 50);
         dataModel = TopicDetailResponse.fromJson(responseData);
       }
       debugLog(responseData);
@@ -80,12 +80,35 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
       debugLog(e);
     }
     dataModel ??= TopicDetailResponse();
+    if(topicVoteModel?.hasVoted == true){
+      pageController = PageController(initialPage: max(0, (dataModel?.list?.length ?? 0) - 1));
+      pageController.addListener(_listenCallback);
+    }
+    setState(() {});
+  }
+
+  void _listenCallback() {
     setState(() {});
   }
 
   void _submitVote() async {
     if(isFinishAnsw){
-      QuestionResultAlert.show(context, type: 1, descText: "1231231312323");
+      try {
+        if (isLoading) return;
+        isLoading = true;
+        dynamic responseData = await netManager.client.getVoteResult(topicVoteModel.id);
+        debugLog(responseData);
+        if(responseData is Map){
+          String descText = responseData["desc"] ?? "";
+          int score = responseData["score"] ?? 0;
+          topicVoteModel.hasVoted = true;
+          QuestionResultAlert.show(context, score: score, descText: descText);
+        }
+      } catch (e) {
+        debugLog(e);
+      }
+      isLoading = false;
+      setState(() {});
       return;
     }
     List<String> selectedArr = [];
@@ -101,17 +124,24 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
       }
       if (selected == false) {
         showToast(msg: "请完成第${i + 1}题哦～");
-        pageController.jumpToPage(i);
+        pageController?.jumpToPage(i);
         return;
       }
     }
     try {
       if (isLoading) return;
       isLoading = true;
-      dynamic responseData = await netManager.client.postVoteSubmit(topicInfo.list.first.id, selectedArr);
+      LoadingAlertWidget.show(context);
+      dynamic responseData = await netManager.client.postVoteSubmit(topicVoteModel.id, selectedArr);
+      LoadingAlertWidget.cancel(context);
       debugLog(responseData);
-      QuestionResultAlert.show(context, type: 1, descText: "1231231312323");
+      if(responseData is Map){
+        String descText = responseData["desc"] ?? "";
+        int score = responseData["score"] ?? 0;
+        QuestionResultAlert.show(context, score: score, descText: descText);
+      }
     } catch (e) {
+      LoadingAlertWidget.cancel(context);
       debugLog(e);
     }
     isLoading = false;
@@ -153,6 +183,7 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
                   index: index,
                   allCount: allCount,
                   model: dataModel?.list[index],
+                  hasVoted: topicVoteModel?.hasVoted ?? false,
                 );
               },
             ),
@@ -169,7 +200,7 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
                     onTap: () {
                       double offset = pageController.offset;
                       offset = offset - screen.screenWidth;
-                      pageController.jumpTo(max(0, offset));
+                      pageController?.jumpTo(max(0, offset));
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -195,9 +226,9 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
                       if (isLastPage) {
                         _submitVote();
                       } else {
-                        double offset = pageController.offset;
+                        double offset = pageController?.offset ?? 0;
                         offset = offset + screen.screenWidth;
-                        pageController.jumpTo(min(screen.screenWidth * allCount, offset));
+                        pageController?.jumpTo(min(screen.screenWidth * allCount, offset));
                       }
                     },
                     child: Container(
@@ -225,5 +256,11 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
         ],
       );
     }
+  }
+
+  @override
+  void dispose() {
+    pageController?.removeListener(_listenCallback);
+    super.dispose();
   }
 }
