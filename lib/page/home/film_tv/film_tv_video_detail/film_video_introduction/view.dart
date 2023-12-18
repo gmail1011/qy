@@ -83,37 +83,40 @@ Widget buildView(FilmVideoIntroductionState state, Dispatch dispatch, ViewServic
         ///判断列表是否为空
         (state.videoList == null || state.videoList.isEmpty)
             ? SliverToBoxAdapter(
-          child: state.dataReq
-              ? Container(margin: EdgeInsets.only(top: 60),child: LoadingWidget(),)
-              : Container(
-            margin: EdgeInsets.only(bottom: 80),
-            child: CErrorWidget(Lang.EMPTY_DATA, retryOnTap: () {
-              dispatch(FilmVideoIntroductionActionCreator.refreshData());
-            }),
-          ),
-        )
+                child: state.dataReq
+                    ? Container(
+                        margin: EdgeInsets.only(top: 60),
+                        child: LoadingWidget(),
+                      )
+                    : Container(
+                        margin: EdgeInsets.only(bottom: 80),
+                        child: CErrorWidget(Lang.EMPTY_DATA, retryOnTap: () {
+                          dispatch(FilmVideoIntroductionActionCreator.refreshData());
+                        }),
+                      ),
+              )
             : SliverPadding(
-          padding: EdgeInsets.only(left: 16.w, right: 16.w),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-              if (state.videoList.isEmpty) {
-                return Container();
-              }
-              VideoModel videoItem = state.videoList[index];
-              return GestureDetector(
-                onTap: () {
-                  if (videoItem?.id == state.viewModel?.id) {
-                    showToast(msg: "视频正在播放～");
-                    l.e("_reloadNewVideo:", "视频正在播放");
-                    return;
-                  }
-                  dispatch(FilmVideoIntroductionActionCreator.reloadNewVideo(videoItem));
-                },
-                child: _buildRecommendListItem(videoItem, viewService),
-              );
-            }, childCount: state.videoList?.length ?? 0),
-          ),
-        ),
+                padding: EdgeInsets.only(left: 16.w, right: 16.w),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+                    if (state.videoList.isEmpty) {
+                      return Container();
+                    }
+                    VideoModel videoItem = state.videoList[index];
+                    return GestureDetector(
+                      onTap: () {
+                        if (videoItem?.id == state.viewModel?.id) {
+                          showToast(msg: "视频正在播放～");
+                          l.e("_reloadNewVideo:", "视频正在播放");
+                          return;
+                        }
+                        dispatch(FilmVideoIntroductionActionCreator.reloadNewVideo(videoItem));
+                      },
+                      child: _buildRecommendListItem(videoItem, viewService),
+                    );
+                  }, childCount: state.videoList?.length ?? 0),
+                ),
+              ),
       ],
     ),
   );
@@ -136,71 +139,71 @@ Widget _buildRecommendListItem(VideoModel videoModel, ViewService viewService) {
         ),
         Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                    margin: EdgeInsets.only(left: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(videoModel?.title ?? "",
-                              maxLines: 1,
-                              style: TextStyle(
-                                color: Color(0xffe7e7e7),
-                                fontSize: 14.w,
-                                height: 1.2,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              overflow: TextOverflow.ellipsis),
-                        ),
-                        SizedBox(width: 8)
-                      ],
-                    )),
-                Container(
-                  margin: EdgeInsets.only(top: 8,left: 10),
-                  child: videoModel?.tags == null
-                      ? Container()
-                      : Wrap(
-                    alignment: WrapAlignment.start,
-                    direction: Axis.horizontal,
-                    spacing: 8.0,
-                    runSpacing: 4.0,
-                    children: videoModel?.tags?.map((e) => _createTagItem(e, videoModel?.id, viewService))?.toList(),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                margin: EdgeInsets.only(left: 10),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(videoModel?.title ?? "",
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Color(0xffe7e7e7),
+                            fontSize: 14.w,
+                            height: 1.2,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                    SizedBox(width: 8)
+                  ],
+                )),
+            Container(
+              margin: EdgeInsets.only(top: 8, left: 10),
+              child: videoModel?.tags == null
+                  ? Container()
+                  : Wrap(
+                      alignment: WrapAlignment.start,
+                      direction: Axis.horizontal,
+                      spacing: 8.0,
+                      runSpacing: 4.0,
+                      children: videoModel?.tags?.map((e) => _createTagItem(e, videoModel?.id, viewService))?.toList(),
+                    ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 8, left: 10),
+              child: Row(
+                children: [
+                  Image.asset(
+                    "assets/images/time_logo.png",
+                    width: 16,
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 8, left: 10),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        "assets/images/time_logo.png",
-                        width: 16,
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        TimeHelper.getTimeText(videoModel.playTime.toDouble()),
-                        style: TextStyle(color: Color(0xff9fa19f), fontSize: 12.w),
-                      ),
-                      SizedBox(width: 16),
-                      Image.asset(
-                        "assets/images/play_count.png",
-                        width: 16,
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        videoModel.playCountDesc,
-                        style: TextStyle(
-                          color: Color(0xff9fa19f),
-                          fontSize: 12.w,
-                        ),
-                      ),
-                    ],
+                  SizedBox(width: 4),
+                  Text(
+                    TimeHelper.getTimeText(videoModel.playTime.toDouble()),
+                    style: TextStyle(color: Color(0xff9fa19f), fontSize: 12.w),
                   ),
-                )
-              ],
-            ))
+                  SizedBox(width: 16),
+                  Image.asset(
+                    "assets/images/play_count.png",
+                    width: 16,
+                  ),
+                  SizedBox(width: 4),
+                  Text(
+                    videoModel.playCountDesc,
+                    style: TextStyle(
+                      color: Color(0xff9fa19f),
+                      fontSize: 12.w,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ))
       ],
     ),
   );
@@ -221,7 +224,6 @@ SliverToBoxAdapter _createIntroductionUI(FilmVideoIntroductionState state, Dispa
           Container(
             margin: EdgeInsets.only(top: 7.w),
             alignment: Alignment.centerLeft,
-
             child: Text(
               state.viewModel?.title ?? "",
               maxLines: 3,
@@ -264,36 +266,6 @@ SliverToBoxAdapter _createIntroductionUI(FilmVideoIntroductionState state, Dispa
 
 ///用户信息UI
 Row _buildUserInfoUI(Dispatch dispatch, ViewService viewService, VideoModel viewModel) => Row(
-  children: [
-    GestureDetector(
-      onTap: () async {
-        Map<String, dynamic> arguments = {
-          'uid': viewModel.publisher.uid,
-          'uniqueId': DateTime.now().toIso8601String(),
-        };
-
-        viewService.broadcast(FilmVideoIntroductionActionCreator.stopVideoPlay(viewModel.id));
-        await Gets.Get.to(() => BloggerPage(arguments), opaque: false);
-        viewService.broadcast(FilmVideoIntroductionActionCreator.notifyReStartPlayVideo(viewModel.id));
-      },
-      child: HeaderWidget(
-        headWidth: 52.w,
-        headHeight: 52.w,
-        headPath: viewModel.publisher.portrait,
-        level: (viewModel.publisher.superUser ?? false) ? 1 : 0,
-        levelSize: 15.w,
-        positionedSize: 0,
-        defaultHead: Image.asset(
-          "assets/weibo/loading_horizetol.png",
-          fit: BoxFit.cover,
-        ),
-      ),
-    ),
-    SizedBox(
-      width: 12.w,
-    ),
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
           onTap: () async {
@@ -306,132 +278,162 @@ Row _buildUserInfoUI(Dispatch dispatch, ViewService viewService, VideoModel view
             await Gets.Get.to(() => BloggerPage(arguments), opaque: false);
             viewService.broadcast(FilmVideoIntroductionActionCreator.notifyReStartPlayVideo(viewModel.id));
           },
-          child: Row(
-            children: [
-              Container(
-                child: Text(
-                  viewModel.publisher.name,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: TextStyle(
-                      color: viewModel.publisher.isVip && viewModel.publisher.vipLevel > 0
-                          ? Color.fromRGBO(246, 197, 89, 1)
-                          : Colors.white,
-                      fontSize: 18.nsp),
-                ),
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              viewModel.publisher.isVip && viewModel.publisher.vipLevel > 0
-                  ? Image.asset(
-                "assets/weibo/huangguan.png",
-                width: 19.w,
-                height: 19.w,
-                fit: BoxFit.contain,
-              )
-                  : Container(),
-              SizedBox(
-                width: 10.w,
-              ),
-              Row(
-                children: viewModel.publisher.awardsExpire.map((e) {
-                  return e.isExpire
-                      ? Row(
-                    children: [
-                      CustomNetworkImage(
-                        imageUrl: e.imageUrl ?? "",
-                        width: 18.w,
-                        height: 18.w,
-                        fit: BoxFit.cover,
-                        placeholder: Container(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                    ],
-                  )
-                      : Container();
-                }).toList(),
-              ),
-            ],
+          child: HeaderWidget(
+            headWidth: 52.w,
+            headHeight: 52.w,
+            headPath: viewModel.publisher.portrait,
+            level: (viewModel.publisher.superUser ?? false) ? 1 : 0,
+            levelSize: 15.w,
+            positionedSize: 0,
+            defaultHead: Image.asset(
+              "assets/weibo/loading_horizetol.png",
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         SizedBox(
-          height: 6.w,
+          width: 12.w,
         ),
-        GestureDetector(
-          onTap: () async {
-            // Map<String, String> parameter = {
-            //   "city": viewModel.location.city,
-            //   "id": viewModel.location.id,
-            // };
-            //
-            // viewService.broadcast(
-            //     FilmVideoIntroductionActionCreator.stopVideoPlay(
-            //         viewModel.id));
-            // await Gets.Get.to(CityVideoPage().buildPage(parameter),
-            //     opaque: false);
-            // viewService.broadcast(
-            //     FilmVideoIntroductionActionCreator.notifyReStartPlayVideo(
-            //         viewModel.id));
-          },
-          child: Container(
-            color: Colors.transparent,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                // Image.asset(
-                //   "assets/weibo/dingwei.png",
-                //   width: 16.w,
-                //   height: 16.w,
-                // ),
-                // SizedBox(
-                //   width: 8.w,
-                // ),
-                Text(
-                  viewModel.publisher.upTag ?? "",
-                  style: TextStyle(color: Color.fromRGBO(124, 135, 159, 1), fontSize: 14.nsp),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () async {
+                Map<String, dynamic> arguments = {
+                  'uid': viewModel.publisher.uid,
+                  'uniqueId': DateTime.now().toIso8601String(),
+                };
+
+                viewService.broadcast(FilmVideoIntroductionActionCreator.stopVideoPlay(viewModel.id));
+                await Gets.Get.to(() => BloggerPage(arguments), opaque: false);
+                viewService.broadcast(FilmVideoIntroductionActionCreator.notifyReStartPlayVideo(viewModel.id));
+              },
+              child: Row(
+                children: [
+                  Container(
+                    child: Text(
+                      viewModel.publisher.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                          color: viewModel.publisher.isVip && viewModel.publisher.vipLevel > 0
+                              ? Color.fromRGBO(246, 197, 89, 1)
+                              : Colors.white,
+                          fontSize: 18.nsp),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  viewModel.publisher.isVip && viewModel.publisher.vipLevel > 0
+                      ? Image.asset(
+                          "assets/weibo/huangguan.png",
+                          width: 19.w,
+                          height: 19.w,
+                          fit: BoxFit.contain,
+                        )
+                      : Container(),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Row(
+                    children: viewModel.publisher.awardsExpire.map((e) {
+                      return e.isExpire
+                          ? Row(
+                              children: [
+                                CustomNetworkImage(
+                                  imageUrl: e.imageUrl ?? "",
+                                  width: 18.w,
+                                  height: 18.w,
+                                  fit: BoxFit.cover,
+                                  placeholder: Container(
+                                    color: Colors.transparent,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                              ],
+                            )
+                          : Container();
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 6.w,
+            ),
+            GestureDetector(
+              onTap: () async {
+                // Map<String, String> parameter = {
+                //   "city": viewModel.location.city,
+                //   "id": viewModel.location.id,
+                // };
+                //
+                // viewService.broadcast(
+                //     FilmVideoIntroductionActionCreator.stopVideoPlay(
+                //         viewModel.id));
+                // await Gets.Get.to(CityVideoPage().buildPage(parameter),
+                //     opaque: false);
+                // viewService.broadcast(
+                //     FilmVideoIntroductionActionCreator.notifyReStartPlayVideo(
+                //         viewModel.id));
+              },
+              child: Container(
+                color: Colors.transparent,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    // Image.asset(
+                    //   "assets/weibo/dingwei.png",
+                    //   width: 16.w,
+                    //   height: 16.w,
+                    // ),
+                    // SizedBox(
+                    //   width: 8.w,
+                    // ),
+                    Text(
+                      viewModel.publisher.upTag ?? "",
+                      style: TextStyle(color: Color.fromRGBO(124, 135, 159, 1), fontSize: 14.nsp),
+                    ),
+                    SizedBox(
+                      width: 16.w,
+                    ),
+                    Text(
+                      formatTime(viewModel.createdAt),
+                      style: TextStyle(color: Color.fromRGBO(124, 135, 159, 1), fontSize: 14.nsp),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 16.w,
-                ),
-                Text(
-                  formatTime(viewModel.createdAt),
-                  style: TextStyle(color: Color.fromRGBO(124, 135, 159, 1), fontSize: 14.nsp),
-                ),
-              ],
+              ),
+            ),
+          ],
+        ),
+        Spacer(),
+        Offstage(
+          offstage: _showFollowedUI(viewModel?.publisher),
+          child: GestureDetector(
+            onTap: () async {
+              // 自己不能关注自己
+              if (GlobalStore.isMe(viewModel.publisher.uid)) {
+                showToast(msg: Lang.GLOBAL_TIP_TXT1);
+                return;
+              }
+              dispatch(FilmVideoIntroductionActionCreator.doFollow(viewModel?.publisher?.uid));
+            },
+            child: Visibility(
+              visible: viewModel.publisher.hasFollowed || viewModel.publisher.uid == GlobalStore.getMe().uid ? false : true,
+              child: Image.asset(
+                "assets/weibo/guanzhu.png",
+                width: 68.w,
+                height: 26.w,
+              ),
             ),
           ),
         ),
       ],
-    ),
-    Spacer(),
-    Offstage(
-      offstage: _showFollowedUI(viewModel?.publisher),
-      child: GestureDetector(
-        onTap: () async {
-          // 自己不能关注自己
-          if (GlobalStore.isMe(viewModel.publisher.uid)) {
-            showToast(msg: Lang.GLOBAL_TIP_TXT1);
-            return;
-          }
-          dispatch(FilmVideoIntroductionActionCreator.doFollow(viewModel?.publisher?.uid));
-        },
-        child: Visibility(
-          visible: viewModel.publisher.hasFollowed || viewModel.publisher.uid == GlobalStore.getMe().uid ? false : true,
-          child: Image.asset(
-            "assets/weibo/guanzhu.png",
-            width: 68.w,
-            height: 26.w,
-          ),
-        ),
-      ),
-    ),
-  ],
-);
+    );
 
 ///是否展示关注UI-是否自己 是否已经关注 默认展示关注UI
 bool _showFollowedUI(PublisherBean publisher) => (GlobalStore.isMe(publisher?.uid) || (publisher?.hasFollowed ?? false)) ? true : false;
@@ -464,10 +466,10 @@ Widget getTalkHotTop(FilmVideoIntroductionState state, Dispatch dispatch, ViewSe
           image: state.rankInfoModel.rankType == "debate"
               ? AssetImage("assets/images/hot_top_talk_bg.png")
               : state.rankInfoModel.rankType == "event"
-              ? AssetImage("assets/images/hot_top_event_bg.png")
-              : state.rankInfoModel.rankType == "month"
-              ? AssetImage("assets/images/hot_top_month_bg.png")
-              : AssetImage("assets/images/hot_top_week_bg.png"),
+                  ? AssetImage("assets/images/hot_top_event_bg.png")
+                  : state.rankInfoModel.rankType == "month"
+                      ? AssetImage("assets/images/hot_top_month_bg.png")
+                      : AssetImage("assets/images/hot_top_week_bg.png"),
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -490,10 +492,10 @@ Widget getTalkHotTop(FilmVideoIntroductionState state, Dispatch dispatch, ViewSe
         position: state.rankInfoModel.rankType == "event"
             ? 0
             : state.rankInfoModel.rankType == "debate"
-            ? 1
-            : state.rankInfoModel.rankType == "month"
-            ? 3
-            : 2,
+                ? 1
+                : state.rankInfoModel.rankType == "month"
+                    ? 3
+                    : 2,
       ));
     },
   );
@@ -560,12 +562,12 @@ Widget _buildPlayCount(VideoModel viewModel) {
   }
   return Container(
       child: Text(
-        "${viewModel.playCountDescFour}",
-        style: TextStyle(
-          color: Color.fromRGBO(153, 153, 153, 1),
-          fontSize: 12,
-        ),
-      ));
+    "${viewModel.playCountDescFour}",
+    style: TextStyle(
+      color: Color.fromRGBO(153, 153, 153, 1),
+      fontSize: 12,
+    ),
+  ));
 }
 
 ///收藏UI
@@ -584,43 +586,43 @@ Widget _buildCollectItem(VideoModel viewModel, Dispatch dispatch) {
   );
   var loveItem = Container(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            child: LoveButton(
-              loveController: LoveController(isLove),
-              dotColor: DotColor(
-                dotPrimaryColor: Color.fromARGB(1, 152, 219, 236),
-                dotSecondaryColor: Color.fromARGB(1, 247, 188, 48),
-                dotLastColor: Color.fromARGB(1, 221, 70, 136),
-                dotThirdColor: Color.fromARGB(1, 205, 143, 246),
-              ),
-              imgWidth: 20.w,
-              imgHeight: 20.w,
-              cWidth: 20.w,
-              cHeight: 20.w,
-              imageTrue: love1,
-              imageFalse: love2,
-              duration: Duration(milliseconds: 800),
-              enable: true,
-              onIconCompleted: () {},
-              onIconClicked: () {
-                dispatch(FilmVideoIntroductionActionCreator.operateCollect());
-              },
-            ),
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Container(
+        child: LoveButton(
+          loveController: LoveController(isLove),
+          dotColor: DotColor(
+            dotPrimaryColor: Color.fromARGB(1, 152, 219, 236),
+            dotSecondaryColor: Color.fromARGB(1, 247, 188, 48),
+            dotLastColor: Color.fromARGB(1, 221, 70, 136),
+            dotThirdColor: Color.fromARGB(1, 205, 143, 246),
           ),
-          SizedBox(height: 4),
-          Container(
-            child: Text(
-              "收藏",
-              style: TextStyle(
-                color: Color.fromRGBO(167, 167, 167, 1),
-                fontSize: 12.w,
-              ),
-            ),
+          imgWidth: 20.w,
+          imgHeight: 20.w,
+          cWidth: 20.w,
+          cHeight: 20.w,
+          imageTrue: love1,
+          imageFalse: love2,
+          duration: Duration(milliseconds: 800),
+          enable: true,
+          onIconCompleted: () {},
+          onIconClicked: () {
+            dispatch(FilmVideoIntroductionActionCreator.operateCollect());
+          },
+        ),
+      ),
+      SizedBox(height: 4),
+      Container(
+        child: Text(
+          "收藏",
+          style: TextStyle(
+            color: Color.fromRGBO(167, 167, 167, 1),
+            fontSize: 12.w,
           ),
-        ],
-      ));
+        ),
+      ),
+    ],
+  ));
   return loveItem;
 }
 
@@ -636,51 +638,51 @@ Widget _buildLikeItem(bool isLove, int loveCount, Dispatch dispatch) {
   );
   var loveItem = Container(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            child: LoveButton(
-              loveController: LoveController(isLove),
-              dotColor: DotColor(
-                dotPrimaryColor: Color.fromARGB(1, 152, 219, 236),
-                dotSecondaryColor: Color.fromARGB(1, 247, 188, 48),
-                dotLastColor: Color.fromARGB(1, 221, 70, 136),
-                dotThirdColor: Color.fromARGB(1, 205, 143, 246),
-              ),
-              imgWidth: 20.w,
-              imgHeight: 20.w,
-              cWidth: 20.w,
-              cHeight: 20.w,
-              imageTrue: love1,
-              imageFalse: love2,
-              duration: Duration(milliseconds: 800),
-              enable: true,
-              onIconCompleted: () {},
-              onIconClicked: () {
-                dispatch(FilmVideoIntroductionActionCreator.operateLike());
-              },
-            ),
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Container(
+        child: LoveButton(
+          loveController: LoveController(isLove),
+          dotColor: DotColor(
+            dotPrimaryColor: Color.fromARGB(1, 152, 219, 236),
+            dotSecondaryColor: Color.fromARGB(1, 247, 188, 48),
+            dotLastColor: Color.fromARGB(1, 221, 70, 136),
+            dotThirdColor: Color.fromARGB(1, 205, 143, 246),
           ),
-          SizedBox(height: 4),
-          Container(
-            child: (loveCount > 0)
-                ? Text(
-              "$loveCount",
-              style: TextStyle(
-                color: Color.fromRGBO(153, 153, 153, 1),
-                fontSize: 12.w,
+          imgWidth: 20.w,
+          imgHeight: 20.w,
+          cWidth: 20.w,
+          cHeight: 20.w,
+          imageTrue: love1,
+          imageFalse: love2,
+          duration: Duration(milliseconds: 800),
+          enable: true,
+          onIconCompleted: () {},
+          onIconClicked: () {
+            dispatch(FilmVideoIntroductionActionCreator.operateLike());
+          },
+        ),
+      ),
+      SizedBox(height: 4),
+      Container(
+        child: (loveCount > 0)
+            ? Text(
+                "$loveCount",
+                style: TextStyle(
+                  color: Color.fromRGBO(153, 153, 153, 1),
+                  fontSize: 12.w,
+                ),
+              )
+            : Text(
+                "点赞",
+                style: TextStyle(
+                  color: Color.fromRGBO(153, 153, 153, 1),
+                  fontSize: 12.w,
+                ),
               ),
-            )
-                : Text(
-              "点赞",
-              style: TextStyle(
-                color: Color.fromRGBO(153, 153, 153, 1),
-                fontSize: 12.w,
-              ),
-            ),
-          ),
-        ],
-      ));
+      ),
+    ],
+  ));
   return loveItem;
 }
 
@@ -753,7 +755,7 @@ SliverToBoxAdapter _buildAdsUI(FilmVideoIntroductionState state, Dispatch dispat
 SliverToBoxAdapter _createRecommandUI(BuildContext context) {
   return SliverToBoxAdapter(
     child: Container(
-      padding: EdgeInsets.only(top: 12.w),
+      padding: EdgeInsets.only(top: 0),
       child: Column(
         children: [
           ///推荐UI
@@ -767,7 +769,11 @@ SliverToBoxAdapter _createRecommandUI(BuildContext context) {
                 const SizedBox(width: 16),
                 Text(
                   "精彩推荐",
-                  style: TextStyle(fontSize: 14.w, color: Colors.white, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),

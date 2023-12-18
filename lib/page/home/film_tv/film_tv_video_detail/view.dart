@@ -362,8 +362,8 @@ Widget buildView(FilmTvVideoDetailState state, Dispatch dispatch, ViewService vi
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [
-                      Color(0xff8ef9eb),
-                      Color.fromRGBO(0, 214, 190, 1),
+                      AppColors.primaryTextColor,
+                      AppColors.primaryTextColor,
                     ]),
                     borderRadius: BorderRadius.all(Radius.circular(28))),
                 child: Text(
