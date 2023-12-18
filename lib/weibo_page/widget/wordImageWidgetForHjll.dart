@@ -618,16 +618,6 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
                                         fit: StackFit.expand,
                                         children: [
                                           GestureDetector(
-                                            onTap: () {
-                                              Map<String, dynamic> maps = Map();
-                                              maps["videoId"] = widget.videoModel.id;
-
-                                              bus.emit(EventBusUtils.closeActivityFloating);
-                                              maps["videoModel"] = widget.videoModel;
-                                              Gets.Get.to(() => FilmTvVideoDetailPage().buildPage(maps), opaque: false).then((value) {
-                                                bus.emit(EventBusUtils.showActivityFloating);
-                                              });
-                                            },
                                             child: CustomNetworkImageNew(
                                               fit: BoxFit.cover,
                                               height: height,
