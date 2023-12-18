@@ -315,7 +315,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                 ),
               )
                   : Image.asset(
-                "assets/images/voice.png.png",
+                "assets/images/voice.png",
                 width: 32,
                 height: 32,
               ),
