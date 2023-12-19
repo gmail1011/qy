@@ -4,6 +4,8 @@ import 'package:flutter_app/common/image/custom_network_image_new.dart';
 import 'package:flutter_app/global_store/store.dart';
 import 'package:flutter_app/model/comment_model.dart';
 import 'package:flutter_app/page/home_msg/view/chat_item_audio_widget.dart';
+import 'package:flutter_app/utils/utils.dart';
+import 'package:flutter_app/weibo_page/widget/bloggerPage.dart';
 
 class ChatItemCell extends StatefulWidget {
   final CommentModel model;
@@ -18,7 +20,8 @@ class ChatItemCell extends StatefulWidget {
 
 class _ChatItemCellState extends State<ChatItemCell> {
   bool get isImg => widget.model?.image?.isNotEmpty == true;
-  bool get isAudio =>  widget.model?.audio?.isNotEmpty == true;
+
+  bool get isAudio => widget.model?.audio?.isNotEmpty == true;
 
   bool get isMe => GlobalStore.isMe(widget.model?.userID);
 
@@ -49,7 +52,6 @@ class _ChatItemCellState extends State<ChatItemCell> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     if (isMe) {
@@ -70,14 +72,23 @@ class _ChatItemCellState extends State<ChatItemCell> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: CustomNetworkImageNew(
-                    imageUrl: widget.model?.userPortrait ?? "",
+                GestureDetector(
+                  onTap: () {
+                    Map<String, dynamic> arguments = {
+                      'uid': widget.model?.userID,
+                      'uniqueId': DateTime.now().toIso8601String(),
+                    };
+                    pushToPage(BloggerPage(arguments));
+                  },
+                  child: SizedBox(
                     width: 40,
                     height: 40,
-                    radius: 20,
+                    child: CustomNetworkImageNew(
+                      imageUrl: widget.model?.userPortrait ?? "",
+                      width: 40,
+                      height: 40,
+                      radius: 20,
+                    ),
                   ),
                 ),
                 SizedBox(width: 12),
@@ -94,7 +105,7 @@ class _ChatItemCellState extends State<ChatItemCell> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      if(isAudio)
+                      if (isAudio)
                         ChatItemAudioWidget(model: widget.model)
                       else if (isImg)
                         InkWell(
@@ -165,7 +176,7 @@ class _ChatItemCellState extends State<ChatItemCell> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      if(isAudio)
+                      if (isAudio)
                         ChatItemAudioWidget(model: widget.model)
                       else if (isImg)
                         InkWell(
@@ -205,14 +216,23 @@ class _ChatItemCellState extends State<ChatItemCell> {
                   ),
                 ),
                 SizedBox(width: 12),
-                SizedBox(
-                  width: 40,
-                  height: 40,
-                  child:  CustomNetworkImageNew(
-                    imageUrl: widget.model?.userPortrait,
+                GestureDetector(
+                  onTap: (){
+                    Map<String, dynamic> arguments = {
+                      'uid': widget.model?.userID,
+                      'uniqueId': DateTime.now().toIso8601String(),
+                    };
+                    pushToPage(BloggerPage(arguments));
+                  },
+                  child: SizedBox(
                     width: 40,
                     height: 40,
-                    radius: 20,
+                    child: CustomNetworkImageNew(
+                      imageUrl: widget.model?.userPortrait,
+                      width: 40,
+                      height: 40,
+                      radius: 20,
+                    ),
                   ),
                 ),
               ],
@@ -222,7 +242,6 @@ class _ChatItemCellState extends State<ChatItemCell> {
       ),
     );
   }
-
 
   Widget _buildTime() {
     if (widget.model?.isShowTime == true) {
