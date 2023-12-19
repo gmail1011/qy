@@ -55,7 +55,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
     if (systemMsgModel?.xList?.isNotEmpty == true) {
       count--;
     }
-    return min(0, count);
+    return max(0, count);
   }
 
   bool isSystemMsg(int index) {
