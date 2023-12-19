@@ -447,7 +447,7 @@ GestureDetector _buildVideoStatus(BuildContext context, Dispatch dispatch, int v
     },
     child: Container(
       padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
-      decoration: BoxDecoration(color: Color.fromRGBO(0, 214, 190, 0.9), borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: AppColors.primaryTextColor.withOpacity(0.9), borderRadius: BorderRadius.circular(20)),
       child: Text(
         vStausName ?? "",
         style: TextStyle(color: Colors.white, fontSize: 12),
