@@ -19,7 +19,7 @@ class ActivityDetailView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           AspectRatio(
-            aspectRatio: 720 / 300,
+            aspectRatio: 600 / 800,
             child: activityModel?.image?.isNotEmpty == true
                 ? CustomNetworkImage(
                     imageUrl: activityModel?.image?.first ?? "",

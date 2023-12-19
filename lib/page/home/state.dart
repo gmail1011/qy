@@ -73,8 +73,8 @@ HomeState initState(Map<String, dynamic> args) {
   var pageList = [
     routers.buildPage(FILM_TV_PAGE, {"dataType": 0}),
     routers.buildPage(FILM_TV_PAGE, {"dataType": 1}),
-    HomeMsgPage(),
     HjllCommunityPage().buildPage(null),
+    HomeMsgPage(),
     MineHomePage()
   ];
 

@@ -302,21 +302,6 @@ class _CNavigationBarItemState extends State<CNavigationBarItem> {
         ),
       ),
     );
-    menuIndex++;
-    navigationBarList.add(
-      Expanded(
-        child: GestureDetector(
-          onTap: () {
-            onTap(menuIndex);
-          },
-          child: Container(
-            width: 56,
-            child: buildImgBtn(
-                menuIndex, "消息", "assets/images/hj_home_icon_msg.png", "assets/images/hj_home_icon_msg_select.png"),
-          ),
-        ),
-      ),
-    );
     // if (Config.playGame == true) {
     //   menuIndex++;
     //   navigationBarList.add(
@@ -346,6 +331,21 @@ class _CNavigationBarItemState extends State<CNavigationBarItem> {
             width: 56,
             child: buildImgBtn(
                 menuIndex, "社区", "assets/images/hj_home_icon_2.png", "assets/images/hj_home_icon_2_select.png"),
+          ),
+        ),
+      ),
+    );
+    menuIndex++;
+    navigationBarList.add(
+      Expanded(
+        child: GestureDetector(
+          onTap: () {
+            onTap(menuIndex);
+          },
+          child: Container(
+            width: 56,
+            child: buildImgBtn(
+                menuIndex, "消息", "assets/images/hj_home_icon_msg.png", "assets/images/hj_home_icon_msg_select.png"),
           ),
         ),
       ),
