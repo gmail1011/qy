@@ -75,6 +75,8 @@ class CommentModel {
   bool isGodComment;
   String image;
   bool isOpen = false;
+  String audio;
+  int audioTime;
   bool get isShowOpen { // 显示展开
     //haveMoreData == false && isOpen == true && isRequestReply == false;
     return haveMoreData == true || isOpen == false || isRequestReply == true;
@@ -103,6 +105,8 @@ class CommentModel {
     CommentModel commentModelBean = CommentModel();
     commentModelBean.isGodComment = map['isGodComment'];
     commentModelBean.image = map['image'];
+    commentModelBean.audio = map['audio'];
+    commentModelBean.audioTime = map['audioTime'];
     commentModelBean.isTop = map['isTop'];
     commentModelBean.id = map['id'];
     commentModelBean.cid = map['cid'];

@@ -50,7 +50,7 @@ class ActivityModel{
       return like.toString() ?? "点赞";
     }
   }
-  String image;
+  List<String> image;
   ActivityJoin join;
 
   String sourceUrl;
@@ -69,7 +69,9 @@ class ActivityModel{
     liked = json['liked'];
     publisher = Publisher.fromJson(json["publisher"]);
     id = json['id'];
-    image = json['image'];
+    if(json['image'] is List) {
+      image = (json['image'] as List).map((e) => e.toString()).toList();
+    }
     title = json['title'];
     content = json['content'];
     desc = json['desc'];

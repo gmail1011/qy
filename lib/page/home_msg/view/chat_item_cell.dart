@@ -18,7 +18,7 @@ class ChatItemCell extends StatefulWidget {
 
 class _ChatItemCellState extends State<ChatItemCell> {
   bool get isImg => widget.model?.image?.isNotEmpty == true;
-  bool get isAudio =>  true;
+  bool get isAudio =>  widget.model?.audio?.isNotEmpty == true;
 
   bool get isMe => GlobalStore.isMe(widget.model?.userID);
 

@@ -50,8 +50,10 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
     double imageHeight = 90;
     double imageWidth = 160;
     return InkWell(
-      onTap: (){
-        pushToPage(ActivityDetailPage(id: realModel.id,));
+      onTap: () {
+        pushToPage(ActivityDetailPage(
+          id: realModel.id,
+        ));
       },
       child: Container(
         padding: EdgeInsets.all(12),
@@ -71,14 +73,15 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Container(
-                          child: CustomNetworkImageNew(
-                            imageUrl: realModel.image ?? "",
-                            fit: BoxFit.cover,
-                            width: imageHeight,
-                            height: imageHeight,
+                        if (realModel.image?.isNotEmpty == true)
+                          Container(
+                            child: CustomNetworkImageNew(
+                              imageUrl: realModel.image?.first ?? "",
+                              fit: BoxFit.cover,
+                              width: imageHeight,
+                              height: imageHeight,
+                            ),
                           ),
-                        ),
                         Positioned(
                           bottom: 9,
                           right: 9,

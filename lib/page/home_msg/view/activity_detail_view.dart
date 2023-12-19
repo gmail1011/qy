@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_app/widget/richTextParsing/html_parser.dart';
 import 'package:flutter_base/utils/screen.dart';
 
 class ActivityDetailView extends StatelessWidget {
-
   final ActivityModel activityModel;
 
   const ActivityDetailView({Key key, this.activityModel}) : super(key: key);
@@ -22,13 +20,15 @@ class ActivityDetailView extends StatelessWidget {
         children: [
           AspectRatio(
             aspectRatio: 720 / 300,
-            child: CustomNetworkImage(
-              imageUrl: activityModel?.image,
-            ),
+            child: activityModel?.image?.isNotEmpty == true
+                ? CustomNetworkImage(
+                    imageUrl: activityModel?.image?.first ?? "",
+                  )
+                : SizedBox(),
           ),
           const SizedBox(height: 16),
           Text(
-            activityModel.title,
+            activityModel.title ?? "",
             style: TextStyle(
               color: Colors.white,
               fontSize: 14,

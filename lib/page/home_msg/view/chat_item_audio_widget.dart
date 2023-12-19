@@ -3,13 +3,14 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/assets/app_colors.dart';
+import 'package:flutter_app/common/config/address.dart';
 import 'package:flutter_app/global_store/store.dart';
 import 'package:flutter_app/model/comment_model.dart';
 import 'package:flutter_base/utils/log.dart';
 import 'package:video_player/video_player.dart';
 
 import 'images_animation.dart';
-
+import 'package:path/path.dart' as path;
 
 bool isPlayingMedia = false;
 
@@ -27,9 +28,9 @@ class ChatItemAudioWidget extends StatefulWidget {
 class _ChatItemAudioWidgetState extends State<ChatItemAudioWidget> {
   CommentModel get model => widget.model;
   VideoPlayerController controller;
-  int get  audioDuration => 10;
+  int get  audioDuration => model.audioTime ?? 0;
   bool isPlaying = false;
-  bool _mPlayerIsInited = true;
+  int _mPlayerIsInited = 0; // 1 加载中，2 加载成功
   String errorStr = "";
   bool get isLeftStyle => GlobalStore.isMe(widget.model?.userID) != true;
 
@@ -40,15 +41,20 @@ class _ChatItemAudioWidgetState extends State<ChatItemAudioWidget> {
   //  initController();
   }
 
-  void initController() async {
+  Future initController() async {
     try {
-      String url = model?.content ?? "";
+
+      String rootPath = path.join(Address.baseImagePath ?? "", "imageView/1");
+      String url = path.join(rootPath, model?.audio  ?? "");
+     // String url = rootPath + "/"  + (model?.audio ?? "");
+      _mPlayerIsInited = 1;
+      setState(() {});
       controller = VideoPlayerController.network(url);
       await controller?.initialize();
       controller?.addListener(_lister);
-      _mPlayerIsInited = true;
+      _mPlayerIsInited = 2;
     } catch (e) {
-      _mPlayerIsInited = true;
+      _mPlayerIsInited = 0;
       errorStr = e.toString();
       debugLog("audio error: $e");
     }
@@ -87,18 +93,21 @@ class _ChatItemAudioWidgetState extends State<ChatItemAudioWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        // if (_mPlayerIsInited && errorStr.isEmpty) {
-        //   if (isPlaying) {
-        //     controller?.pause();
-        //     isPlayingMedia = false;
-        //   } else {
-        //     controller?.play();
-        //     isPlayingMedia = true;
-        //   }
-        //
-        // }
-        isPlaying = !isPlaying;
-        setState(() {});
+        if(_mPlayerIsInited == 1) return;
+        if(_mPlayerIsInited != 2){
+          await initController();
+        }
+        if (_mPlayerIsInited == 2 && errorStr.isEmpty) {
+          if (isPlaying) {
+            controller?.pause();
+            isPlayingMedia = false;
+          } else {
+            controller?.play();
+            isPlayingMedia = true;
+          }
+          isPlaying = !isPlaying;
+          setState(() {});
+        }
       },
       child: _buildAudioItem(),
     );
@@ -143,9 +152,12 @@ class _ChatItemAudioWidgetState extends State<ChatItemAudioWidget> {
                   child: Row(
                     children: [
                       if (!isLeftStyle) ...[
-                        if (!_mPlayerIsInited)
-                          CupertinoActivityIndicator(
-                            radius: 8,
+                        if (_mPlayerIsInited == 1)
+                          Container(
+                            padding: EdgeInsets.only(right: 4),
+                            child: CupertinoActivityIndicator(
+                              radius: 8,
+                            ),
                           ),
                         if (audioDuration != null)
                           Text(
@@ -160,9 +172,12 @@ class _ChatItemAudioWidgetState extends State<ChatItemAudioWidget> {
                             "     $audioDuration\"",
                             style:  TextStyle(fontSize: 14, color: Colors.white),
                           ),
-                        if (!_mPlayerIsInited)
-                           CupertinoActivityIndicator(
-                            radius: 8,
+                        if (_mPlayerIsInited == 1)
+                          Container(
+                            padding: EdgeInsets.only(left: 4),
+                            child: CupertinoActivityIndicator(
+                              radius: 8,
+                            ),
                           ),
                       ],
                     ],
