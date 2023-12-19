@@ -3,6 +3,7 @@ import 'package:flutter_app/assets/app_colors.dart';
 import 'package:flutter_app/common/image/custom_network_image_new.dart';
 import 'package:flutter_app/global_store/store.dart';
 import 'package:flutter_app/model/comment_model.dart';
+import 'package:flutter_app/page/home_msg/view/chat_item_audio_widget.dart';
 
 class ChatItemCell extends StatefulWidget {
   final CommentModel model;
@@ -17,6 +18,7 @@ class ChatItemCell extends StatefulWidget {
 
 class _ChatItemCellState extends State<ChatItemCell> {
   bool get isImg => widget.model?.image?.isNotEmpty == true;
+  bool get isAudio =>  true;
 
   bool get isMe => GlobalStore.isMe(widget.model?.userID);
 
@@ -47,6 +49,7 @@ class _ChatItemCellState extends State<ChatItemCell> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     if (isMe) {
@@ -58,7 +61,7 @@ class _ChatItemCellState extends State<ChatItemCell> {
 
   Widget _buildLeftStyle() {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+      padding: EdgeInsets.fromLTRB(0, 12, 0, 6),
       child: Column(
         children: [
           _buildTime(),
@@ -91,7 +94,9 @@ class _ChatItemCellState extends State<ChatItemCell> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      if (isImg)
+                      if(isAudio)
+                        ChatItemAudioWidget(model: widget.model)
+                      else if (isImg)
                         InkWell(
                           onTap: () {
                             _showImageScan(widget.model?.image ?? "");
@@ -137,7 +142,7 @@ class _ChatItemCellState extends State<ChatItemCell> {
 
   Widget _buildRightStyle() {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+      padding: EdgeInsets.fromLTRB(0, 12, 0, 6),
       child: Column(
         children: [
           _buildTime(),
@@ -160,7 +165,9 @@ class _ChatItemCellState extends State<ChatItemCell> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      if (isImg)
+                      if(isAudio)
+                        ChatItemAudioWidget(model: widget.model)
+                      else if (isImg)
                         InkWell(
                           onTap: () {
                             _showImageScan(widget.model?.image ?? "");
@@ -216,10 +223,11 @@ class _ChatItemCellState extends State<ChatItemCell> {
     );
   }
 
+
   Widget _buildTime() {
     if (widget.model?.isShowTime == true) {
       return Container(
-        margin: EdgeInsets.fromLTRB(0, 12, 0, 24),
+        margin: EdgeInsets.fromLTRB(0, 12, 0, 12),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
         // decoration: BoxDecoration(
         //   borderRadius: BorderRadius.circular(30),

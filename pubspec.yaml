@@ -279,7 +279,9 @@ dependencies:
 
   flutter_displaymode: ^0.1.0
 
-
+  flutter_sound: ^2.1.1
+  flutter_image_compress: ^0.7.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

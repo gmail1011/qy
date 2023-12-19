@@ -1540,13 +1540,15 @@ class _ClientApi implements ClientApi {
   }
 
   @override
-  Future<CommentModel> sendComment(objID, level, content, { int objType, String image}) async {
+  Future<CommentModel> sendComment(objID, level, content, { int objType, String image,String audio, int audioTime}) async {
     ArgumentError.checkNotNull(objID, 'objID');
     ArgumentError.checkNotNull(level, 'level');
     ArgumentError.checkNotNull(content, 'content');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = {'objID': objID, 'level': level, 'content': content, "objType": objType, "image": image,};
+    final _data = {'objID': objID, 'level': level, 'content': content, "objType": objType, "image": image,
+      "audio": audio,"audioTime": audioTime,
+    };
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/comment/send',
         queryParameters: queryParameters,

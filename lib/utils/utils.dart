@@ -27,7 +27,6 @@ import 'package:url_launcher/url_launcher.dart';
 Future<String> getDeviceId() async {
 
   String deviceStr;
-  return "dxs214saadaaxp2124fe12313dsafdfadfax0121ef";
   try {
 
     const platform = const MethodChannel("com.yinse/device");

@@ -13,9 +13,12 @@ import 'package:flutter_app/model/activity_response.dart';
 import 'package:flutter_app/model/comment_model.dart';
 import 'package:flutter_app/model/multi_image_model.dart';
 import 'package:flutter_app/model/res/comment_list_res.dart';
+import 'package:flutter_app/model/upload/video_upload_result_model.dart';
+import 'package:flutter_app/page/home_msg/audio_view/audio_pick_view.dart';
 import 'package:flutter_app/page/home_msg/view/activity_detail_view.dart';
 import 'package:flutter_app/page/home_msg/view/chat_item_cell.dart';
 import 'package:flutter_app/utils/date_time_util.dart';
+import 'package:flutter_app/utils/file_upload_tool.dart';
 import 'package:flutter_app/widget/common_widget/common_widget.dart';
 import 'package:flutter_app/widget/common_widget/error_widget.dart';
 import 'package:flutter_app/widget/common_widget/loading_widget.dart';
@@ -51,7 +54,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       _loadUpdateData();
       await _loadData(widget.id ?? "");
       _getCommentList();
@@ -145,12 +148,10 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
     }
   }
 
-  void _voiceEvent() async {
-
-  }
+  void _voiceEvent() async {}
 
   ///发表评论
-  void _sendComment({String content, String imagePath}) async {
+  void _sendComment({String content, String imagePath, String audioFile, int timeCount}) async {
     String objID = activityModel?.id;
     int level = 1;
     try {
@@ -168,8 +169,22 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
         }
         imageUrl = multiImageModel.filePath.first;
       }
+      String audioUrl;
+      if(audioFile?.isNotEmpty == true){
+        VideoUploadResultModel audioModel = await FileUpLoadTool().uploadFile(audioFile);
+        if(audioModel.videoUri?.isNotEmpty == true){
+          audioUrl = audioModel.videoUri;
+        }else {
+          isSending = false;
+          setState(() {});
+          showToast(msg: "语音上传失败");
+          return;
+        }
+      }
       CommentModel commentModel;
-      if (imageUrl?.isNotEmpty == true) {
+      if (audioUrl?.isNotEmpty == true) {
+        commentModel = await netManager.client.sendComment(objID, level, "", objType: 1, audio: audioUrl, audioTime: timeCount ?? 0);
+      } else if (imageUrl?.isNotEmpty == true) {
         commentModel = await netManager.client.sendComment(objID, level, "", objType: 1, image: imageUrl);
       } else {
         commentModel = await netManager.client.sendComment(objID, level, content, objType: 1);
@@ -180,13 +195,13 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
       }
       _handleMessageTimeDesc();
       setState(() {});
-    }  on DioError catch (e) {
-      if(e.error is ApiException){
+    } on DioError catch (e) {
+      if (e.error is ApiException) {
         showToast(msg: (e.error as ApiException).message?.toString() ?? "");
-      }else {
+      } else {
         showToast(msg: e.toString());
       }
-    }catch (e) {
+    } catch (e) {
       showToast(msg: e.toString());
     }
     isSending = false;
@@ -301,24 +316,28 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
       padding: EdgeInsets.only(left: 16, right: 16),
       child: Row(
         children: [
-
           GestureDetector(
             child: Container(
               margin: EdgeInsets.only(bottom: 22),
               child: isSending
                   ? SizedBox(
-                width: 32,
-                height: 32,
-                child: CupertinoTheme(
-                  data: CupertinoThemeData(brightness: Brightness.dark),
-                  child: CupertinoActivityIndicator(),
-                ),
-              )
-                  : Image.asset(
-                "assets/images/voice.png",
-                width: 32,
-                height: 32,
-              ),
+                      width: 32,
+                      height: 32,
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Brightness.dark),
+                        child: CupertinoActivityIndicator(),
+                      ),
+                    )
+                  : AudioPickerView(
+                      child: Image.asset(
+                        "assets/images/voice.png",
+                        width: 32,
+                        height: 32,
+                      ),
+                      callback: (value, timer) {
+                        _sendComment(audioFile: value, timeCount: timer);
+                      },
+                    ),
             ),
             onTap: _voiceEvent,
           ),

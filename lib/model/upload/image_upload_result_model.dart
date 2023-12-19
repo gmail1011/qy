@@ -5,7 +5,7 @@
 
 class ImageUploadResultModel {
   String coverImg;
-
+  String errorDesc;
   static ImageUploadResultModel fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     ImageUploadResultModel dataBean = ImageUploadResultModel();

@@ -802,7 +802,7 @@ abstract class ClientApi {
     @Field() String objID,
     @Field() int level,
     @Field() String content,
-  { int objType,String image,}
+  { int objType,String image,String audio, int audioTime}
   );
 
   ///发表评论(2)
