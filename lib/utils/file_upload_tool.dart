@@ -150,6 +150,56 @@ class FileUpLoadTool {
     return retModel;
   }
 
+  Future<VideoUploadResultModel> uploadAudioFile(String localPath, {Function(int, int, int, int) proCallback}) async {
+    if (!FileUtil.isFileExist(localPath)) {
+      return VideoUploadResultModel()..errorDesc = "文件找不到";
+    }
+    VideoUploadResultModel retModel;
+    try {
+      File videoFile = File(localPath);
+      int fileLen = FileUtil.getFileSize(localPath);
+      Uint8List fileData = await videoFile.readAsBytes();
+      List<int> bytes = fileData.buffer.asUint8List(fileData.offsetInBytes, fileData.lengthInBytes);
+      String fileId = md5.convert(bytes).toString();
+
+      var options = Options(
+        method: "POST",
+        sendTimeout:  30000,
+        receiveTimeout:  60000,
+        contentType: "application/json",
+        responseType: ResponseType.json,
+        headers: {
+          "Authorization": await netManager.getToken(),
+          "User-Agent": await netManager.userAgent(),
+          'Content-Type': 'application/json'
+        },
+      );
+
+      var postData = {
+        'data': base64.encode(bytes),
+        'pos': 0,
+        'totalPos': 1,
+        'id': fileId,
+      };
+      Response resp = await createDio().post(
+        Address.baseApiPath + "/vid/uploadAudio",
+        options: options,
+        data: postData,
+        onSendProgress: (count, total) {
+        },
+      );
+      await HttpRespInterceptor.handleResponse(resp);
+      retModel = VideoUploadResultModel.fromMap(resp.data);
+
+      retModel?.md5 = fileId;
+      return retModel;
+    } catch (e) {
+      retModel = VideoUploadResultModel()..errorDesc = e.toString();
+    }
+    return retModel;
+  }
+
+
   Future<Uint8List> compressImageList(Uint8List list, {int maxSize = 200 * 1024, int count = 1}) async {
     if(count == 0){
       return list;

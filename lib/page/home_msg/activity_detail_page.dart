@@ -171,7 +171,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
       }
       String audioUrl;
       if(audioFile?.isNotEmpty == true){
-        VideoUploadResultModel audioModel = await FileUpLoadTool().uploadFile(audioFile);
+        VideoUploadResultModel audioModel = await FileUpLoadTool().uploadAudioFile(audioFile);
         if(audioModel.videoUri?.isNotEmpty == true){
           audioUrl = audioModel.videoUri;
         }else {

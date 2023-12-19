@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
 import 'package:flutter_base/utils/toast_util.dart';
+import 'package:flutter_sound/android_encoder.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -71,9 +72,10 @@ class _SimpleRecorderState extends State<SimpleRecorder> {
         setState(() {});
       });
       setState(() {});
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
       Directory tempDir = await getTemporaryDirectory();
       String path = await flutterSound.startRecorder(
-        uri: '${tempDir.path}/sound.aac',
+        uri: '${tempDir.path}/$fileName.aac',
         codec: _codec,
       );
       print('startRecorder: $path');
