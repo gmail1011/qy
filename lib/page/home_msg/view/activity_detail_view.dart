@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
+import 'package:flutter_app/common/local_router/jump_router.dart';
 import 'package:flutter_app/model/activity_response.dart';
+import 'package:flutter_app/model/ads_model.dart';
+import 'package:flutter_app/page/home/post/ads_banner_widget.dart';
 import 'package:flutter_app/widget/richTextParsing/html_parser.dart';
 import 'package:flutter_base/utils/screen.dart';
 
@@ -18,14 +22,16 @@ class ActivityDetailView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          AspectRatio(
-            aspectRatio: 600 / 800,
-            child: activityModel?.image?.isNotEmpty == true
-                ? CustomNetworkImage(
-                    imageUrl: activityModel?.image?.first ?? "",
-                  )
-                : SizedBox(),
-          ),
+          if (activityModel?.image?.isNotEmpty == true)
+            AspectRatio(
+              aspectRatio: 600 / 800,
+              child: activityModel?.image?.length == 1 ? CustomNetworkImage(
+                imageUrl: activityModel?.image?.first ?? "",
+                fit: BoxFit.contain,
+              ) : AdsBannerWidget(
+                activityModel?.image?.map((e) => AdsInfoBean()..cover = e)?.toList(),
+              ),
+            ),
           const SizedBox(height: 16),
           Text(
             activityModel.title ?? "",

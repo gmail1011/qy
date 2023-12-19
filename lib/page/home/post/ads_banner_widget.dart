@@ -93,7 +93,7 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
               var cover = widget.models[index].cover;
               return GestureDetector(
                 onTap: (){
-                  widget.onItemClick(index);
+                  widget.onItemClick?.call(index);
                 },
                 child: CustomNetworkImageNew(
                   fit: widget.fit ?? BoxFit.fill,
