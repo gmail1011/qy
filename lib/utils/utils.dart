@@ -267,12 +267,19 @@ String formatTime(String _utcTime) {
   return "";
 }
 
-String formatTimeTwo(String _utcTime, {String formats}) {
+String formatTimeTwo(String _utcTime, {String formats, bool isLocal = true}) {
   if(_utcTime == null) {
     return "";
   }
   var now = DateTime.now();
-  var date = DateTime.parse(_utcTime).toLocal();
+  DateTime date;
+  if(isLocal == true){
+    date = DateTime.parse(_utcTime).toLocal();
+  }else {
+    String timeDesc = _utcTime.replaceAll("T", " ");
+    timeDesc = _utcTime.replaceAll("Z", "");
+    date = DateTime.parse(timeDesc);
+  }
   int changeTime =
       (now.millisecondsSinceEpoch - date.millisecondsSinceEpoch) ~/ 1000; //秒
 

@@ -508,7 +508,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
             Container(
               padding: EdgeInsets.only(top: 4, bottom: 2),
               child: Text(
-                "发布时间: ${formatTimeTwo(widget.videoModel.createdAt)}",
+                "发布时间: ${formatTimeTwo(widget.videoModel.createdAt, isLocal: false)}",
                 style: TextStyle(
                   color: Color(0xffc0c1d0),
                   fontSize: 12,
@@ -791,7 +791,7 @@ class WordImageWidgetForHjllState extends State<WordImageWidgetForHjll> {
             ),
             SizedBox(height: 6),
             Text(
-              "${formatTimeTwo(widget.videoModel.reviewAt)}",
+              "${formatTimeTwo(widget.videoModel.reviewAt, isLocal: false)}",
               style: TextStyle(
                 color: AppColors.primaryTextColor,
                 fontSize: 14,
