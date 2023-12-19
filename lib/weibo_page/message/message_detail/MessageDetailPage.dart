@@ -451,7 +451,7 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
                         height: 20.w,
                         alignment: Alignment.centerRight,
                         child: Text(
-                          currentLength.toString() + "/" + maxLength.toString(),
+                          "",//currentLength.toString() + "/" + maxLength.toString(),
                           style: TextStyle(color: Colors.white, fontSize: 12.w),
                         ),
                       ),
