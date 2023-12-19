@@ -15,6 +15,11 @@ class VideoUploadResultModel {
     }
     dataBean.id = map['id'];
     dataBean.videoUri = map['videoUri'];
+    // 语音上传返回处理
+    if(map['data'] is Map){
+      map = map["data"];
+      dataBean.videoUri = map['fileName'];
+    }
     return dataBean;
   }
 

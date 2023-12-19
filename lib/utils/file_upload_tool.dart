@@ -156,42 +156,27 @@ class FileUpLoadTool {
     }
     VideoUploadResultModel retModel;
     try {
-      File videoFile = File(localPath);
-      int fileLen = FileUtil.getFileSize(localPath);
-      Uint8List fileData = await videoFile.readAsBytes();
-      List<int> bytes = fileData.buffer.asUint8List(fileData.offsetInBytes, fileData.lengthInBytes);
-      String fileId = md5.convert(bytes).toString();
-
-      var options = Options(
-        method: "POST",
-        sendTimeout:  30000,
-        receiveTimeout:  60000,
-        contentType: "application/json",
+      var options = BaseOptions(
+        connectTimeout: 60000,
+        receiveTimeout: 60000,
+        contentType: "multipart/form-data",
         responseType: ResponseType.json,
         headers: {
           "Authorization": await netManager.getToken(),
           "User-Agent": await netManager.userAgent(),
-          'Content-Type': 'application/json'
+          'Content-Type': 'multipart/form-data'
         },
+        validateStatus: (int status) => status < 600,
       );
-
-      var postData = {
-        'data': base64.encode(bytes),
-        'pos': 0,
-        'totalPos': 1,
-        'id': fileId,
-      };
-      Response resp = await createDio().post(
+     var formData =  FormData.fromMap({
+        "file": await MultipartFile.fromFile(localPath, filename: "${DateTime.now().millisecond.toString()}.aac"),
+      });
+      Response resp = await createDio(options: options).post(
         Address.baseApiPath + "/vid/uploadAudio",
-        options: options,
-        data: postData,
-        onSendProgress: (count, total) {
-        },
+        data: formData,
       );
       await HttpRespInterceptor.handleResponse(resp);
       retModel = VideoUploadResultModel.fromMap(resp.data);
-
-      retModel?.md5 = fileId;
       return retModel;
     } catch (e) {
       retModel = VideoUploadResultModel()..errorDesc = e.toString();

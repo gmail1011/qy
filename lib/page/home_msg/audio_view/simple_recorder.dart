@@ -26,6 +26,7 @@ class SimpleRecorder extends StatefulWidget {
 
 class _SimpleRecorderState extends State<SimpleRecorder> {
   int timerCount = 0;
+  int get maxSec => 10;
   String get timerDesc {
     int minInt = timerCount ~/ 60;
     int secInt = timerCount % 60;
@@ -65,9 +66,9 @@ class _SimpleRecorderState extends State<SimpleRecorder> {
       }
       timer = Timer.periodic( Duration(seconds: 1), (timer) {
         timerCount++;
-        if (timerCount > 60) {
+        if (timerCount > maxSec) {
           timer.cancel();
-          widget.callback?.call(audioRealPath, false, 60);
+          widget.callback?.call(audioRealPath, false, maxSec);
         }
         setState(() {});
       });
