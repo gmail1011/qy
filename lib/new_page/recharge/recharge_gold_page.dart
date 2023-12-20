@@ -324,11 +324,11 @@ class _RechargeGoldPageState extends State<RechargeGoldPage> {
               ],
             ),
             Text(
-              "${item.money ~/ 100 * 10}",
+              item.couponDesc ?? "",
               style: TextStyle(
                 color: isSelected ? Color(0xff783427) : Color(0xff999999),
                 fontWeight: FontWeight.w500,
-                decoration: TextDecoration.lineThrough,
+               // decoration: TextDecoration.lineThrough,
                 decorationColor: textColor,
                 fontSize: 16,
               ),
