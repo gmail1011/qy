@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
@@ -151,6 +153,11 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
 
           child: CustomScrollView(
             slivers: [
+              SliverPadding(
+                padding: EdgeInsets.only(
+                  top: 20,
+                ),
+              ),
               SliverPersistentHeader(
                 pinned: true,
                 floating: true,
@@ -159,7 +166,6 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                   minHeight: 40.w,
                  child: StatefulBuilder(
                    builder: (contexts, setStates) {
-
 
 
                      return Container(
