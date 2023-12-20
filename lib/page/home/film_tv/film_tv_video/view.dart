@@ -153,11 +153,6 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
 
           child: CustomScrollView(
             slivers: [
-              SliverPadding(
-                padding: EdgeInsets.only(
-                  top: 20,
-                ),
-              ),
               SliverPersistentHeader(
                 pinned: true,
                 floating: true,
@@ -239,6 +234,7 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                               }
                             },
                             child: Container(
+                              margin: EdgeInsets.only(top: 16),
                               child: SizedBox(
                                 width: width,
                                 height: height,
