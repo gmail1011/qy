@@ -41,11 +41,7 @@ class _ChatItemAudioWidgetState extends State<ChatItemAudioWidget> {
   bool get isLeftStyle => GlobalStore.isMe(widget.model?.userID) != true;
 
   String get audioRealPath {
-
-    // String rootPath = path.join(Address.baseImagePath ?? "", "imageView/1");
-    // String url = path.join(rootPath, model?.audio ?? "");
-
-    String rootPath = path.join(Address.currentDomainInfo.url ?? "", model?.audio ?? "");
+    String rootPath = path.join(Address.baseImagePath ?? "", model?.audio ?? "");
     return rootPath;
   }
 

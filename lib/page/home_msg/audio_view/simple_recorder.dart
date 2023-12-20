@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
 import 'package:flutter_base/utils/toast_util.dart';
-import 'package:flutter_sound/android_encoder.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -32,127 +31,82 @@ class _SimpleRecorderState extends State<SimpleRecorder> {
     int secInt = timerCount % 60;
     return "${minInt.toString().padLeft(2, "0")}:${secInt.toString().padLeft(2, "0")}";
   }
-  t_CODEC _codec = t_CODEC.CODEC_AAC;
-
   Timer timer;
-  String audioRealPath;
-  StreamSubscription _recorderSubscription;
-  StreamSubscription _dbPeakSubscription;
-  StreamSubscription _playerSubscription;
-  FlutterSound flutterSound;
+  String get audioRealPath {
+    return "$_basePath/$fileName";
+  }
+  Codec _codec = Codec.pcm16WAV;
+  String fileName = 'tau_file.wav';
+  String _basePath = "";
+  FlutterSoundPlayer _mPlayer = FlutterSoundPlayer();
+  FlutterSoundRecorder _mRecorder = FlutterSoundRecorder();
 
   @override
   void initState() {
-    flutterSound = FlutterSound();
-    flutterSound.setSubscriptionDuration(0.01);
-    flutterSound.setDbPeakLevelUpdate(0.8);
-    flutterSound.setDbLevelEnabled(true);
+    fileName = '${DateTime.now().millisecondsSinceEpoch}tau_file.wav';
+    _mPlayer.openAudioSession();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
-      startRecorder();
+      statusInit();
     });
     super.initState();
   }
 
-
-
-  void startRecorder() async{
-    try {
-      bool isAgree = await Permission.storage.request().isGranted;
-      if(!isAgree){
-        showToast(msg: "请打开存储权限");
-        await openAppSettings();
-        widget.callback?.call("", false, 0);
-        return;
-      }
-      timer = Timer.periodic( Duration(seconds: 1), (timer) {
-        timerCount++;
-        if (timerCount > maxSec) {
-          timer.cancel();
-          widget.callback?.call(audioRealPath, false, maxSec);
-        }
-        setState(() {});
-      });
-      setState(() {});
-      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      Directory tempDir = await getTemporaryDirectory();
-      String path = await flutterSound.startRecorder(
-        uri: '${tempDir.path}/$fileName.aac',
-        codec: _codec,
-      );
-      print('startRecorder: $path');
-      _recorderSubscription = flutterSound.onRecorderStateChanged.listen((e) {
-        DateTime date = DateTime.fromMillisecondsSinceEpoch(
-            e.currentPosition.toInt(),
-            isUtc: true);
-        debugLog("r====: ${e.currentPosition.toInt()}");
-
-      });
-      _dbPeakSubscription = flutterSound.onRecorderDbPeakChanged.listen((value) {
-            print("got update -> $value");
-      });
-
-      audioRealPath = path;
-      setState(() {});
-
-    } catch (err) {
-      print ('startRecorder error: $err');
-      audioRealPath = null;
-      setState (() {});
+  void statusInit() async {
+    if(Platform.isIOS) {
+      Directory directory = await getTemporaryDirectory();
+      _basePath = directory.path;
+    }else {
+      final directory = Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
+      _basePath = '${directory.path}/audioIM';
     }
+    bool isAgree = await Permission.storage.request().isGranted;
+    if(!isAgree){
+      showToast(msg: "请打开存储权限");
+      await openAppSettings();
+      return;
+    }
+    String saveDir = _basePath;
+    Directory root = Directory(saveDir);
+
+    if (!root.existsSync()) {
+      await root.create();
+    }
+    await openTheRecorder();
+    await _mRecorder.startRecorder(
+      toFile: audioRealPath,
+      codec: _codec,
+    );
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      timerCount++;
+      if (timerCount > maxSec) {
+        timer.cancel();
+        widget.callback?.call(audioRealPath, false, maxSec);
+      }
+      setState(() {});
+    });
+    setState(() {});
+  }
+
+  Future<void> openTheRecorder() async {
+    if (!kIsWeb) {
+      var status = await Permission.microphone.request();
+      if (status != PermissionStatus.granted) {
+        throw RecordingPermissionException('Microphone permission not granted');
+      }
+    }
+    await _mRecorder.openAudioSession();
   }
 
   Future stopRecorder() async {
-    try {
-      String result = await flutterSound.stopRecorder();
-      print ('stopRecorder result: $result');
-
-      if ( _recorderSubscription != null ) {
-        _recorderSubscription.cancel ();
-        _recorderSubscription = null;
-      }
-      if ( _dbPeakSubscription != null ) {
-        _dbPeakSubscription.cancel ();
-        _dbPeakSubscription = null;
-      }
-    } catch ( err ) {
-      print ('stopRecorder error: $err');
-    }
-    setState(() {});
-
+    await _mRecorder.stopRecorder();
   }
 
-
   void startPlayer() async{
-    try {
-      String path  = await flutterSound.startPlayer(audioRealPath ?? "");
-      if (path == null) {
-        print ('Error starting player');
-        return;
-      }
-      await flutterSound.setVolume(1.0);
-
-      _playerSubscription = flutterSound.onPlayerStateChanged.listen((e) {
-      });
-    } catch (err) {
-      print('error: $err');
-    }
-    setState(() {} );
+    _mPlayer.startPlayer(fromURI: audioRealPath);
   }
 
   void stopPlayer() async {
-    try {
-      String result = await flutterSound.stopPlayer();
-      print('stopPlayer: $result');
-      if (_playerSubscription != null) {
-        _playerSubscription.cancel();
-        _playerSubscription = null;
-      }
-    } catch (err) {
-      print('error: $err');
-    }
-    this.setState(() {
-      //this._isPlaying = false;
-    });
+    _mPlayer.stopPlayer();
   }
 
 
@@ -267,7 +221,11 @@ class _SimpleRecorderState extends State<SimpleRecorder> {
 
   @override
   void dispose() {
+    _mPlayer.closeAudioSession();
+    _mPlayer = null;
 
+    _mRecorder.closeAudioSession();
+    _mRecorder = null;
     super.dispose();
   }
 }
