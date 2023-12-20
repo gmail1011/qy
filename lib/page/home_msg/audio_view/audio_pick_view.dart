@@ -30,20 +30,20 @@ class _AudioPickerViewState extends State<AudioPickerView> {
   }
 
   void _pickerEvent() async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return SimpleRecorder(
-            callback: (filePath, isSend, seconds) {
-              Navigator.pop(context);
-              if (isSend == false && filePath.isNotEmpty) {
-                _showAlert(filePath, seconds);
-              } else if (filePath.isNotEmpty) {
-                sendAudioMsg(filePath, seconds);
-              }
-            },
-          );
-        });
+    // showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return SimpleRecorder(
+    //         callback: (filePath, isSend, seconds) {
+    //           Navigator.pop(context);
+    //           if (isSend == false && filePath.isNotEmpty) {
+    //             _showAlert(filePath, seconds);
+    //           } else if (filePath.isNotEmpty) {
+    //             sendAudioMsg(filePath, seconds);
+    //           }
+    //         },
+    //       );
+    //     });
   }
 
   void _showAlert(String filePath, int timeCount) {
