@@ -116,11 +116,15 @@ class _MsgTableState extends State<MsgTable> with AutomaticKeepAliveClientMixin 
                   };
                   pushToPage(BloggerPage(arguments));
                 },
-                child: CustomNetworkImageNew(
-                  imageUrl: item.sendAvatar,
+                child: SizedBox(
                   width: 40,
                   height: 40,
-                  radius: 20,
+                  child: CustomNetworkImageNew(
+                    imageUrl: item.sendAvatar,
+                    width: 40,
+                    height: 40,
+                    radius: 20,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -161,11 +165,15 @@ class _MsgTableState extends State<MsgTable> with AutomaticKeepAliveClientMixin 
                     pushToPage(CommunityDetailPage().buildPage({"videoId": item.objId}));
                   }
                 },
-                child: CustomNetworkImageNew(
-                  imageUrl: item.sendAvatar,
+                child: SizedBox(
                   width: 60,
                   height: 60,
-                  radius: 4,
+                  child: CustomNetworkImageNew(
+                    imageUrl: item.sendAvatar,
+                    width: 60,
+                    height: 60,
+                    radius: 4,
+                  ),
                 ),
               ),
             ],
@@ -174,14 +182,7 @@ class _MsgTableState extends State<MsgTable> with AutomaticKeepAliveClientMixin 
           Container(
             height: 1,
             margin: const EdgeInsets.only(left: 6, right: 6),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(230, 230, 230, 1),
-                  Color.fromRGBO(230, 230, 230, 1),
-                ],
-              ),
-            ),
+            color: Colors.white.withOpacity(0.1),
           ),
         ],
       ),
