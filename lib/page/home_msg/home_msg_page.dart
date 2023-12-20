@@ -69,7 +69,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
     if (Config.customerService != false) {
       if (systemMsgModel?.xList?.isNotEmpty == true && index == 1) {
         return true;
-      } else if (index == 0) {
+      } else if (systemMsgModel?.xList?.isNotEmpty == false && index == 0) {
         return true;
       } else {}
     }
