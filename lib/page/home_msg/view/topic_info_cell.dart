@@ -144,7 +144,7 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      realModel.godComment,
+                      realModel.desc ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
