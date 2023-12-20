@@ -92,7 +92,7 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                         height: 15,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 10, right: 10, bottom: 16),
+                        padding: EdgeInsets.only(left: 10, right: 10, bottom: 0),
                         child: GridView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
