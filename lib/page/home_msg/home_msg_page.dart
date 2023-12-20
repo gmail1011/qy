@@ -67,11 +67,15 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
 
   bool isKefu(int index) {
     if (Config.customerService != false) {
-      if (systemMsgModel?.xList?.isNotEmpty == true && index == 1) {
-        return true;
-      } else if (systemMsgModel?.xList?.isNotEmpty == false && index == 0) {
-        return true;
-      } else {}
+      if(systemMsgModel?.xList?.isNotEmpty == true){
+        if(index  == 1){
+          return true;
+        }
+      }else {
+        if(index  == 0){
+          return true;
+        }
+      }
     }
     return false;
   }
