@@ -17,7 +17,7 @@ import 'package:flutter_app/page/user/member_centre_page/wallet/gold_tickets.dar
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class Config {
-  static const DEBUG = true;
+  static const DEBUG = false;
   static const PROXY = false;
   static bool DNS_CUSTOM = false;
   static bool DNS_ALREADY_USE_NEWDOMAIN = false;
@@ -132,9 +132,9 @@ class Config {
           "https://hj2024.cestalt.com",
         ]
       : [
-          "https://dz699omw530y9.cloudfront.net",
-          "https://d3mybiqstirk6c.cloudfront.net",
-          "https://zk4o8.cc",
+          "https://dg4c93i4t4wax.cloudfront.net",
+          "https://dgwglw82c0u2.cloudfront.net",
+          "https://hj2024.cmder.info",
         ];
 
   ///ios使用域名
