@@ -389,41 +389,6 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
             padding: EdgeInsets.only(left: 16, right: 16),
             child: Row(
               children: [
-                GestureDetector(
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 22),
-                    child: isSending
-                        ? SizedBox(
-                      width: 32,
-                      height: 32,
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Brightness.dark),
-                        child: CupertinoActivityIndicator(),
-                      ),
-                    )
-                        : Image.asset(
-                      "assets/weibo/icon_msg_select_imag.png",
-                      width: 32,
-                      height: 32,
-                    ),
-                  ),
-                  onTap: () async {
-                    var list = await _pickImg(1);
-                    _messageList?.insert(
-                      0,
-                      new ListElement(
-                          sendUid: GlobalStore.getMe().uid, takeUid: widget._messageListDataList?.takeUid, imgUrl: null, localUrl: list[0]),
-                    );
-                    setState(() {});
-
-                    ///上传多张图片
-                    MultiImageModel multiImageModel =
-                    await taskManager.addTaskToQueue(MultiImageUploadTask(list), (progress, {msg, isSuccess}) {});
-                    remotePIcList = multiImageModel.filePath;
-                    _sendImageMessage();
-                  },
-                ),
-                SizedBox(width: 8),
                 Expanded(
                   flex: 1,
                   child: Container(
@@ -477,6 +442,41 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
                 ),
                 SizedBox(width: 12),
                 GestureDetector(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 22),
+                    child: isSending
+                        ? SizedBox(
+                      width: 32,
+                      height: 32,
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Brightness.dark),
+                        child: CupertinoActivityIndicator(),
+                      ),
+                    )
+                        : Image.asset(
+                      "assets/weibo/icon_msg_blue_imag.png",
+                      width: 32,
+                      height: 32,
+                    ),
+                  ),
+                  onTap: () async {
+                    var list = await _pickImg(1);
+                    _messageList?.insert(
+                      0,
+                      new ListElement(
+                          sendUid: GlobalStore.getMe().uid, takeUid: widget._messageListDataList?.takeUid, imgUrl: null, localUrl: list[0]),
+                    );
+                    setState(() {});
+
+                    ///上传多张图片
+                    MultiImageModel multiImageModel =
+                    await taskManager.addTaskToQueue(MultiImageUploadTask(list), (progress, {msg, isSuccess}) {});
+                    remotePIcList = multiImageModel.filePath;
+                    _sendImageMessage();
+                  },
+                ),
+                SizedBox(width: 8),
+                GestureDetector(
                   onTap: () {
                     _sendMessage();
                     //focusNode.requestFocus();
@@ -493,7 +493,7 @@ class _MessageDetailPageState extends State<MessageDetailPage> {
                             ),
                           )
                         : Image.asset(
-                            "assets/weibo/images/icon_send_comment_two.png",
+                            "assets/weibo/images/icon_send_comment.png",
                             width: 32,
                             height: 32,
                           ),
