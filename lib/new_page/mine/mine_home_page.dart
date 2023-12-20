@@ -300,21 +300,21 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                                    return MyMsgPage();
-                                  }));
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Image.asset(
-                                    "assets/images/hj_mine_icon_message.png",
-                                    width: 24,
-                                    height: 24,
-                                  ),
-                                ),
-                              ),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                              //       return MyMsgPage();
+                              //     }));
+                              //   },
+                              //   child: Container(
+                              //     margin: EdgeInsets.symmetric(horizontal: 10),
+                              //     child: Image.asset(
+                              //       "assets/images/hj_mine_icon_message.png",
+                              //       width: 24,
+                              //       height: 24,
+                              //     ),
+                              //   ),
+                              // ),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {

@@ -297,7 +297,7 @@ class _CNavigationBarItemState extends State<CNavigationBarItem> {
           child: Container(
             width: 56,
             child: buildImgBtn(
-                menuIndex, "猎奇", "assets/images/hj_home_icon_anwang.png", "assets/images/hj_home_icon_anwang_select.png"),
+                menuIndex, "暗网", "assets/images/hj_home_icon_anwang.png", "assets/images/hj_home_icon_anwang_select.png"),
           ),
         ),
       ),

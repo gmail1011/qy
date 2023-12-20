@@ -8,6 +8,7 @@ import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/image/custom_network_image_new.dart';
 import 'package:flutter_app/common/manager/cs_manager.dart';
 import 'package:flutter_app/common/net2/net_manager.dart';
+import 'package:flutter_app/new_page/msg/my_msg_page.dart';
 import 'package:flutter_app/page/home_msg/question_answ_page.dart';
 import 'package:flutter_app/page/home_msg/system_msg_page.dart';
 import 'package:flutter_app/page/home_msg/topic_discuss_page.dart';
@@ -44,6 +45,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
     if (systemMsgModel?.xList?.isNotEmpty == true) {
       count++;
     }
+    count++;
     return count;
   }
 
@@ -55,6 +57,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
     if (systemMsgModel?.xList?.isNotEmpty == true) {
       count--;
     }
+    count--;
     return max(0, count);
   }
 
@@ -75,6 +78,20 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
         if(index  == 0){
           return true;
         }
+      }
+    }
+    return false;
+  }
+
+  bool islikeMsg(int index) {
+    if(Config.customerService == true && systemMsgModel?.xList?.isNotEmpty == true){
+      if(index == 2){
+        return true;
+      }
+    }
+    if (Config.customerService == true || systemMsgModel?.xList?.isNotEmpty == true) {
+      if(index  == 1){
+        return true;
       }
     }
     return false;
@@ -194,6 +211,9 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
           if (isKefu(index)) {
             return _buildKefuCell();
           }
+          if(islikeMsg(index)){
+            return _buildLikeCell();
+          }
           return _buildMessageCell(index);
         },
       ),
@@ -286,6 +306,79 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
                   SizedBox(width: 10),
                   Text(
                     "在线客服",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Spacer(),
+                  Text(
+                    "",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xff999999),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 18,
+              margin: EdgeInsets.only(left: 50),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      "",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xff999999),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                ],
+              ),
+            ),
+            SizedBox(height: 8),
+            Container(
+              margin: EdgeInsets.only(left: 50),
+              height: 1,
+              color: Color(0xff333333),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  Widget _buildLikeCell() {
+    return GestureDetector(
+      onTap: () async {
+        pushToPage(MyMsgPage(), context: context);
+      },
+      child: Container(
+        color: Colors.transparent,
+        margin: EdgeInsets.only(bottom: 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 40,
+              child: Row(
+                children: [
+                  Image.asset(
+                    "assets/images/msg_icon.png",
+                    width: 40,
+                    height: 40,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    "评论/点赞",
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white,

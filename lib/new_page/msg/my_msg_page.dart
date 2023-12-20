@@ -26,10 +26,6 @@ class MsgTabModel {
 class _MyMsgPageState extends State<MyMsgPage> with TickerProviderStateMixin {
   final tabs = [
     MsgTabModel(
-      name: "私信",
-      hasNew: false,
-    ),
-    MsgTabModel(
       name: "评论",
       hasNew: false,
     ),
@@ -71,7 +67,7 @@ class _MyMsgPageState extends State<MyMsgPage> with TickerProviderStateMixin {
             color: Colors.black,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 3,
+              itemCount: tabs.length,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
@@ -118,7 +114,7 @@ class _MyMsgPageState extends State<MyMsgPage> with TickerProviderStateMixin {
             child: TabBarView(
               controller: tabController,
               children: [
-                MessagePage(isShowAppbar: false),
+               // MessagePage(isShowAppbar: false),
                 MsgCommentTable(),
                 MsgTable(),
                 // MsgChildRewardPage(),
