@@ -316,53 +316,6 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
       padding: EdgeInsets.only(left: 16, right: 16),
       child: Row(
         children: [
-          GestureDetector(
-            child: Container(
-              margin: EdgeInsets.only(bottom: 22),
-              child: isSending
-                  ? SizedBox(
-                      width: 32,
-                      height: 32,
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Brightness.dark),
-                        child: CupertinoActivityIndicator(),
-                      ),
-                    )
-                  : AudioPickerView(
-                      child: Image.asset(
-                        "assets/images/voice.png",
-                        width: 32,
-                        height: 32,
-                      ),
-                      callback: (value, timer) {
-                        _sendComment(audioFile: value, timeCount: timer);
-                      },
-                    ),
-            ),
-            onTap: _voiceEvent,
-          ),
-          SizedBox(width: 8),
-          GestureDetector(
-            child: Container(
-              margin: EdgeInsets.only(bottom: 22),
-              child: isSending
-                  ? SizedBox(
-                      width: 32,
-                      height: 32,
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Brightness.dark),
-                        child: CupertinoActivityIndicator(),
-                      ),
-                    )
-                  : Image.asset(
-                      "assets/weibo/icon_msg_select_imag.png",
-                      width: 32,
-                      height: 32,
-                    ),
-            ),
-            onTap: _selectedImage,
-          ),
-          SizedBox(width: 8),
           Expanded(
             flex: 1,
             child: Container(
@@ -385,7 +338,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                   height: 20,
                   alignment: Alignment.centerRight,
                   child: Text(
-                    currentLength.toString() + "/" + maxLength.toString(),
+                    "",//currentLength.toString() + "/" + maxLength.toString(),
                     style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
@@ -409,6 +362,27 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           ),
           SizedBox(width: 12),
           GestureDetector(
+            child: Container(
+              margin: EdgeInsets.only(bottom: 22),
+              child: isSending
+                  ? SizedBox(
+                width: 32,
+                height: 32,
+                child: CupertinoTheme(
+                  data: CupertinoThemeData(brightness: Brightness.dark),
+                  child: CupertinoActivityIndicator(),
+                ),
+              )
+                  : Image.asset(
+                "assets/weibo/icon_msg_blue_imag.png",
+                width: 32,
+                height: 32,
+              ),
+            ),
+            onTap: _selectedImage,
+          ),
+          SizedBox(width: 8),
+          GestureDetector(
             onTap: () {
               if (_textEditingController.text.isEmpty) {
                 showToast(msg: "请输入内容");
@@ -428,7 +402,7 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
                       ),
                     )
                   : Image.asset(
-                      "assets/weibo/images/icon_send_comment_two.png",
+                      "assets/weibo/images/icon_send_comment.png",
                       width: 32,
                       height: 32,
                     ),
@@ -436,6 +410,34 @@ class _ActivityDetailPageState extends State<ActivityDetailPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildAudioMenu() {
+    return GestureDetector(
+      child: Container(
+        margin: EdgeInsets.only(bottom: 22),
+        child: isSending
+            ? SizedBox(
+          width: 32,
+          height: 32,
+          child: CupertinoTheme(
+            data: CupertinoThemeData(brightness: Brightness.dark),
+            child: CupertinoActivityIndicator(),
+          ),
+        )
+            : AudioPickerView(
+          child: Image.asset(
+            "assets/images/voice.png",
+            width: 32,
+            height: 32,
+          ),
+          callback: (value, timer) {
+            _sendComment(audioFile: value, timeCount: timer);
+          },
+        ),
+      ),
+      onTap: _voiceEvent,
     );
   }
 }
