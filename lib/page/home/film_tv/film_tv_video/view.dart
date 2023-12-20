@@ -92,7 +92,7 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                         height: 15,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 10, right: 10, bottom: 0),
+                        padding: EdgeInsets.only(left: 10, right: 10, bottom: 4),
                         child: GridView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
@@ -157,15 +157,16 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                 pinned: true,
                 floating: true,
                 delegate: MySliverDelegate(
-                  maxHeight: 40.w,
-                  minHeight: 40.w,
+                  maxHeight: 48,
+                  minHeight: 48,
                  child: StatefulBuilder(
                    builder: (contexts, setStates) {
 
 
                      return Container(
                        width: screen.screenWidth,
-                       height: 40.w,
+                       height: 48,
+                       padding: EdgeInsets.only(top: 8),
                        color: AppColors.primaryColor,
                        alignment: Alignment.center,
                        child: ListView.builder(
@@ -234,7 +235,6 @@ Widget buildView(FilmTelevisionVideoState state, Dispatch dispatch, ViewService 
                               }
                             },
                             child: Container(
-                              margin: EdgeInsets.only(top: 16),
                               child: SizedBox(
                                 width: width,
                                 height: height,
