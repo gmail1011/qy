@@ -16,6 +16,7 @@ import 'package:flutter_app/new_page/mine/mine_group_page.dart';
 import 'package:flutter_app/new_page/mine/mine_invite_code_input_page.dart';
 import 'package:flutter_app/new_page/mine/mine_original_page.dart';
 import 'package:flutter_app/new_page/mine/mine_share_page.dart';
+import 'package:flutter_app/new_page/mine/mine_suggest_page.dart';
 import 'package:flutter_app/new_page/mine/setting_page.dart';
 import 'package:flutter_app/new_page/msg/my_msg_page.dart';
 import 'package:flutter_app/new_page/recharge/recharge_gold_page.dart';
@@ -207,6 +208,17 @@ class _MineHomePageState extends State<MineHomePage> with PageIntroHelper {
       () {
         Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
           return MineHelpPage();
+        }));
+      },
+    ));
+    menu3.add(Menu(
+      "意见反馈",
+      "",
+      "assets/images/icon_suggestion.png",
+          () {
+
+        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+          return MineSuggestPage();
         }));
       },
     ));
