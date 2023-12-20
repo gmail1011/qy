@@ -106,9 +106,9 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
         debugLog(responseData);
         if(responseData is Map){
           String descText = responseData["desc"] ?? "";
-          int score = responseData["score"] ?? 0;
+          String title = responseData["title"] ?? "";
           topicVoteModel.hasVoted = true;
-          QuestionResultAlert.show(context, score: score, descText: descText);
+          QuestionResultAlert.show(context, title: title, descText: descText);
         }
       } catch (e) {
         debugLog(e);
@@ -143,8 +143,8 @@ class _QuestionAnswPageState extends State<QuestionAnswPage> {
       debugLog(responseData);
       if(responseData is Map){
         String descText = responseData["desc"] ?? "";
-        int score = responseData["score"] ?? 0;
-        QuestionResultAlert.show(context, score: score, descText: descText);
+        String title = responseData["title"] ?? "";
+        QuestionResultAlert.show(context, title: title, descText: descText);
       }
     } catch (e) {
       LoadingAlertWidget.cancel(context);

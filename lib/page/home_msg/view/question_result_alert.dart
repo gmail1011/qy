@@ -3,21 +3,22 @@ import 'package:flutter/material.dart';
 
 class QuestionResultAlert extends StatefulWidget {
   final String descText;
+  final String title;
   final int score;
-  const QuestionResultAlert({Key key, this.descText, this.score}) : super(key: key);
+  const QuestionResultAlert({Key key, this.descText, this.score, this.title,}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     return _QuestionResultAlertState();
   }
 
-  static show(BuildContext context, {int score, String descText}) async {
+  static show(BuildContext context, {String title, String descText}) async {
     await showDialog(
       context: context,
       builder: (context) {
         return QuestionResultAlert(
           descText: descText,
-          score: score,
+          title: title,
         );
       },
     );
@@ -62,7 +63,16 @@ class _QuestionResultAlertState extends State<QuestionResultAlert> {
           child: Column(
             children: [
               SizedBox(height: 145),
-              Image.asset("assets/images/title_result_$typeRank.png", width: 132, height: 36,),
+              Text(
+                widget.title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 32,
+                  shadows: [
+                    Shadow(color: Colors.black.withOpacity(0.1),blurRadius: 1)
+                  ],
+                ),
+              ),
               SizedBox(height: 24),
               Container(
                 width: 232,
