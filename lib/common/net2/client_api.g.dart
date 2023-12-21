@@ -3312,7 +3312,7 @@ class _ClientApi implements ClientApi {
     return value;
   }
   @override
-  Future<FeedBackModel> feedbackMutil(
+  Future<dynamic> feedbackMutil(
       content, location, device, carrier, img, contact, fType) async {
     ArgumentError.checkNotNull(content, 'content');
     const _extra = <String, dynamic>{};
