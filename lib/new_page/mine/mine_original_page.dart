@@ -109,7 +109,8 @@ class _MineOriginalPageState extends State<MineOriginalPage> {
           Container(
             padding: EdgeInsets.only(left: 16),
             child: Text(
-              "1、平台不会通过个人任何入驻费用\n"
+
+              "1、平台不会通过个人收取入驻费用\n"
               "2、请与官方群管理或APP客服确认真实性\n"
               "3、更多问题请添加官方管理员咨询",
               style: TextStyle(
