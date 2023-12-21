@@ -19,6 +19,7 @@ import 'package:flutter_base/utils/log.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_pickers/image_pickers.dart';
+
 ///帮助反馈
 class MineSuggestPage extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
     TextEditingController(),
     TextEditingController()
   ];
-  List<Map<String,String>> questionTitleList = [
+  List<Map<String, String>> questionTitleList = [
     {"question": "充值提现问题？", "index": "0"},
     {"question": "观看使用问题", "index": "1"},
     {"question": "收货地址信息", "index": "2"},
@@ -77,10 +78,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                       SizedBox(height: 10),
                       Text(
                         "我遇到的问题",
-                        style: const TextStyle(
-                            color: const Color(0xffffffff),
-                            fontWeight: FontWeight.w300,
-                            fontSize: 14.0),
+                        style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w300, fontSize: 14.0),
                       ),
                       SizedBox(height: 10),
                       Container(
@@ -91,31 +89,20 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                             children: questionTitleList
                                 .map((e) => InkWell(
                                       onTap: () {
-                                        selectTabIndex =
-                                            int.parse(e["index"] ?? 0);
+                                        selectTabIndex = int.parse(e["index"] ?? 0);
                                         setState(() {});
                                       },
                                       child: Container(
                                         alignment: Alignment.center,
                                         margin: EdgeInsets.only(right: 7),
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10),
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
                                         height: 33,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(30)),
-                                            color:
-                                                "$selectTabIndex" == e["index"]
-                                                    ? Color(0xFF0387FE)
-                                                    : Color.fromARGB(
-                                                        255, 51, 51, 51)),
+                                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                                            color: "$selectTabIndex" == e["index"] ? Color(0xFF0387FE) : Color.fromARGB(255, 51, 51, 51)),
                                         child: Text(
                                           e["question"] ?? "",
-                                          style: TextStyle(
-                                              color: "$selectTabIndex" ==
-                                                      e["index"]
-                                                  ? Colors.white
-                                                  : Colors.white),
+                                          style: TextStyle(color: "$selectTabIndex" == e["index"] ? Colors.white : Colors.white),
                                         ),
                                       ),
                                     ))
@@ -126,23 +113,18 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                       SizedBox(height: 12),
                       Text(
                         "问题描述(必填)",
-                        style: const TextStyle(
-                            color: const Color(0xffffffff),
-                            fontWeight: FontWeight.w300,
-                            fontSize: 14.0),
+                        style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w300, fontSize: 14.0),
                       ),
                       SizedBox(height: 10),
                       Container(
                         height: 270,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Color.fromARGB(255, 38, 38, 38)),
+                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        decoration:
+                            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Color.fromARGB(255, 38, 38, 38)),
                         child: TextField(
                           maxLines: 100,
                           keyboardType: TextInputType.text,
-                          autofocus: true,
+                          autofocus: false,
                           autocorrect: true,
                           textInputAction: TextInputAction.search,
                           cursorColor: Colors.white,
@@ -157,8 +139,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                           },
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 20.0, horizontal: 10),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
                               hintText:
                                   "充值提现问题：请在此处描述具体情况，并且提交图片处提交订单截图/扣款截图\n\n观看使用问题：请在此处描述具体操作情况，并且提交图片处提交出现问题的APP界面截图\n收货地址信息：请按照以下格式在此处填写收货地址，缺少信息将导致无法发\n\n姓名：张三\n电话：18888888\n地址：北京市朝阳区望京666小区6号楼6单元666",
                               hintStyle: TextStyle(color: Color(0xff434c55))),
@@ -167,17 +148,12 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                       SizedBox(height: 18),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: questionList
-                            .map((e) => _getItem(context, e))
-                            .toList(),
+                        children: questionList.map((e) => _getItem(context, e)).toList(),
                       ),
                       SizedBox(height: 12),
                       Text(
                         "选择图片/视频",
-                        style: const TextStyle(
-                            color: const Color(0xffffffff),
-                            fontWeight: FontWeight.w300,
-                            fontSize: 14.0),
+                        style: const TextStyle(color: const Color(0xffffffff), fontWeight: FontWeight.w300, fontSize: 14.0),
                       ),
                       SizedBox(height: 12),
                       Container(
@@ -187,27 +163,21 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                             if(list.isNotEmpty)
-                               Row(
-                                   children:list.map((e) =>
-                                       Container(
-                                         width: 111,
-                                         height: 111,
-                                         child:ImageLoader.withP(
-                                             ImageType.IMAGE_FILE,
-                                             address: e,
-                                             width: 111,
-                                             height: 111)
-                                             .load(),
-                                       )).toList()),
-
+                              if (list.isNotEmpty)
+                                Row(
+                                    children: list
+                                        .map((e) => Container(
+                                              width: 111,
+                                              height: 111,
+                                              child: ImageLoader.withP(ImageType.IMAGE_FILE, address: e, width: 111, height: 111).load(),
+                                            ))
+                                        .toList()),
                               InkWell(
                                 onTap: () {
                                   _selectImage();
                                 },
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 51, 51, 51)),
+                                  decoration: BoxDecoration(color: Color.fromARGB(255, 51, 51, 51)),
                                   width: 111,
                                   height: 111,
                                   child: Icon(
@@ -224,10 +194,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                       SizedBox(height: 12),
                       Text(
                         "以方便我们给您回复,有效的改进建议,有惊喜赠送哟!",
-                        style: const TextStyle(
-                            color: const Color(0xff808080),
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12.0),
+                        style: const TextStyle(color: const Color(0xff808080), fontWeight: FontWeight.w400, fontSize: 12.0),
                       ),
                       SizedBox(height: 59),
                       InkWell(
@@ -236,19 +203,13 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 45),
-                          decoration: BoxDecoration(
-                              color: AppColors.primaryTextColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40))),
+                          decoration: BoxDecoration(color: AppColors.primaryTextColor, borderRadius: BorderRadius.all(Radius.circular(40))),
                           width: double.maxFinite,
                           height: 44,
                           alignment: Alignment.center,
                           child: Text(
                             "提交意见",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600),
+                            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
                           ),
                         ),
                       )
@@ -286,8 +247,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
         var size = await file.readAsBytes();
         //大于300kb的图需要压缩
         if ((size.length / 1024) > 300) {
-          var compressFile = await FlutterNativeImage.compressImage(path,
-              percentage: 40, quality: 50);
+          var compressFile = await FlutterNativeImage.compressImage(path, percentage: 40, quality: 50);
           path = compressFile.path;
         }
         if (path != null) {
@@ -302,58 +262,53 @@ class _MineHelpPageState extends State<MineSuggestPage> {
 
   Widget _getItem(context, item) {
     return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      child: Column(
+        children: [
+          SizedBox(height: 6),
+          Row(
+            children: [
               Container(
                 child: Text(
                   item["question"],
-                  style: const TextStyle(
-                      color: const Color(0xffc6c6c6),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16.0),
+                  style: const TextStyle(color: const Color(0xffc6c6c6), fontWeight: FontWeight.w700, fontSize: 16.0),
                 ),
               ),
               Container(
-                width: 260,
+                width: 240,
                 height: 35,
                 child: TextField(
                   maxLines: 1,
                   keyboardType: TextInputType.text,
-                  autofocus: true,
+                  autofocus: false,
                   autocorrect: true,
                   textInputAction: TextInputAction.search,
                   cursorColor: Colors.white,
                   textAlign: TextAlign.left,
                   controller: controllerList[int.parse(item["index"])],
                   style: TextStyle(color: Colors.white, fontSize: 14),
-                  onChanged: (text) {
-
-                  },
+                  onChanged: (text) {},
                   onSubmitted: (text) {
                     // _onExChangeCode();
                   },
                   decoration: InputDecoration(
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                       // contentPadding: EdgeInsets.all(0),
-                      contentPadding: const EdgeInsets.only(
-                          top: 8.0, left: 20),
+                      contentPadding: const EdgeInsets.only(top: 8.0, left: 20),
                       hintText: item["hitText"] ?? "",
                       isCollapsed: true,
                       hintStyle: TextStyle(color: Color(0xff434c55))),
                 ),
-              )
-            ]),
-            SizedBox(
-              height: 9,
-            ),
-            Divider(
-              height: 1,
-              color: Colors.white.withOpacity(0.2),
-            )
-          ],
-        ));
+              ),
+            ],
+          ),
+          SizedBox(height: 6),
+          Divider(
+            height: 1,
+            color: Colors.white.withOpacity(0.2),
+          ),
+        ],
+      ),
+    );
   }
 
   Container buildText(Map<String, String> data) {
@@ -404,8 +359,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
     }
     loadingWidget.show(context);
     try {
-      var multiImageModel = await taskManager.addTaskToQueue(
-          MultiImageUploadTask(path), (progress, {msg, isSuccess}) {
+      var multiImageModel = await taskManager.addTaskToQueue(MultiImageUploadTask(path), (progress, {msg, isSuccess}) {
         l.e("progress", "$progress");
       });
       //   showToast(msg: "图片上传成功～");
@@ -417,13 +371,12 @@ class _MineHelpPageState extends State<MineSuggestPage> {
       List<String> img = picList;
       String contact = controllerList[3].text ?? "";
       String fType = "img";
-      var result = await netManager.client.feedbackMutil(
-          content, location, device, carrier, img, contact, fType);
+      var result = await netManager.client.feedbackMutil(content, location, device, carrier, img, contact, fType);
       loadingWidget.cancel();
       if (result != null) {
         showToast(msg: "提交成功");
         list.clear();
-        for(TextEditingController controller in controllerList){
+        for (TextEditingController controller in controllerList) {
           controller.clear();
         }
         controller.clear();
@@ -440,19 +393,16 @@ class _MineHelpPageState extends State<MineSuggestPage> {
       loadingWidget.cancel();
       showToast(msg: e.toString());
     }
-
   }
 
-  void requestData() async{
-    List<String> list=await netManager.client.feedbackTypeList();
-    List<Map<String,String>> maps=[];
-    for(int  i =0;i<list.length;i++) {
-      var item= {"question": "${list[i]}", "index": "${i}"};
+  void requestData() async {
+    List<String> list = await netManager.client.feedbackTypeList();
+    List<Map<String, String>> maps = [];
+    for (int i = 0; i < list.length; i++) {
+      var item = {"question": "${list[i]}", "index": "${i}"};
       maps.add(item);
     }
-    questionTitleList=maps;
-    setState(() {
-    });
+    questionTitleList = maps;
+    setState(() {});
   }
-
 }
