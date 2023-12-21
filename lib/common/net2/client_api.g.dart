@@ -3339,6 +3339,26 @@ class _ClientApi implements ClientApi {
     // FeedBackModel selectedTagsEntity = FeedBackModel.fromJson(_result.data);
     // return selectedTagsEntity;
   }
+
+  @override
+  Future<List<String>> feedbackTypeList() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {
+    };
+    final _result = await _dio.request('/mine/feedback/type/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data["list"].cast<String>();
+    return value;
+    // FeedBackModel selectedTagsEntity = FeedBackModel.fromJson(_result.data);
+    // return selectedTagsEntity;
+  }
   @override
   Future<dynamic> getNakeChatBuyList(pageNumber, pageSize) async {
     ArgumentError.checkNotNull(pageNumber, 'pageNumber');

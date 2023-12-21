@@ -36,7 +36,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
     TextEditingController(),
     TextEditingController()
   ];
-  List questionTitleList = [
+  List<Map<String,String>> questionTitleList = [
     {"question": "充值提现问题？", "index": "0"},
     {"question": "观看使用问题", "index": "1"},
     {"question": "收货地址信息", "index": "2"},
@@ -56,6 +56,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
   void initState() {
     super.initState();
     controller = TextEditingController();
+    requestData();
   }
 
   @override
@@ -317,32 +318,30 @@ class _MineHelpPageState extends State<MineSuggestPage> {
               Container(
                 width: 260,
                 height: 35,
-                child: Expanded(
-                  child: TextField(
-                    maxLines: 1,
-                    keyboardType: TextInputType.text,
-                    autofocus: true,
-                    autocorrect: true,
-                    textInputAction: TextInputAction.search,
-                    cursorColor: Colors.white,
-                    textAlign: TextAlign.left,
-                    controller: controllerList[int.parse(item["index"])],
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                    onChanged: (text) {
+                child: TextField(
+                  maxLines: 1,
+                  keyboardType: TextInputType.text,
+                  autofocus: true,
+                  autocorrect: true,
+                  textInputAction: TextInputAction.search,
+                  cursorColor: Colors.white,
+                  textAlign: TextAlign.left,
+                  controller: controllerList[int.parse(item["index"])],
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                  onChanged: (text) {
 
-                    },
-                    onSubmitted: (text) {
-                      // _onExChangeCode();
-                    },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(borderSide: BorderSide.none),
-                           // contentPadding: EdgeInsets.all(0),
-                        contentPadding: const EdgeInsets.only(
-                            top: 8.0, left: 20),
-                        hintText: item["hitText"] ?? "",
-                        isCollapsed: true,
-                        hintStyle: TextStyle(color: Color(0xff434c55))),
-                  ),
+                  },
+                  onSubmitted: (text) {
+                    // _onExChangeCode();
+                  },
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(borderSide: BorderSide.none),
+                      // contentPadding: EdgeInsets.all(0),
+                      contentPadding: const EdgeInsets.only(
+                          top: 8.0, left: 20),
+                      hintText: item["hitText"] ?? "",
+                      isCollapsed: true,
+                      hintStyle: TextStyle(color: Color(0xff434c55))),
                 ),
               )
             ]),
@@ -443,4 +442,17 @@ class _MineHelpPageState extends State<MineSuggestPage> {
     }
 
   }
+
+  void requestData() async{
+    List<String> list=await netManager.client.feedbackTypeList();
+    List<Map<String,String>> maps=[];
+    for(int  i =0;i<list.length;i++) {
+      var item= {"question": "${list[i]}", "index": "${i}"};
+      maps.add(item);
+    }
+    questionTitleList=maps;
+    setState(() {
+    });
+  }
+
 }

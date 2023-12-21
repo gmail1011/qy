@@ -1151,6 +1151,9 @@ abstract class ClientApi {
       @Query("img") List<String> img,@Query("contact") String contact,
       @Query("fType") String fType,
       );
+  ///意见反馈列表
+  @POST("/mine/feedback/type/list")
+  Future<dynamic> feedbackTypeList();
   ///意见反馈
   @POST("/mine/feedback")
   Future feedback(@Field() String content);
