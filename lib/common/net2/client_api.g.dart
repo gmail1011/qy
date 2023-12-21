@@ -3336,6 +3336,8 @@ class _ClientApi implements ClientApi {
         data: _data);
     final value = _result.data;
     return value;
+    // FeedBackModel selectedTagsEntity = FeedBackModel.fromJson(_result.data);
+    // return selectedTagsEntity;
   }
   @override
   Future<dynamic> getNakeChatBuyList(pageNumber, pageSize) async {

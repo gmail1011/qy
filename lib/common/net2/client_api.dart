@@ -1145,7 +1145,7 @@ abstract class ClientApi {
       [@Query("pageSize") int pageSize = Config.PAGE_SIZE]);
   ///意见反馈
   @POST("/mine/feedback")
-  Future<FeedBackModel> feedbackMutil( @Query("content") String content,
+  Future<dynamic> feedbackMutil( @Query("content") String content,
       @Query("location") String location,
       @Query("device") String device, @Query("carrier") String carrier,
       @Query("img") List<String> img,@Query("contact") String contact,
