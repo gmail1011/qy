@@ -14,6 +14,7 @@ import 'package:flutter_app/model/audiobook_model.dart';
 import 'package:flutter_app/model/audiobook_type_model.dart';
 import 'package:flutter_app/model/city_detail_model.dart';
 import 'package:flutter_app/model/comment_model.dart';
+import 'package:flutter_app/model/feed_back_model.dart';
 import 'package:flutter_app/model/feedback_model.dart';
 import 'package:flutter_app/model/fiction_model.dart';
 import 'package:flutter_app/model/film_tv_video/TagsListModel.dart';
@@ -1144,7 +1145,7 @@ abstract class ClientApi {
       [@Query("pageSize") int pageSize = Config.PAGE_SIZE]);
   ///意见反馈
   @POST("/mine/feedback")
-  Future feedbackMutil( @Query("content") String content,
+  Future<FeedBackModel> feedbackMutil( @Query("content") String content,
       @Query("location") String location,
       @Query("device") String device, @Query("carrier") String carrier,
       @Query("img") List<String> img,@Query("contact") String contact,

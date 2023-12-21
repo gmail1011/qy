@@ -301,12 +301,11 @@ class _MineHelpPageState extends State<MineSuggestPage> {
 
   Widget _getItem(context, item) {
     return Container(
-        margin: EdgeInsets.only(top: 20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Container(
-                width: 110,
                 child: Text(
                   item["question"],
                   style: const TextStyle(
@@ -316,30 +315,34 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                 ),
               ),
               Container(
-                width: 100,
+                width: 260,
                 height: 35,
-                child: TextField(
-                  maxLines: 1,
-                  keyboardType: TextInputType.text,
-                  autofocus: true,
-                  autocorrect: true,
-                  textInputAction: TextInputAction.search,
-                  cursorColor: Colors.white,
-                  textAlign: TextAlign.left,
-                  controller: controllerList[int.parse(item["index"])],
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                  onChanged: (text) {
+                child: Expanded(
+                  child: TextField(
+                    maxLines: 1,
+                    keyboardType: TextInputType.text,
+                    autofocus: true,
+                    autocorrect: true,
+                    textInputAction: TextInputAction.search,
+                    cursorColor: Colors.white,
+                    textAlign: TextAlign.left,
+                    controller: controllerList[int.parse(item["index"])],
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                    onChanged: (text) {
 
-                  },
-                  onSubmitted: (text) {
-                    // _onExChangeCode();
-                  },
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 10),
-                      hintText: item["hitText"] ?? "",
-                      hintStyle: TextStyle(color: Color(0xff434c55))),
+                    },
+                    onSubmitted: (text) {
+                      // _onExChangeCode();
+                    },
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(borderSide: BorderSide.none),
+                           // contentPadding: EdgeInsets.all(0),
+                        contentPadding: const EdgeInsets.only(
+                            top: 8.0, left: 20),
+                        hintText: item["hitText"] ?? "",
+                        isCollapsed: true,
+                        hintStyle: TextStyle(color: Color(0xff434c55))),
+                  ),
                 ),
               )
             ]),
@@ -418,8 +421,8 @@ class _MineHelpPageState extends State<MineSuggestPage> {
       var result = await netManager.client.feedbackMutil(
           content, location, device, carrier, img, contact, fType);
       loadingWidget.cancel();
-      if (result != null && result["msg"] == "success") {
-        showToast(msg: "提交成功～");
+      if (result != null) {
+        showToast(msg: "提交成功");
         list.clear();
         for(TextEditingController controller in controllerList){
           controller.clear();
