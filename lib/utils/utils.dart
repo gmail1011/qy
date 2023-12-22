@@ -39,7 +39,7 @@ Future<String> getDeviceId() async {
 
   }
 
-  return "hjelys"+deviceStr;
+  return "51ll"+deviceStr;
 
 }
 
