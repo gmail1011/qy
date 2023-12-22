@@ -63,8 +63,10 @@ class _MsgCommentTableState extends State<MsgCommentTable> {
     }
     refreshController.refreshCompleted();
     list ??= [];
-    setState(() {
-    });
+    if(mounted) {
+      setState(() {
+      });
+    }
   }
 
   @override
