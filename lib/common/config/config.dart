@@ -17,7 +17,7 @@ import 'package:flutter_app/page/user/member_centre_page/wallet/gold_tickets.dar
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class Config {
-  static const DEBUG = true;
+  static const DEBUG = false;
   static const PROXY = false;
   static bool DNS_CUSTOM = false;
   static bool DNS_ALREADY_USE_NEWDOMAIN = false;
