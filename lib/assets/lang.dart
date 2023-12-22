@@ -81,7 +81,7 @@ class Lang {
   static const NO_VIP = '非会员';
   static const SUBMIT = '提交';
   static const PROMOTION_REWARD = '推广奖励';
-  static const APP_NAME = "海角社区";
+  static const APP_NAME = "51乱伦";
   static const GET_REWARD = "获赏";
   static const BOUGHT = "已购买";
   static const BUY_SUCCESS = '购买成功';
@@ -247,7 +247,7 @@ class Lang {
   static const VIP_EXPIRY_TIME = "VIP到期时间 ";
   static const MEMBER_PURCHASE = "会员专享特权";
   static const EXCLUSIVE_OFFER = '独家特供';
-  static const PUFF_ARISTOCRACY = '海角社区贵族';
+  static const PUFF_ARISTOCRACY = '51乱伦贵族';
   static const FULL_SITE_VIDEO = '全站视频';
   static const EXCLUSIVE_CONTENT = '独家內容';
   static const BROWSE_BYS = '任意浏览';
@@ -325,13 +325,13 @@ class Lang {
       "6、原创视频的UP主，可以设置收费金额，获取原创收益。";
 
   static const VIDEO_RULE =
-      "*收費視頻必須為原創視頻，否則統統設置為免費視頻\n*收費視頻必須攜帶「海角社区」的真實字樣或手勢\n*依據用戶會員等級，可設置的金幣有所不同\n*每個收費視頻，平臺將收取30％的稅*收費視頻必須設置免費時長，不得低於3秒";
+      "*收費視頻必須為原創視頻，否則統統設置為免費視頻\n*收費視頻必須攜帶「51乱伦」的真實字樣或手勢\n*依據用戶會員等級，可設置的金幣有所不同\n*每個收費視頻，平臺將收取30％的稅*收費視頻必須設置免費時長，不得低於3秒";
 
   static const VIDEO_REVIEW_TITLE = "过审小秘诀";
   static const VIDEO_REVIEW_RULE = "1、上传视频越清晰、越真实、越容易通过。\n"
       "2、上传视频可配剧情，深具故事性或趣味性，有看点。\n"
       "3、上传视频大小不超过250M，视频时长不低于30S。\n"
-      "4、带有海角社区的文字或手势的原创视频通过率更高。";
+      "4、带有51乱伦的文字或手势的原创视频通过率更高。";
   static const FORBID_SPECIAL_CHAR = '禁止輸入特殊字符';
   static const MAX_FOUR_TAG = '最多設置6個標籤';
   static const MAX_GOLD_COIN = '價格最多10金幣';
@@ -580,7 +580,7 @@ class Lang {
   static const UPDATE_CONTENT = "更新內容";
   static const TIP = "提示";
   static const NOT_UPGRADE = "沒有可用的版本更新";
-  static const COULD_UPGRADE = "当前有新版本可更新（海角社区version placeHolder）";
+  static const COULD_UPGRADE = "当前有新版本可更新（51乱伦version placeHolder）";
   static const DOWNLOADING = "正在下載";
   static const DOWNLOAD_NOW = "立即下載";
   static const RE_DOWNLOAD = "點擊重新下載";
@@ -615,8 +615,8 @@ class Lang {
   static const BUY_GOLD = "金幣";
   static const BUY_CAMERA = "視頻隨拍";
   static const BUY_TXT2 = "*作者原創不易，給個獎勵上傳更多優秀作品";
-  static const BUY_TXT3 = "*海角社区朋友都可以上傳，分享妳的幸福生活";
-  static const BUY_TXT4 = "*海角社区不生產視頻，只做視頻的搬運工";
+  static const BUY_TXT3 = "*51乱伦朋友都可以上傳，分享妳的幸福生活";
+  static const BUY_TXT4 = "*51乱伦不生產視頻，只做視頻的搬運工";
 
   ///城市選擇
   static const AUTO_LOCAL = "自动定位";

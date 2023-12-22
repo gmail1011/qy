@@ -144,12 +144,12 @@ Widget _codeView(
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("海角社区",
+                          Text("51乱伦",
                               style: TextStyle(
                                   color:
                                       Color(0xff333333),
                                   fontSize: Dimens.pt16, fontWeight: FontWeight.w600)),
-                          Text("吃瓜爆料就看海角社区",
+                          Text("吃瓜爆料就看51乱伦",
                               style: TextStyle(
                                   color:
                                       AppColors.primaryColor.withOpacity(0.6),

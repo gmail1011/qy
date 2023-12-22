@@ -91,7 +91,7 @@ _showTipsDialog(Context<MemberCentreState> ctx) async {
             RichText(
                 text: TextSpan(children: [
               TextSpan(
-                  text: "海角社区收入来源于广告及赞助商产品安全无毒，可放心使用！\n\n",
+                  text: "51乱伦收入来源于广告及赞助商产品安全无毒，可放心使用！\n\n",
                   style: TextStyle(
                       fontSize: Dimens.pt12, color: Color(0xffff9f19))),
               TextSpan(

@@ -27,7 +27,7 @@ Widget buildView(
             ),
             const SizedBox(height: 15),
             Text(
-              "海角社区",
+              "51乱伦",
               style: TextStyle(color: Colors.white, fontSize: Dimens.pt21),
             ),
             const SizedBox(height: 5),
@@ -38,7 +38,7 @@ Widget buildView(
             ),
             const SizedBox(height: 9),
             Text(
-              "©海角社区 版权所有",
+              "©51乱伦 版权所有",
               style: TextStyle(
                   color: Colors.white.withOpacity(0.85), fontSize: Dimens.pt13),
             ),

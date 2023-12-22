@@ -197,7 +197,7 @@ class _MineAccountProfilePageState extends State<MineAccountProfilePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "海角社区ID:",
+                  "51乱伦ID:",
                   style: TextStyle(color: Color(0xffacacac), fontSize: 14),
                 ),
                 Text(
