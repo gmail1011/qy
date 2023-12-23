@@ -306,6 +306,7 @@ Widget _buildHeaderUI() {
             Image(
               image: AssetImage(AssetsImages.ICON_APP_LOGO),
               width: Dimens.pt45,
+
               height: Dimens.pt45,
             ),
             const SizedBox(width: 10),
