@@ -19,7 +19,7 @@ class AppColors {
   /// 基本色，背景色 0xFF151515 0xFF191D26
   static const Color primaryColor = Color.fromRGBO(21, 21, 21, 1);
 
-  static const Color primaryTextColor = Color(0xff3b85f7);
+  static const Color primaryTextColor = Color.fromRGBO(255, 131, 0, 1);
 
 
   // static const Color primaryColor = Colors.black;
