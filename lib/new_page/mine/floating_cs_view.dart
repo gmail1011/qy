@@ -97,6 +97,7 @@ class _FloatingCSViewState extends State<FloatingCSView> {
                   onPanUpdate: (DragUpdateDetails details) {
                     _onPanUpdate(details);
                   },
+
                   child: Image.asset(
                     "assets/images/hjll_mine_help_icon.png",
                     width: _adSize,
