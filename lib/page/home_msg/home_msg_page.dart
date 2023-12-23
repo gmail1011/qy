@@ -39,12 +39,15 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
 
   int get allCount {
     int count = (xList.length ?? 0);
+
+
     if (Config.customerService != false) {
       count++;
     }
-    if (systemMsgModel?.xList?.isNotEmpty == true) {
-      count++;
-    }
+    count++;
+    // if (systemMsgModel?.xList?.isNotEmpty == true) {
+    //   count++;
+    // }
     count++;
     return count;
   }
@@ -62,7 +65,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
   }
 
   bool isSystemMsg(int index) {
-    if (systemMsgModel?.xList?.isNotEmpty == true && index == 0) {
+    if (index == 0) {
       return true;
     }
     return false;
@@ -84,16 +87,23 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
   }
 
   bool islikeMsg(int index) {
-    if(Config.customerService == true && systemMsgModel?.xList?.isNotEmpty == true){
-      if(index == 2){
-        return true;
-      }
+    //测试说无论什么情况都开启评论
+    if(( (Config.customerService != false) )&&index == 2){
+      return true;
     }
-    if (Config.customerService == true || systemMsgModel?.xList?.isNotEmpty == true) {
-      if(index  == 1){
-        return true;
-      }
+    if(( (Config.customerService == false) )&&index ==1){
+      return true;
     }
+    // if(Config.customerService == true && systemMsgModel?.xList?.isNotEmpty == true){
+    //   if(index == 2){
+    //     return true;
+    //   }
+    // }
+    // if (Config.customerService == true || systemMsgModel?.xList?.isNotEmpty == true) {
+    //   if(index  == 1){
+    //     return true;
+    //   }
+    // }
     return false;
   }
 
@@ -208,9 +218,11 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
       child: ListView.builder(
         itemCount: allCount,
         itemBuilder: (context, index) {
+          print(" allCount  ${allCount } index ${index}  customerService  ${Config.customerService  }   isKefu ${isKefu(index)}  islikeMsg ${islikeMsg(index)}");
           if (isKefu(index)) {
             return _buildKefuCell();
           }
+
           if(islikeMsg(index)){
             return _buildLikeCell();
           }
@@ -430,16 +442,17 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
 
   Widget _buildMessageCell(int index) {
     bool isSysMsgType = isSystemMsg(index);
+    print("---> isSysMsgType  ${isSysMsgType}");
     MessageListDataList model;
     if(isSysMsgType){
-      model = systemMsgModel.xList.first;
+      model = systemMsgModel.xList.isEmpty==true?MessageListDataList():systemMsgModel.xList.first;
     }else if(xList.isNotEmpty == true){
       model = xList[chatMsgIndex(index)];
     }
     String imageUrl = isSysMsgType ? "" : model?.userAvatar;
     String userName = isSysMsgType ? "系统消息": model?.userName;
     String createTime =  model?.createdAt;
-    String descText = isSysMsgType ?  model?.content : model?.preContent;
+    String descText = isSysMsgType ?  model?.content??"" : model?.preContent;
     int readNum = isSysMsgType ?  systemMsgModel.unread : model?.noReadNum;
     return GestureDetector(
       onTap: () async {
