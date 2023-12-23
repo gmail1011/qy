@@ -38,9 +38,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
     TextEditingController()
   ];
   List<Map<String, String>> questionTitleList = [
-    {"question": "充值提现问题？", "index": "0"},
-    {"question": "观看使用问题", "index": "1"},
-    {"question": "收货地址信息", "index": "2"},
+
   ];
   List questionList = [
     {"question": "所在地区", "hitText": " 例:浙江杭州", "index": "0"},
@@ -99,7 +97,7 @@ class _MineHelpPageState extends State<MineSuggestPage> {
                                         height: 33,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(Radius.circular(30)),
-                                            color: "$selectTabIndex" == e["index"] ? Color(0xFF0387FE) : Color.fromARGB(255, 51, 51, 51)),
+                                            color: "$selectTabIndex" == e["index"] ? AppColors.primaryTextColor : Color.fromARGB(255, 51, 51, 51)),
                                         child: Text(
                                           e["question"] ?? "",
                                           style: TextStyle(color: "$selectTabIndex" == e["index"] ? Colors.white : Colors.white),
