@@ -80,7 +80,7 @@ class _MineSharePageState extends State<MineSharePage> with AutomaticKeepAliveCl
               }));
             },
             child: Text(
-              "邀请记录",
+              "分享记录",
               style: const TextStyle(
                   color: const Color(0xffffffff), fontWeight: FontWeight.w400, fontSize: 12.0),
             ),

@@ -86,7 +86,7 @@ class _MineShareRecordPageState extends State<MineShareRecordPage> {
     return FullBg(
         child: Scaffold(
       appBar: CustomAppbar(
-        title: "邀请记录",
+        title: "推广记录",
         actions: [
           InkWell(
             onTap: () => csManager.openServices(context),
