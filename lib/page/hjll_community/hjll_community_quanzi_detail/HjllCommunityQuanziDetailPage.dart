@@ -88,7 +88,7 @@ class _HjllCommunityQuanziDetailPageState extends State<HjllCommunityQuanziDetai
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        height: 28,
+                        height: 32,
                         child: Row(
                           children: [
                             Expanded(

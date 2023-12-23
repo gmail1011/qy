@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_app/common/config/config.dart';
 import 'package:flutter_app/common/image/custom_network_image.dart';
 import 'package:flutter_app/common/image/custom_network_image_new.dart';
@@ -168,10 +169,10 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
                     Expanded(
                       child: _buildMenuItem(
                         0,
-                        "测试题",
+                        "乱伦人格测试",
                         "探索真实人性",
                         Color(0xff538df7),
-                        "assets/images/title_hot_logo.png",
+                        "assets/images/title_logo.png",
                       ),
                     ),
                     SizedBox(width: 8),
@@ -179,9 +180,9 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
                       child: _buildMenuItem(
                         1,
                         "热门话题",
-                        "探索真实人性",
+                        "分享乱伦经验",
                         Color(0xff6866f6),
-                        "assets/images/title_logo.png",
+                        "assets/images/title_hot_logo.png",
                       ),
                     ),
                   ],
@@ -243,7 +244,7 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
       },
       child: Container(
         height: 90,
-        padding: EdgeInsets.fromLTRB(12, 12, 10, 12),
+        padding: EdgeInsets.fromLTRB(10, 12, 8, 12),
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(12),
@@ -253,25 +254,28 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 13,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(height: 1),
+                  SizedBox(height: 2),
                   Text(
                     desc,
                     maxLines: 1,
                     style: TextStyle(
                       color: Color(0xffcccccc),
-                      fontSize: 12,
+                      fontSize: 10,
                     ),
                   ),
-                  Spacer(),
+                  SizedBox(height: 6),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(color: Colors.white.withOpacity(0.8), borderRadius: BorderRadius.circular(20)),
@@ -287,8 +291,8 @@ class _HomeMsgPageState extends State<HomeMsgPage> {
                 ],
               ),
             ),
-            SizedBox(width: 10),
-            Image.asset(imagePath, width: 60),
+            SizedBox(width: 2),
+            Image.asset(imagePath, width: 56),
           ],
         ),
       ),

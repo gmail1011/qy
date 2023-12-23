@@ -131,7 +131,7 @@ class _TopicInfoCellState extends State<TopicInfoCell> {
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.symmetric(horizontal: 12),
               decoration: BoxDecoration(
-                color: AppColors.primaryTextColor.withOpacity(0.2),
+                color: Color.fromRGBO(36, 104, 255, 0.1),
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Row(

@@ -597,7 +597,7 @@ Widget _buildMessageRightItemUI(String content, String imageUrl, String localUrl
             padding: (content?.isNotEmpty == true)
                 ? EdgeInsets.fromLTRB(14, 8, 14, 8)
                 : EdgeInsets.fromLTRB(14, 0, 14, 8),
-            color: AppColors.primaryTextColor,
+            color: Color(0xff3b85f7),//AppColors.primaryTextColor,
             direction: BubbleDirection.right,
             child: (content == null || content == "")
                 ? GestureDetector(

@@ -84,7 +84,7 @@ class _TopicDiscussPageState extends State<TopicDiscussPage> {
                 ),
                 SizedBox(height: 18),
                 Text(
-                  "#海角知识课堂#",
+                  "#乱伦知识课堂#",
                   style: TextStyle(
                     color: Color(0xff3867f6),
                     fontSize: 14,
